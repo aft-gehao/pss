@@ -82,11 +82,9 @@
             </div>
 
         <div class="db-cont">
-            <div class="cont">
                 <div class="bs-callout">
                 <h4>耗材待办事项<span style="font-size: 14px;" id="con_count"></span></h4>
                     </div>
-            </div>
             <input type="hidden" id="con_status" value="0">
             <div class="clearfix">
                 <div class="left">
@@ -208,7 +206,7 @@
                     </div>
                     <div class="modal-body">
                         <form class="navbar-form navbar-left" role="search">
-                            <div style="margin-left: 50px;">
+                            <div class="form-group m10" style="margin-left: 50px;">
                                 <div>
                                     <span>供&nbsp应&nbsp商&nbsp：</span>
                                     <div class="form-group">
@@ -217,7 +215,7 @@
                                 </div>
                                 <div>
                                     <span>采&nbsp购&nbsp量&nbsp：</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="new_amount" class="form-control" placeholder="请输入采购量" style="width: 250px;">
                                     <select class="form-control" id="unit">
 
@@ -231,13 +229,13 @@
                                     </div>
                                 </div>-->
                                 <input type="hidden" id="univalence">
-                                <div>
+                                <div class="form-group m10">
                                     <span>采购总价：</span>
                                     <div class="form-group">
                                         <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="price" class="form-control" placeholder="请输入采购总价" style="width: 250px;">&nbsp;<span>元</span>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                     <div class="form-group">
                                         <input maxlength="30" type="text" id="pur_desc" class="form-control" placeholder="请输入采购备注" style="width: 250px;">
@@ -265,30 +263,30 @@
                     <div class="modal-body">
                         <form class="navbar-form navbar-left" role="search">
                             <div style="margin-left: 50px;">
-                                <div>
+                                <div class="form-group m10">
                                     <span>品&nbsp名&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
                                     <div class="form-group">
-                                        <input maxlength="20" type="text" id="con_name" readonly="readonly" class="form-control" placeholder="" style="width: 120px;">
+                                        <input maxlength="20" type="text" id="con_name" readonly="readonly" class="form-control" placeholder="" style="width: 220px;">
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>采&nbsp购&nbsp量&nbsp：</span>
                                     <div class="form-group">
-                                        <input type="text" id="con_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                        <input type="text" id="con_amount" class="form-control" placeholder="请输入采购量" style="width: 160px;">
                                         <select id="con_unit" class="form-control input-sm">
                                         </select>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>采购总价：</span>
                                     <div class="form-group">
-                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="con_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="con_price" class="form-control" placeholder="请输入采购总价" style="width: 220px;">&nbsp;&nbsp;<span>元</span>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                     <div class="form-group">
-                                        <input type="text" maxlength="40" id="desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                        <input type="text" maxlength="40" id="desc" class="form-control" placeholder="请输入备注" style="width: 220px;">
                                     </div>
                                 </div>
                             </div>
@@ -311,16 +309,16 @@
                         <div class="modal-body">
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
-                                    <div>
+                                    <div class="form-group m10">
                                         <span>品&nbsp名&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
                                         <div class="form-group">
-                                            <input maxlength="20" type="text" id="add_con_name"  class="form-control" placeholder="" style="width: 120px;">
+                                            <input maxlength="20" type="text" id="add_con_name"  class="form-control" placeholder="" style="width: 220px;">
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="form-group m10">
                                         <span>采&nbsp购&nbsp量&nbsp：</span>
                                         <div class="form-group">
-                                            <input type="text" id="add_con_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                            <input type="text" id="add_con_amount" class="form-control" placeholder="请输入采购量" style="width: 160px;">
                                             <select id="add_con_unit" class="form-control input-sm">
                                                 <option value="个">个</option>
                                                 <option value="双">双</option>
@@ -331,16 +329,16 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="form-group m10">
                                         <span>采购总价：</span>
                                         <div class="form-group">
-                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_con_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_con_price" class="form-control" placeholder="请输入采购总价" style="width: 220px;">&nbsp;&nbsp;<span>元</span>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div class="form-group m10">
                                         <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                         <div class="form-group">
-                                            <input type="text" maxlength="40" id="add_con_desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                            <input type="text" maxlength="40" id="add_con_desc" class="form-control" placeholder="请输入备注" style="width: 220px;">
                                         </div>
                                     </div>
                                 </div>
@@ -363,33 +361,27 @@
                     <div class="modal-body">
                         <form class="navbar-form navbar-left" role="search">
                             <div style="margin-left: 50px;">
-                                <div>
+                                <div class="form-group m10">
                                     <span>CAS&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
                                     <div class="form-group">
-                                        <input maxlength="20" type="text" id="add_cas"  class="form-control" placeholder="" style="width: 120px;">
+                                        <input maxlength="20" type="text" id="add_cas"  class="form-control" placeholder="" style="width: 188px;">
                                     </div>
                                     <input type="hidden" id="add_product_id" value="0">
                                 </div>
-                             <!--   <div>
-                                    <span>SKU&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
-                                    <div class="form-group">
-                                        <input maxlength="20" type="text" id="add_sku"  class="form-control" placeholder="" style="width: 120px;">
-                                    </div>
-                                </div>-->
-                                <div>
+                                <div class="form-group m10">
                                     <span>中&nbsp文&nbsp名&nbsp：</span>
                                     <div class="form-group">
                                         <input maxlength="20" type="text" id="add_name_ch"  class="form-control" placeholder="" style="width: 188px;">
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>供&nbsp应&nbsp商&nbsp：</span>
                                     <div class="form-group">
                                         <input maxlength="20" type="text" id="add_suppllier_name"  class="form-control" placeholder="" style="width: 188px;">
                                         <input type="hidden" id="supplier_id" value="0">
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>采&nbsp购&nbsp量&nbsp：</span>
                                     <div class="form-group">
                                         <input type="text" id="add_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
@@ -402,13 +394,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>采购总价：</span>
                                     <div class="form-group">
                                         <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                     <div class="form-group">
                                         <input type="text" maxlength="40" id="add_desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
@@ -433,13 +425,13 @@
                     <div class="modal-body">
                         <form class="navbar-form navbar-left" role="search">
                             <div style="margin-left: 50px;">
-                                <div>
+                                <div class="form-group m10">
                                     <span>物&nbsp流&nbsp单&nbsp号：</span>
                                     <div class="form-group">
                                         <input maxlength="20" type="text" id="kd_num"class="form-control" placeholder="" style="width: 140px;">
                                     </div>
                                 </div>
-                                <div>
+                                <div class="form-group m10">
                                     <span>快&nbsp递&nbsp公&nbsp司：</span>
                                     <div class="form-group" id="text">
                                         <select id="kd_code" class="form-control " style="width: 140px;">
@@ -468,13 +460,13 @@
                 <div class="modal-body">
                     <form class="navbar-form navbar-left" role="search">
                         <div style="margin-left: 50px;">
-                            <div>
+                            <div class="form-group m10">
                                 <span>物&nbsp流&nbsp单&nbsp号：</span>
                                 <div class="form-group">
                                     <input maxlength="20" type="text" id="con_kd_num" class="form-control" placeholder="" style="width: 140px;">
                                 </div>
                             </div>
-                            <div>
+                            <div class="form-group m10">
                                 <span>快&nbsp递&nbsp公&nbsp司：</span>
                                 <div class="form-group" id="con_text">
                                     <select id="con_kd_code" class="form-control " style="width: 140px;">

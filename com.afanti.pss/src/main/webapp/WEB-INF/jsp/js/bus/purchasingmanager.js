@@ -58,11 +58,11 @@ function doSearch(p) {
                     if (append[i]["stock_status"] == 5001) {
                         html2 += '<button type="button" class="btn btn-success" id="example" style="background-color: white;color: black">已入库</button>';
                     } else if (append[i]["stock_status"] == 5003) {
-                        html2 += '<button type="button" class="btn btn-success" style="background-color: white;color: black">部分入库</button>';
+                        html2 += '<button type="button" class="btn btn-info" style="background-color: white;color: black">部分入库</button>';
                     } else if (append[i]["stock_status"] == 5002) {
                         html2 += '<button type="button" style="background-color: white;color: black" datas="' + append[i]["kd_code"] + '" data="' + append[i]["kd_num"] + '" class="btn btn-success" id="example" rel="popover"  data-placement="bottom" >已发货</button>';
                     } else if (append[i]["stock_status"] == 5004) {
-                        html2 += '<button type="button" class="btn btn-success"style="background-color: white;color: black">未发货</button>';
+                        html2 += '<button type="button" class="btn btn-danger"style="background-color: white;color: black">未发货</button>';
                     }
                     else {
                         layer.msg("类型异常,联系管理员");
@@ -70,13 +70,11 @@ function doSearch(p) {
                     if (append[i]["stock_status"] == 5001 || append[i]["stock_status"] == 5002) {
                         value += '\
                     <tr >\
-                          <td>' + $.alle_null2Str(append[i]["cas"]) + '</td>\
-                          <td>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
+                          <td>' + $.alle_null2Str(append[i]["cas"]) + '<br>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
+                          <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
+                           <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
-                         <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
-                         <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
-                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '</td>\
-                         <td>' + append[i]["staff_name"] + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
                          <td class="operation">\
                             <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')" add_cas="' + append[i]["cas"] + '" add_name_ch="' + append[i]["name_ch"] + '" add_price="' + append[i]["unit_price"] + '" add_amount="' + append[i]["amount"] + '" add_suppllier_name="' + append[i]["supplier_name"] + '"   class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" data-target="#addcaigou"><i class="icon-edit"></i> 详细</a>\
@@ -89,13 +87,11 @@ function doSearch(p) {
                     if (append[i]["stock_status"] == 5004) {
                         value += '\
                     <tr >\
-                          <td>' + $.alle_null2Str(append[i]["cas"]) + '</td>\
-                          <td>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
+                            <td>' + $.alle_null2Str(append[i]["cas"]) + '<br>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
+                          <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
+                           <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
-                         <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
-                         <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
-                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '</td>\
-                         <td>' + append[i]["staff_name"] + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
                          <td class="operation">\
                             <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo1"><i class="icon-edit"></i> 发货</a>\

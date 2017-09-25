@@ -88,12 +88,11 @@ function doSearch(p) {
                     if(append[i]["status"] ==5002 ||append[i]["status"] ==5001) {
                         value += '\
                        <tr  id="example" rel="popover" name="desc" data-placement="bottom"  data="'+$.alle_null2Str(append[i]["desc"])+'" >\
-                         <td id="example" rel="popover" name="desc" data-placement="bottom"  data="'+$.alle_null2Str(append[i]["desc"])+'">' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
+                         <td   data="'+$.alle_null2Str(append[i]["desc"])+'">' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                           <td >' + append[i]["amount"] + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
                            <td>' +  $.alle_null2Str(append[i]["purchase_money"]) +'元</td>\
-                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '</td>\
-                          <td>' + append[i]["staff_name"] + '</td>\
+                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["pur_staff"] + '</td>\
                           <td>' + $.alle_null2Str(html2) + '</td>\
                           <td class="operation">\
                           </td>\
@@ -108,8 +107,7 @@ function doSearch(p) {
                          <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                           <td>' + append[i]["amount"] + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
                             <td>' +  $.alle_null2Str(append[i]["purchase_money"]) +'元</td>\
-                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '</td>\
-                          <td>' + append[i]["staff_name"] + '</td>\
+                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["pur_staff"] + '</td>\
                           <td>' + $.alle_null2Str(html2) + '</td>\
                           <td class="operation"> \
                              <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="icon-edit"></i> 发货</a>\

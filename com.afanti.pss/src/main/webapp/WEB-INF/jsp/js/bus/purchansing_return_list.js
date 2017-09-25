@@ -84,14 +84,12 @@ function doSearch(p) {
                     if(append[i]["stock_status"] != 8002&&append[i]["stock_status"] != 8001){
                         value += '\
                     <tr >\
-                          <td>' + $.alle_null2Str(append[i]["cas"]) + '</td>\
-                          <td>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
-                          <td>' + append[i]["supplier_name"] + '</td>\
-                          <td>' + append[i]["amount"] + '</td>\
-                          <td>' + $.alle_null2Str(append[i]["all_total"]) + '</td>\
-                          <td>' + $.alle_time2str_yymm_dd_hhmmss(append[i]["purchase_time"]) + '</td>\
-                          <td>' + append[i]["staff_name"] + '</td>\
-                          <td>' + html2 + '</td>\
+                          <td>' + $.alle_null2Str(append[i]["cas"]) + '<br>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
+                          <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
+                           <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
+                         <td>' + $.alle_null2Str(html2) + '</td>\
                          <td class="operation"><input id="pur_return_submit" disabled="disabled" class="btn btn-success btn-sm"  type="button" class="btn btn-link btn-xs" onclick="purchasing_return(' + append[i]["purchase_id"] + ',' + append[i]["stock_status"] + ')" value="退货"/>\
                     </td>\
                     </tr>\
@@ -100,14 +98,12 @@ function doSearch(p) {
                     }else {
                         value += '\
                     <tr >\
-                          <td>' + $.alle_null2Str(append[i]["cas"]) + '</td>\
-                          <td>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
-                          <td>' + append[i]["supplier_name"] + '</td>\
-                          <td>' + append[i]["amount"] + '</td>\
-                          <td>' + $.alle_null2Str(append[i]["all_total"]) + '</td>\
-                          <td>' + $.alle_time2str_yymm_dd_hhmmss(append[i]["purchase_time"]) + '</td>\
-                          <td>' + append[i]["staff_name"] + '</td>\
-                          <td>' + html2 + '</td>\
+                       <td>' + $.alle_null2Str(append[i]["cas"]) + '<br>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
+                          <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
+                           <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
+                         <td>' + $.alle_null2Str(html2) + '</td>\
                           <td class="operation"> \
                             <input  type="button" onclick="purchasing_detial(' + append[i]["purchase_id"] + ')"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" value="详细">\
                           </td>\

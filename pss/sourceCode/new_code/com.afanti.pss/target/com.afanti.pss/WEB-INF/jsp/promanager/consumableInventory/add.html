@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>耗材入库</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+<div class="container">
+    <h3>耗材入库</h3>
+    <div class="row">
+        <div class="col-md-3 form-group" style="padding-left: 0;">
+            <span class="col-sm-6 text-right form-control-static">耗材名：</span>
+            <input id="consumable_name" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
+                   placeholder="" maxlength="20">
+        </div>
+        <div class="col-md-3 form-group" style="padding-left: 0;">
+            <span class="col-sm-6 text-right left  form-control-static">入库类型：</span>
+            <select id="stock_status" class="form-control input-sm">
+                <option value='5002'>未入库</option>
+                <option value=''>全部</option>
+                <option value='5001'>已入库</option>
+                <option value='5004'>未发货</option>
+                <option value='5003'>部分入库</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <span><button id="inv_in_query" disabled="disabled"  type="button" class="btn btn-primary">查询</button></span>
+        </div>
+        <!--end-->
+    </div>
+    <!--表单-->
+    <div class="gsy-adm table">
+        <table class="table table-bordered table-hover definewidth m20">
+            <thead>
+                <tr>
+                    <th>耗材名</th>
+                    <th>规格</th>
+                    <th>采购量</th>
+                    <th>状态</th>
+                    <th>操作人员</th>
+                    <th>操作时间</th>
+                    <th colspan="2">操作</th>
+                </tr>
+            </thead>
+            <tbody id="data_tbody">
+            </tbody>
+        </table> 
+    </div>
+    <div id="pages" class="tabl Pagination">
+    </div>
+</div>
+</form>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/consummable_in_inventory_list.js"></script>
+</body>
+</html>

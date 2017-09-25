@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="AutoCompleteItem" type="com.afanti.psi.commons.vo.AutoCompleteItem"/>
+        <typeAlias alias="TestVo" type="com.afanti.psi.test.vo.TestVo"/>
+        <typeAlias alias="Customer_delivery_address" type="com.afanti.psi.shinfo.vo.Customer_delivery_address"/>
+        <typeAlias alias="Linkman" type="com.afanti.psi.shinfo.vo.Linkman"/>
+        <typeAlias alias="consumable_material_info" type="com.afanti.psi.consumable.vo.consumable_material_info"/>
+        <typeAlias alias="consumable_use" type="com.afanti.psi.consumable.vo.consumable_use"/>
+        <typeAlias alias="consumable_stock" type="com.afanti.psi.consumable.vo.consumable_stock"/>
+        <typeAlias alias="consumable_out_stock" type="com.afanti.psi.consumable.vo.consumable_out_stock"/>
+        <typeAlias alias="consumable_purchase" type="com.afanti.psi.consumable.vo.consumable_purchase"/>
+        <typeAlias alias="consumable_repair" type="com.afanti.psi.consumable.vo.consumable_repair"/>
+        <typeAlias alias="Product_material_enter" type="com.afanti.psi.inventory.vo.Product_material_enter"/>
+        <typeAlias alias="Product_material_out" type="com.afanti.psi.inventory.vo.Product_material_out"/>
+        <typeAlias alias="Product_material_out_detail" type="com.afanti.psi.inventory.vo.Product_material_out_detail"/>
+        <typeAlias alias="Product_material_stock" type="com.afanti.psi.inventory.vo.Product_material_stock"/>
+
+        <typeAlias alias="Pass_Menu" type="com.afanti.psi.login.vo.MenuInfo"/>
+        <typeAlias alias="UserRoleInfo" type="com.afanti.psi.login.vo.UserRoleInfo"/>
+
+        <typeAlias alias="kudi_info" type="com.afanti.psi.kuaidi.vo.kudi_info"/>
+        <typeAlias alias="Product_material_info" type="com.afanti.psi.product.vo.Product_material_info"/>
+
+        <typeAlias alias="Material_purchase" type="com.afanti.psi.purchasing.vo.Material_purchase"/>
+        <typeAlias alias="Material_purchase_detail" type="com.afanti.psi.purchasing.vo.Material_purchase_detail"/>
+        <typeAlias alias="Material_purchase_return" type="com.afanti.psi.purchasing.vo.Material_purchase_return"/>
+        <typeAlias alias="material_purchase_return_detail" type="com.afanti.psi.purchasing.vo.material_purchase_return_detail"/>
+
+        <typeAlias alias="Cus_Supplier_info" type="com.afanti.psi.shinfo.vo.Cus_Supplier_info"/>
+        <typeAlias alias="Supplier_product_rel" type="com.afanti.psi.shinfo.vo.Supplier_product_rel"/>
+
+        <typeAlias alias="Pss_Menu" type="com.afanti.psi.usermanager.vo.Pss_Menu"/>
+        <typeAlias alias="Pss_Role" type="com.afanti.psi.usermanager.vo.Pss_Role"/>
+        <typeAlias alias="Staff_info" type="com.afanti.psi.usermanager.vo.Staff_info"/>
+
+        <typeAlias alias="Product_sale" type="com.afanti.psi.vendition.vo.Product_sale"/>
+        <typeAlias alias="Product_sale_detail" type="com.afanti.psi.vendition.vo.Product_sale_detail"/>
+        <typeAlias alias="Product_sale_return" type="com.afanti.psi.vendition.vo.Product_sale_return"/>
+        <typeAlias alias="Product_sale_return_detail" type="com.afanti.psi.vendition.vo.Product_sale_return_detail"/>
+        <typeAlias alias="Dict_warehouse_space" type="com.afanti.psi.whsemanager.vo.Dict_warehouse_space"/>
+        <typeAlias alias="Pss_dict" type="com.afanti.psi.commons.vo.Pss_dict"/>
+        <typeAlias alias="product_use" type="com.afanti.psi.use.vo.product_use"/>
+        <typeAlias alias="product_research" type="com.afanti.psi.research.vo.product_research"/>
+        <typeAlias alias="PurchaseInventoryInfo" type="com.afanti.psi.inventory.vo.PurchaseInventoryInfo"/>
+        <typeAlias alias="Product_material_enter_detail" type="com.afanti.psi.inventory.vo.Product_material_enter_detail"/>
+        <typeAlias alias="SelectProductInventory" type="com.afanti.psi.vendition.vo.SelectProductInventory"/>
+        <typeAlias alias="PurchasingSale" type="com.afanti.psi.statistics.vo.PurchasingSale"/>
+
+        <typeAlias alias="Material_quotation" type="com.afanti.psi.vendition.vo.Material_quotation"/>
+
+    </typeAliases>
+    <plugins>
+        <plugin interceptor="com.afanti.psi.utils.PageInterceptor">
+            <property name="databaseType" value="Mysql"/>
+        </plugin>
+    </plugins>
+    <mappers>
+        <!--测试-->
+        <mapper resource="mybatis/mapper/test/TestMapper.xml"/>
+        <!--产品管理-->
+        <mapper resource="mybatis/mapper/login/LoginMapper.xml"/>
+        <mapper resource="mybatis/mapper/vendition/VenditionMapper.xml"/>
+        <mapper resource="mybatis/mapper/vendition/VenditionReturnMapper.xml"/>
+        <mapper resource="mybatis/mapper/purchasing/MaterialPurchaseMapper.xml"/>
+        <mapper resource="mybatis/mapper/purchasing/MaterialPurchaseReturnMapper.xml"/>
+        <mapper resource="mybatis/mapper/inventory/ProductInInventoryMapper.xml"/>
+        <mapper resource="mybatis/mapper/inventory/ProductOutInventoryMapper.xml"/>
+        <mapper resource="mybatis/mapper/inventory/RealTimeInventoryMapper.xml"/>
+        <mapper resource="mybatis/mapper/use/UseMapper.xml"/>
+        <mapper resource="mybatis/mapper/research/ResearchMapper.xml"/>
+        <mapper resource="mybatis/mapper/statistics/StatisticsPurchasingMapper.xml"/>
+        <mapper resource="mybatis/mapper/statistics/StatisticsSalesMapper.xml"/>
+        <mapper resource="mybatis/mapper/statistics/InAndOutInventory.xml"/>
+        <mapper resource="mybatis/mapper/consumable/ConsumableMapper.xml"/>
+        <mapper resource="mybatis/mapper/consumable/ConsumableMapper.xml"/>
+
+        <!--END-->
+        <!--基本信息管理-->
+        <mapper resource="mybatis/mapper/shinfo/Cus_SupplierInfoMapper.xml"/>
+        <mapper resource="mybatis/mapper/product/ProductMeterialInfoMapper.xml"/>
+        <mapper resource="mybatis/mapper/whsemanager/DicWareHouseMapper.xml"/>
+        <mapper resource="mybatis/mapper/usermanager/UserManagerMapper.xml"/>
+        <mapper resource="mybatis/mapper/usermanager/RoleInfoManagerMapper.xml"/>
+        <mapper resource="mybatis/mapper/commons/QiNiuFileUploaderMapper.xml"/>
+        <!--End-->
+        <mapper resource="mybatis/mapper/commons/CommonsMapper.xml"/>
+    </mappers>
+</configuration>

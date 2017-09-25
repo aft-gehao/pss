@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>研发代办</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/fonts/iconfont.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/css/fonts/iconfont.js"></script>
+    <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+
+    <ul class="nav nav-tabs db-nav" role="tablist"  style="width: 90%;">
+        <li role="presentation" class="active"><a href="#yuanl" id="yuanliao" aria-controls="yuanl" role="tab" data-toggle="tab"><span class="iconfont">&#xe607;</span> 领用原料</a></li>
+        <li role="presentation"><a href="#haoc" id="supplies" aria-controls="haoc" role="tab" data-toggle="tab"><span class="iconfont">&#xe60e;</span> 领用耗材</a></li>
+        <li role="presentation"><a href="#cpin" id="research" aria-controls="cpin" role="tab" data-toggle="tab"><span class="iconfont">&#xe666;</span> 成品入库</a></li>
+        <li role="presentation"><a href="#haoc_fanxiu" id="repair" aria-controls="haoc_fanxiu" role="tab" data-toggle="tab"><span class="iconfont">&#xe666;</span> 设备返修</a></li>
+    </ul>
+    <div class="clearfix" style="margin-bottom: 80px;">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!--原料-->
+            <div  role="tabpanel"  class="tab-pane active" id="yuanl">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4><a href="db-yanfa.html">申请采购到货</a><span style=" font-size: 14px;" id="count_material"></span></h4>
+                        <a style="margin-left: 800px;" onclick="material_history(0)" class="btn btn-success btn-sm"><i class="icon-edit"></i>领用历史</a>
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table" style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">CAS</th>
+                                        <th width="15%">SKU</th>
+                                        <th width="15%">中文名</th>
+                                        <th width="15%">申请量</th>
+                                        <th width="15%">申请时间</th>
+                                        <th width="16%">状态</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_meterial">
+                                    </tbody>
+                                </table>
+                                <div id="m1_material" hidden="hidden" style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div id="m2_material" hidden="hidden" style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more1(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            <!--耗材-->
+            <div  role="tabpanel" class="tab-pane" id="haoc">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4><a href="db-yanfa.html">领用耗材</a><span id="count_supplies" style="font-size: 14px;"></span></h4>
+                        <a style="margin-left: 800px;" onclick="supplies_history(0)" class="btn btn-success btn-sm"><i class="icon-edit"></i>领用历史</a>
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table" style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">耗材名</th>
+                                        <th width="15%">领用数量</th>
+                                        <th width="15%">领用状态</th>
+                                        <th width="15%">领用时间</th>
+                                        <th width="15%">领用人员</th>
+                                        <th width="16%">备注</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_supplies">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f" id="m1_sup" hidden="hidden">
+                                    <a onclick="show_more_sup(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f" id="m2_sup" hidden="hidden">
+                                    <a onclick="show_more_sup1(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+            </div>
+            <!--成品入库-->
+            <div  role="cpin" class="tab-pane" id="cpin">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>成品待入库<span style="font-size: 14px;" id="count_research"></span></h4>
+                     <!--   <a style="margin-left: 800px;" onclick="research_history(0)" class="btn btn-success btn-sm"><i class="icon-edit"></i>入库历史</a>-->
+                    </div>
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table"  style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">CAS</th>
+                                        <th width="15%">SKU</th>
+                                        <th width="15%">中文名</th>
+                                        <th width="15%">申请量</th>
+                                        <th width="15%">申请时间</th>
+                                        <th width="12%">状态</th>
+                                        <th width="15%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_research">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f;" hidden="hidden" id="m1_res" >
+                                    <a onclick="show_more_res(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f;" hidden="hidden" id="m2_res">
+                                    <a onclick="show_more_res1(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+        </div>
+            <!--耗材返修-->
+            <div  role="haoc_fanxiu" class="tab-pane" id="haoc_fanxiu">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>设备返修<span style="font-size: 14px;" id="count_repair"></span></h4>
+                    </div>
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table"  style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">耗材名</th>
+                                        <th width="15%">返修数量</th>
+                                        <th width="15%">返修状态</th>
+                                        <th width="15%">申请返修时间</th>
+                                        <th width="15%">申请人</th>
+                                        <th width="12%">备注</th>
+                                        <th width="15%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_repair">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f;" hidden="hidden" id="m1_repair">
+                                    <a onclick="show_more_repair(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f;" hidden="hidden" id="m2_repair">
+                                    <a onclick="" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+       </div>
+            </div>
+        </div>
+        <!--end--></div>
+    </div>
+    <!-- 右操作按钮 -->
+    <ul class="index-float" >
+        <li class="btn-success"  data-toggle="modal" data-target="#Ly-yl">
+            <a  href="javascript:;" title="领用原料">
+                <span class="iconfont">&#xe724;</span></br>
+                领用原料
+            </a>
+        </li>
+        <li class="btn-info" data-toggle="modal" data-target="#Ly-hc">
+            <a  href="javascript:;" title="领用耗材">
+                <span class="iconfont">&#xe60e;</span></br>
+                领用耗材
+            </a>
+        </li>
+        <li class="btn-info" data-toggle="modal" data-target="#add_shengchan">
+            <a  href="javascript:;" title="成品入库">
+                <span class="iconfont">&#xe60e;</span></br>
+                成品入库
+            </a>
+        </li>
+        <li class="btn-success"  data-toggle="modal" data-target="#Ly-fx">
+            <a  href="javascript:;" title="设备返修">
+                <span class="iconfont">&#xe724;</span></br>
+                设备返修
+            </a>
+        </li>
+    </ul>
+    <!--End-->
+
+
+    <!--领用原料弹出框-->
+    <div class="modal fade" id="Ly-yl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>领用原料信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div style="margin-left: 50px;">
+                            <div>
+                                <span>CAS：</span>
+                                <div class="form-group" style="display: inline-block;">
+                                    <input type="text" id="stock_cas" class="form-control" placeholder="请输入CAS号" maxlength="20" style="width: 250px;">
+                                </div>
+                                &nbsp;&nbsp;<button onclick="query_cas()" type="button" class="btn btn-primary">查询</button>
+                            </div>
+                            <input type="hidden" id="product_id">
+                        </div>
+                        <hr>
+                        <div class="info">
+                            <h4>库存信息：</h4>
+                            <div id="stockSelectCas" style="font-size: 12px;"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" hidden="hidden" id="apply_yangshi">
+                    <div class="bz-info" >
+                        <div style="overflow: hidden;">
+                            <h4 class="text-left">采购量：</h4>
+                            <input id="stock_Addamount" type="text" class="form-control input-sm" placeholder="" style="float: left;margin-left: 80px;width: 30%;">
+                            <select id="stock_Addunit" class="form-control input-sm" style="width: 20%;float: left;margin-left: 5px;">
+                                <option>mg</option>
+                                <option>g</option>
+                                <option>ml</option>
+                                <option>l</option>
+                            </select>
+                        </div>
+                        <div style="clear: both;margin-top: 10px;">
+                            <h4 class="text-left">备注信息：</h4>
+                            <textarea id="use_desc" class="form-control" rows="1" cols="20" placeholder="请填写采购备注信息" style="display: block;margin-left: 80px;width: 60%"></textarea>
+                        </div>
+                    </div>
+                    <div id="bz-sq" style="width: 140px; margin:20px auto;clear:both"><a onclick="apply_purchasing()" class="btn btn-success" style="padding: 5px 40px;">申请采购</a></div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <!--领用耗材弹出框-->
+            <div class="modal fade" id="Ly-hc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4>领用耗材信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="navbar-form navbar-left" role="search">
+                                <div style="margin-left: 50px;">
+                                    <div>
+                                        <span>耗材名：</span>
+                                        <div class="form-group">
+                                            <input id="haocai_name" type="text" class="form-control" placeholder="请输入耗材名称" style="width: 250px;">
+                                        </div>
+                                        &nbsp;&nbsp;<button onclick="query_haocaiName()" type="button" class="btn btn-primary">查询</button>
+                                    </div>
+                                    <input type="hidden" id="consumable_id">
+                                </div>
+                                <hr>
+                                <div class="info">
+                                    <h4>库存信息：</h4>
+                                    <div id="suppliesSelectName" style="font-size: 12px;"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer" hidden="hidden" id="apply_supplies">
+                            <h4 class="text-left">采购量：</h4>
+                            <input id="supplies_Addamount" type="text" class="form-control input-sm" placeholder="" style="float: left;margin-left: 80px;width: 30%;">
+                            <div style="clear: both;margin-top: 10px;">
+                                <h4 class="text-left">备注信息：</h4>
+                                <textarea id="desc" class="form-control" rows="1" cols="20" placeholder="请填写备注信息" style="display: block;margin-left: 80px;width: 60%"></textarea>
+                            </div>
+                            <div id="bz-sq2" style="width: 140px; margin:20px auto;clear:both"><a onclick="add_supplies()" class="btn btn-success" style="padding: 5px 40px;">申请采购</a></div>
+                        </div>
+                    </div>
+                    <!--耗材采购弹出框-->
+                    <div class="modal fade" id="Ly-fx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>请输入设备信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div style="margin-left: 50px;">
+                                                <div>
+                                                <div class="form-group">
+                                                    <p>设备名:&nbsp;&nbsp;&nbsp;<input id="fanxiu_name" type="text" class="form-control" placeholder="请输入设备名称" style="width: 250px;"></p>
+                                                    <p>规格名:&nbsp;&nbsp;&nbsp;<input id="guige_name" type="text" class="form-control" placeholder="请输入规格名称" style="width: 250px;"></p>
+                                                    <p>返修量:&nbsp;&nbsp;&nbsp;<input id="fanxiu_amount" type="text" class="form-control" placeholder="请输入返修量" style="width: 250px;"></p>
+                                                    <p>单位:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="fanxiu_unit" type="text" class="form-control" placeholder="请输入单位" style="width: 250px;"></p>
+                                                    <p>备注:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="fanxiu_desc" class="form-control" rows="3" cols="100" placeholder="请填写备注信息" style="display: block;width: 90%"></textarea></p>
+                                                </div>
+                                                <input type="hidden" id="add_product_id" value="0">
+                                            </div>
+<<<<<<< .mine
+
+=======
+                                        </div>
+                                    </form>
+>>>>>>> .r9908
+                                </div>
+                                <div class="modal-footer">
+                                    <div id="bz-sq3" style="width: 140px; margin:20px auto;clear:both">
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                        <a onclick="fanxiu_add_select()" class="btn btn-success btn-ok">确认</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+                    <!--领用原料弹窗-->
+                    <div class="modal fade" id="addMaterial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>添加领用</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div style="margin-left: 130px;">
+                                            <div>
+                                                <span>CAS：</span>
+                                                <div class="form-group">
+                                                    <input id="cas" disabled="disabled" type="text" class="form-control" required="required" placeholder="请输入CAS" style="width: 200px;" maxlength="255">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>SKU：</span>
+                                                <div class="form-group">
+                                                    <input id="sku" disabled="disabled" type="text" class="form-control" required="required" placeholder="请输入SKU" style="width: 200px;" maxlength="255">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>数量：</span>
+                                                <div class="form-group">
+                                                    <input id="use_amount" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
+                                                    <select id="use_unit" class="form-control input-sm" disabled="disabled">
+                                                        <option>g</option>
+                                                        <option>ml</option>
+                                                        <option>L</option>
+                                                    </select>
+                                                    <span id="balance1" style="color: red;display: none">库存余额不足</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="quxiao" type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <a onclick="use_material()" class="btn btn-success btn-ok">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="use_id" type="hidden">
+                        <input id="amount" type="hidden">
+                    </div>
+                    <!--end-->
+                    <!--领用耗材弹窗-->
+                    <div class="modal fade" id="addSupplies" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>添加领用</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div style="margin-left: 130px;">
+                                            <div>
+                                                <span>耗材名：</span>
+                                                <div class="form-group">
+                                                    <input id="supplies_name" disabled="disabled" type="text" class="form-control" required="required" placeholder="请输入CAS" style="width: 200px;" maxlength="255">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>数&nbsp;&nbsp;&nbsp;量：</span>
+                                                <div class="form-group">
+                                                    <input id="use_amount_supplies" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
+                                                    <span id="balance1_supplies" style="color: red;display: none">库存余额不足</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="quxiao_supplies" type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <a onclick="use_supplies()" class="btn btn-success btn-ok">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="use_id_supplies" type="hidden">
+                        <input id="amount_supplies" type="hidden">
+                    </div>
+                    <!--end-->
+                    <!--领用库存弹窗-->
+                    <div class="modal fade" id="addResearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>入库订阅</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div style="margin-left: 130px;">
+                                            <div>
+                                                <span>cas：</span>
+                                                <div class="form-group">
+                                                    <input id="res_cas" disabled="disabled" type="text" class="form-control" required="required" style="width: 200px;" maxlength="255">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>sku：</span>
+                                                <div class="form-group">
+                                                    <input id="res_sku" disabled="disabled" type="text" class="form-control" required="required" style="width: 200px;" maxlength="255">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>数量：</span>
+                                                <div class="form-group">
+                                                    <input id="res_amount" disabled="disabled" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
+                                                    <select id="res_unit" class="form-control input-sm" disabled="disabled">
+                                                        <option>g</option>
+                                                        <option>ml</option>
+                                                        <option>L</option>
+                                                    </select>
+                                                    <span id="balance1_res" style="color: red;display: none">库存余额不足</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="quxiao_res" type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <a onclick="use_res()" class="btn btn-success btn-ok">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="res_id" type="hidden">
+                        <input id="use_res_amount" type="hidden">
+                    </div>
+                    <!--end-->
+                    <!--耗材返修弹窗-->
+                    <div class="modal fade" id="addRepair" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>申请返修</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div style="margin-left: 130px;">
+                                            <div>
+                                                <span>耗材名：</span>
+                                                <div class="form-group">
+                                                    <input id="repair_name" disabled="disabled" type="text" class="form-control" required="required" style="width: 200px;" maxlength="255">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>数量：</span>
+                                                <div class="form-group">
+                                                    <input id="repair_use_amount" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
+                                                    <span id="balance_repair" style="color: red;display: none">库存余额不足</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="quxiao_repair" type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <a onclick="add_repair()" class="btn btn-success btn-ok">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="repair_id" type="hidden">
+                        <input id="repair_amount" type="hidden">
+                    </div>
+                    <!--耗材采购弹出框-->
+                    <div class="modal fade" id="add_shengchan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4>请输入生产信息</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="navbar-form navbar-left" role="search">
+                                        <div style="margin-left: 50px;">
+                                            <div>
+                                                <span>CAS&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                                                <div class="form-group">
+                                                    <input maxlength="20" type="text" id="add_cas"  class="form-control" placeholder="" style="width: 188px;">
+                                                </div>
+                                                <input type="hidden" id="" value="0">
+                                            </div>
+                                            <div>
+                                                <span>SKU&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                                                <div class="form-group">
+                                                    <input maxlength="20" type="text" id="add_sku"  class="form-control" placeholder="" style="width: 188px;">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>纯&nbsp&nbsp&nbsp&nbsp&nbsp度：</span>
+                                                <div class="form-group">
+                                                    <input maxlength="20" type="text" id="add_purity"  class="form-control" placeholder="" style="width: 188px;">
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="research_time">
+                                            <div>
+                                                <span>工&nbsp&nbsp&nbsp&nbsp&nbsp期：</span>
+                                                <div class="form-group">
+                                                    <input maxlength="20" type="text" id="add_hours"  class="form-control" placeholder="" style="width: 188px;">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>外&nbsp&nbsp&nbsp&nbsp&nbsp观：</span>
+                                                <div class="form-group">
+                                                    <input maxlength="20" type="text" id="add_face"  class="form-control" placeholder="" style="width: 188px;">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>入&nbsp库&nbsp量：</span>
+                                                <div class="form-group">
+                                                    <input type="text" id="add_amount" class="form-control" placeholder="" style="width: 120px;">
+                                                    <select id="add_unit" class="form-control input-sm">
+                                                        <option value="g">g</option>
+                                                        <option value="kg">kg</option>
+                                                        <option value="mg">mg</option>
+                                                        <option value="L">L</option>
+                                                        <option value="ml">ml</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>批&nbsp次&nbsp号：</span>
+                                                <div class="form-group">
+                                                    <input type="text" id="sale_batch_no" class="form-control" placeholder="" style="width: 188px;">
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span>类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp型：</span>
+                                                <div class="form-group">
+                                                    <select id="batch" class="form-control input-sm">
+                                                        <option value="1">自研发</option>
+                                                        <option value="0">外包</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer" style="clear: both;">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                                    <a class="btn btn-success btn-ok" onclick="add_shengchan()">确认</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+                    </div>
+                    <script>
+                        //申请采购备注信息
+                        $("#bz-sq").click(function(){
+                            $(".bz-info").toggle();
+                        });
+                        $("#bz-sq2").click(function(){
+                            $(".bz-info2").toggle();
+                        });
+
+                        //tab页切换
+                        $('#myTabs a').click(function (e) {
+                            e.preventDefault()
+                            $(this).tab('show')
+                        })
+
+                        //点击页面跳转
+                        $(function () {
+
+                            $('#addnew').click(function(){
+
+                                window.location.href="add.html";
+                            });
+                            $('.modify').click(function(){
+
+                                window.location.href="modify.html";
+                            });
+                            $('.details').click(function(){
+
+                                window.location.href="detail.html";
+                            });
+
+                        });
+                        /*删除弹出框*/
+                        function del(id) {
+
+                            if(confirm("确定要删除吗？"))
+                            {
+
+                                var url = "index.html";
+
+                                window.location.href=url;
+
+                            }
+
+                        }
+                        //一个页面多个modla模态框并存问题。默认情况下，bootstrap模态框是不支持多个覆盖的
+                        $(function () {
+
+                            $(document).on('show.bs.modal', '.modal', function(event) {
+                                $(this).appendTo($('body'));
+                            }).on('shown.bs.modal', '.modal.in', function(event) {
+                                setModalsAndBackdropsOrder();
+                            }).on('hidden.bs.modal', '.modal', function(event) {
+                                setModalsAndBackdropsOrder();
+                            });
+
+
+                            function setModalsAndBackdropsOrder() {
+                                var modalZIndex = 1040;
+                                $('.modal.in').each(function(index) {
+                                    var $modal = $(this);
+                                    modalZIndex++;
+                                    $modal.css('zIndex', modalZIndex);
+                                    $modal.next('.modal-backdrop.in').addClass('hidden').css('zIndex', modalZIndex - 1);
+                                });
+                                $('.modal.in:visible:last').focus().next('.modal-backdrop.in').removeClass('hidden');
+                            }
+
+                        });
+                    </script>
+</form>
+</body>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/db-yanfa.js"></script>
+</html>

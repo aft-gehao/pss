@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>采购退货</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css"/>
+    <style type="text/css">
+        .auto a:hover{
+
+            cursor: pointer;
+        }
+    </style>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="filter-box switch-close">
+        <section class="panel-cont">
+            <div class="search-cont">
+                <div class="switch-show filter_column">
+                    <div class="search-li clearfix">
+                        <label class="pull-left search-label">采购状态：</label>
+                        <input type="hidden" id="status">
+                        <input type="hidden" id="time">
+                        <div class="clearfix search-link">
+                            <div class="auto"  >
+                                <a onclick="test(this)" data="" class="info1 active" id="quanbu">全部</a>
+                                <a onclick="test(this)" data="5002" class="info" id="yifahuo">已发货</a>
+                                <a onclick="test(this)" data="5004 " class="info" id="weifahuo">未发货</a>
+                                <a onclick="test(this)" data="5001" class="info" id="yiruku">已入库</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-li clearfix">
+                        <label class="pull-left search-label">采购时间：</label>
+                        <div class="clearfix search-link">
+                            <div class="auto">
+                                <a  class="time1 active">全部</a>
+                                <a onclick="test(this)" data="DATEDIFF(purchase_time,NOW())=0" class="time" >今天</a>
+                                <a onclick="test(this)" data="DATEDIFF(purchase_time,NOW())=-1" class="time" >昨天</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(purchase_time,'%Y-%m-%d')) = YEARWEEK(now())" class="time" >本周</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(purchase_time,'%Y-%m-%d')) = YEARWEEK(now())-1" class="time" >上周</a>
+                                <a onclick="test(this)" data="DATE_FORMAT(purchase_time,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')" class="time" >本月</a>
+                                <a onclick="test(this)" data="date_format(purchase_time,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') " class="time" >上月</a>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" id="test16" placeholder="自定义时间" style="height: 25px;width: 250px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="switch-hide">
+                <div class="search-li clearfix" id="filter_column_collapse_container"><label class="pull-left search-label">筛选条件：</label>
+                    <div class="clearfix search-link">
+                        <a id="caigou_status" class="active">全部</a>
+                        <a id="caigou_time" class="active">全部</a>
+                        <a id="caigou_my_time" class="active"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center ">
+            <a href="javascript:;" class="filter-down" data-toggle="click-switch" data-parents=".filter-box">
+                <span class="switch-show" title="收起筛选" id="switch-show">∧</span>
+                <span class="switch-hide" title="展开筛选">∨</span>
+            </a>
+        </div>
+    </div>
+    <div class="table-container">
+        <input type="hidden" id="wuliu">
+        <div class="sekect_box clearfix">
+        <span class="pull-left">
+        	<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addcaigou" id="pur_add">
+        		<i class="fa fa-plus m-r-xs"></i> 新增采购单
+        	</button>
+        </span>
+            <div class="pull-right normal-search">
+                <div class="input-group">
+                    <div class="table-cell" style="width: 150px;">
+                    </div>
+                    <div class="table-cell">
+                     <span style="position:relative;margin:0" class="add-clear-span">
+                        <input type="text" name="cas" id="cas" class="form-control  addclear" placeholder="中文名，供应商名称，采购人员">
+                    </span>
+                    </div>
+                <span class="input-group-btn">
+                  <button name="button" type="button" id="pur_query" class="btn btn-default btn-outline">查询</button>
+                </span>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="use_id">
+        <div class="Pro-table table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th width="10%">CAS</th>
+                    <th width="10%">中文名</th>
+                    <th  width="10%">供应商名称</th>
+                    <th width="10%">采购数量</th>
+                    <th width="10%">采购金额</th>
+                    <th width="10%" >采购时间</th>
+                    <th width="10%">采购人员</th>
+                    <th width="10%">采购状态</th>
+                    <th width="20%" >操作</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+        </div>
+        <!--发货弹出框-->
+
+        <!--end-->
+        <!--原料采购弹出框-->
+        <div class="modal fade" id="addcaigou" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" >
+                        <h4>请输入采购信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal pop-hor-form" action="/expense_accounts" accept-charset="UTF-8" method="post" >
+                            <div class="modal-body pop-modal" style="height: 300px">
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label input-label">供应商：</label>
+                                    <span><input type="text"  id="add_suppllier_name" class="form-control" placeholder="请输入供应商名称" style="width: 250px;"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" id="pur_d_id">
+                                    <input type="hidden" id="pur_id">
+                                    <label class="col-xs-4 control-label input-label">采购量：</label>
+                                    <span class="dis-ib"><input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="new_amount" class="form-control" placeholder="请输入采购量" style="width: 150px;"></span>
+                                    <select class="form-control" id="unit">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label input-label">采购总价：</label>
+                                    <span class="dis-ib"><input onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="unit_price" class="form-control" placeholder="请输入采购总价" style="width: 230px;"></span>
+                                    <span class="dis-ib"> 元</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-4 control-label input-label">备注：</label>
+                                    <span><input type="text"  id="desc" class="form-control" placeholder="请输入备注" style="width: 250px;"></span>
+                                </div>
+                            </div>
+                            <!--end-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <a class="btn btn-success submit-btn" id="sure_up" onclick="sure_up()">确认</a>
+                            </div>
+                            <!--end-->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="fahuo1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请输入发货信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 50px;">
+                                <div>
+                                    <span>物&nbsp流&nbsp单&nbsp号：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="kd_num"class="form-control" placeholder="" style="width: 140px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>快&nbsp递&nbsp公&nbsp司：</span>
+                                    <div class="form-group " id="text">
+                                        <select id="kd_code" class="form-control " style="width: 140px;">
+                                        </select>
+                                    </div>
+                                    <a style="margin-left: 10px;"class="cg-history " id="not_found" onclick="not_found()">手动输入</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="clear: both;">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <a class="btn btn-success btn-ok" onclick="fahuo_sure()">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div  id="pages" class="tabl Pagination">
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/purchasingmanager.js"></script>
+</body>
+</html>
+<script type="text/javascript" >
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#test16'
+            ,range: true
+        });
+    });
+</script>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.usermanager.dao.UserManagerDao">
+    <select id="getStaffInfo" parameterType="Map" resultType="Staff_info">
+        SELECT
+        t1.staff_id,
+        t1.staff_name,
+        t1.mobilephone,
+        t1.username,
+        t1.password,
+        t1.email,
+        t1.address,
+        group_CONCAT(t3.role_name) as role_name,
+        group_CONCAT(t3.role_id) as role_id
+        FROM
+        staff_info t1
+        LEFT JOIN pss_role_user t2 ON (
+        t1.staff_id = t2.role_user_staffinfoid
+        )
+        JOIN pss_role t3 ON (
+        t2.role_user_roleid = t3.role_id
+        )
+        WHERE
+        t1.`status` = 0 and t2.role_user_status = 0 and t3.role_status = 0
+        <if test="username!=null and username!=''">
+            and t1.username = #{username}
+        </if>
+        <if test="password!=null and password!=''">
+            and t1.password = #{password}
+        </if>
+        <if test="staff_id!=null and staff_id!=''">
+            and t1.staff_id=#{staff_id}
+        </if>
+        <if test="staff_name!=null and staff_name!=''">
+            and t1.staff_name=#{staff_name}
+        </if>
+        GROUP BY
+        t1.staff_id,
+        t1.staff_name,
+        t1.mobilephone,
+        t1.username,
+        t1.password,
+        t1.email,
+        t1.address
+    </select>
+
+    <select id="getUserPageList" parameterType="Map" resultType="Staff_info">
+        SELECT
+        t1.staff_id,
+        t1.staff_name,
+        t1.mobilephone,
+        group_CONCAT(t3.role_name) as role_name,
+        group_CONCAT(t3.role_id) as role_id
+        FROM
+        staff_info t1
+        LEFT JOIN pss_role_user t2 ON (
+        t1.staff_id = t2.role_user_staffinfoid
+        )
+        JOIN pss_role t3 ON (
+        t2.role_user_roleid = t3.role_id
+        )
+        WHERE
+        t1.`status` = 0 and t2.role_user_status = 0 and t3.role_status = 0
+        <if test="params.role_id!=null and params.role_id!=''">
+            AND t2.role_user_roleid = ${params.role_id}
+        </if>
+        <if test="params.staff_name!=null and params.staff_name!=''">
+            AND t1.staff_name LIKE '%${params.staff_name}%'
+        </if>
+        GROUP BY
+        t1.staff_id,
+        t1.staff_name,
+        t1.mobilephone
+        ORDER BY
+        t1.staff_id DESC
+    </select>
+    <select id="getUserPageCount" parameterType="Map" resultType="Staff_info">
+        SELECT
+        count(t1.staff_id)
+        FROM
+        staff_info t1
+        LEFT JOIN pss_role_user t2 ON (
+        t1.staff_id = t2.role_user_staffinfoid
+        )
+        JOIN pss_role t3 ON (
+        t2.role_user_roleid = t3.role_id
+        )
+        WHERE
+        t1.`status` = 0
+        <if test="params.role_id!=null and params.role_id!=''">
+            AND t2.role_user_roleid = ${params.role_id}
+        </if>
+        <if test="params.staff_name!=null and params.staff_name!=''">
+            AND t1.staff_name LIKE '%${params.staff_name}%'
+        </if>
+    </select>
+    <insert id="addUserInfo" useGeneratedKeys="true" keyProperty="staff_id" parameterType="Staff_info">
+        insert into staff_info
+        (
+          staff_name,
+          mobilephone,
+          email,
+          address,
+          username,
+          password,
+          status
+        )
+        values
+        (
+          #{staff_name},
+          #{mobilephone},
+          #{email},
+          #{address},
+          #{username},
+          #{password},
+          #{status}
+        )
+    </insert>
+
+    <insert id="addUserRole" parameterType="Map">
+        insert into pss_role_user
+        (
+          role_user_staffinfoid,
+          role_user_roleid,
+          role_user_status
+        )
+        VALUES
+        (
+          #{role_user_staffinfoid},
+          #{role_user_roleid},
+          #{role_user_status}
+        )
+    </insert>
+    <update id="updUserInfo" parameterType="Map">
+        update staff_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="staff_name!=null">
+                staff_name= #{staff_name},
+            </if>
+            <if test="mobilephone!=null">
+                mobilephone= #{mobilephone},
+            </if>
+            <if test="email!=null">
+                email= #{email},
+            </if>
+            <if test="address!=null">
+                address= #{address},
+            </if>
+            <if test="username!=null">
+                username= #{username},
+            </if>
+            <if test="password!=null">
+                password= #{password},
+            </if>
+            <if test="status!=null">
+                status= #{status},
+            </if>
+        </trim>
+        where staff_id =#{staff_id}
+    </update>
+    <update id="delUserRole" parameterType="Map">
+        update pss_role_user set role_user_status = 1 where role_user_staffinfoid=#{staff_id}
+    </update>
+    <select id="moblieSelect" parameterType="Map" resultType="Staff_info">
+        SELECT
+        t2.`mobilephone`
+        FROM
+        pss_role t
+        INNER JOIN pss_role_user t1
+        ON t.`role_id` = t1.`role_user_roleid`
+        INNER JOIN staff_info t2
+        ON t2.`staff_id` = t1.`role_user_staffinfoid`
+        WHERE t.`role_name` = '库管'
+        AND t.`role_status` = 0
+    </select>
+</mapper>

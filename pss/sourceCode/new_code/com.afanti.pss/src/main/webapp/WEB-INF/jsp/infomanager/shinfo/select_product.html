@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>选择产品</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+
+<form class="form-inline definewidth m20">
+    <div class="container">
+        <h3>选择产品</h3>
+        <input type="hidden" id="supplier_id">
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <span class="col-sm-6 text-right form-control-static">CAS号：</span>
+                <input id="cas" type="text" class="form-control input-sm" style="width: 50%" placeholder="" maxlength="20">
+            </div>
+            <div class="col-md-3 form-group" style="padding-left: 0;">
+                <span class="col-sm-6 text-right form-control-static">产品名称：</span>
+                <input id="product_name" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
+                       placeholder="" maxlength="20">
+            </div>
+            <div class="col-md-3">
+                <span><button id="query" type="button" class="btn btn-primary">查询</button></span>
+            </div>
+        </div>
+       <!-- <div class="Pro-table table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkAll"></th>
+                    <th>CAS号</th>
+                    <th>产品名称</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+        </div>-->
+        <div class="Pro-table table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th><input type="checkbox" id="checkAll"></th>
+                    <th>CAS号</th>
+                    <th>产品名称</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <!--end-->
+    </div>
+</form>
+<div class="Button-two" >
+    <button id="add_product" type="button" class="btn btn-success">确定</button>
+    <button type="button" class="btn btn-danger" id="cancel">关闭</button>
+</div>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/shinfo_select_product.js"></script>
+</body>
+</html>

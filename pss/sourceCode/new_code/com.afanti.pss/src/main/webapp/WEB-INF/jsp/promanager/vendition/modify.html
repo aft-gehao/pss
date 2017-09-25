@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>销售单修改</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a>当前位置：</a></li>
+        <li><a href="/promanager/vendition/index.html">销售单查询</a></li>
+        <li><a>销售单修改</a></li>
+    </ol>
+    <div class="row p20">
+        <div class="col-md-5 form-group">
+            <span class="col-sm-5 text-right">销售时间：</span>
+            <span>2017/4/1 17:30:00</span>  
+        </div>
+     </div>
+     <div class="row m10">
+        <div class="col-md-5 form-group">
+            <span class="col-sm-5 text-right form-control-static">销售单名称：</span>
+            <input type="text" class="form-control input-sm" value="上海华海医药有限公司" maxlength="20">
+        </div>
+        <div class="col-md-4 form-group">
+            <span class="col-sm-5 text-right form-control-static">批次号：</span>
+            <input type="text" class="form-control input-sm" value="A1923" maxlength="20">
+        </div>
+    </div>
+    <div class="row m10">
+        <div class="col-md-5 form-group">
+            <span class="col-sm-5 text-right form-control-static">客户：</span>
+            <span class="dropdown dropdown-01">
+               <input type="text" class="form-control input-sm" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" value="南京阿凡提医药信息技术有限公司">
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">南京阿凡提医药信息技术有限公司</a></li>
+                    <li><a href="#">南京真格帮技术有限公司</a></li>
+                    <li><a href="#">南京阿凡提医药信息技术有限公司</a></li>
+                </ul>
+            </span>
+        </div>
+        <div class="col-md-4 form-group">
+            <span class="col-sm-5 text-right form-control-static">客户联系人：</span>
+            <select class="form-control input-sm">
+                <option>姚淑媛</option>
+                <option>里欧舒婷</option>
+                <option>张元钰</option>
+                <option>华严</option>
+            </select>
+        </div>
+    </div>
+    <div class="row m10">
+        <span class="col-sm-2 text-right" style="width: 17.4%;">备注：</span>
+        <div class="form-group">
+            <textarea class="form-control left" rows="1" cols="50">南京阿凡提医药信息技术有限公司是位于南京高新开发区的一家新兴产业，主要发展多选框（checkbox）用于选择列表中的一个或多个选项，而单选框（radio）用于从多个选项中只选择一个。注意，很多原生选择菜单 - 即在 Safari 和 Chrome 中 - 的圆角是无法通过修改 border-radius 属性来改变的。</textarea> 
+        </div>
+    </div>
+    <div class="Pro-adm table m20">
+        <div class="add-info clearfix">
+            <div class="bg-primary add-info clearfix">
+               <h4 class="left">产品信息</h4>
+               <span class="right">
+                    <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">+ 新增产品</button>
+                </span>
+            </div>
+            <div class="Pro-table">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="10%">产品名称</th>
+                            <th width="10%">批次明细号</th>
+                            <th width="15%">采购量</th>
+                            <th width="10%">纯度</th>
+                            <th width="12%">单价</th>
+                            <th width="5%">小计</th>
+                            <th width="25%">备注</th>
+                            <th width="8%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>二氧化碳</td>
+                            <td>A12534</td>
+                            <td>
+                               <span> <input type="text" class="form-control input-sm" value="10" style="width: 40%;"> </span>
+                               <select class="form-control input-sm">
+                                   <option>mg</option>
+                                   <option>g</option>
+                                   <option>ml</option>
+                                   <option>l</option>
+                               </select>
+                            </td>
+                            <td>>95%</td>
+                            <td>
+                                <span> <input type="text" class="form-control input-sm" value="1000" style="width: 68%;"> </span>
+                                <span class="ml10">元</span>
+                            </td>
+                            <td>1</td>
+                            <td><textarea class="form-control left" rows="1" cols="30">按甲方及哦啊接大翻盘佛菩萨的激发文件外婆</textarea> </td>
+                            <td>
+                               <a href="#" data-href="delete.php?id=23" data-toggle="modal" data-target="#confirm-delete">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>二氧化碳</td>
+                            <td>A12534</td>
+                            <td>
+                               <span> <input type="text" class="form-control input-sm" value="890" style="width: 40%;"> </span>
+                               <select class="form-control input-sm">
+                                   <option>mg</option>
+                                   <option>g</option>
+                                   <option>ml</option>
+                                   <option>l</option>
+                               </select>
+                            </td>
+                            <td>>99%</td>
+                            <td>
+                                <span> <input type="text" class="form-control input-sm" value="12000" style="width: 68%;"> </span>
+                                <span class="ml10">元</span>
+                            </td>
+                            <td>1</td>
+                            <td><textarea class="form-control left" rows="1" cols="30"></textarea> </td>
+                            <td>
+                               <a href="#" data-href="delete.php?id=23" data-toggle="modal" data-target="#confirm-delete">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>二氧化碳</td>
+                            <td>A12534</td>
+                            <td>
+                               <span> <input type="text" class="form-control input-sm" value="232" style="width: 40%;"> </span>
+                               <select class="form-control input-sm">
+                                   <option>mg</option>
+                                   <option>g</option>
+                                   <option>ml</option>
+                                   <option>l</option>
+                               </select>
+                            </td>
+                            <td>>90%</td>
+                            <td>
+                                <span> <input type="text" class="form-control input-sm" value="300" style="width: 68%;"> </span>
+                                <span class="ml10">元</span>
+                            </td>
+                            <td>1</td>
+                            <td><textarea class="form-control left" rows="1" cols="30">氨基酸到股价都去我家耳机</textarea> </td>
+                            <td>
+                               <a href="#" data-href="delete.php?id=23" data-toggle="modal" data-target="#confirm-delete">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="9" style="text-align: right;">
+                                <span>总金额：</span>
+                                <input type="text" class="form-control input-sm">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="Button-two">
+                <button type="button" class="btn btn-success">提交</button>
+                <button type="button" class="btn btn-danger" id="cancel">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!--删除弹出框-->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>请确认</h4>
+            </div>
+            <div class="modal-body">
+                确认删除该产品信息吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a class="btn btn-danger btn-ok">删除</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+<!-- 新增产品弹出框Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加销售产品</h4>
+            </div>
+            <div class="modal-body">
+                <div class="definewidth">
+                    <form class="form-inline">
+                        <div class="form-group ml10">
+                            <span class="form-control-static">Cas号：</span>
+                            <input type="email" class="form-control input-sm" placeholder="">
+                        </div>
+                        <div class="form-group ml10">
+                            <span class="form-control-static">产品名称：</span>
+                            <input type="password" class="form-control input-sm" placeholder="">
+                        </div>
+                        <button type="submit" class="btn btn-primary ml10">搜索</button>
+                    </form>
+                </div>
+                <table class="table table-bordered table-hover definewidth m20">
+                    <thead>
+                        <tr>
+                            <th>产品名</th>
+                            <th>Cas号</th>
+                            <th>批次号</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>氨基十二酸</td>
+                            <td>A12534</td>
+                            <td>NO.12</td>
+                            <td>
+                                <a href="javascript:;" id="">添加</a>
+                            </td>
+                        </tr>
+                        <tr>
+                           <td>二氧化碳</td>
+                            <td>A12534</td>
+                            <td>NO.12</td>
+                            <td>
+                                <a href="javascript:;" id="">添加</a>
+                            </td>
+                        </tr>
+                        <tr>
+                           <td>二氧化碳</td>
+                            <td>A12534</td>
+                            <td>NO.12</td>
+                            <td>
+                                <a href="javascript:;" id="">添加</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>                    
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+<script>
+//点击页面跳转
+$(function () {
+    
+    $('#addnew').click(function(){
+
+        window.location.href="add.html";
+    });
+
+    $('#cancel').click(function(){
+
+        window.location.href="index.html";
+    });
+
+});
+
+/*删除弹出框*/
+$('#confirm-delete').on('show.bs.modal', function(e) {
+   
+    $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+   
+});
+
+</script>
+</body>
+</html>

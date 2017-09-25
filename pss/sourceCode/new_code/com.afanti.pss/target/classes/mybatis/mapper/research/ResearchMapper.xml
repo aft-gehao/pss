@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.research.dao.ResearchDao">
+    <select id="getResearchPageList"  parameterType="Map" resultType="product_research">
+        SELECT
+        t.*,
+        t1.dict_name,
+        t2.staff_name,
+        t3.cas,
+        t3.sku,
+        t3.name_ch,
+        GROUP_CONCAT(t4.putu_url) putu_url
+        FROM
+        product_research t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.research_staff
+        LEFT JOIN product_material_info t3
+        ON t3.`product_id`=t.`product_id`
+        LEFT JOIN pss_research_doc t4
+        on t.research_id=t4.research_id
+        WHERE research_is_del=0
+        <if test="params.cas!=null and params.cas!=''">
+        and t3.cas like '%${params.cas}%'
+    </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t3.sku like '%${params.sku}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status like '%${params.status}%'
+        </if>
+        <if test="params.flag!=null and params.flag!=''">
+            AND t.hours IS NOT NULL  AND t.hours >0 AND sku IS NOT NULL AND sku !=''
+        </if>
+        AND t.research_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        GROUP BY t.research_id
+        order by t.research_time desc
+    </select>
+    <select id="getResearchForExcel"  parameterType="Map" resultType="product_research">
+        SELECT
+        t.*,
+        t1.dict_name,
+        t2.staff_name,
+        t3.cas,
+        t3.sku,
+        t3.name_ch,
+        GROUP_CONCAT(t4.putu_url) putu_url
+        FROM
+        product_research t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.research_staff
+        LEFT JOIN product_material_info t3
+        ON t3.`product_id`=t.`product_id`
+        LEFT JOIN pss_research_doc t4
+        on t.research_id=t4.research_id
+        WHERE research_is_del=0
+        <if test="cas!=null and cas!=''">
+            and t3.cas like '%${cas}%'
+        </if>
+        <if test="sku!=null and sku!=''">
+            and t3.sku like '%${sku}%'
+        </if>
+        <if test="status!=null and status!=''">
+            and t.status like '%${status}%'
+        </if>
+        <if test="flag!=null and flag!=''">
+            AND t.hours IS NOT NULL  AND t.hours >0 AND sku IS NOT NULL AND sku !=''
+        </if>
+        AND t.research_time between '${start_time}' and date_add('${end_time}',interval 1 day)
+        GROUP BY t.research_id
+        order by t.research_time desc
+    </select>
+    <select id="getResearchPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_research t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.research_staff
+        WHERE research_is_del=0
+        <if test="params.research_name!=null and params.research_name!=''">
+            and t.research_name like '%${params.research_name}%'
+        </if>
+        AND t.research_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        order by t.research_time desc
+    </select>
+    <select id="researchProductPageList"  parameterType="Map" resultType="product_research">
+        SELECT
+        t.name_en,
+        t.name_ch,
+        t.cas,
+        t.sku,
+        t.product_id,
+        t.product_type
+        FROM
+        product_material_info t
+        WHERE t.status=0
+        <if test="params.cas!=null and params.cas!=''">
+            and t.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t.sku like '%${params.sku}%'
+        </if>
+        <if test="params.nameEn!=null and params.nameEn!=''">
+            and t.name_en like '%${params.nameEn}%' OR t.name_ch like '%${params.nameEn}%'
+        </if>
+    </select>
+    <select id="researchProductPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)researchProductPageCount
+        FROM
+        product_material_info t
+        WHERE t.status=0
+        <if test="params.cas!=null and params.cas!=''">
+            and t.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t.sku like '%${params.sku}%'
+        </if>
+        <if test="params.nameEn!=null and params.nameEn!=''">
+        and t.name_en like '%${params.nameEn}%' OR t.name_ch like '%${params.nameEn}%'
+        </if>
+    </select>
+    <insert id="research_add" parameterType="product_research">
+        insert into product_research
+        (
+        research_staff,
+        research_time,
+        research_name,
+        product_id,
+        amount,
+        unit,
+        status,
+        research_is_del,
+        research_batch_no,
+        purity,
+        sale_batch_no,
+        face,
+        is_waibao,
+        hours
+        )
+        VALUES
+        (
+        #{research_staff},
+        #{research_time},
+        #{research_name},
+        #{product_id},
+        #{amount},
+        #{unit},
+        #{status},
+        #{research_is_del},
+        #{research_batch_no},
+        #{purity},
+        #{sale_batch_no},
+        #{face},
+        #{is_waibao},
+        #{hours}
+        )
+    </insert>
+    <select id="maxId"  parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        product_research
+    </select>
+    <update id="researchDel" parameterType="product_research" >
+        UPDATE product_research t
+        SET t.research_is_del=#{research_is_del}
+        WHERE t.research_id=#{research_id}
+    </update>
+    <update id="researchStatusUp" parameterType="Map" >
+        UPDATE product_research t
+        SET t.status=${status}
+        WHERE t.research_id=${research_id}
+    </update>
+    <select id="researchSelect"  parameterType="product_research" resultType="product_research">
+       SELECT
+          t.*,
+          t1.staff_name,
+          t2.cas,
+          t2.sku,
+          t2.name_en,
+          t4.dict_name,
+          (SELECT
+            GROUP_CONCAT(d.space_name, '-')
+          FROM
+            dict_warehouse_space d
+          WHERE FIND_IN_SET(
+              d.space_id,
+              query_parent_warehouse (t3.space_id)
+            )) AS space_name
+        FROM
+          product_research t
+          LEFT JOIN staff_info t1
+            ON t1.staff_id = t.research_staff
+          LEFT JOIN product_material_enter_detail tt
+          ON tt.batch_no=t.research_batch_no
+          LEFT JOIN product_material_info t2
+            ON t.product_id = t2.product_id
+          LEFT JOIN dict_warehouse_space t3
+            ON t3.space_id = tt.space_id
+          LEFT JOIN pss_dict t4
+            ON t4.dict_id = t.status
+        WHERE research_is_del=0 and research_id= #{research_id}
+    </select>
+    <insert id="research_in" parameterType="Map">
+        insert into product_material_enter
+        (
+        enter_name,
+        enter_type,
+        oper_id,
+        oper_time,
+        enter_type_billno,
+        enter_isdel
+        )
+        VALUES
+        (
+        #{research_name},
+        #{enter_type},
+        #{staff_id},
+        #{research_time},
+        #{research_id},
+        #{enter_isdel}
+        )
+    </insert>
+    <select id="maxIdIn"  parameterType="Map" resultType="Integer">
+
+       SELECT
+        enter_type_billno+1 i
+        FROM
+        product_material_enter
+        ORDER BY enter_type_billno DESC LIMIT 1
+    </select>
+    <select id="maxIdEnter"  parameterType="Map" resultType="Integer">
+       SELECT
+        enter_id i
+        FROM
+        product_material_enter
+        ORDER BY enter_id DESC LIMIT 1
+    </select>
+    <insert id="research_in_detail" parameterType="Map">
+        insert into product_material_enter_detail
+        (
+        enter_id,
+        enter_date,
+        product_id,
+        space_id,
+        amount,
+        unit,
+        purity,
+        enter_type_d_billno,
+        batch_no,
+        left_amount,
+        staff_id,
+        enter_d_isdel,
+        face,
+        sale_batch_no
+        )
+        VALUES
+        (
+        #{enter_id},
+        #{research_time},
+       #{product_id},
+       #{space_id},
+       #{amount},
+       #{unit},
+       #{purity},
+       #{research_id},
+       #{batch_no},
+       #{amount},
+       #{staff_id},
+        0,
+        #{face},
+        #{sale_batch_no}
+        )
+    </insert>
+    <select id="maxIdEnterDet"  parameterType="Map" resultType="Integer">
+       SELECT
+        enter_d_id+1 i
+        FROM
+        product_material_enter_detail
+        ORDER BY enter_d_id DESC LIMIT 1
+    </select>
+    <insert id="putuAdd" parameterType="Map">
+        insert into pss_research_doc
+        (
+        research_id,
+        putu_url,
+        putu_name,
+        putu_time,
+        putu_staff,
+        product_id
+        )
+        VALUES
+        (
+        #{research_id},
+        #{putu_url},
+        #{putu_url},
+        #{putu_time},
+        #{putu_staff},
+        #{product_id}
+        )
+    </insert>
+    <select id="maxIdResearch"  parameterType="Map" resultType="Integer">
+        SELECT
+        research_id
+        FROM
+        product_research
+        ORDER BY research_id DESC LIMIT 1
+    </select>
+    <select id="research_putu" parameterType="Map">
+        SELECT
+        putu_url
+        FROM
+        pss_research_doc
+        WHERE research_id=#{research_id}
+    </select>
+    <select id="venditionSelect"  parameterType="Map" resultType="Product_sale_detail">
+       SELECT
+          *
+        FROM
+          product_sale_detail
+        WHERE product_id = #{product_id}
+          AND space_id IS NULL
+    </select>
+    <update id="venditionUpdate" parameterType="Map" >
+       UPDATE
+          product_sale_detail t
+        SET
+          t.`space_id`=#{space_id},
+          t.`sale_batch_no`=#{sale_batch_no},
+          t.batch_no=#{batch_no},
+            t.`sale_d_isdel`=0
+        WHERE t.`sale_d_id`=#{sale_d_id}
+    </update>
+    <update id="venditionUpdateForSale" parameterType="Map" >
+        UPDATE
+        product_sale t
+        SET
+        t.`sale_isdel`=0
+        WHERE t.`sale_id`=#{sale_id}
+    </update>
+    <select id="sale_id_select"  parameterType="Map" resultType="Integer">
+        SELECT
+          sale_id
+        FROM
+          product_sale_detail
+        WHERE sale_d_id =#{sale_d_id}
+    </select>
+    <update id="research_mod" parameterType="Map" >
+        UPDATE product_research t
+        SET t.amount=#{amount},t.research_name=#{research_name}
+        WHERE t.research_id=#{research_id}
+    </update>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.test.dao.TestDao">
+    <select id="getTestVoList" parameterType="Map" resultType="TestVo">
+        select t.reg_id,
+        t.reg_hp,
+        t.reg_name
+        from card_reg t where t.reg_id !=0
+        <if test="params.reg_hp!=null and params.reg_hp!=''">
+            and t.reg_hp like '%${params.reg_hp}%'
+        </if>
+    </select>
+    <select id="getTestVoCount" parameterType="Map" resultType="Integer">
+        select count(1)
+        from card_reg t where t.reg_id !=0
+        <if test="params.reg_hp!=null and params.reg_hp!=''">
+            and t.reg_hp like '%${params.reg_hp}%'
+        </if>
+    </select>
+</mapper>

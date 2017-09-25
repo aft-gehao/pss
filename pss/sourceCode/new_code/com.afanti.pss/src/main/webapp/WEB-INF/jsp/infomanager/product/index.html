@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品管理</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+<!--    <script type="text/javascript" src="/js/commons/kuaidi/kuaidiSelector.js"></script>-->
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/commons/fileinput/fileinput.js"></script><!--上传图片-->
+</head>
+<body>
+<form class="form-inline definewidth m20">
+    <div class="container">
+        <h3>产品管理</h3>
+        <div class="row">
+            <div class="col-md-3 form-group">
+                <span class="col-sm-6 text-right form-control-static">CAS号：</span>
+                <input id="cas" type="text" class="form-control input-sm" style="width: 50%" placeholder="" maxlength="20">
+            </div>
+            <div class="col-md-3 form-group" style="padding-left: 0;">
+                <span class="col-sm-6 text-right form-control-static">SKU：</span>
+                <input id="sku" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
+                       placeholder="" maxlength="20">
+            </div>
+           <!-- <div class="col-md-3 form-group" style="padding-left: 0;">
+                <span class="col-sm-6 text-right left  form-control-static">产品类型：</span>
+                <select id="product_type" class="form-control input-sm">
+                </select>
+            </div>-->
+            <div class="col-md-3">
+                <span><button id="pro_query"  disabled="disabled"  type="button" class="btn btn-primary">查询</button></span>
+                <span class="ml10"><button id="pro_add" disabled="disabled"  type="button" class="btn btn-success" data-toggle="modal"
+                                           data-target="#myModal-2">+ 新增产品</button></span>
+            </div>
+            <!--end-->
+        </div>
+        <!--表单-->
+        <div class="gsy-adm table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>CAS号</th>
+                    <th>英文名</th>
+                    <th>中文名</th>
+                    <th>创建时间</th>
+                    <th>创建人</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+
+        </div>
+        <!--分页-->
+        <div id="pages" class="tabl Pagination">
+        </div>
+
+    </div>
+</form>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/productmanager.js"></script>
+
+</body>
+</html>

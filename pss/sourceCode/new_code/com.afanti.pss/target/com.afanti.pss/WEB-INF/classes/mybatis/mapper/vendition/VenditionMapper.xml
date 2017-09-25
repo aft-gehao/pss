@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.vendition.dao.VenditionDao">
+
+    <select id="getVenditionPageList" parameterType="Map" resultType="Product_sale">
+        SELECT
+        t.sale_id,
+        t4.sale_d_id,
+        t.all_total,
+        t.sale_time,
+        t.sale_name,
+        t3.staff_name,
+        t.`status`,
+        CASE t.`status`
+        WHEN 8001 THEN
+        '已出库'
+        WHEN 8002 THEN
+        '未出库'
+        WHEN 8003 THEN
+        '部分出库'
+        END AS status_str,
+        t2.name as cus_name,
+        t5.cas,
+        t5.sku,
+        t4.amount,
+        t4.unit,
+        t4.unit_price,
+        t4.sale_batch_no,
+        t4.hetong_doc
+        FROM
+        product_sale t
+        LEFT JOIN cus_supplier_info t2 ON (t2.cs_sup_id = t.customer_id)
+        LEFT JOIN staff_info t3 ON (t3.staff_id = t.staff_id)
+        LEFT JOIN product_sale_detail t4
+        ON t.sale_id = t4.sale_id
+        LEFT JOIN product_material_info t5
+        ON t5.product_id=t4.product_id
+        WHERE
+        t.sale_isdel = 0
+        <if test="params.cas!=null and params.cas!=''">
+            and t5.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t5.sku like '%${params.sku}%'
+        </if>
+        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        order by t.sale_time desc
+    </select>
+
+    <select id="getVenditionPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_sale t
+        LEFT JOIN cus_supplier_info t2 ON ( t2.cs_sup_id=t.customer_id)
+        LEFT JOIN staff_info t3 on(t3.staff_id = t.staff_id)
+        LEFT JOIN product_sale_detail t4
+        ON t.sale_id = t4.sale_id
+        LEFT JOIN product_material_info t5
+        ON t5.product_id=t4.product_id
+        WHERE
+        t.sale_isdel = 0
+        <if test="params.cas!=null and params.cas!=''">
+            and t5.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t5.sku like '%${params.sku}%'
+        </if>
+        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+    </select>
+
+    <select id="getProductInventoryPageList" parameterType="Map" resultType="SelectProductInventory">
+        SELECT
+        t.enter_d_id,
+        t.enter_id,
+        t.batch_no,
+        t.product_id,
+        t.sale_batch_no,
+        t.face,
+        t2.name_ch AS product_name,
+        t2.name_en,
+        t2.cas,
+        t2.sku,
+        t3.dict_id AS product_type_id,
+        t3.dict_name AS product_type,
+        t2.cas,
+        t.space_id,
+        (
+        SELECT
+        GROUP_CONCAT(d.space_name, '-')
+        FROM
+        dict_warehouse_space d
+        WHERE
+        FIND_IN_SET(
+        d.space_id,
+        query_parent_warehouse (t.space_id)
+        )
+        ) as space_name,
+        t.amount,
+        t.unit,
+        t.purity
+        FROM
+        product_material_enter_detail t
+        LEFT JOIN product_material_info t2 ON (t.product_id = t2.product_id)
+        LEFT JOIN pss_dict t3 ON (t2.product_type = t3.dict_id)
+        WHERE
+        t.amount != 0
+        <if test="params.product_name!=null and params.product_name!=''">
+            and (t2.name_ch like '%${params.product_name}%' or t2.name_en like '%${params.product_name}%')
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas=#{params.cas}
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku=#{params.sku}
+        </if>
+        <if test="params.product_type!=null and params.product_type!=''">
+            AND t2.product_type = #{params.product_type}
+        </if>
+        <if test="params.batch_nos!=null and params.batch_nos!=''">
+            and t.batch_no not in(${params.batch_nos})
+        </if>
+    </select>
+    <select id="getProductInventoryPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_material_enter_detail t
+        LEFT JOIN product_material_info t2 ON (t.product_id = t2.product_id)
+        LEFT JOIN pss_dict t3 ON (t2.product_type = t3.dict_id)
+        WHERE
+        t.amount != 0
+        <if test="params.product_name!=null and params.product_name!=''">
+            and (t2.name_ch like '%${params.product_name}%' or t2.name_en like '%${params.product_name}%')
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas=#{params.cas}
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku=#{params.sku}
+        </if>
+        <if test="params.product_type!=null and params.product_type!=''">
+            AND t2.product_type = #{params.product_type}
+        </if>
+        <if test="params.batch_nos!=null and params.batch_nos!=''">
+            and t.batch_no not in(${params.batch_nos})
+        </if>
+    </select>
+
+    <insert id="addProductSale" useGeneratedKeys="true" keyProperty="sale_id"
+                     parameterType="Product_sale">
+    INSERT INTO product_sale
+    (
+    sale_name,
+    all_total,
+    staff_id,
+    sale_time,
+    `desc`,
+    customer_id,
+    c_linkman_id,
+    supplier_id,
+    status
+    )
+    VALUES
+    (
+    #{sale_name},
+    #{all_total},
+    #{staff_id},
+    now(),
+    #{desc},
+    #{customer_id},
+    #{c_linkman_id},
+    #{supplier_id},
+    #{status}
+    )
+</insert>
+
+    <insert id="addProductSale_quoation" useGeneratedKeys="true" keyProperty="sale_id"
+            parameterType="Product_sale">
+        INSERT INTO product_sale
+        (
+        sale_name,
+        all_total,
+        staff_id,
+        sale_time,
+        `desc`,
+        customer_id,
+        c_linkman_id,
+        supplier_id,
+        status,
+        sale_isdel
+        )
+        VALUES
+        (
+        #{sale_name},
+        #{all_total},
+        #{staff_id},
+        now(),
+        #{desc},
+        #{customer_id},
+        #{c_linkman_id},
+        #{supplier_id},
+        #{status},
+        0
+        )
+    </insert>
+
+    <insert id="addProductSaleDetail" parameterType="Map">
+            INSERT INTO product_sale_detail
+            (
+                sale_id,
+                batch_no,
+                product_id,
+                amount,
+                unit,
+                purity,
+                unit_price,
+                total,
+                `desc`,
+                sale_status,
+                space_id
+            )
+            VALUES
+            (
+                #{sale_id},
+                #{batch_no},
+                #{product_id},
+                #{amount},
+                #{unit},
+                #{purity},
+                #{unit_price},
+                #{total},
+                #{desc},
+                #{sale_status},
+                #{space_id}
+            )
+    </insert>
+
+    <insert id="addProductSaleDetailForQuoation" parameterType="Map" useGeneratedKeys="true" keyProperty="sale_d_id"
+            keyColumn="sale_d_id">
+        INSERT INTO product_sale_detail
+        (
+        sale_id,
+        product_id,
+        amount,
+        unit,
+        purity,
+        unit_price,
+        total,
+        `desc`,
+        sale_status,
+        sale_d_isdel,
+        quotation_id,
+        sale_way,
+        space_id,
+        sale_batch_no,
+        batch_no
+        )
+        VALUES
+        (
+        #{sale_id},
+        #{product_id},
+        #{amount},
+        #{unit},
+        #{purity},
+        #{unit_price},
+        #{total},
+        #{desc},
+        #{sale_status},
+        0,
+        #{quotation_id},
+        #{sale_way},
+        #{space_id},
+        #{sale_batch_no},
+        #{batch_no}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="sale_d_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="getProductSaleInfo" parameterType="Map" resultType="Product_sale">
+        SELECT
+            t.sale_id,
+            t.sale_time,
+            t.sale_name,
+            t2.`name` AS supplier_name,
+            t.customer_id,
+            t3.chinesename as c_linkeman_name,
+            t.c_linkman_id,
+						t.all_total,
+						t4.staff_name,
+            t.`desc`
+        FROM
+            product_sale t
+        LEFT JOIN cus_supplier_info t2 ON (t2.cs_sup_id = t.customer_id)
+        LEFT JOIN linkman t3 ON (
+            t3.linkman_id = t.c_linkman_id
+        )
+				LEFT JOIN staff_info t4 on (t4.staff_id = t.staff_id)
+        where t.sale_isdel = 0 and t.sale_id = #{sale_id}
+    </select>
+
+    <select id="getProductSaleDetialList" parameterType="Map" resultType="Product_sale_detail">
+      SELECT
+        t.sale_d_id,
+        t.batch_no,
+        t2.name_en AS product_name,
+        t2.name_ch,
+        t2.cas,
+        t2.sku,
+        t3.dict_id AS product_type,
+        t3.dict_name AS product_type_name,
+        t4.amount,
+		t.sale_status,
+		t5.dict_name as sale_status_name,
+        t.product_id,
+        t.amount AS amount_used,
+        t.purity,
+        t.unit,
+        t.unit_price,
+        t.space_id,
+        (
+            SELECT
+                GROUP_CONCAT(d.space_name, '-')
+            FROM
+                dict_warehouse_space d
+            WHERE
+                FIND_IN_SET(
+                    d.space_id,
+                    query_parent_warehouse (t.space_id)
+                )
+        ) AS space_name,
+        t.`desc`
+        FROM
+            product_sale_detail t
+        LEFT JOIN product_material_info t2 ON (t2.product_id = t.product_id)
+        LEFT JOIN pss_dict t3 on(t2.product_type = t3.dict_id)
+        Left Join product_material_enter_detail t4 on(t.batch_no = t4.batch_no)
+				LEFT JOIN pss_dict t5 on(t5.dict_id = t.sale_status)
+        where t.sale_d_isdel =0 and t.sale_id = #{sale_id}
+    </select>
+
+    <update id="updProductSal" parameterType="Map">
+        update product_sale
+        <trim prefix="set" suffixOverrides=",">
+            <if test="sale_name!=null">
+                sale_name= #{sale_name},
+            </if>
+            <if test="all_total!=null">
+                all_total= #{all_total},
+            </if>
+            <if test="staff_id!=null">
+                staff_id= #{staff_id},
+            </if>
+            <if test="sale_time!=null">
+                sale_time= #{sale_time},
+            </if>
+            <if test="desc!=null">
+                `desc`= #{desc},
+            </if>
+            <if test="customer_id!=null">
+                customer_id= #{customer_id},
+            </if>
+            <if test="c_linkman_id!=null">
+                c_linkman_id= #{c_linkman_id},
+            </if>
+            <if test="supplier_id!=null">
+                supplier_id= #{supplier_id},
+            </if>
+            <if test="status!=null">
+                `status`= #{status},
+            </if>
+            <if test="sale_isdel!=null">
+                sale_isdel= #{sale_isdel},
+            </if>
+        </trim>
+        where sale_id=#{sale_id}
+    </update>
+
+    <update id="delProductSalDetail" parameterType="Map">
+        update product_sale_detail set sale_d_isdel = 1 where sale_id = #{sale_id}
+    </update>
+
+    <select id="materialQuotationSelectPageList" parameterType="Map" resultType="Material_quotation">
+        SELECT
+        t1.quotation_id,
+        t2.cas,
+        t2.name_en,
+        t2.sku,
+        t2.product_id,
+        t1.purity,
+        t1.amount,
+        t1.price,
+        t1.unit,
+        t1.create_time,
+        t1.lead_start,
+        t1.lead_end,
+        t1.rate,
+        t3.`name`,
+        t4.staff_name,
+        t1.custom
+        FROM
+        material_quotation t1
+        LEFT JOIN product_material_info t2 ON t1.product_id = t2.product_id
+        LEFT JOIN cus_supplier_info t3 ON t1.custom = t3.cs_sup_id
+        LEFT JOIN staff_info t4 ON t1.staff_id = t4.staff_id
+        WHERE
+        t1.status=0
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku like '%${params.sku}%'
+        </if>
+        ORDER BY t1.create_time DESC
+    </select>
+    <select id="materialQuotationSelectPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        material_quotation t1
+        LEFT JOIN product_material_info t2 ON t1.product_id = t2.product_id
+        LEFT JOIN cus_supplier_info t3 ON t1.custom = t3.cs_sup_id
+        LEFT JOIN staff_info t4 ON t1.staff_id = t4.staff_id
+        WHERE
+         t1.status=0
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku like '%${params.sku}%'
+        </if>
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <insert id="add_xunjia" parameterType="Map">
+          INSERT INTO material_quotation
+          (
+                product_id,
+                amount,
+                unit,
+                price,
+                custom,
+                create_time,
+                `time`,
+                staff_id,
+                `status`,
+                purity,
+                rate
+          )
+          VALUES
+          (
+            #{product_id},
+            #{amount},
+            #{unit},
+            #{price},
+            #{custom},
+            #{create_time},
+            #{time},
+            #{staff_id},
+            #{status},
+            #{purity},
+            #{rate}
+          )
+    </insert>
+
+    <select id="select_cas" parameterType="Map" resultType="Product_material_info">
+        SELECT
+	        product_id,
+	        COUNT(product_id) AS ct
+        FROM
+	        product_material_info
+        WHERE
+	        cas = #{cas}
+    </select>
+    <select id="select_sku" parameterType="Map" resultType="Product_material_info">
+        SELECT
+	        sku,
+	        product_id,
+	        COUNT(product_id) AS ct
+        FROM
+	        product_material_info
+        WHERE
+	        sku = #{sku}
+    </select>
+
+    <select id="select_customer" parameterType="Map" resultType="Cus_Supplier_info">
+          SELECT
+	        cs_sup_id,
+	        customer_id,
+	        `name`,
+	        COUNT(`name`) AS ct
+          FROM
+	        cus_supplier_info
+          WHERE
+	        `name` = #{name}
+    </select>
+
+    <insert id="add_customer" parameterType="Cus_Supplier_info" useGeneratedKeys="true" keyProperty="cs_sup_id"
+            keyColumn="cs_sup_id">
+        insert into cus_supplier_info (
+        customer_id,
+        supplier_id,
+        `name`,
+        `type`,
+        create_oper,
+        create_time,
+        `status`
+        )
+        values (
+        1,
+        0,
+        #{name,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},
+        #{create_oper,jdbcType=INTEGER},
+        #{create_time,jdbcType=TIMESTAMP},
+        #{status,jdbcType=INTEGER}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="cs_sup_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="add_product" parameterType="Product_material_info" useGeneratedKeys="true" keyProperty="product_id"
+            keyColumn="product_id">
+        insert into product_material_info (
+        sku,
+        imgage,
+        cas,
+        name_en,
+        create_oper,
+        create_time,
+        modify_oper,
+        modify_time,
+        `status`,
+        product_type
+        )
+        values (
+        #{sku,jdbcType=VARCHAR},
+        #{imgage,jdbcType=VARCHAR},
+        #{cas,jdbcType=VARCHAR},
+        #{name_en,jdbcType=VARCHAR},
+        #{create_oper,jdbcType=INTEGER},
+        #{create_time,jdbcType=TIMESTAMP},
+        #{modify_oper,jdbcType=INTEGER},
+        #{modify_time,jdbcType=TIMESTAMP},
+        #{status,jdbcType=INTEGER},
+        #{product_type,jdbcType=INTEGER}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="product_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="select_amount" parameterType="Map" resultType="Product_material_enter_detail">
+        SELECT
+            product_id,
+	        SUM(amount) AS su
+        FROM
+	        product_material_enter_detail
+        WHERE
+        product_id = #{product_id} and unit=#{unit}
+
+    </select>
+
+    <insert id="add_task" parameterType="Map">
+        INSERT INTO product_research_task (
+	        product_id,
+            amount,
+            unit,
+            create_staff,
+            create_time,
+            `status`,
+            quotation_id,
+            research_id
+        )
+        VALUES(
+            #{product_id},
+            #{amount},
+            #{unit},
+            #{create_staff},
+            #{create_time},
+            #{status},
+            #{quotation_id},
+            #{research_id}
+        )
+    </insert>
+
+    <update id="quoationStatusUpdate" parameterType="Map">
+        update material_quotation set status = 15001 where quotation_id = #{quotation_id}
+    </update>
+    <select id="select_hetong_no" parameterType="Map" resultType="Integer">
+        SELECT
+          COUNT(1)
+        FROM
+          product_sale
+        WHERE TO_DAYS(sale_time) = TO_DAYS(NOW())
+    </select>
+
+    <update id="sale_doc_add" parameterType="Map">
+        update product_sale_detail set hetong_doc = #{hetong_doc} where sale_d_id = #{sale_d_id}
+    </update>
+    <select id="select_count_cas" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_material_info
+        WHERE
+        cas = #{cas}
+    </select>
+    <select id="select_id_cas" parameterType="Map" resultType="Integer">
+        SELECT
+        product_id
+        FROM
+        product_material_info
+        WHERE
+        cas = #{cas}
+    </select>
+    <select id="kucun_select" parameterType="Integer" resultType="Product_material_enter_detail">
+        SELECT
+          amount
+        FROM
+          product_material_enter_detail
+        WHERE product_id =#{product_id}
+    </select>
+    <insert id="insert_product" parameterType="Map" useGeneratedKeys="true" keyProperty="product_id"
+            keyColumn="product_id">
+        INSERT INTO product_material_info (
+        `cas`,
+        `sku`,
+        name_en,
+        create_time,
+        create_oper,
+        status,
+        product_type
+        )
+        VALUES(
+        #{cas},
+        #{sku},
+        #{name_en},
+        #{create_time},
+        #{create_oper},
+       0,
+       4002
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="product_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="select_count_cus" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        cus_supplier_info
+        WHERE
+         `name` = #{customer_name}
+    </select>
+    <select id="select_id_cus" parameterType="Map" resultType="Integer">
+        SELECT
+        cs_sup_id
+        FROM
+        cus_supplier_info
+        WHERE
+       `name` = #{customer_name}
+    </select>
+    <insert id="insert_cus" parameterType="Map" useGeneratedKeys="true" keyProperty="cs_sup_id"
+            keyColumn="cs_sup_id">
+        INSERT INTO cus_supplier_info (
+        `customer_id`,
+        `supplier_id`,
+        `name`,
+        create_time,
+        create_oper,
+        status
+        )
+        VALUES(
+        1,
+        0,
+        #{customer_name},
+        #{create_time},
+        #{create_oper},
+       0
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="cs_sup_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="kucun_info_select" parameterType="Map" resultType="Product_material_enter_detail">
+      SELECT
+          *
+        FROM
+          product_material_enter_detail
+        WHERE product_id =#{product_id}
+          AND amount >= #{amount}
+          limit 1
+    </select>
+    <select id="select_vendition" parameterType="Map" resultType="Product_sale_detail">
+        SELECT
+        t.*,
+        t1.cas,
+        t1.sku,
+        t1.name_en,
+        t3.name,
+        t4.*
+        FROM
+        product_sale_detail t
+       LEFT JOIN product_material_info t1
+       on t1.product_id=t.product_id
+       left join product_sale t2
+       on t2.sale_id=t.sale_id
+       LEFT join cus_supplier_info t3
+       on t3.cs_sup_id=t2.customer_id
+       left join material_quotation t4
+       on t4.quotation_id=t.quotation_id
+        WHERE sale_d_id =#{sale_d_id}
+    </select>
+    <update id="vendition_updata" parameterType="Map">
+        update product_sale_detail
+        set amount=#{amount},purity=#{purity},unit=#{unit},unit_price=#{unit_price}
+        where sale_d_id=#{sale_d_id}
+    </update>
+</mapper>

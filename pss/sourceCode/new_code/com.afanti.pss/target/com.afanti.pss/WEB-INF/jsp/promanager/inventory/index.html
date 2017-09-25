@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>实时库存</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/jquery.sorted.js"></script>
+    <style type="text/css">
+        a:hover{
+            cursor: pointer;
+        }
+        .auto a:hover{
+            background-color: #5CB85C;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <input id="type_id" hidden="hidden">
+    <input id="product_type" hidden="hidden">
+
+    <div class="filter-box switch-close">
+        <section class="panel-cont">
+            <div class="search-cont">
+                <div class="switch-show filter_column">
+                    <div class="search-li clearfix">
+                        <label class="pull-left search-label">库存类型：</label>
+                        <div class="clearfix search-link">
+                            <div class="auto">
+                                <a id="a_haocai" onclick="supplies_type(this)">耗材</a>
+                                <a id="a_yuanliao" onclick="material_type(this)">原料</a>
+                                <a id="a_chengpin" onclick="finished_product_type(this)">成品</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="switch-hide">
+                    <div class="search-li clearfix" id="filter_column_collapse_container">
+                        <label class="pull-left search-label">筛选条件：</label>
+                        <div class="clearfix search-link">
+                            <a id="type_source" type="button" class="active">成品</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center ">
+            <a href="javascript:void(0);" class="filter-down" data-toggle="click-switch" data-parents=".filter-box">
+                <span class="switch-show" title="收起筛选">∧</span>
+                <span class="switch-hide" title="展开筛选">∨</span>
+            </a>
+        </div>
+
+        <div class="table-container">
+            <div class="sekect_box clearfix">
+                <div class="pull-right normal-search">
+                    <div class="input-group">
+                        <div class="table-cell" style="width: 150px;">
+                        </div>
+                        <div class="table-cell">
+                     <span style="position:relative;margin:0" class="add-clear-span">
+                        <input type="text" name="search_key" id="search" class="form-control  addclear" placeholder="">
+                    </span>
+                        </div>
+                <span class="input-group-btn">
+                 <button type="button" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
+                </span>
+                    </div>
+                </div>
+            </div>
+            <!--表单-->
+            <div class="Pro-table table" id="haocai" hidden="hidden">
+                <table class="table table-bordered table-hover m20">
+                    <thead>
+                    <tr>
+                        <th width="25%">耗材名</th>
+                        <th width="25%">规格</th>
+                        <th width="25%">库存量</th>
+                        <th width="25%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="data_tbody_haocai">
+                    </tbody>
+                </table>
+            </div>
+            <!--end-->
+            <!--分页-->
+            <div id="pages_haocai" class="tabl Pagination" hidden="hidden">
+            </div>
+
+            <!--表单-->
+            <div class="Pro-table table" id="yuanliao" hidden="hidden">
+                <table class="table table-bordered table-hover m20">
+                    <thead>
+                    <tr>
+                        <th width="25%">CAS</th>
+                        <th width="25%">中文名</th>
+                        <th width="25%">库存量</th>
+                        <th width="20%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="data_tbody_yuanliao">
+                    </tbody>
+                </table>
+            </div>
+            <!--end-->
+            <!--分页-->
+            <div id="pages_yuanliao" class="tabl Pagination" hidden="hidden">
+            </div>
+
+            <!--表单-->
+            <div class="Pro-table table" id="chengpin" hidden="hidden">
+                <table class="table table-bordered table-hover m20">
+                    <thead>
+                    <tr>
+                        <th width="25%">CAS号</th>
+                        <th width="15%">SKU</th>
+                        <th width="25%">英文名</th>
+                        <th width="15%">库存量</th>
+                        <th width="20%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="data_tbody_chengpin">
+                    </tbody>
+                </table>
+            </div>
+            <!--end-->
+            <!--分页-->
+            <div id="pages_chengpin" class="tabl Pagination" hidden="hidden">
+            </div>
+        </div>
+    </div>
+    </form>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/realtimeInventory.js"></script>
+</body>
+</html>
+<script>
+    //点击页面跳转
+    $(function () {
+
+        $('.details').click(function () {
+
+            window.location.href = "detail.html";
+        });
+
+
+
+    });
+
+
+</script>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8"></meta>
+    <title>OC文档</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            font-family: 'simsun',Arial Unicode MS;
+        }
+        body{
+            width: 100%;
+        }
+        h2{
+            text-align: right;
+            margin: 10px 0px;
+        }
+        p{
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .over-flow{
+            overflow: auto;
+            zoom: 1;
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right;
+        }
+        .top-right p{
+            text-align: right;
+            color: rgb(0,176,80);
+            font-size: 12px;
+        }
+        .text-left,.text-right{
+            width: 45%;
+            box-sizing: border-box;
+        }
+        .text-left p{
+            line-height: 2;
+        }
+        .text-right p:nth-child(2),
+        .text-right p:nth-child(6){
+            margin-bottom: 15px;
+        }
+        .text-right p:nth-child(8){
+            padding-left: 0px;
+        }
+        .letter{
+            margin: 10px 0px;
+        }
+        .table-1{
+            text-align: left;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .table-1 td:first-child{
+            vertical-align: top;
+        }
+        .w10{
+            width: 10%;
+        }
+        .w15{
+            width: 15%;
+        }
+        .w25{
+            width: 25%;
+        }
+        .w50{
+            width: 50%;
+        }
+        .text-tb table th{
+            background-color: #CCCCCC;
+            padding: 10px 0px;
+        }
+        .table-2{
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .table-2 th,
+        .table-2 td{
+            border: 1px solid #000000;
+        }
+        .table-2 td{
+            padding: 5px 0px;
+        }
+        .table-2 .to-right{
+            text-align: right;
+        }
+        .date p{
+            margin-bottom: 10px;
+        }
+        .footer .right{
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部-->
+    <div class="over-flow">
+        <div class="left">
+            <img src="${imagePath}/msds/logo.png" alt="logo" title="logo" width="120px"/>
+        </div>
+        <div class="right top-right">
+            <p>Liverpool ChiroChem Limited,Department of Chemistry,</p>
+            <p>University of Liverpool,Crown Street,Liverpool,L69 72D,United Kingdom</p>
+            <p>Telephone:+44(0)151 794 2936 sales@liverpoolchirochem.co.uk</p>
+            <p>www.liverpoolchirochem.com</p>
+        </div>
+    </div>
+    <!-- 正文-->
+    <div>
+        <h2 style="margin-top: 60px;">Order Confirmation</h2>
+        <div class="over-flow ">
+            <div class="left text-left">
+                 ${billTo}
+            </div>
+            <div class="left text-right" style="width:55%;">
+                <p><b>Date:</b>${ocDate}</p>
+                <p><b>Order Confirmation No.:</b>${ocNumber}</p>
+
+                <p><b>Quotation Number:</b>${quotationNumber}</p>
+                <p><b>PO number(s):</b>${poNumber}</p>
+                <p><b>Customer Number:</b>${cusNumber}</p>
+                <p><b>Customer VAT Number:</b>${vatNumber}</p>
+
+                <p><b>Email:</b>${email}</p>
+                <p><b>Tel:</b>${tel}</p>
+            </div>
+        </div>
+        <br></br>
+        <div class="letter">
+            ${dearCustomer}
+        </div>
+        <div class="text-tb">
+            <table class="table-1" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th class="w50">Bill To:</th>
+                    <th class="w50">Ship to:</th>
+                </tr>
+                <tr>
+                    <td>
+                        ${billTo}
+                    </td>
+                    <td>
+                        ${shipTo}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="text-tb">
+            <table class="table-2" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th class="w15">Order Type</th>
+                    <th class="w15">Model</th>
+                    <th class="w25">Product</th>
+                    <th class="w10">Size</th>
+                    <th class="w10">Quantity</th>
+                    <th class="w10">Unit Price(£)</th>
+                    <th class="w15">Amount(£)</th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>${orderType}</p>
+                    </td>
+                    <td>
+                        <p>${model}</p>
+                    </td>
+                    <td>
+                        <p>${product}</p>
+                    </td>
+                    <td>
+                        <p>${orderSize}${dictName}</p>
+                    </td>
+                    <td>
+                        <p>${quantity}</p>
+                    </td>
+                    <td>
+                        <p>${unitPrice}</p>
+                    </td>
+                    <td>
+                        <p>${amount}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="to-right">
+                        <p><b>Flat Shipping Rate:</b></p>
+                    </td>
+                    <td>
+                        <p>${flatShippingRate}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="to-right">
+                        <p><b>Sub Total:</b></p>
+                    </td>
+                    <td>
+                        <p>${subTotal}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="to-right">
+                        <p><b>VAT(${vatRate}%):</b></p>
+                    </td>
+                    <td>
+                        <p>${vatValue}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="to-right">
+                        <p><b>Total(£):</b></p>
+                    </td>
+                    <td>
+                        <p>${total}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="date">
+            <p><b>Estimated delivery:${deliveryStart}-${deliveryEnd}</b></p>
+            <p>${dhlAccount}</p>
+        </div>
+        <div class="over-flow footer">
+            <div class="left">
+                <p>${paymentTerms}</p>
+            </div>
+            <div class="right">
+                <p><b>Registered address:</b></p>
+                <p>Liverpool ChiroChem Limited,</p>
+                <p>48-52 Penny Lane,</p>
+                <p>Mossley Hill</p>
+                <p>Liverpool,L18 1DG</p>
+                <p><b>VAT Registration Number:</b>188675933</p>
+                <p><b>Company Registration Number:</b>8900140</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增研发</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+    <link rel="stylesheet" type="text/css" href="/js/uploadify/uploadify.css"/>
+    <script type="text/javascript" src="/js/uploadify/jquery.uploadify.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/promanager/researchAndUse/index.html">研发申请查询</a></li>
+            <li><a>新增申请</a></li>
+        </ol>
+        <div class="row m10">
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right">申请时间：</span>
+                <span><input id="research_time" class="form-control input-sm" type="text" readonly="readonly"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="col-sm-5 text-right form-control-static">申请单名称：</span>
+                <input id="research_name" type="text" class="form-control input-sm" placeholder="" maxlength="150">
+            </div>
+        </div>
+        <div class="table gys-detail">
+
+            <div class="table gys-detail">
+                <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+                    <h4 class="left" style="margin-top: 3px;">申请单产品详细</h4>
+                 <span class="right">
+                <button type="button" class="btn btn-success btn-sm" id="add_product">+ 选择产品</button>
+            </span>
+                </div>
+                <div class="gsy-adm">
+                    <table id="product_table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th style="width: 10%;">CAS</th>
+                            <th style="width: 5%;">SKU</th>
+                            <th style="width: 10%;">所有谱图</th>
+                            <th style="width: 15%;">入库量</th>
+                            <th style="width: 8%;">工时(/半天)</th>
+                            <th style="width: 7%;">纯度</th>
+                            <th style="width: 10%;">外观</th>
+                            <th style="width: 10%;">生产类型</th>
+                            <th style="width: 10%;">批次号</th>
+                            <th style="width: 15%;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_product">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="Button-two">
+                    <button id="submit" type="button" class="btn btn-success">保存申请单</button>
+                    <button type="button" class="btn btn-danger" id="cancel">返回</button>
+                </div>
+            </div>
+
+            <div class="alert alert-warning" role="alert">
+                <dl class="dl-horizontal" style="left:0%;">
+                    <dt style="font-size:25px;color: red">温馨提示！</dt>
+                    <dd></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>申请单名称</dt>
+                    <dd>必填字段，不能大于150个字符。</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>入库量</dt>
+                    <dd>必填字段，必须为数字。</dd>
+                </dl>
+
+            </div>
+
+        </div>
+    </div>
+    <input type="hidden" id="putu">
+</form>
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/product_research_add.js"></script>
+</body>
+</html>

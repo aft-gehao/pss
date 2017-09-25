@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>销售报表</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/js/echarts.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+    <style type="text/css">
+        table{ border-collapse:collapse;border:1px #525152 solid;width:90%;margin:0 auto;margin-top:10px;}
+        th,td{border:1px solid #525152;text-align:center;font-size:10px;line-height:30px;background:#C6C7C6;}
+        th{background:#D6D3D6;}
+        /*模拟对角线*/
+        .out{
+            border-top:3em #D6D3D6 solid;/*上边框宽度等于表格第一行行高*/
+            border-left:100px #BDBABD solid;/*左边框宽度等于表格第一行第一格宽度*/
+            position:relative;/*让里面的两个子容器绝对定位*/
+        }
+        b{font-style:normal;display:block;position:absolute;top:-3em;left:-75px;width:80px;}
+        em{font-style:normal;display:block;position:absolute;top:-23px;left:-120px;width:80px;}
+        .assessDetail td{background-color: #FFF;}
+    </style>
+</head>
+<body>
+<div>
+    <table>
+        <tr id="show">
+            <th style="width:80px;">
+                <div class="out">
+                    <b>日期</b>
+                    <em>CAS</em>
+                </div>
+            </th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+            <th>11</th>
+            <th>12</th>
+            <th>13</th>
+            <th>14</th>
+            <th>15</th>
+            <th>16</th>
+            <th>17</th>
+            <th>18</th>
+            <th>19</th>
+            <th>20</th>
+            <th>21</th>
+            <th>22</th>
+            <th>23</th>
+            <th>24</th>
+            <th>25</th>
+            <th>26</th>
+            <th>27</th>
+            <th>28</th>
+            <th>29</th>
+            <th>30</th>
+            <th>31</th>
+        </tr>
+    </table>
+</div>
+
+<div class="" style="text-align: center;margin-top: 10px;">
+    <div style="padding-left: 80px;text-align: center;">
+        <div id="number" style="width: 1500px;text-align: center">
+            <span>销售金额排序</span>
+            <input type="button" id="sort" style="background-color: red" onclick="do1(this)" value="O"/>
+        </div>
+        <div id="main" style="width: 1500px;height:400px;" >
+        </div>
+        <script type="text/javascript">
+            var myChart = echarts.init(document.getElementById('main'));  // 直接开始初始化，还是要用原生javascript
+            //基本属性全都必须配置在js里面，html配置是不起作用的，局部刷新，页面样式、数据都必须在js里面通过方法返回出来，动态赋值图表
+            var option = {
+                title : {
+                    text: '销售报表',
+                    subtext:'单位g/ml'
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:[]
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : []
+                    }
+                ],
+                grid: { // 控制图的大小，调整下面这些值就可以，
+                    x: 100,
+                    x2: 100,
+                    y2: 150,// y2可以控制 X轴跟Zoom控件之间的间隔，避免以为倾斜后造成 label重叠到zoom上
+                },
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series :  [
+                    {
+                        name:'',
+                        type:'bar',
+                        barWidth:30,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        data:[]
+                    }
+                ]
+            }; // 图表的定义数据
+            // myChart.setOption(option); // 加载图表
+        </script>
+        <!--分页-->
+        <div style="width: 1500px;text-align: center;float: left"  id="pages" class="tabl Pagination" style="clear: both">
+        </div>
+    </div>
+</div>
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/layer/extend/layer.ext.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/statisticsPrice_sale_Chartlist.js"></script>
+</body>
+</html>

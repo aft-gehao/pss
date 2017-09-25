@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.purchasing.dao.MaterialPurchaseDao">
+
+    <select id="getMaterialPurchasePageList" parameterType="Map" resultType="Material_purchase">
+        SELECT
+        t4.use_id,
+        t4.kd_num,
+        t4.kd_code,
+        t.purchase_id,
+        t.purchase_name,
+        t.purchase_time,
+        t.all_total,
+        t2.staff_name,
+        t.stock_status,
+        t3.`name` as supplier_name,
+        t4.unit_price,
+        t4.purchase_d_id,
+        t4.amount,
+        t4.unit,
+        t4.desc,
+        t5.`cas`,
+        t5.`sku`,
+        t5.`name_ch`,
+        t6.stock_status
+        FROM
+        material_purchase t
+        left join staff_info t2 on (t.staff_id = t2.staff_id)
+        left join cus_supplier_info t3 on(t.supplier_id = t3.cs_sup_id)
+        LEFT JOIN material_purchase_detail t4
+        ON  t.`purchase_id`=t4.`purchase_id`
+        LEFT JOIN product_material_info t5
+        ON t5.`product_id`=t4.`product_id`
+        LEFT JOIN material_purchase_return t6
+        ON  t.purchase_id=t6.purchase_id
+        WHERE t.purchase_isdel =0
+        <if test="params.cas!=null and params.cas!=''">
+            and t5.cas like '%${params.cas}%'
+            or t5.sku like '%${params.cas}%'
+            or t5.`name_ch` like '%${params.cas}%'
+            or t3.`name` like '%${params.cas}%'
+            or t2.staff_name like '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.stock_status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.purchase_time between  '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        order by t.purchase_time desc
+    </select>
+    <select id="getMaterialPurchasePageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        material_purchase t
+        left join staff_info t2 on (t.staff_id = t2.staff_id)
+        left join cus_supplier_info t3 on(t.supplier_id = t3.cs_sup_id)
+        LEFT JOIN material_purchase_detail t4
+        ON  t.`purchase_id`=t4.`purchase_id`
+        LEFT JOIN product_material_info t5
+        ON t5.`product_id`=t4.`product_id`
+        LEFT JOIN material_purchase_return t6
+        ON  t.purchase_id=t6.purchase_id
+        WHERE t.purchase_isdel =0
+        <if test="params.cas!=null and params.cas!=''">
+            and t5.cas like '%${params.cas}%'
+            or t5.sku like '%${params.cas}%'
+            or t5.`name_ch` like '%${params.cas}%'
+            or t3.`name` like '%${params.cas}%'
+            or t2.staff_name like '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.stock_status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+    </select>
+
+    <insert id="addMaterialPurchase" useGeneratedKeys="true" keyProperty="purchase_id"
+            parameterType="Material_purchase">
+        insert into material_purchase
+        (
+        purchase_name,
+        product_num,
+        all_total,
+        staff_id,
+        purchase_time,
+        `desc`,
+        supplier_id,
+        s_linkman_id,
+        customer_id,
+        stock_status,
+        request_id,
+        purchase_isdel
+        )
+        values
+        (
+        #{purchase_name},
+        #{product_num},
+        #{all_total},
+        #{staff_id},
+        now(),
+        #{desc},
+        #{supplier_id},
+        #{s_linkman_id},
+        #{customer_id},
+        #{stock_status},
+        #{request_id},
+        #{purchase_isdel}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="purchase_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="addMaterialPurchaseForMap" useGeneratedKeys="true" keyProperty="purchase_id"
+            parameterType="Map">
+        insert into material_purchase
+        (
+        purchase_name,
+        product_num,
+        all_total,
+        staff_id,
+        purchase_time,
+        `desc`,
+        supplier_id,
+        s_linkman_id,
+        customer_id,
+        stock_status,
+        request_id,
+        purchase_isdel
+        )
+        values
+        (
+        #{purchase_name},
+        #{product_num},
+        #{all_total},
+        #{staff_id},
+        now(),
+        #{desc},
+        #{supplier_id},
+        #{s_linkman_id},
+        #{customer_id},
+        5004,
+        #{request_id},
+        0
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="purchase_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <update id="updMaterialPurchase" parameterType="Map">
+        update material_purchase
+        <trim prefix="set" suffixOverrides=",">
+            <if test="purchase_name!=null">
+                purchase_name= #{purchase_name},
+            </if>
+            <if test="product_num!=null">
+                product_num= #{product_num},
+            </if>
+            <if test="all_total!=null">
+                all_total= #{all_total},
+            </if>
+            <if test="staff_id!=null">
+                staff_id= #{staff_id},
+            </if>
+            <if test="purchase_time!=null">
+                purchase_time= #{purchase_time},
+            </if>
+            <if test="desc!=null">
+                `desc`= #{desc},
+            </if>
+            <if test="supplier_id!=null">
+                supplier_id= #{supplier_id},
+            </if>
+            <if test="s_linkman_id!=null">
+                s_linkman_id= #{s_linkman_id},
+            </if>
+            <if test="customer_id!=null">
+                customer_id= #{customer_id},
+            </if>
+            <if test="stock_status!=null">
+                stock_status= #{stock_status},
+            </if>
+            <if test="request_id!=null">
+                request_id= #{request_id},
+            </if>
+            <if test="purchase_isdel!=null">
+                purchase_isdel= #{purchase_isdel},
+            </if>
+        </trim>
+        where purchase_id=#{purchase_id}
+    </update>
+
+    <insert id="addMaterialPurchaseDetail" parameterType="Map">
+        insert into material_purchase_detail
+        (
+          purchase_id,
+          product_id,
+          amount,
+          unit,
+          purity,
+          unit_price,
+          total,
+          `desc`,
+          purchase_detail_isdel
+        )
+        values
+        (
+          #{purchase_id},
+          #{product_id},
+          #{amount},
+          #{unit},
+          #{purity},
+          #{unit_price},
+          #{total},
+          #{desc},
+          #{purchase_detail_isdel}
+        )
+    </insert>
+    <insert id="addMaterialPurchaseDetailForcg" parameterType="Map">
+        insert into material_purchase_detail
+        (
+        purchase_id,
+        product_id,
+        amount,
+        unit,
+        purity,
+        unit_price,
+        total,
+        `desc`,
+        purchase_detail_isdel,
+        use_id
+        )
+        values
+        (
+        #{purchase_id},
+        #{product_id},
+        #{amount},
+        #{unit},
+        #{purity},
+        #{unit_price},
+        #{total},
+        #{desc},
+        #{purchase_detail_isdel},
+        #{use_id}
+        )
+    </insert>
+
+    <update id="updMaterialPurchaseDetail" parameterType="Map">
+        update material_purchase_detail set purchase_detail_isdel =1 where purchase_id =#{purchase_id}
+    </update>
+
+    <update id="updPurchaseDetail" parameterType="Map">
+       UPDATE
+          material_purchase_detail
+        SET
+          amount =#{amount},
+          unit=#{unit},
+          unit_price=#{unit_price}，
+          `desc`=#{desc}
+        WHERE purchase_id = #{purchase_id}
+    </update>
+    <select id="getMaterialPurchaseInfo" parameterType="Map" resultType="Material_purchase">
+            SELECT
+            t.purchase_id,
+            t.purchase_name,
+            t.all_total,
+            t.purchase_time,
+            t.`desc` ,
+            t.supplier_id,
+            t4.chinesename AS linkman_name,
+            t5.staff_name,
+            t.stock_status,
+            t3.name as supplier_name,
+            t.s_linkman_id
+            FROM
+                material_purchase t
+            LEFT JOIN cus_supplier_info t3 ON (
+                t.supplier_id = t3.cs_sup_id
+            )
+            LEFT JOIN linkman t4 ON (
+                t.s_linkman_id = t4.linkman_id
+            )
+            left join staff_info t5 on (t.staff_id = t5.staff_id)
+            where t.purchase_isdel=0 and  t.purchase_id =#{purchase_id}
+    </select>
+
+    <select id="getMaterialPurchaseDetailList" parameterType="Map" resultType="Material_purchase_detail">
+           SELECT
+            t1.purchase_d_id,
+            t1.product_id,
+            t1.amount,
+            t1.unit,
+            t1.purity,
+            t1.unit_price,
+            t1.total,
+            t1.`desc`,
+            t2.name_ch,
+            t2.cas,
+            t2.sku,
+            t2.name_en AS product_name,
+            t2.product_type,
+            t3.dict_name AS product_type_name
+            FROM
+                material_purchase_detail t1
+            LEFT JOIN product_material_info t2 ON (
+                t1.product_id = t2.product_id
+            )
+            LEFT JOIN pss_dict t3 ON (t2.product_type = t3.dict_id)
+            WHERE
+                t1.purchase_detail_isdel = 0
+            AND t1.purchase_id =#{purchase_id}
+            order by t1.purchase_d_id desc
+    </select>
+
+    <select id="getPurchase" parameterType="Map" resultType="Material_purchase_detail">
+        SELECT
+        t.*,
+        t1.cas,
+        t1.`sku`,
+        t1.`name_ch`,
+        t2.`staff_name`,
+        t3.`dict_name`
+        FROM product_use t
+        LEFT JOIN product_material_info t1
+        ON t1.`product_id`=t.`product_id`
+        LEFT JOIN staff_info t2
+        ON t2.`staff_id`=t.`use_staff`
+        LEFT JOIN pss_dict t3
+        ON t.`status`=t3.`dict_id`
+        WHERE t.`status` IN (11001,5004) AND t.use_is_del=0
+        ORDER BY t.`check_time` desc
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+
+    <select id="getPurchaseCount" parameterType="Map" resultType="Integer">
+        SELECT
+       count(1)
+        FROM product_use t
+        LEFT JOIN product_material_info t1
+        ON t1.`product_id`=t.`product_id`
+        LEFT JOIN staff_info t2
+        ON t2.`staff_id`=t.`check_staff`
+        WHERE t.`status` IN (11001,5004) AND t.use_is_del=0
+    </select>
+
+    <select id="getConsumablePurchase" parameterType="Map" resultType="consumable_purchase">
+        SELECT
+        t.*,
+        t1.`consumable_name`,
+        t1.`consumable_unit`,
+        t1.`pack`,
+        t2.`staff_name`,
+        t3.`dict_name`
+        FROM
+        consumable_use t
+        LEFT JOIN consumable_material_info t1
+        ON t.`consumable_id`=t1.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t2.`staff_id`=t.`staff`
+        LEFT JOIN pss_dict t3
+        ON t.`status`=t3.`dict_id`
+        WHERE t.`status` IN (11001,5004) AND t.is_del=0
+        ORDER BY t.`check_time` desc
+        <if test="is_all!=2">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getConsumablePurchaseCount" parameterType="Map" resultType="Integer">
+        SELECT
+      count(1)
+        FROM
+        consumable_use t
+        LEFT JOIN consumable_material_info t1
+        ON t.`consumable_id`=t1.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t2.`staff_id`=t.`check_staff`
+        WHERE t.`status` IN (11001,5004) AND t.is_del=0
+    </select>
+
+    <update id="fahuo" parameterType="Map">
+       UPDATE product_use t SET t.`status`=#{status}, kd_code=#{kd_code}, kd_num=#{kd_num} WHERE use_id=#{use_id}
+    </update>
+
+    <update id="fahuo_pur_detaail" parameterType="Map">
+       UPDATE material_purchase_detail t SET  t.kd_code=#{kd_code}, t.kd_num=#{kd_num} WHERE use_id=#{use_id}
+    </update>
+    <update id="fahuo_pur" parameterType="Map">
+       UPDATE
+          material_purchase t
+        SET
+          t.`stock_status` = #{status}
+        WHERE purchase_id = (
+          SELECT
+            t1.purchase_id
+          FROM
+            material_purchase_detail t1
+          WHERE t1.use_id = #{use_id})
+    </update>
+    <insert id="insert_product" parameterType="Map" >
+        <selectKey resultType="Integer"  keyProperty="product_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO product_material_info (
+        cas,
+        name_ch,
+        product_type,
+        status
+        )
+        VALUES(
+        #{cas},
+        #{name_ch},
+        4001,
+        0
+        )
+    </insert>
+
+    <insert id="insert_product_foryanfa" parameterType="Map" >
+        <selectKey resultType="Integer"  keyProperty="product_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO product_material_info (
+        cas,
+        sku,
+        product_type,
+        status
+        )
+        VALUES(
+        #{cas},
+        #{sku},
+        4002,
+        0
+        )
+    </insert>
+
+    <insert id="insert_supplier" parameterType="Map" useGeneratedKeys="true" keyProperty="cs_sup_id"
+            keyColumn="cs_sup_id">
+        INSERT INTO cus_supplier_info (
+        `name`,
+        `status`,
+        customer_id,
+        supplier_id,
+        create_time
+        )
+        VALUES(
+        #{supplier_name},
+        0,
+        0,
+        1,
+        #{create_time}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="cs_sup_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="use_add" parameterType="Map" useGeneratedKeys="true" keyProperty="use_id"
+            keyColumn="use_id">
+        INSERT INTO product_use (
+        `product_id`,
+        `use_amount`,
+        use_unit,
+        use_staff,
+        use_time,
+        use_name,
+        use_is_del,
+        status,
+        use_desc
+        )
+        VALUES(
+        #{product_id},
+        #{amount},
+        #{unit},
+        #{staff_id},
+        #{create_time},
+        #{use_name},
+        0,
+        5004,
+        #{desc}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="use_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <select id="getsupplierCount" parameterType="Map" resultType="Cus_Supplier_info">
+         SELECT
+         *
+        FROM
+          cus_supplier_info
+        WHERE `name` =#{supplier_name}
+    </select>
+    <select id="select_enter_time" parameterType="Map" resultType="Product_material_enter_detail">
+        SELECT
+        *
+        FROM
+        product_material_enter_detail
+        WHERE enter_type_d_billno=#{purchase_d_id} AND sale_batch_no IS NULL
+        LIMIT 1
+    </select>
+    <select id="select_product_id" parameterType="Map" resultType="Product_material_info">
+        SELECT
+        *
+        FROM
+        product_material_info
+        WHERE cas=#{cas} AND sku=#{sku} and status=0
+        LIMIT 1
+    </select>
+</mapper>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>客户管理</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <h3>客户管理</h3>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <span class="col-sm-5 text-right form-control-static">客户名称：</span>
+                <input name="customer_name" id="customer_name" type="text" class="form-control input-sm" style="width: 50%"
+                       placeholder="" maxlength="20">
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="col-sm-4 text-right form-control-static">信用等级：</span>
+                <select id="credit_level" class="form-control input-sm">
+                    <option value="-1">全部</option>
+                    <option value="6001">优秀</option>
+                    <option value="6002">一般</option>
+                    <option value="6003">较差</option>
+                    <option value="6004">很差</option>
+                </select>
+            </div>
+            <div class="col-md-4 form-group">
+                <span><button type="button"  disabled="disabled" id="csr_query" class="btn btn-primary">查询</button></span>
+                <span class="ml10"><button type="button"  disabled="disabled" class="btn btn-success" id="csr_add">+ 新增客户</button></span>
+            </div>
+        </div>
+        <div class="gsy-adm table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th>客户名称</th>
+                    <th>信用等级</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+        </div>
+        <div id="pages" class="tabl Pagination">
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input type="hidden" id="del">
+            <div class="modal-header">
+                <h4>请确认</h4>
+            </div>
+            <div class="modal-body">
+                确认删除该信息吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a class="btn btn-danger btn-ok" id="shanchusubmit">删除</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/csrmanager.js"></script>
+</body>
+</html>

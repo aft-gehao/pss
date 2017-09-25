@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品信息</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a>当前位置：</a></li>
+        <li><a href="/infomanager/shinfo/index.html">供应商管理</a></li>
+        <li><a>供应商产品</a></li>
+    </ol>
+    <div class="row p20">
+        <div class="col-md-3 form-group">
+            <span class="col-sm-6 text-right form-control-static">CAS号：</span>
+            <input type="text" id="cas" class="form-control input-sm" style="width: 50%" placeholder="" maxlength="20">
+        </div>
+        <div class="col-md-3 form-group" style="padding-left: 0;">
+            <span class="col-sm-6 text-right form-control-static">产品名称：</span>
+            <input type="text" id="name_ch" class="form-control input-sm" style="width: 50%;padding: 1px;" placeholder="  " maxlength="20">
+        </div>
+        <div class="col-md-3">
+            <span><button type="button" id="submit" class="btn btn-primary">查询</button></span>
+            <span class="ml10"><button id="add" type="button" class="btn btn-success " data-toggle="modal" data-target="">+ 新增产品</button></span>
+        </div>
+
+        <!-- 新增产品弹出框Modal -->
+        <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="add-info clearfix">
+                    <div class="bg-primary add-info clearfix">
+                        <h4 class="left">产品信息</h4>
+               <span class="right">
+                    <button id="add_product" type="button" class="btn btn-success btn-xs" >+ 新增产品</button>
+                </span>
+                    </div>
+                    <div class="Pro-table">
+                        <table id="product_table"  class="table table-bordered table-hover">
+                            <thead >
+                            <tr>
+                                <th width="10%">产品名称</th>
+                                <th width="10%">产品类型</th>
+                                <th width="15%">采购量</th>
+                                <th width="10%">纯度</th>
+                                <th width="12%">单价</th>
+                                <th width="5%">小计</th>
+                                <th width="25%">备注</th>
+                                <th width="8%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody_product">
+                            <tr>
+                                <td colspan="9" style="text-align: right;">
+                                    <span  id="showMsg">总金额：</span>
+                                    <input readonly="readonly" id="all_total" type="text" class="form-control input-sm" maxlength="20">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="Button-two">
+                        <button id="" type="button" class="btn btn-success">提交</button>
+                        <button type="button" class="btn btn-danger" >取消</button>
+                    </div>
+                </div>
+          </div>
+        </div>
+        <!--end-->
+    </div>
+    <!--表单-->
+    <div class="gsy-adm table">
+        <table class="table table-bordered table-hover definewidth m20">
+            <thead>
+                <tr>
+                    <th>CAS号</th>
+                    <th>英文名</th>
+                    <th>纯度</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="data_tbody">
+
+            </tbody>
+        </table> 
+        <!-- 修改产品弹出框Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document" style="width: 350px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" >修改产品信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="definewidth" id="table">
+                        <form class="form-inline" >
+                            <div class="modify-p m10">
+                                <span class="form-control-static">CAS号：</span>
+                                <span id="p_cas" >100</span>
+                            </div>
+                            <div class="modify-p m10">
+                                <span class="form-control-static">英文名：</span>
+                                <span id="p_en">sssdafefsdaww</span>
+                            </div>
+                            <div class="modify-p m10">
+                                <span class="form-control-static">中文名：</span>
+                                <span  id="p_ch">产品中文名</span>
+                            </div>
+                            <div class="modify-p m10">
+                                <span class="form-control-static">包装规格：</span>
+                                <input type="text" id="p_pack" class="form-control input-sm" value="16/g" maxlength="20">
+                            </div>
+                          <!--  <div class="modify-p m10">
+                                <span class="form-control-static">价格：</span>
+                                <input type="text" id="p_price" class="form-control input-sm" value="10000元">
+                            </div>-->
+                            <div class="modify-p m10">
+                                <span class="form-control-static">纯度：</span>
+                                <input type="text" id="p_purity" class="form-control input-sm" value="99%" maxlength="20">
+                            </div>
+                        </form>
+                    </div>
+                   <!---->
+                   <div class="Button-two">
+                        <button type="button" id="product_modify" class="btn btn-success">提交</button>
+                        <button type="button" class="btn btn-danger" id="cancel">取消</button>
+                    </div>    
+                <!--end-->        
+                </div>
+            </div>
+          </div>
+        </div>
+        <!--end-->
+    </div>
+    <div id="pages" class="tabl Pagination">
+    </div>
+    <div class="Button-one m20">
+        <button type="button" class="btn btn-info" id="back-Cg">返回供应商管理</button>
+    </div>
+
+</div>
+</form>
+<!--删除弹出框-->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input type="hidden" id="product_id_d">
+            <input type="hidden" id="supplier_id_d">
+            <div class="modal-header">
+                <h4>请确认</h4>
+            </div>
+            <div class="modal-body">
+                确认删除该产品信息吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a class="btn btn-danger btn-ok" id="delete">删除</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/shinfoproduct.js"></script>
+</body>
+</html>
+<script>
+
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品库存详情</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<div class="container">
+
+    <div class="row p20">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/promanager/consumable/consumable_stock.html">耗材实时库存</a></li>
+            <li><a>产品库存详情</a></li>
+        </ol>
+        <div class="Pro-table table-responsive m20">
+            <div class="bg-primary add-info clearfix"><h3 class="text-center m10"><b>耗材库存详情</b></h3></div>
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>耗材名</th>
+                    <th>规格</th>
+                    <th>库存量</th>
+                    <th>入库时间</th>
+                    <th>存放仓位</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+
+                </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <div id="pages" class="tabl Pagination">
+        </div>
+        <!--end-->
+    </div>
+    <!---->
+    <div class="Button-one m20">
+        <button type="button" class="btn btn-info" id="back-Cg">返回耗材实时库存</button>
+    </div>
+</div>
+
+<script>
+    //点击页面跳转
+    $(function () {
+
+        $('#back-Cg').click(function () {
+
+            window.location.href = "index.html";
+        });
+    });
+</script>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/realtimeConsumableInventory.js"></script>
+</body>
+</html>

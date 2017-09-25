@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改申请</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <div class="row m10">
+            <div class="form-group m10">
+                <span class="col-sm-5 text-right">申请时间：</span>
+                <span><input id="repair_time" class="form-control input-sm" style="width: 35%;display:inline" type="text" readonly="readonly"></span>
+            </div>
+        </div>
+        <div class="row m10">
+            <div class="form-group m10">
+                <span class="col-sm-5 text-right">申请人：&nbsp;&nbsp;&nbsp;</span>
+                <span><input id="staff_name" class="form-control input-sm" style="width: 35%;display:inline" readonly="readonly" type="text" ></span>
+            </div>
+            <div class="form-group m10">
+                <span class="col-sm-5 text-right form-control-static">返修耗材：</span>
+                <input id="nameEn" type="text" style="width: 35%;display:inline" class="form-control input-sm" readonly="readonly" placeholder="">
+            </div>
+            <div class="form-group m10">
+                <span class="col-sm-5 text-right form-control-static">返修数量：</span>
+                <input id="amount" type="text" style="width: 35%;display:inline" class="form-control input-sm" readonly="readonly" placeholder="">
+                <span class="col-sm-5 text-right form-control-static" id="unit"></span>
+            </div>
+            <div class="form-group m10">
+                <span class="col-sm-5 text-right form-control-static">备注：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input id="desc" type="text" style="width: 35%;display:inline" class="form-control input-sm" readonly="readonly" placeholder="">
+            </div>
+        </div>
+    </div>
+</form>
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/consumable_repair_modify.js"></script>
+</body>
+</html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/css/docs.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/fonts/iconfont.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+</head>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="clearfix" style="margin-bottom: 80px;">
+        <div class="db-cont">
+            <div class="cont">
+                <div class="bs-callout">
+                <h4 >原料待办事项<span style="font-size: 14px;" id="pro_count"></span></h4>
+                <a   ></a>
+               </div>
+            <div class="clearfix">
+                <div class="left">
+                <div class="btn-group "><button type="button" class="btn btn-info">状态标签：</button></div>
+                <div class="btn-group"><button type="button" style="background-color: white ;color:black"class="status btn btn-info" data="11001" id="wei_cg" style="background-color: royalblue">未采购</button></div>
+                <div class="btn-group"><button type="button" style="background-color: white ;color:black" class="status btn btn-info" data="5004" id="wei_fh" style="background-color: royalblue">未发货</button></div>
+               </div>
+                <div class="right">
+                    <div class="btn-group mr10">
+                        <a  class="cg-history btn btn-primary" data-toggle="modal" data-target="#add_yuanliao">
+                            发起采购
+                        </a>
+                        </div>
+                    <div class="btn-group">
+                        <a  href="/promanager/purchasing/index.html" style="margin-left: 10px;" class="cg-history btn btn-primary"  >
+                            采购历史
+                        </a>
+                    </div>
+                </div>
+                </div>
+            <input type="hidden" id="use_id">
+            <input type="hidden" id="product_id">
+            <input type="hidden" id="consumable_id">
+            <input type="hidden" id="consumable_unit">
+            <input type="hidden" id="amount">
+
+            <div class="Pro-adm table m20">
+                <div class="add-info clearfix"  style="padding: 0;">
+                    <div class="Pro-table">
+                        <table class="table table-bordered table-hover db-table">
+                            <thead>
+                            <tr>
+                                <th width="10%">中文名</th>
+                                <th width="10%">CAS</th>
+                                <th width="10%">SKU</th>
+                                <th width="10%">采购量</th>
+                                <th width="10%">审批时间</th>
+                                <th width="10%">申请人</th>
+                                <th width="9%">纯度/备注</th>
+                                <th width="6%">状态</th>
+                                <th width="25%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="data_tbody1">
+                            </tbody>
+                        </table>
+
+                        <div style="text-align: center;cursor: pointer;color: #31708f">
+                            <a id="more1" onclick="show_more(1)" class="toggle" style="text-decoration: none;">
+                                更多
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <div class="db-cont">
+            <div class="cont">
+                <div class="bs-callout">
+                <h4>耗材待办事项<span style="font-size: 14px;" id="con_count"></span></h4>
+                    </div>
+            </div>
+            <input type="hidden" id="con_status" value="0">
+            <div class="clearfix">
+                <div class="left">
+                <div class="btn-group "><button type="button" class="btn btn-info">状态标签：</button></div>
+                <div class="btn-group"><button type="button" style="background-color: white ;color:black" class="con_status btn btn-info" data="11001" id="wei_cg_con" style="background-color: royalblue">未采购</button></div>
+                <div class="btn-group"><button type="button" style="background-color: white ;color:black" class="con_status btn btn-info" data="5004"  id="wei_fh_con" style="background-color: royalblue">未发货</button></div>
+                </div>
+                <div class="right">
+                    <div class="btn-group mr10">
+                        <a  class="cg-history btn btn-primary" data-toggle="modal" data-target="#add_caigou">
+                            发起采购
+                        </a>
+                    </div>
+                    <div class="btn-group">
+                        <a  href="/promanager/consumable/checking.html" style="margin-left: 10px;"  class="cg-history btn btn-primary">
+                            采购历史
+                        </a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <input type="hidden" id="status" value="0">
+            <div class="Pro-adm table m20">
+                <div class="add-info clearfix"  style="padding: 0;">
+                    <div class="Pro-table">
+                        <table class="table table-bordered table-hover db-table">
+                            <thead>
+                            <tr>
+                                <th width="10%">物品名称</th>
+                                <th width="15%">规格</th>
+                                <th width="15%">采购量</th>
+                                <th width="15%">审批时间</th>
+                                <th width="10%">申请人</th>
+                                <th width="12%">备注</th>
+                                <th width="8%">状态</th>
+                                <th width="15%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="data_tbody2">
+                            </tbody>
+                        </table>
+
+                        <div style="text-align: center;cursor: pointer;color: #31708f">
+                            <a id="more2" onclick="show_more_consumable(2)" class="toggle" style="text-decoration: none;">
+                                更多
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+      <!--  &lt;!&ndash; 右操作按钮 &ndash;&gt;
+        <ul class="index-float">
+            <li class="btn-success">
+                <a  href="/promanager/researchAndUse/material_inventory.html" title="原料库存">
+                    <span class="iconfont">&#xe607;</span></br>
+                    原料库存
+                </a>
+            </li>
+            <li class="btn-info">
+                <a  href="/promanager/consumable/consumable_stock.html" title="耗材库存">
+                    <span class="iconfont">&#xe60e;</span></br>
+                    耗材库存
+                </a>
+            </li>
+            <li class="btn-warning">
+                <a  href="/promanager/purchasing/add.html" title="我要采购">
+                    <span class="iconfont">&#xe666;</span></br>
+                    我要采购
+                </a>
+            </li>
+        </ul>-->
+        <!--End-->
+
+        <!--删除弹出框-->
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请确认</h4>
+                    </div>
+                    <div class="modal-body" style="height: 70px;">
+                        确认取消此采购吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <a class="btn btn-danger btn-ok" onclick="sure_cancle()">确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--删除弹出框-->
+        <div class="modal fade" id="confirm-delete1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请确认</h4>
+                    </div>
+                    <div class="modal-body" style="height: 70px;">
+                        确认取消此采购吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <a class="btn btn-danger btn-ok" onclick="con_sure_cancle()">确定</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+        <!--原料采购弹出框-->
+        <div class="modal fade" id="caigou-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请输入采购信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 50px;">
+                                <div>
+                                    <span>供&nbsp应&nbsp商&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="50" type="text" id="supplier_name" class="form-control" placeholder="请输入供应商名称" style="width: 250px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>采&nbsp购&nbsp量&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="new_amount" class="form-control" placeholder="请输入采购量" style="width: 250px;">
+                                    <select class="form-control" id="unit">
+
+                                      </select>
+                                    </div>
+                                </div>
+                               <!-- <div>
+                                    <span>采购单价：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="univalence" class="form-control" placeholder="请输入采购单价" style="width: 250px;">&nbsp;<span>元</span>
+                                    </div>
+                                </div>-->
+                                <input type="hidden" id="univalence">
+                                <div>
+                                    <span>采购总价：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="price" class="form-control" placeholder="请输入采购总价" style="width: 250px;">&nbsp;<span>元</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
+                                    <div class="form-group">
+                                        <input maxlength="30" type="text" id="pur_desc" class="form-control" placeholder="请输入采购备注" style="width: 250px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary"  data-dismiss="modal">取消</button>
+                        <a class="btn btn-success btn-ok" onclick="sure_purchase()">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+
+        <!--耗材采购弹出框-->
+        <div class="modal fade" id="caigou-delete-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请输入采购信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 50px;">
+                                <div>
+                                    <span>品&nbsp名&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="con_name" readonly="readonly" class="form-control" placeholder="" style="width: 120px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>采&nbsp购&nbsp量&nbsp：</span>
+                                    <div class="form-group">
+                                        <input type="text" id="con_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                        <select id="con_unit" class="form-control input-sm">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>采购总价：</span>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="con_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="40" id="desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="clear: both;">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <a class="btn btn-success btn-ok" onclick="con_pur_sure()">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--耗材采购弹出框-->
+            <div class="modal fade" id="add_caigou" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>请输入采购信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <div>
+                                        <span>品&nbsp名&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                                        <div class="form-group">
+                                            <input maxlength="20" type="text" id="add_con_name"  class="form-control" placeholder="" style="width: 120px;">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>采&nbsp购&nbsp量&nbsp：</span>
+                                        <div class="form-group">
+                                            <input type="text" id="add_con_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                            <select id="add_con_unit" class="form-control input-sm">
+                                                <option value="个">个</option>
+                                                <option value="双">双</option>
+                                                <option value="副">副</option>
+                                                <option value="包">包</option>
+                                                <option value="袋">袋</option>
+                                                <option value="盒">盒</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>采购总价：</span>
+                                        <div class="form-group">
+                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_con_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
+                                        <div class="form-group">
+                                            <input type="text" maxlength="40" id="add_con_desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer" style="clear: both;">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                            <a class="btn btn-success btn-ok" onclick="add_con_pur_sure()">确认</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--耗材采购弹出框-->
+        <div class="modal fade" id="add_yuanliao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请输入采购信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 50px;">
+                                <div>
+                                    <span>CAS&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="add_cas"  class="form-control" placeholder="" style="width: 120px;">
+                                    </div>
+                                    <input type="hidden" id="add_product_id" value="0">
+                                </div>
+                             <!--   <div>
+                                    <span>SKU&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="add_sku"  class="form-control" placeholder="" style="width: 120px;">
+                                    </div>
+                                </div>-->
+                                <div>
+                                    <span>中&nbsp文&nbsp名&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="add_name_ch"  class="form-control" placeholder="" style="width: 188px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>供&nbsp应&nbsp商&nbsp：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="add_suppllier_name"  class="form-control" placeholder="" style="width: 188px;">
+                                        <input type="hidden" id="supplier_id" value="0">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>采&nbsp购&nbsp量&nbsp：</span>
+                                    <div class="form-group">
+                                        <input type="text" id="add_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                        <select id="add_unit" class="form-control input-sm">
+                                            <option value="g">g</option>
+                                            <option value="kg">kg</option>
+                                            <option value="mg">mg</option>
+                                            <option value="L">L</option>
+                                            <option value="ml">ml</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>采购总价：</span>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="40" id="add_desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="clear: both;">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <a class="btn btn-success btn-ok" onclick="add_pur_sure()">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="fahuo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>请输入发货信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 50px;">
+                                <div>
+                                    <span>物&nbsp流&nbsp单&nbsp号：</span>
+                                    <div class="form-group">
+                                        <input maxlength="20" type="text" id="kd_num"class="form-control" placeholder="" style="width: 140px;">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>快&nbsp递&nbsp公&nbsp司：</span>
+                                    <div class="form-group" id="text">
+                                        <select id="kd_code" class="form-control " style="width: 140px;">
+                                        </select>
+                                    </div>
+                                   <a style="margin-left: 10px;"class="cg-history " id="not_found" onclick="not_found()">手动输入</a>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="clear: both;">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <a class="btn btn-success btn-ok" onclick="fahuo_sure()">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+    <div class="modal fade" id="con_fahuo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>请输入发货信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div style="margin-left: 50px;">
+                            <div>
+                                <span>物&nbsp流&nbsp单&nbsp号：</span>
+                                <div class="form-group">
+                                    <input maxlength="20" type="text" id="con_kd_num" class="form-control" placeholder="" style="width: 140px;">
+                                </div>
+                            </div>
+                            <div>
+                                <span>快&nbsp递&nbsp公&nbsp司：</span>
+                                <div class="form-group" id="con_text">
+                                    <select id="con_kd_code" class="form-control " style="width: 140px;">
+                                    </select>
+                                </div>
+                                <a style="margin-left: 10px;"class="cg-history " id="con_not_found"  onclick="con_not_found()">手动输入</a>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="clear: both;">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                    <a class="btn btn-success btn-ok" onclick="con_fahuo_sure()">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end-->
+    </div>
+        <script>
+            //点击页面跳转
+            $(function () {
+
+                $('#addnew').click(function(){
+
+                    window.location.href="add.html";
+                });
+                $('.modify').click(function(){
+
+                    window.location.href="modify.html";
+                });
+                $('.details').click(function(){
+
+                    window.location.href="detail.html";
+                });
+
+            });
+            /*删除弹出框*/
+            function del(id) {
+
+                if(confirm("确定要删除吗？"))
+                {
+
+                    var url = "index.html";
+
+                    window.location.href=url;
+
+                }
+
+            }
+        </script>
+</form>
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/work_purchase.js"></script>
+</body>
+</html>

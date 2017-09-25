@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.whsemanager.dao.DicWareHouseDao">
+    <select id="wareHousePageList" parameterType="Map" resultType="Dict_warehouse_space">
+        select * from dict_warehouse_space t
+        where t.status = 0 and t.f_space_id=0
+        <if test="params.space_name!=null and params.space_name!=''">
+           and t.space_name like'%${params.space_name}%'
+        </if>
+    </select>
+    <select id="wareHousePageCount" parameterType="Map" resultType="Integer">
+        select count(1) from dict_warehouse_space t
+        where t.status = 0 and t.f_space_id=0
+        <if test="params.space_name!=null and params.space_name!=''">
+            and t.space_name like'%${params.space_name}%'
+        </if>
+    </select>
+
+    <select id="getWarehouseInfo" parameterType="Map" resultType="Dict_warehouse_space">
+        select * from dict_warehouse_space t where t.status = 0 and t.space_id =#{space_id}
+    </select>
+
+    <insert id="addWhsemanagerInfo" parameterType="Dict_warehouse_space">
+        insert into dict_warehouse_space
+        (
+          f_space_id,
+          space_name,
+          `desc`,
+          `status`
+        )
+        VALUES
+        (
+          #{f_space_id},
+          #{space_name},
+          #{desc},
+          #{status}
+        )
+    </insert>
+
+    <update id="updWhsemanager" parameterType="Map">
+        update dict_warehouse_space
+        <trim prefix="set" suffixOverrides=",">
+            <if test="f_space_id!=null">
+                f_space_id= #{f_space_id},
+            </if>
+            <if test="desc!=null">
+                space_name= #{space_name},
+            </if>
+            <if test="desc!=null">
+                `desc`= #{desc},
+            </if>
+            <if test="status!=null">
+                `status`= #{status},
+            </if>
+        </trim>
+        where
+        <if test="space_id!=null and space_id!=''">
+            space_id =#{space_id}
+        </if>
+        <if test="ids!=null and ids!=''">
+            space_id in(${ids})
+        </if>
+    </update>
+
+    <select id="getChildWarehouseList" parameterType="Map" resultType="Dict_warehouse_space">
+        SELECT
+            *
+        FROM
+            dict_warehouse_space t
+        WHERE
+            t.`status` = 0
+            <if test="f_space_id!=nll and f_space_id!=''">
+        AND FIND_IN_SET(
+            space_id,
+            query_child_warehouse (
+                #{f_space_id}))
+            </if>
+    </select>
+
+    <select id="getWarehouseIds" parameterType="Map" resultType="String">
+        SELECT
+            GROUP_CONCAT(t.space_id) as ids
+        FROM
+            dict_warehouse_space t
+        WHERE
+            t.`status` = 0
+        AND FIND_IN_SET(
+            space_id,
+            query_child_warehouse (
+                #{space_id}))
+    </select>
+</mapper>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.commons.dao.CommonsDao">
+    <select id="getAutoCompleteList" parameterType="java.util.Map" resultType="AutoCompleteItem">
+        <if test="type=='purchasing' and query!=null and query!=''">
+            SELECT
+            t.name as value,
+            t.cs_sup_id as data
+            FROM
+            cus_supplier_info t
+            WHERE
+            t.status= 0 and
+            t.supplier_id!=0
+            AND (
+            t.short_name LIKE '%${query}%'
+            OR t.name LIKE '%${query}%'
+            )
+        </if>
+        <if test="type=='xunjia' and query!=null and query!=''">
+            SELECT
+            t.name as value,
+            t.cs_sup_id as data
+            FROM
+            cus_supplier_info t
+            WHERE
+            t.status= 0 and
+            t.customer_id=1
+            AND (
+            t.short_name LIKE '%${query}%'
+            OR t.name LIKE '%${query}%'
+            )
+        </if>
+        <if test="type=='vendition' and query!=null and query!=''">
+            SELECT
+            t.name as value,
+            t.cs_sup_id as data
+            FROM
+            cus_supplier_info t
+            WHERE
+            t.status= 0 and
+            t.customer_id!=0
+            AND (
+            t.short_name LIKE '%${query}%'
+            OR t.name LIKE '%${query}%'
+            )
+        </if>
+        <if test="type=='product' and query!=null and query!=''">
+            SELECT
+            t.name_en as value,
+            t.product_id as data
+            FROM
+            product_material_info t
+            WHERE
+            t.status= 0
+            AND (
+            t.name_ch LIKE '%${query}%'
+            OR t.name_en LIKE '%${query}%'
+            )
+            limit 20
+        </if>
+        <if test="type=='staff' and query!=null and query!=''">
+            SELECT
+            t.staff_name AS VALUE,
+            t.mobilephone AS DATA
+            FROM
+            staff_info t
+            WHERE t.status = 0
+            AND t.staff_name LIKE '%${query}%'
+         </if>
+        <if test="type=='staff_id' and query!=null and query!=''">
+            SELECT
+            t.staff_name AS VALUE,
+            t.staff_id AS DATA
+            FROM
+            staff_info t
+            WHERE t.status = 0
+            AND t.staff_name LIKE '%${query}%'
+        </if>
+        <if test="type=='statistics' and query!=null and query!=''">
+            SELECT
+            t.cas AS value,
+            t.product_id AS data
+            FROM product_material_info t
+            WHERE t.cas LIKE '%${query}%'
+        </if>
+        <if test="type=='product_cas' and query!=null and query!=''">
+            SELECT
+            t.cas as value,
+            t.product_id as data
+            FROM
+            product_material_info t
+            WHERE
+            t.status= 0
+            AND (
+            t.cas LIKE '%${query}%'
+            )
+            limit 20
+        </if>
+        <if test="type=='product_sku' and query!=null and query!=''">
+            SELECT
+            t.sku as value,
+            t.product_id as data
+            FROM
+            product_material_info t
+            WHERE
+            t.status= 0
+            AND (
+            t.sku LIKE '%${query}%'
+            )
+            limit 20
+        </if>
+    </select>
+
+    <select id="getDict" parameterType="Map" resultType="Pss_dict">
+        SELECT
+            t.dict_id,
+            t.dict_name,
+            t.p_dict_id,
+            t.dict_status
+        FROM
+            pss_dict t
+        WHERE
+            t.dict_status = 0
+        AND FIND_IN_SET(
+            dict_id,
+            query_pss_dic (
+                #{p_dict_id}))
+                AND t.dict_id != #{p_dict_id}
+    </select>
+
+    <select id="getLinkmanList" parameterType="Map" resultType="Linkman">
+        SELECT
+        *
+        FROM
+        linkman t
+        where  t.`status` = 0
+        <if test="type!=null and type!='' and type==1">
+            and t.supplier_id =#{id}
+        </if>
+        <if test="type!=null and type!='' and type==2">
+            and t.customer_id =#{id}
+        </if>
+    </select>
+<insert id="savePutu" parameterType="Map">
+  INSERT INTO
+  pss_research_doc(research_id,putu_url,putu_name,putu_time,putu_staff,product_id)
+  VALUES
+  (#{research_id},#{putu_url},#{putu_name},#{putu_time},#{putu_staff},#{product_id})
+</insert>
+</mapper>

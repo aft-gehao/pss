@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.statistics.dao.InAndOutInventoryDao">
+    <select id="getinAndOutInventory_List" parameterType="Map" resultType="PurchasingSale">
+        SELECT * FROM (
+        SELECT
+        cas,sku,
+        name_en,
+        name_ch,
+        oper_time AS hourTime,
+        amount,
+        unit,
+        enter_type AS mold
+        FROM product_material_enter pe
+        INNER JOIN  product_material_enter_detail pd ON (pe.enter_id=pd.enter_id)
+        INNER JOIN product_material_info pmi ON (pd.product_id=pmi.product_id)
+        INNER JOIN  pss_dict p ON (pe.enter_type=p.dict_id)
+        UNION ALL
+        SELECT
+        cas,sku,
+        name_en,
+        name_ch,
+        oper_time AS hourTime,
+        amount,
+        unit,
+        out_type AS mold
+        FROM product_material_out po
+        INNER JOIN product_material_out_detail pd ON (po.out_id=pd.out_id)
+        INNER JOIN product_material_info pmi ON(pd.product_id=pmi.product_id)
+        INNER JOIN pss_dict p ON (po.out_type=p.dict_id)
+        )a
+        WHERE 1=1
+        <if test="cas!=null and cas!=''">
+            and a.cas like '%${params.cas}%'
+        </if>
+
+    </select>
+</mapper>

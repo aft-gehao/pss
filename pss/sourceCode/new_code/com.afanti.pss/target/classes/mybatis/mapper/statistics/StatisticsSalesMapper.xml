@@ -1,0 +1,942 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.statistics.dao.StatisticsSalesDao">
+
+    <select id="sales_ChartPageList" parameterType="Map" resultType="PurchasingSale">
+        SELECT * FROM (
+        SELECT  IFNULL(cas,'${params.cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%e'),0) dayTime,
+        SUM(unit_price) unit_price
+        ,SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ) AS amount
+        FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='${params.month}'
+        AND cas='${params.cas}'
+        GROUP BY dayTime
+        <if test="params.number!=null and params.number!='' and params.number==1">
+            ORDER BY amount
+        </if>
+        <if test="params.number!=null and params.number!='' and params.number==2">
+            ORDER BY amount desc
+        </if>
+        <if test="params.number!=null and params.number!='' and params.number==3">
+            ORDER BY unit_price
+        </if>
+        <if test="params.number!=null and params.number!='' and params.number==4">
+            ORDER BY unit_price desc
+        </if>
+        ) a
+    </select>
+    <select id="sales_ChartPageCount" parameterType="Map" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM (
+        SELECT  IFNULL(cas,'${params.cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%e'),0) dayTime,
+        SUM(unit_price) unit_price
+        ,SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ) AS amount
+        FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='${params.month}'
+        AND cas='${params.cas}'
+        GROUP BY dayTime
+        <if test="params.number!=null and params.number!='' and params.number==1">
+            ORDER BY amount
+        </if>
+        <if test="params.number!=null and params.number!='' and params.number==2">
+            ORDER BY amount desc
+        </if>
+        <if test="params.number!=null and params.number!='' and params.number==3">
+            ORDER BY unit_price
+        </if>
+        <if test="params.number!=null and params.number!='' and params.number==4">
+            ORDER BY unit_price desc
+        </if>
+        ) a
+    </select>
+
+    <select id="selEnterDetailYear" resultType="java.lang.Integer">
+        SELECT DATE_FORMAT((MIN(sale_time)),'%Y') AS hourTime FROM product_sale
+    </select>
+
+    <select id="sale_ChartAllCASPageList" resultType="PurchasingSale" parameterType="Map">
+        SELECT cas FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE 1=1
+        <if test="params.cas!=null and params.cas!=''">
+            and    cas like '%${params.cas}%'
+        </if>
+        <if test="params.year!=null and params.year!=''and params.year!=0">
+            AND DATE_FORMAT(sale_time,'%Y')  = '${params.year}'
+        </if>
+    </select>
+    <select id="sale_ChartAllCASPageCount" resultType="java.lang.Integer" parameterType="Map">
+        SELECT COUNT(cas) FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE 1=1
+        <if test="params.cas!=null and params.cas!=''">
+            and    cas like '%${params.cas}%'
+        </if>
+        <if test="params.year!=null and params.year!=''and params.year!=0">
+            AND DATE_FORMAT(sale_time,'%Y')  = '${params.year}'
+        </if>
+    </select>
+    <select id="sumShowPageList" parameterType="Map" resultType="PurchasingSale">
+       SELECT * FROM (
+        SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='01'
+        AND cas='${cas}'
+	UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='02'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='03'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='04'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='05'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='06'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='07'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='08'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='09'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='10'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='11'
+        AND cas='${cas}'
+       UNION ALL
+	 SELECT  IFNULL(cas,'${cas}') cas,
+        IFNULL(DATE_FORMAT(ps.sale_time, '%m'),0) hourTime,
+        IFNULL(SUM(unit_price),0) unit_price,
+        IFNULL(unit,0) unit
+        ,IFNULL(SUM(
+        CASE
+        unit
+        WHEN 'kg'
+        THEN (amount) * 1000
+        WHEN 'g'
+        THEN amount
+        WHEN 'ml'
+        THEN amount
+        WHEN 'mg'
+        THEN (amount) / 1000
+        WHEN 'l'
+        THEN (amount) * 1000
+        END ),0)AS amount
+       FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='12'
+        AND cas='${cas}'
+    )a
+    </select>
+    <select id="sale_Chart_MonthShowAll"  resultType="PurchasingSale" parameterType="Map">
+
+SELECT  cas,
+        CONCAT_WS('#',SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '1' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+	ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '2' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+
+        ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '3' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '4' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '5' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+	ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '6' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '7' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '8' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '9' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '10' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '11' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '12' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '13' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '14' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '15' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '16' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '17' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '18' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '19' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '20' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '21' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+	SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '22' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '23' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '24' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '25' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '26' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '27' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '28' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '29' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '30' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END)),
+        SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '31' THEN
+								(CASE unit WHEN 'kg'
+								THEN (amount) * 1000
+								WHEN 'g'
+								THEN amount
+								WHEN 'ml'
+								THEN amount
+								WHEN 'mg'
+								THEN (amount) / 1000
+								WHEN 'l'
+								THEN (amount) * 1000
+								END
+								)
+         ELSE 0 END))) AS test,
+         CONCAT_WS('#',
+         SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '1' THEN
+								unit_price
+         ELSE 0 END)),
+         SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '2' THEN
+								unit_price
+         ELSE 0 END)),
+         SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '3' THEN
+								unit_price
+         ELSE 0 END)),
+         SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '4' THEN
+								unit_price
+         ELSE 0 END)),
+         SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '5' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '6' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '7' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '8' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '9' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '10' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '11' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '12' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '13' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '14' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '15' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '16' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '17' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '18' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '19' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '20' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '21' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '22' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '23' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '24' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '25' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '26' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '27' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '28' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '29' THEN
+								unit_price
+	 ELSE 0 END)),
+	 SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '30' THEN
+								unit_price
+	 ELSE 0 END)),
+         SUM((CASE DATE_FORMAT(ps.sale_time, '%e') WHEN '31' THEN
+								unit_price
+          ELSE 0 END))) test2
+         FROM product_sale_detail psd
+        INNER JOIN product_material_info pmi ON (psd.product_id =pmi.product_id)
+        INNER JOIN product_sale ps ON (psd.sale_id = ps.sale_id)
+        WHERE DATE_FORMAT(ps.sale_time, '%m')='${month}'
+        AND cas='${cas}'
+    </select>
+</mapper>

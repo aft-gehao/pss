@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.login.dao.LoginDao">
+    <select id="loadMenu" parameterType="Map" resultType="Pass_Menu">
+        SELECT DISTINCT
+        t4.menu_id,
+        t4.menu_name,
+        t4.menu_parent,
+        t4.menu_url,
+        t4.menu_status,
+        t4.menu_order
+        FROM
+        Pss_role_user t1
+        LEFT JOIN Pss_role t2 ON (
+        t1.Role_user_roleid = t2.Role_id
+        )
+        LEFT JOIN Pss_role_menu t3 ON (
+        t2.role_id = t3.Role_menu_roleid
+        )
+        LEFT JOIN Pss_menu t4 ON (
+        t3.Role_menu_menuid = t4.menu_id
+        )
+        WHERE
+        t4.menu_status = 0
+        and t1.role_user_status=0
+        and t2.role_status=0
+        and t3.role_menu_status=0
+        and t4.menu_status=0
+        and t1.Role_user_staffinfoid = #{user_id}
+        and FIND_IN_SET(menu_id,query_child_menu(#{parent_id}))
+        GROUP BY
+        t4.menu_id,
+        t4.menu_name,
+        t4.menu_parent,
+        t4.menu_url,
+        t4.menu_status,
+        t4.menu_order
+        ORDER BY t4.`menu_order`
+    </select>
+
+    <select id="getUserRoleInfoList" parameterType="Map" resultType="UserRoleInfo">
+        SELECT
+        t.role_user_staffinfoid,
+        t2.role_id,
+        t2.role_status,
+        t2.role_name
+        FROM
+        pss_role_user t
+        JOIN pss_role t2 ON (
+        t.role_user_roleid = t2.role_id
+        )
+        WHERE
+        t.role_user_status = 0
+        AND t2.role_status = 0
+        <if test="user_id!=null and user_id!=''">
+            AND t.role_user_staffinfoid = #{user_id}
+        </if>
+    </select>
+
+    <select id="getPermissions" parameterType="Integer" resultType="String">
+        SELECT
+        t3.menu_url
+        FROM
+        pss_role_user t1
+        LEFT JOIN pss_role_menu t2 ON (
+        t1.role_user_roleid = t2.role_menu_roleid
+        )
+        LEFT JOIN pss_menu t3 ON (
+        t2.role_menu_menuid = t3.menu_id
+        )
+        WHERE
+        t1.role_user_staffinfoid = #{staff_id}
+        AND t2.role_menu_status = 0
+        AND t3.menu_status = 0
+        AND t3.menu_type = 1
+    </select>
+</mapper>

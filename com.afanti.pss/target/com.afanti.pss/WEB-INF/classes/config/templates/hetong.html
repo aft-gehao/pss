@@ -1,0 +1,271 @@
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="renderer" content="webkit"/>
+	<title>入库单</title>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<style type="text/css">
+		body {
+			margin-left: 45px;
+			margin-right: 45px;
+			font-family: 'simsun',Arial Unicode MS;
+			font-size: 14px;
+		}
+		input[type=text],
+		ul,
+		li
+		{
+			list-style: none;
+		}
+		p
+		{
+			word-wrap: break-word;
+		}
+		html,
+		body,
+		fieldset,
+		img,
+		iframe,
+		abbr
+		{
+			border: 0;
+		}
+		*
+		{
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		input[type=text]{
+			font-size: 13px;
+			font-family: Times New Roman;
+			outline: none;
+			width: 100%;
+		}
+		table {
+			border-collapse:collapse;
+			border-spacing:0;
+		}
+		tbody
+		{
+			display: table-row-group;
+
+			vertical-align: middle;
+
+			border-color: inherit;
+		}
+		tr
+		{
+			display: table-row;
+
+			vertical-align: inherit;
+
+			border-color: inherit;
+		}
+		td,
+		th
+		{
+			display: table-cell;
+
+			vertical-align: inherit;
+		}
+		p
+		{
+			word-wrap: break-word;
+		}
+		fieldset,img {
+			border:0;
+		}
+		address,caption,cite,code,dfn,em,strong,th,var {
+			font-style:normal;
+			font-weight:normal;
+		}
+		ol,ul {
+			list-style:none;
+		}
+		caption,th {
+			text-align:left;
+		}
+
+		q:before,q:after {
+			content:'';
+		}
+		abbr,acronym { border:0;
+		}
+		*,
+		:after,
+		:before
+		{
+			box-sizing: border-box;
+		}
+
+		.left{
+			float: left;
+		}
+		.right{
+			float: right!important;
+		}
+		.clear
+		{
+			clear: both;
+		}
+		.normal {font-weight:normal!important;}
+		.head {text-align: center;margin-top: 50px;overflow: hidden;}
+		.head >h1 {margin-left: 50px;line-height: 10px;letter-spacing:60px;font-size: 30px;}
+		.head .line {width: 300px;height: 1px; background-color: #333;margin: 0 auto;}
+		.insurance_info .title {clear: both;overflow: hidden;width: 100%;}
+		.insurance_info .title .dwei,.insurance_info .title .date{width: 50%;float: left;}
+		.insurance_info .title .dwei .font {font-weight: bold;}
+		.insurance_info .title .dwei .input {border-bottom: 1px solid #333;margin-left: 20px;}
+		.insurance_info .title .dwei .input >input {border:none;text-indent:1rem;}
+		.insurance_info .title .date {width: 30%;}
+		.insurance_info .title .date span {float: left;}
+		.insurance_info .title .date span.time {font-weight: bold;}
+		.insurance_info .title .date .input >input  {border:none;text-align: center;width: 100%;}
+		.insurance_info .title .date .input{width: 20%; margin-left: 10px;}
+		.insurance_info .info_text {
+			margin-bottom: 10px;
+		}
+		.Material table {
+			width: 100%;
+			margin-top: 10px;
+			color: #333;
+			text-align: left;
+			font-size: 15px;
+		}
+		.Material table>thead,.Material table >tbody {border: 2px solid #000;}
+		.Material table >tbody>td>font {font-size: 10px;vertical-align: super;}
+		.Material table tr {margin-top: 20px;}
+		.Material table thead tr.c th {text-align: center;}
+		.Material table th {
+			text-align: center;
+			padding: 15px 10px;
+		}
+		.Material table td{text-align: center;}
+		.Material table td>input {text-align: center;border:none;padding: 10px 0;}
+		.info_text .foot,.info_text .foot ul {overflow: hidden; padding: 0;}
+		.info_text .foot ul li {float: left;width: 18%;}
+		.info_text .foot ul li .t-left,.info_text .foot ul li .t-right {float: left;}
+		.info_text .foot ul li .t-left {font-weight: bold;}
+		.info_text .foot ul li .t-right {width: 80%;}
+		.info_text .foot ul li .t-right>input {border:none;text-indent: 1rem;}
+	</style>
+</head>
+<body>
+<!--page1-->
+<div class="page">
+	<div class="head">
+		<h1>入库单</h1>
+		<div class="line"></div>
+		<div class="line" style="margin-top: 2px;"></div>
+	</div>
+	<!---->
+	<div class="insurance_info clear">
+		<div class="title">
+			<div class="dwei">
+				<span class="left font">单位:</span>
+				<span class="left input">
+					<input type="text" value="INV201703-007"/>
+				</span>
+			</div>
+			<div class="date right">
+				<span class="input"><input type="text" value="2016"/></span>
+				<span class="time">年</span>
+				<span class="input"><input type="text" value="03"/></span>
+				<span class="time">月</span>
+				<span class="input"><input type="text" value="07"/></span>
+				<span class="time">日</span>
+			</div>
+		</div>
+		<div class="info_text Material Test">
+			<table border="1" cellpadding="0" cellspacing="0">
+				<thead>
+				<tr class="c">
+					<th width="5%">编号</th>
+					<th width="30%">成品名称</th>
+					<th width="5%">规格</th>
+					<th width="5%">单位</th>
+					<th width="5%">数量</th>
+					<th width="2%">单价</th>
+					<th width="15%">金额</th>
+					<th width="2%">过账</th>
+					<th width="10%">附注</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td>${batch_no}</td>
+					<td>${product_name_en}</td>
+					<td>${p_pack}</td>
+					<td>${p_unit}</td>
+					<td>${amount}</td>
+					<td><input type="text" value=""/>	</td>
+					<td><input type="text" value=""/>	</td>
+					<td><input type="text" value=""/>	</td>
+					<td><input type="text" value=""/>	</td>
+				</tr>
+				<tr>
+					<td colspan="6">合<span style="margin-left: 50%;">计</span></td>
+					<td><input type="text" value=""/>	</td>
+					<td><input type="text" value=""/>	</td>
+					<td><input type="text" value=""/>	</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+		<!---->
+		<div class="info_text clear">
+			<div class="foot">
+				<ul>
+					<li>
+						<div class="t-left">
+							记账
+						</div>
+						<div class="t-right">
+							<input type="text" value=""/>
+						</div>
+					</li>
+					<li>
+						<div class="t-left">
+							保管
+						</div>
+						<div class="t-right">
+							<input type="text" value="李玲"/>
+						</div>
+					</li>
+					<li>
+						<div class="t-left">
+							验收
+						</div>
+						<div class="t-right">
+							<input type="text" value=""/>
+						</div>
+					</li>
+					<li>
+						<div class="t-left">
+							经手人
+						</div>
+						<div class="t-right">
+							<input type="text" value=""/>
+						</div>
+					</li>
+					<li>
+						<div class="t-left">
+							制单
+						</div>
+						<div class="t-right">
+							<input type="text" value=""/>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!---->
+	</div>
+</div>
+<!--End-->
+</body>
+</html>

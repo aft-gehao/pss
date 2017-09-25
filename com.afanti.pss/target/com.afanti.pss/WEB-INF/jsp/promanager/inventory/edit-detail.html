@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品出库详情</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a>当前位置：</a></li>
+        <li><a >产品出库</a></li>
+        <li><a>产品出库详情</a></li>
+    </ol>
+    <div class="gsy-adm table">
+        <!--表单-->
+        <table class="table table-bordered table-hover definewidth m20">
+            <thead class="edit-detail-table">
+                <tr>
+                    <th>销售单名</th>
+                    <th>销售人员</th>
+                    <th>销售时间</th>
+                    <th>批次号</th>
+                    <th>客户</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>A88980</td>
+                    <td>张医药</td>
+                    <td>2017/3/29 15:25:16</td>
+                    <td>A010011</td>
+                    <td>南京阿凡提医药信息技术有限公司</td>
+                    <td>
+                        <a href="javascript:;" class="details">详情</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+        <table class="table table-bordered table-hover definewidth">
+            <thead>
+                <tr>
+                    <th>产品中文名</th>
+                    <th>产品英文名</th>
+                    <th>销售量</th>
+                    <th>已出库</th>
+                    <th width="20%">本次出库</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="text-danger mr10">★</span>阿奇霉素</td>
+                    <td>aqimeisu</td>
+                    <td>10g</td>
+                    <td>5g</td>
+                    <td>
+                        <span> <input type="text" class="form-control input-sm" value="10" style="width: 40%;"> </span>
+                        <select class="form-control input-sm">
+                           <option>mg</option>
+                           <option>g</option>
+                           <option>ml</option>
+                           <option>l</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:;"  data-toggle="modal" data-target="#myModal">出库</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-danger mr10">★</span>氢氧化钠霉素</td>
+                    <td>aqimeisu</td>
+                    <td>10g</td>
+                    <td>5g</td>
+                    <td>
+                        <span> <input type="text" class="form-control input-sm" value="10" style="width: 40%;"> </span>
+                        <select class="form-control input-sm">
+                           <option>mg</option>
+                           <option>g</option>
+                           <option>ml</option>
+                           <option>l</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:;"  data-toggle="modal" data-target="#myModal">出库</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-danger mr10">★</span>霉素</td>
+                    <td>aqimeisu</td>
+                    <td>10g</td>
+                    <td>5g</td>
+                    <td>
+                        <span> <input type="text" class="form-control input-sm" value="10" style="width: 40%;"> </span>
+                        <select class="form-control input-sm">
+                           <option>mg</option>
+                           <option>g</option>
+                           <option>ml</option>
+                           <option>l</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:;"  data-toggle="modal" data-target="#myModal">出库</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-danger mr10">★</span>氢氧素</td>
+                    <td>aqimeisu</td>
+                    <td>10g</td>
+                    <td>5g</td>
+                    <td>
+                        <span> <input type="text" class="form-control input-sm" value="10" style="width: 40%;"> </span>
+                        <select class="form-control input-sm">
+                           <option>mg</option>
+                           <option>g</option>
+                           <option>ml</option>
+                           <option>l</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:;"  data-toggle="modal" data-target="#myModal">出库</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="text-danger mr10">★</span>二碳氧钙镁锌</td>
+                    <td>aqimeisu</td>
+                    <td>10g</td>
+                    <td>5g</td>
+                    <td>
+                        <span> <input type="text" class="form-control input-sm" value="10" style="width: 40%;"> </span>
+                        <select class="form-control input-sm">
+                           <option>mg</option>
+                           <option>g</option>
+                           <option>ml</option>
+                           <option>l</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="javascript:;"  data-toggle="modal" data-target="#myModal">出库</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+    <!--end-->
+</div>
+</form>
+<!-- 产品出库弹出框Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" style="width: 350px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">产品出库</h4>
+            </div>
+            <div class="modal-body">
+                <div class="definewidth">
+                    <form class="form-inline">
+                        <div class="form-group ml10">
+                            <span class="form-control-static">请输入出库单名：</span>
+                            <input type="email" class="form-control input-sm" placeholder="">
+                        </div>
+                        <!---->
+                        <div class="Button-two p20">
+                            <button type="button" class="btn btn-success">确定</button>
+                            <button type="button" class="btn btn-danger" id="back-Cg">取消</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+</body>
+</html>
+<script>
+//点击页面跳转
+ $(function () {
+    
+    $('#back-Cg').click(function(){
+
+            window.location.href="edit-detail.html";
+     });
+});
+</script>

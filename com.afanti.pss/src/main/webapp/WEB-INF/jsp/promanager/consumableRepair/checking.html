@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>采购单查询</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+<div class="container">
+    <h3>待采购耗材</h3>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <span class="col-sm-5 text-right form-control-static">耗材名：</span>
+            <input id="consumable_name" type="text" class="form-control input-sm" style="width: 50%" placeholder="">
+        </div>
+        <div class="col-md-4 form-group">
+            <span class="col-sm-5 text-right form-control-static">状态：</span>
+            <select id="status" class="form-control input-sm"><option value="11001">未采购</option><option value="2">已采购</option></select>
+        </div>
+        <span><button id="pur_query" disabled="disabled" type="button" class="btn btn-primary">查询</button></span>
+    </div>
+    <div class="Pro-table table">
+        <table class="table table-bordered table-hover definewidth m20">
+            <thead>
+                <tr>
+                    <th>采购数量</th>
+                    <th>耗材名</th>
+                    <th>规格</th>
+                    <th>采购状态</th>
+                    <th>请购人</th>
+                    <th>审核人</th>
+                    <th id="action">操作</th>
+                </tr>
+            </thead>
+            <tbody id="data_tbody">
+            </tbody>
+        </table>     
+    </div>
+    <div  id="pages" class="tabl Pagination">
+    </div>
+</div>
+</form>
+<script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/consumable_purchasing.js"></script>
+</body>
+</html>

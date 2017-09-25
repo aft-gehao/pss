@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.purchasing.dao.MaterialPurchaseReturnDao">
+
+    <select id="getMaterialPurchaseReturnPageList" parameterType="Map" resultType="Material_purchase">
+        -- SELECT
+        -- t.purchase_id,
+        -- t.purchase_name,
+        -- t.purchase_time,
+        -- t.all_total,
+        -- t2.staff_name,
+        -- t.stock_status,
+        -- t3.`name` as supplier_name
+        -- FROM
+        -- material_purchase t
+        -- left join staff_info t2 on (t.staff_id = t2.staff_id)
+        -- left join cus_supplier_info t3 on(t.supplier_id = t3.cs_sup_id)
+        -- WHERE t.purchase_isdel =0 and t.stock_status in(5001,5003)
+
+        -- SELECT
+        -- t.purchase_id,
+        -- t.purchase_name,
+        -- t.purchase_time,
+        -- t.all_total,
+        -- t2.staff_name,
+        -- t.stock_status,
+        -- t3.`name` AS supplier_name,
+        -- pd.mdp_count,
+        -- (
+        -- SELECT
+        -- count(1) AS asd
+        -- FROM
+        -- material_purchase_detail t1
+        -- LEFT JOIN (
+        -- SELECT
+        -- e.enter_type_billno,
+        -- d.product_id,
+        -- d.amount
+        -- FROM
+        -- product_material_enter e
+        -- LEFT JOIN product_material_enter_detail d ON (e.enter_id = d.enter_id)
+        -- ) t4 ON (
+        -- t1.purchase_id = t4.enter_type_billno
+        -- AND t1.product_id = t4.product_id
+        -- )
+        -- LEFT JOIN product_material_info t2 ON (
+        -- t1.product_id = t2.product_id
+        -- )
+        -- WHERE
+        -- t1.purchase_detail_isdel = 0
+        -- AND t1.purchase_id = t.purchase_id
+        -- and t4.amount!=0
+        -- ) AS mdp_sum_count
+        -- FROM
+        -- material_purchase t
+        -- LEFT JOIN staff_info t2 ON (t.staff_id = t2.staff_id)
+        -- LEFT JOIN cus_supplier_info t3 ON (t.supplier_id = t3.cs_sup_id)
+        -- LEFT JOIN (
+        -- SELECT
+        -- mp.Purchase_id,
+        -- count(mpd.purchase_d_id) AS mdp_count
+        -- FROM
+        -- material_purchase_return mp
+        -- LEFT JOIN material_purchase_return_detail mpd ON (
+        -- mp.r_purchase_id = mpd.r_purchase_id
+        -- )
+        -- GROUP BY
+        -- mp.Purchase_id
+        -- ) pd ON (
+        -- t.purchase_id = pd.Purchase_id
+        -- )
+        -- WHERE.
+
+        SELECT
+        t6.amount,
+        t5.cas,
+        t5.sku,
+        t5.name_ch,
+        t.purchase_id,
+        t.purchase_name,
+        t.purchase_time,
+        t.all_total,
+        t3.staff_name ,
+        t4.`name`as supplier_name,
+        t2.stock_status
+        FROM
+        material_purchase t
+        LEFT JOIN material_purchase_return t2 ON (
+        t.purchase_id = t2.purchase_id
+        )
+        LEFT JOIN staff_info t3 on(t.staff_id = t3.staff_id)
+        LEFT JOIN cus_supplier_info t4 on(t4.cs_sup_id = t.supplier_id)
+        LEFT JOIN  material_purchase_return_detail t6
+        ON t6.`r_purchase_id`=t2.`r_purchase_id`
+        LEFT JOIN  product_material_info t5
+        ON t5.`product_id`=t6.`product_id`
+        WHERE t.purchase_isdel =0
+        <if test="params.cas!=null and params.cas!=''">
+            AND t.purchase_name like '%${params.cas}%'
+            or t3.staff_name LIKE '%${params.cas}%'
+            or t4.name LIKE '%${params.cas}%'
+            or t5.cas LIKE '%${params.cas}%'
+            or t5.name_ch LIKE '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and  t2.stock_status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        order by t.purchase_id desc
+    </select>
+
+    <select id="getMaterialPurchaseReturnPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        material_purchase t
+        LEFT JOIN material_purchase_return t2 ON (
+        t.purchase_id = t2.purchase_id
+        )
+        LEFT JOIN staff_info t3 on(t.staff_id = t3.staff_id)
+        LEFT JOIN cus_supplier_info t4 on(t4.cs_sup_id = t.supplier_id)
+        LEFT JOIN  material_purchase_return_detail t6
+        ON t6.`r_purchase_id`=t2.`r_purchase_id`
+        LEFT JOIN  product_material_info t5
+        ON t5.`product_id`=t6.`product_id`
+        where t.purchase_isdel =0
+        <if test="params.cas!=null and params.cas!=''">
+            AND t.purchase_name like '%${params.cas}%'
+            or t3.staff_name LIKE '%${params.cas}%'
+            or t4.name LIKE '%${params.cas}%'
+            or t5.cas LIKE '%${params.cas}%'
+            or t5.name_ch LIKE '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and  t2.stock_status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+    </select>
+
+    <select id="getPurchaseInventoryReturnList" parameterType="Map" resultType="Material_purchase_detail">
+        SELECT
+            t1.purchase_d_id,
+            t1.product_id,
+            t4.amount AS amount_used,
+            t4.enter_d_ids,
+            t4.batch_no,
+            t1.amount,
+            RD.amount AS out_amount,
+            RD.r_purchase_d_id,
+            RD.reason,
+            t1.unit,
+            t1.purity,
+            t2.name_en AS product_name,
+            t2.product_type,
+            t3.dict_name AS product_type_name,
+            (
+                SELECT
+                    GROUP_CONCAT(d.space_name, '-')
+                FROM
+                    dict_warehouse_space d
+                WHERE
+                    FIND_IN_SET(
+                        d.space_id,
+                        query_parent_warehouse (t4.space_id)
+                    )
+            ) AS space_name
+        FROM
+            material_purchase_detail t1
+        LEFT JOIN (
+            SELECT
+                e.enter_type_billno,
+                d.amount,
+                d.product_id,
+                d.enter_d_id AS enter_d_ids,
+                d.space_id,
+                d.batch_no
+            FROM
+                product_material_enter e
+            LEFT JOIN product_material_enter_detail d ON (e.enter_id = d.enter_id)
+        ) t4 ON (
+            t1.purchase_id = t4.enter_type_billno
+            AND t1.product_id = t4.product_id
+        )
+        LEFT JOIN dict_warehouse_space dic ON (dic.space_id = t4.space_id)
+        LEFT JOIN product_material_info t2 ON (
+            t1.product_id = t2.product_id
+        )
+        LEFT JOIN pss_dict t3 ON (t2.product_type = t3.dict_id)
+        LEFT JOIN (
+            SELECT
+                D1.R_PURCHASE_D_ID,
+                D1.batch_no,
+                D1.amount,
+                R1.R_PURCHASE_ID,
+                R1.purchase_id,
+                D1.product_id,
+                D1.reason
+            FROM
+                material_purchase_return R1
+            LEFT JOIN material_purchase_return_detail D1 ON (
+                R1.R_PURCHASE_ID = D1.R_PURCHASE_ID
+            )
+        ) RD ON (t4.batch_no = RD.batch_no)
+        WHERE
+            t1.purchase_detail_isdel = 0
+        AND t4.batch_no IS NOT NULL
+         AND t1.purchase_id =#{purchase_id}
+        ORDER BY
+	t1.purchase_d_id DESC
+    </select>
+
+    <select id="purchansingReturnSumbit" parameterType="java.util.Map" statementType="CALLABLE"
+            resultType="java.util.Map">
+        <!--部分退货-->
+        <if test="PR_IS_RETURN_ALL ==0">
+            CALL PRO_PURCHANSING_RETURN_SUBMIT(
+            #{PR_PURCHASE_ID, mode=IN, jdbcType=INTEGER},
+            #{PR_PRODUCT_ID, mode=IN, jdbcType=INTEGER},
+            #{PR_PURCHASE_D_ID, mode=IN, jdbcType=INTEGER},
+            #{PR_BATCH_NO , mode=IN, jdbcType=NVARCHAR},
+            #{PR_AMOUNT, mode=IN, jdbcType=DOUBLE},
+            #{PR_UNIT, mode=IN, jdbcType=NVARCHAR},
+            #{PR_REASON, mode=IN, jdbcType=NVARCHAR},
+            #{PR_STAFF_ID, mode=IN, jdbcType=INTEGER},
+            #{PR_IS_RETURN_ALL, mode=IN, jdbcType=INTEGER},
+            #{RESULT_MESG, mode=INOUT, jdbcType=NVARCHAR}
+            )
+        </if>
+        <!--全部退货-->
+        <if test="PR_IS_RETURN_ALL ==1">
+            CALL PRO_PURCHANSING_RETURN_SUBMIT_ALL(
+            #{PR_PURCHASE_ID, mode=IN, jdbcType=INTEGER},
+            #{PR_IS_RETURN_ALL, mode=IN, jdbcType=INTEGER},
+            #{PR_STAFF_ID, mode=IN, jdbcType=INTEGER},
+            #{PR_REASON, mode=IN, jdbcType=NVARCHAR},
+            #{RESULT_MESG, mode=INOUT, jdbcType=NVARCHAR}
+            )
+        </if>
+
+    </select>
+</mapper>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>研发主任</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/fonts/iconfont.css" />
+    <script type="text/javascript" src="/css/fonts/iconfont.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="../researchAndUse/index.html" method="get">
+
+    <ul class="nav nav-tabs db-nav" role="tablist" style="width: 1080px;">
+        <li role="presentation" class="active"><a href="#yuanl" id="yuanliao" aria-controls="yuanl" role="tab" data-toggle="tab"><span class="iconfont">&#xe607;</span> 原料请购审核</a></li>
+        <li role="presentation"><a href="#haoc" id="supplies" aria-controls="haoc" role="tab" data-toggle="tab"><span class="iconfont">&#xe60e;</span> 耗材请购审核</a></li>
+        <li role="presentation"><a href="#cpin" id="research" aria-controls="cpin" role="tab" data-toggle="tab"><span class="iconfont">&#xe666;</span> 入库审核</a></li>
+
+    </ul>
+    <div class="clearfix" style="margin-bottom: 80px;">
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!--原料-->
+            <div  role="tabpanel"  class="tab-pane active" id="yuanl">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4><a href="director-yanfa.html">请购审核</a><span style="font-size: 14px;" id="count_material"></span></h4>
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table" style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">产品中文名</th>
+                                        <th width="15%">CAS</th>
+                                        <th width="15%">请购数量</th>
+                                        <th width="15%">请购人员</th>
+                                        <th width="15%">请购时间</th>
+                                        <th width="16%">请购状态</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_meterial">
+                                    </tbody>
+                                </table>
+                                <div id="m1_material" style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!--耗材-->
+            <div  role="tabpanel" class="tab-pane" id="haoc">
+                <div class="db-cont">
+                    <div class="db-cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4><a href="director-yanfa.html">耗材请购审核</a><span id="count_supplies" style="font-size: 14px;"></span></h4>
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table" style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">耗材名</th>
+                                        <th width="10%">请购数量</th>
+                                        <th width="10%">规格</th>
+                                        <th width="10%">请购人</th>
+                                        <th width="16%">请购时间</th>
+                                        <th width="15%">请购状态</th>
+                                        <th width="25%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_supplies">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_sup(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            <!--入库审核-->
+            <div  role="cpin" class="tab-pane" id="cpin">
+                <div class="db-cont">
+                    <div class="db-cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>入库审核<span style="font-size: 14px;" id="count_storage"></span></h4>
+                    </div>
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table"  style="border:1px solid #ddd">
+                                    <thead>
+                                    <tr>
+                                        <th width="15%">CAS</th>
+                                        <th width="15%">SKU</th>
+                                        <th width="10%">申请量</th>
+                                        <th width="15%">申请人</th>
+                                        <th width="12%">谱图</th>
+                                        <th width="15%">申请状态</th>
+                                        <th width="20%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_research">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f;">
+                                    <a onclick="show_more_storage(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
+            </div>
+</div>
+        </div>
+    <!--end-->
+    </div>
+
+    <!--处理-->
+    <div class="modal fade" id="Handle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>处理</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="handle-group" style="margin-left: 50px;">
+                            <div>
+                                <span>意见：</span>
+                                <input type="hidden" id="status_yijian">
+                                <input type="hidden" id="use_id">
+
+                                <div class="form-group">
+                                    <div class="btn-group">
+                                        <button type="button" yijian="11001"  class="yijian btn btn-default">同意</button>
+                                    </div>
+                                    <div class="btn-group btn-su">
+                                        <button type="button"  yijian="11002"  class="yijian btn btn-default">不同意</button>
+                                    </div>
+                                    <div class="btn-group btn-su">
+                                        <button type="button" yijian="11003"   class="yijian btn btn-default">待定</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <span>备注：</span>
+                                <div class="form-group m10">
+                                    <textarea id="desc" class="form-control left" rows="2" cols="30"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                    <a class="btn btn-success btn-ok" id="sure">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--领用原料弹出框-->
+    <div class="modal fade" id="Ly-yl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4>领用原料信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div style="margin-left: 50px;">
+                            <div>
+                                <span>CAS：</span>
+                                <div class="form-group" style="display: inline-block;">
+                                    <input type="text" id="stock_cas" class="form-control" placeholder="请输入CAS号" maxlength="20" style="width: 250px;">
+                                </div>
+                                &nbsp;&nbsp;<button onclick="query_cas()" type="button" class="btn btn-primary">查询</button>
+                            </div>
+                            <input type="hidden" id="product_id">
+                        </div>
+                        <hr>
+                        <div class="info">
+                            <h4>库存信息：</h4>
+                            <div id="stockSelectCas" style="font-size: 12px;"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" hidden="hidden" id="apply_yangshi">
+                    <div class="bz-info" >
+                        <div style="overflow: hidden;">
+                            <h4 class="text-left">采购量：</h4>
+                            <input id="stock_Addamount" type="text" class="form-control input-sm" placeholder="" style="float: left;margin-left: 80px;width: 30%;">
+                            <select id="stock_Addunit" class="form-control input-sm" style="width: 20%;float: left;margin-left: 5px;">
+                                <option>mg</option>
+                                <option>g</option>
+                                <option>ml</option>
+                                <option>l</option>
+                            </select>
+                        </div>
+                        <div style="clear: both;margin-top: 10px;">
+                            <h4 class="text-left">备注信息：</h4>
+                            <textarea id="use_desc" class="form-control" rows="1" cols="20" placeholder="请填写采购备注信息" style="display: block;margin-left: 80px;width: 60%"></textarea>
+                        </div>
+                    </div>
+                    <div id="bz-sq" style="width: 140px; margin:20px auto;clear:both"><a onclick="apply_purchasing()" class="btn btn-success" style="padding: 5px 40px;">申请采购</a></div>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
+            <!--领用耗材弹出框-->
+            <div class="modal fade" id="Ly-hc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4>领用耗材信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="navbar-form navbar-left" role="search">
+                                <div style="margin-left: 50px;">
+                                    <div>
+                                        <span>耗材名：</span>
+                                        <div class="form-group">
+                                            <input id="haocai_name" type="text" class="form-control" placeholder="请输入耗材名称" style="width: 250px;">
+                                        </div>
+                                        &nbsp;&nbsp;<button onclick="query_haocaiName()" type="button" class="btn btn-primary">查询</button>
+                                    </div>
+                                    <input type="hidden" id="consumable_id">
+                                    <input type="hidden" id="purchase_id">
+                                </div>
+                                <hr>
+                                <div class="info">
+                                    <h4>库存信息：</h4>
+                                    <div id="suppliesSelectName" style="font-size: 12px;"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer" hidden="hidden" id="apply_supplies">
+                            <h4 class="text-left">采购量：</h4>
+                            <input id="supplies_Addamount" type="text" class="form-control input-sm" placeholder="" style="float: left;margin-left: 80px;width: 30%;">
+                            <div id="bz-sq2" style="width: 140px; margin:20px auto;clear:both"><a onclick="add_supplies()" class="btn btn-success" style="padding: 5px 40px;">申请采购</a></div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                    <!--end-->
+</form>
+</body>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/director-yanfa.js"></script>
+</html>

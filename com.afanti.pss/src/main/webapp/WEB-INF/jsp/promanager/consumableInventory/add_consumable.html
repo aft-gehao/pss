@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <div class="row m10">
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right">入库量：</span>
+                <span><input id="amount" class="form-control input-sm" style="width: 35%;display:inline"  type="text" ></span>
+            </div>
+            <div class="col-md-5 form-group">
+                <span class="">所在仓位：</span>
+                <input type="hidden" id="space_id_0" value=""/>
+                <textarea readonly="readonly"  onclick="select_dictWarehouseSpace(0)" id="space_name_0"  class="form-control " rows="1" cols="6" style="margin-left:18px;width: 176px;display:inline"> </textarea>
+            </div>
+        </div>
+    </div>
+    <div class="Button-two">
+        <button id="submit" type="button" style="width: 30%" class="btn btn-success">确认</button>
+        <button id="" type="button" style="width: 30%" class="btn btn-danger">取消</button>
+    </div>
+</form>
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/add_consumable.js"></script>
+</body>
+</html>

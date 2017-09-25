@@ -1,0 +1,956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.inventory.dao.ProductOutInventoryDao">
+    <select id="out_inventory_FeedBackPreview" parameterType="java.lang.Integer" resultType="Product_material_out">
+          SELECT * FROM ((SELECT
+                po.out_id,
+                po.out_name,
+                po.out_type,
+                po.oper_id,
+                po.oper_time,
+                po.desc,
+                po.out_type_billno,
+                po.out_isdel,
+                pd.batch_no,
+                pd.amount,
+                pd.out_date,
+                pd.unit
+                FROM product_material_out po
+                INNER JOIN product_material_out_detail pd ON(po.out_id=pd.out_id)
+                WHERE po.out_type_billno=#{out_type_billno}
+                ) AS a
+                )
+    </select>
+    <select id="getInventoryOutPageList" parameterType="Map" resultType="Product_material_out">
+        SELECT
+        out_type,
+        CASE
+        out_type
+        WHEN 9001
+        THEN '采购退货'
+        WHEN 9002
+        THEN '销售出库'
+        WHEN 9003
+        THEN '研发领用'
+        END AS out_type_str,
+        name_ch,
+        name_en,
+        cas,
+        sku,
+        r_purchase_id,
+        amount,
+        unit,
+        stock_status,
+        stock_status_name,
+        staff_name,
+        staff_id,
+        staff_name_return,
+        staff_id_return,
+        purchase_id,
+        purchase_time,
+        return_time,
+        supplier_id,
+        supplier_name
+        FROM
+        (SELECT
+        9001 AS out_type,
+        k2.name_ch,
+        k2.name_en,
+        k2.cas,
+        k2.sku,
+        t1.r_purchase_id,
+        k1.amount,
+        k1.unit,
+        t1.stock_status,
+        t6.dict_name AS stock_status_name,
+        t4.staff_name AS staff_name,
+        t4.staff_id,
+        t3.staff_name AS staff_name_return,
+        t3.staff_id AS staff_id_return,
+        t2.purchase_id,
+        t2.purchase_time,
+        t1.return_time,
+        t5.cs_sup_id AS supplier_id,
+        t5.NAME AS supplier_name
+        FROM
+        material_purchase_return t1
+        LEFT JOIN material_purchase t2
+        ON (t1.purchase_id = t2.purchase_id)
+        LEFT JOIN staff_info t3
+        ON (t1.staff_id = t3.staff_id)
+        LEFT JOIN staff_info t4
+        ON (t2.staff_id = t4.staff_id)
+        LEFT JOIN cus_supplier_info t5
+        ON (t2.supplier_id = t5.cs_sup_id)
+        LEFT JOIN pss_dict t6
+        ON (t1.stock_status = t6.dict_id)
+        LEFT JOIN material_purchase_return_detail k1
+        ON k1.r_purchase_id = t1.r_purchase_id
+        LEFT JOIN product_material_info k2
+        ON k2.product_id = k1.product_id
+        WHERE t1.return_isdel = 0
+        UNION
+        ALL
+        SELECT
+        9003 AS out_type,
+        k3.name_ch,
+        k3.name_en,
+        k3.cas,
+        k3.sku,
+        tt1.use_id,
+        tt1.use_amount,
+        tt1.use_unit,
+        tt1.status,
+        tt3.dict_name,
+        '',
+        0,
+        tt2.staff_name,
+        tt2.staff_id,
+        tt1.use_id,
+        '',
+        tt1.use_time,
+        '',
+        ''
+        FROM
+        product_use tt1
+        LEFT JOIN staff_info tt2
+        ON (tt2.staff_id = tt1.use_staff)
+        LEFT JOIN pss_dict tt3
+        ON (tt1.status = tt3.dict_id)
+        LEFT JOIN product_material_info k3
+        ON k3.product_id = tt1.product_id
+        WHERE tt1.use_is_del = 0 AND tt1.status NOT IN(11002,11003,11004,5001,5002,5003)
+        UNION
+        ALL
+        SELECT
+        9002 AS out_type,
+        k6.name_ch,
+        k6.name_en,
+        k6.cas,
+        k6.sku,
+        p1.sale_id,
+        k5.amount,
+        k5.unit,
+        p1.`status`,
+        p3.dict_name,
+        '',
+        0,
+        p2.staff_name,
+        p2.staff_id,
+        p1.sale_id,
+        '',
+        p1.sale_time,
+        p4.supplier_id,
+        p4.`name` AS supplier_name
+        FROM
+        product_sale p1
+        LEFT JOIN staff_info p2
+        ON (p2.staff_id = p1.staff_id)
+        LEFT JOIN pss_dict p3
+        ON (p1.`status` = p3.dict_id)
+        LEFT JOIN cus_supplier_info p4
+        ON (p1.customer_id = p4.cs_sup_id)
+        LEFT JOIN product_sale_detail k5
+        ON k5.sale_id = p1.sale_id
+        LEFT JOIN product_material_info k6
+        ON k6.product_id = k5.product_id
+        WHERE p1.sale_isdel = 0) t1
+        WHERE t1.r_purchase_id != 0
+        <if test="params.inventory_type!=null and params.inventory_type!=''">
+            and t1.stock_status =#{params.inventory_type}
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            AND t1.cas LIKE '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            AND t1.sku LIKE '%${params.sku}%'
+        </if>
+        <if test="params.status_id!=null and params.status_id!=''">
+            and t1.stock_status in(${params.status_id})
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and ${params.time}
+        </if>
+        <if test="params.out_type!=null and params.out_type!=''">
+            and t1.out_type = ${params.out_type}
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND (t1.cas like '%${params.search}%' or t1.sku like '%${params.search}%' or staff_name like '%${params.search}%')
+        </if>
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
+            AND t1.return_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
+        ORDER BY
+        t1.return_time DESC
+    </select>
+
+    <select id="getInventoryOutPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        (SELECT
+        9001 AS out_type,
+        k2.cas,
+        k2.sku,
+        t1.r_purchase_id,
+        t2.purchase_name,
+        t1.stock_status,
+        t6.dict_name AS stock_status_name,
+        t4.staff_name AS staff_name,
+        t4.staff_id,
+        t3.staff_name AS staff_name_return,
+        t3.staff_id AS staff_id_return,
+        t2.purchase_id,
+        t2.purchase_time,
+        t1.return_time,
+        t5.cs_sup_id AS supplier_id,
+        t5.NAME AS supplier_name
+        FROM
+        material_purchase_return t1
+        LEFT JOIN material_purchase t2
+        ON (t1.purchase_id = t2.purchase_id)
+        LEFT JOIN staff_info t3
+        ON (t1.staff_id = t3.staff_id)
+        LEFT JOIN staff_info t4
+        ON (t2.staff_id = t4.staff_id)
+        LEFT JOIN cus_supplier_info t5
+        ON (t2.supplier_id = t5.cs_sup_id)
+        LEFT JOIN pss_dict t6
+        ON (t1.stock_status = t6.dict_id)
+        LEFT JOIN material_purchase_return_detail k1
+        ON k1.r_purchase_id=t1.r_purchase_id
+        LEFT JOIN product_material_info k2
+        ON k2.product_id=k1.product_id
+        WHERE t1.return_isdel = 0
+        UNION
+        ALL
+        SELECT
+        9003 AS out_type,
+        k3.cas,
+        k3.sku,
+        tt1.use_id,
+        tt1.use_name,
+        tt1.status,
+        tt3.dict_name,
+        '',
+        0,
+        tt2.staff_name,
+        tt2.staff_id,
+        tt1.use_id,
+        '',
+        tt1.use_time,
+        '',
+        ''
+        FROM
+        product_use tt1
+        LEFT JOIN staff_info tt2
+        ON (tt2.staff_id = tt1.use_staff)
+        LEFT JOIN pss_dict tt3
+        ON (tt1.status = tt3.dict_id)
+        LEFT JOIN product_material_info k3
+        ON k3.product_id=tt1.product_id
+        WHERE tt1.use_is_del = 0 AND tt1.status NOT IN(11002,11003,11004,5001,5002,5003)
+        UNION
+        ALL
+        SELECT
+        9002 AS out_type,
+        k6.cas,
+        k6.sku,
+        p1.sale_id,
+        p1.sale_name,
+        p1.`status`,
+        p3.dict_name,
+        '',
+        0,
+        p2.staff_name,
+        p2.staff_id,
+        p1.sale_id,
+        '',
+        p1.sale_time,
+        p4.supplier_id,
+        p4.`name` AS supplier_name
+        FROM
+        product_sale p1
+        LEFT JOIN staff_info p2
+        ON (p2.staff_id = p1.staff_id)
+        LEFT JOIN pss_dict p3
+        ON (p1.`status` = p3.dict_id)
+        LEFT JOIN cus_supplier_info p4
+        ON (p1.customer_id = p4.cs_sup_id)
+        LEFT JOIN product_sale_detail k5
+        ON k5.sale_id=p1.sale_id
+        LEFT JOIN product_material_info k6
+        ON k6.product_id=k5.product_id
+        WHERE p1.sale_isdel = 0) t1
+        WHERE t1.r_purchase_id != 0
+        <if test="params.inventory_type!=null and params.inventory_type!=''">
+            and t1.stock_status =#{params.inventory_type}
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            AND t1.cas LIKE '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            AND t1.sku LIKE '%${params.sku}%'
+        </if>
+        <if test="params.status_id!=null and params.status_id!=''">
+            and t1.stock_status in(${params.status_id})
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and ${params.time}
+        </if>
+        <if test="params.out_type!=null and params.out_type!=''">
+            and t1.out_type = ${params.out_type}
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND (t1.cas like '%${params.search}%' or t1.sku like '%${params.search}%' or staff_name like '%${params.search}%')
+        </if>
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
+            AND t1.return_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
+    </select>
+    <select id="getInventoryOutList" parameterType="Map" resultType="Product_material_out">
+        SELECT
+        out_type,
+        CASE
+        out_type
+        WHEN 9001
+        THEN '采购退货'
+        WHEN 9002
+        THEN '销售出库'
+        WHEN 9003
+        THEN '研发领用'
+        END AS out_type_str,
+        name_ch,
+        name_en,
+        cas,
+        sku,
+        r_purchase_id,
+        amount,
+        unit,
+        stock_status,
+        stock_status_name,
+        staff_name,
+        staff_id,
+        staff_name_return,
+        staff_id_return,
+        purchase_id,
+        purchase_time,
+        return_time,
+        supplier_id,
+        supplier_name
+        FROM
+        (SELECT
+        9001 AS out_type,
+        k2.name_ch,
+        k2.name_en,
+        k2.cas,
+        k2.sku,
+        t1.r_purchase_id,
+        k1.amount,
+        k1.unit,
+        t1.stock_status,
+        t6.dict_name AS stock_status_name,
+        t4.staff_name AS staff_name,
+        t4.staff_id,
+        t3.staff_name AS staff_name_return,
+        t3.staff_id AS staff_id_return,
+        t2.purchase_id,
+        t2.purchase_time,
+        t1.return_time,
+        t5.cs_sup_id AS supplier_id,
+        t5.NAME AS supplier_name
+        FROM
+        material_purchase_return t1
+        LEFT JOIN material_purchase t2
+        ON (t1.purchase_id = t2.purchase_id)
+        LEFT JOIN staff_info t3
+        ON (t1.staff_id = t3.staff_id)
+        LEFT JOIN staff_info t4
+        ON (t2.staff_id = t4.staff_id)
+        LEFT JOIN cus_supplier_info t5
+        ON (t2.supplier_id = t5.cs_sup_id)
+        LEFT JOIN pss_dict t6
+        ON (t1.stock_status = t6.dict_id)
+        LEFT JOIN material_purchase_return_detail k1
+        ON k1.r_purchase_id = t1.r_purchase_id
+        LEFT JOIN product_material_info k2
+        ON k2.product_id = k1.product_id
+        WHERE t1.return_isdel = 0
+        UNION
+        ALL
+        SELECT
+        9003 AS out_type,
+        k3.name_ch,
+        k3.name_en,
+        k3.cas,
+        k3.sku,
+        tt1.use_id,
+        tt1.use_amount,
+        tt1.use_unit,
+        tt1.status,
+        tt3.dict_name,
+        '',
+        0,
+        tt2.staff_name,
+        tt2.staff_id,
+        tt1.use_id,
+        '',
+        tt1.use_time,
+        '',
+        ''
+        FROM
+        product_use tt1
+        LEFT JOIN staff_info tt2
+        ON (tt2.staff_id = tt1.use_staff)
+        LEFT JOIN pss_dict tt3
+        ON (tt1.status = tt3.dict_id)
+        LEFT JOIN product_material_info k3
+        ON k3.product_id = tt1.product_id
+        WHERE tt1.use_is_del = 0 AND tt1.status NOT IN(11002,11003,11004,5001,5002,5003)
+        UNION
+        ALL
+        SELECT
+        9002 AS out_type,
+        k6.name_ch,
+        k6.name_en,
+        k6.cas,
+        k6.sku,
+        p1.sale_id,
+        k5.amount,
+        k5.unit,
+        p1.`status`,
+        p3.dict_name,
+        '',
+        0,
+        p2.staff_name,
+        p2.staff_id,
+        p1.sale_id,
+        '',
+        p1.sale_time,
+        p4.supplier_id,
+        p4.`name` AS supplier_name
+        FROM
+        product_sale p1
+        LEFT JOIN staff_info p2
+        ON (p2.staff_id = p1.staff_id)
+        LEFT JOIN pss_dict p3
+        ON (p1.`status` = p3.dict_id)
+        LEFT JOIN cus_supplier_info p4
+        ON (p1.customer_id = p4.cs_sup_id)
+        LEFT JOIN product_sale_detail k5
+        ON k5.sale_id = p1.sale_id
+        LEFT JOIN product_material_info k6
+        ON k6.product_id = k5.product_id
+        WHERE p1.sale_isdel = 0) t1
+        WHERE t1.r_purchase_id != 0 AND t1.stock_status!=8001
+        ORDER BY
+        t1.return_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+
+    <select id="getInventoryOutCount" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        (SELECT
+        9001 AS out_type,
+        k2.cas,
+        k2.sku,
+        t1.r_purchase_id,
+        t2.purchase_name,
+        t1.stock_status,
+        t6.dict_name AS stock_status_name,
+        t4.staff_name AS staff_name,
+        t4.staff_id,
+        t3.staff_name AS staff_name_return,
+        t3.staff_id AS staff_id_return,
+        t2.purchase_id,
+        t2.purchase_time,
+        t1.return_time,
+        t5.cs_sup_id AS supplier_id,
+        t5.NAME AS supplier_name
+        FROM
+        material_purchase_return t1
+        LEFT JOIN material_purchase t2
+        ON (t1.purchase_id = t2.purchase_id)
+        LEFT JOIN staff_info t3
+        ON (t1.staff_id = t3.staff_id)
+        LEFT JOIN staff_info t4
+        ON (t2.staff_id = t4.staff_id)
+        LEFT JOIN cus_supplier_info t5
+        ON (t2.supplier_id = t5.cs_sup_id)
+        LEFT JOIN pss_dict t6
+        ON (t1.stock_status = t6.dict_id)
+        LEFT JOIN material_purchase_return_detail k1
+        ON k1.r_purchase_id=t1.r_purchase_id
+        LEFT JOIN product_material_info k2
+        ON k2.product_id=k1.product_id
+        WHERE t1.return_isdel = 0
+        UNION
+        ALL
+        SELECT
+        9003 AS out_type,
+        k3.cas,
+        k3.sku,
+        tt1.use_id,
+        tt1.use_name,
+        tt1.status,
+        tt3.dict_name,
+        '',
+        0,
+        tt2.staff_name,
+        tt2.staff_id,
+        tt1.use_id,
+        '',
+        tt1.use_time,
+        '',
+        ''
+        FROM
+        product_use tt1
+        LEFT JOIN staff_info tt2
+        ON (tt2.staff_id = tt1.use_staff)
+        LEFT JOIN pss_dict tt3
+        ON (tt1.status = tt3.dict_id)
+        LEFT JOIN product_material_info k3
+        ON k3.product_id=tt1.product_id
+        WHERE tt1.use_is_del = 0 AND tt1.status NOT IN(11002,11003,11004,5001,5002,5003)
+        UNION
+        ALL
+        SELECT
+        9002 AS out_type,
+        k6.cas,
+        k6.sku,
+        p1.sale_id,
+        p1.sale_name,
+        p1.`status`,
+        p3.dict_name,
+        '',
+        0,
+        p2.staff_name,
+        p2.staff_id,
+        p1.sale_id,
+        '',
+        p1.sale_time,
+        p4.supplier_id,
+        p4.`name` AS supplier_name
+        FROM
+        product_sale p1
+        LEFT JOIN staff_info p2
+        ON (p2.staff_id = p1.staff_id)
+        LEFT JOIN pss_dict p3
+        ON (p1.`status` = p3.dict_id)
+        LEFT JOIN cus_supplier_info p4
+        ON (p1.customer_id = p4.cs_sup_id)
+        LEFT JOIN product_sale_detail k5
+        ON k5.sale_id=p1.sale_id
+        LEFT JOIN product_material_info k6
+        ON k6.product_id=k5.product_id
+        WHERE p1.sale_isdel = 0) t1
+        WHERE t1.r_purchase_id != 0 AND t1.stock_status!=8001
+    </select>
+
+    <select id="getInventoryOutList_history" parameterType="Map" resultType="Product_material_out">
+        SELECT
+        out_type,
+        CASE
+        out_type
+        WHEN 9001
+        THEN '采购退货'
+        WHEN 9002
+        THEN '销售出库'
+        WHEN 9003
+        THEN '研发领用'
+        END AS out_type_str,
+        name_ch,
+        name_en,
+        cas,
+        sku,
+        r_purchase_id,
+        amount,
+        unit,
+        stock_status,
+        stock_status_name,
+        staff_name,
+        staff_id,
+        staff_name_return,
+        staff_id_return,
+        purchase_id,
+        purchase_time,
+        return_time,
+        supplier_id,
+        supplier_name
+        FROM
+        (SELECT
+        9001 AS out_type,
+        k2.name_ch,
+        k2.name_en,
+        k2.cas,
+        k2.sku,
+        t1.r_purchase_id,
+        k1.amount,
+        k1.unit,
+        t1.stock_status,
+        t6.dict_name AS stock_status_name,
+        t4.staff_name AS staff_name,
+        t4.staff_id,
+        t3.staff_name AS staff_name_return,
+        t3.staff_id AS staff_id_return,
+        t2.purchase_id,
+        t2.purchase_time,
+        t1.return_time,
+        t5.cs_sup_id AS supplier_id,
+        t5.NAME AS supplier_name
+        FROM
+        material_purchase_return t1
+        LEFT JOIN material_purchase t2
+        ON (t1.purchase_id = t2.purchase_id)
+        LEFT JOIN staff_info t3
+        ON (t1.staff_id = t3.staff_id)
+        LEFT JOIN staff_info t4
+        ON (t2.staff_id = t4.staff_id)
+        LEFT JOIN cus_supplier_info t5
+        ON (t2.supplier_id = t5.cs_sup_id)
+        LEFT JOIN pss_dict t6
+        ON (t1.stock_status = t6.dict_id)
+        LEFT JOIN material_purchase_return_detail k1
+        ON k1.r_purchase_id = t1.r_purchase_id
+        LEFT JOIN product_material_info k2
+        ON k2.product_id = k1.product_id
+        WHERE t1.return_isdel = 0
+        UNION
+        ALL
+        SELECT
+        9003 AS out_type,
+        k3.name_ch,
+        k3.name_en,
+        k3.cas,
+        k3.sku,
+        tt1.use_id,
+        tt1.use_amount,
+        tt1.use_unit,
+        tt1.status,
+        tt3.dict_name,
+        '',
+        0,
+        tt2.staff_name,
+        tt2.staff_id,
+        tt1.use_id,
+        '',
+        tt1.use_time,
+        '',
+        ''
+        FROM
+        product_use tt1
+        LEFT JOIN staff_info tt2
+        ON (tt2.staff_id = tt1.use_staff)
+        LEFT JOIN pss_dict tt3
+        ON (tt1.status = tt3.dict_id)
+        LEFT JOIN product_material_info k3
+        ON k3.product_id = tt1.product_id
+        WHERE tt1.use_is_del = 0 AND tt1.status NOT IN(11002,11003,11004,5001,5002,5003)
+        UNION
+        ALL
+        SELECT
+        9002 AS out_type,
+        k6.name_ch,
+        k6.name_en,
+        k6.cas,
+        k6.sku,
+        p1.sale_id,
+        k5.amount,
+        k5.unit,
+        p1.`status`,
+        p3.dict_name,
+        '',
+        0,
+        p2.staff_name,
+        p2.staff_id,
+        p1.sale_id,
+        '',
+        p1.sale_time,
+        p4.supplier_id,
+        p4.`name` AS supplier_name
+        FROM
+        product_sale p1
+        LEFT JOIN staff_info p2
+        ON (p2.staff_id = p1.staff_id)
+        LEFT JOIN pss_dict p3
+        ON (p1.`status` = p3.dict_id)
+        LEFT JOIN cus_supplier_info p4
+        ON (p1.customer_id = p4.cs_sup_id)
+        LEFT JOIN product_sale_detail k5
+        ON k5.sale_id = p1.sale_id
+        LEFT JOIN product_material_info k6
+        ON k6.product_id = k5.product_id
+        WHERE p1.sale_isdel = 0) t1
+        WHERE t1.r_purchase_id != 0 AND t1.stock_status=8001
+        ORDER BY
+        t1.return_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+
+    <select id="getInventoryOutCount_history" parameterType="Map" resultType="Integer">
+        SELECT
+        COUNT(1)
+        FROM
+        (SELECT
+        9001 AS out_type,
+        k2.cas,
+        k2.sku,
+        t1.r_purchase_id,
+        t2.purchase_name,
+        t1.stock_status,
+        t6.dict_name AS stock_status_name,
+        t4.staff_name AS staff_name,
+        t4.staff_id,
+        t3.staff_name AS staff_name_return,
+        t3.staff_id AS staff_id_return,
+        t2.purchase_id,
+        t2.purchase_time,
+        t1.return_time,
+        t5.cs_sup_id AS supplier_id,
+        t5.NAME AS supplier_name
+        FROM
+        material_purchase_return t1
+        LEFT JOIN material_purchase t2
+        ON (t1.purchase_id = t2.purchase_id)
+        LEFT JOIN staff_info t3
+        ON (t1.staff_id = t3.staff_id)
+        LEFT JOIN staff_info t4
+        ON (t2.staff_id = t4.staff_id)
+        LEFT JOIN cus_supplier_info t5
+        ON (t2.supplier_id = t5.cs_sup_id)
+        LEFT JOIN pss_dict t6
+        ON (t1.stock_status = t6.dict_id)
+        LEFT JOIN material_purchase_return_detail k1
+        ON k1.r_purchase_id=t1.r_purchase_id
+        LEFT JOIN product_material_info k2
+        ON k2.product_id=k1.product_id
+        WHERE t1.return_isdel = 0
+        UNION
+        ALL
+        SELECT
+        9003 AS out_type,
+        k3.cas,
+        k3.sku,
+        tt1.use_id,
+        tt1.use_name,
+        tt1.status,
+        tt3.dict_name,
+        '',
+        0,
+        tt2.staff_name,
+        tt2.staff_id,
+        tt1.use_id,
+        '',
+        tt1.use_time,
+        '',
+        ''
+        FROM
+        product_use tt1
+        LEFT JOIN staff_info tt2
+        ON (tt2.staff_id = tt1.use_staff)
+        LEFT JOIN pss_dict tt3
+        ON (tt1.status = tt3.dict_id)
+        LEFT JOIN product_material_info k3
+        ON k3.product_id=tt1.product_id
+        WHERE tt1.use_is_del = 0 AND tt1.status NOT IN(11002,11003,11004,5001,5002,5003)
+        UNION
+        ALL
+        SELECT
+        9002 AS out_type,
+        k6.cas,
+        k6.sku,
+        p1.sale_id,
+        p1.sale_name,
+        p1.`status`,
+        p3.dict_name,
+        '',
+        0,
+        p2.staff_name,
+        p2.staff_id,
+        p1.sale_id,
+        '',
+        p1.sale_time,
+        p4.supplier_id,
+        p4.`name` AS supplier_name
+        FROM
+        product_sale p1
+        LEFT JOIN staff_info p2
+        ON (p2.staff_id = p1.staff_id)
+        LEFT JOIN pss_dict p3
+        ON (p1.`status` = p3.dict_id)
+        LEFT JOIN cus_supplier_info p4
+        ON (p1.customer_id = p4.cs_sup_id)
+        LEFT JOIN product_sale_detail k5
+        ON k5.sale_id=p1.sale_id
+        LEFT JOIN product_material_info k6
+        ON k6.product_id=k5.product_id
+        WHERE p1.sale_isdel = 0) t1
+        WHERE t1.r_purchase_id != 0 AND t1.stock_status=8001
+    </select>
+
+    <select id="getOurInventoryList" parameterType="Map" resultType="Product_material_out_detail">
+
+  SELECT
+	t1.purchase_d_id,
+	t1.product_id,
+	t4.amount AS amount_used,
+	t4.enter_d_ids,
+	t4.batch_no,
+	t4.space_id,
+	(
+		SELECT
+			GROUP_CONCAT(d.space_name, '-')
+		FROM
+			dict_warehouse_space d
+		WHERE
+			FIND_IN_SET(
+				d.space_id,
+				query_parent_warehouse (t4.space_id)
+			)
+	) AS space_name,
+	RO.amount AS out_amount,
+	RO.out_type_d_billno,
+	RO.out_desc,
+	RD.r_purchase_d_id,
+	RD.stock_status,
+	CASE RD.stock_status
+WHEN 8001 THEN
+	'已出库'
+WHEN 8002 THEN
+	'未出库'
+WHEN 8003 THEN
+	'部分出库'
+END AS stock_status_name,
+ t1.unit,
+ t1.purity,
+ t2.name_ch AS product_name,
+ t2.name_en,
+ t2.product_type,
+ t3.dict_name AS product_type_name
+FROM
+	material_purchase_detail t1
+LEFT JOIN (
+	SELECT
+		e.enter_type_billno,
+		d.amount,
+		d.product_id,
+		s.space_id,
+		s.space_name,
+		d.enter_d_id AS enter_d_ids,
+		d.batch_no
+	FROM
+		product_material_enter e
+	LEFT JOIN product_material_enter_detail d ON (e.enter_id = d.enter_id)
+	LEFT JOIN dict_warehouse_space s ON (d.space_id = s.space_id)
+) t4 ON (
+	t1.purchase_id = t4.enter_type_billno
+	AND t1.product_id = t4.product_id
+)
+LEFT JOIN product_material_info t2 ON (
+	t1.product_id = t2.product_id
+)
+LEFT JOIN pss_dict t3 ON (t2.product_type = t3.dict_id)
+LEFT JOIN (
+	SELECT
+		D1.R_PURCHASE_D_ID,
+		D1.batch_no,
+		D1.amount,
+		R1.R_PURCHASE_ID,
+		R1.purchase_id,
+		D1.product_id,
+		D1.reason,
+		D1.stock_status
+	FROM
+		material_purchase_return R1
+	LEFT JOIN material_purchase_return_detail D1 ON (
+		R1.R_PURCHASE_ID = D1.R_PURCHASE_ID
+	)
+) RD ON (t4.batch_no = RD.batch_no)
+LEFT JOIN product_material_out_detail RO ON (t4.enter_d_ids = RO.enter_d_id)
+WHERE
+	t1.purchase_detail_isdel = 0
+AND t4.batch_no IS NOT NULL
+AND RD.purchase_id IS NOT NULL
+AND t1.purchase_id = #{purchase_id}
+ORDER BY
+	t1.purchase_d_id DESC
+    </select>
+    <select id="outInventorySubmit" parameterType="java.util.Map" statementType="CALLABLE" resultType="java.util.Map">
+        CALL PRO_OUT_INVENTORY_SUBMIT(
+        #{POUT_PURCHASE_ID, mode=IN, jdbcType=INTEGER},
+        #{POUT_PRODUCT_ID, mode=IN, jdbcType=INTEGER},
+        #{POUT_OUT_TYPE_BILLNO, mode=IN, jdbcType=INTEGER},
+        #{POUT_BATCH_NO , mode=IN, jdbcType=NVARCHAR},
+        #{POUT_UNIT, mode=IN, jdbcType=NVARCHAR},
+        #{POUT_OUT_DESC, mode=IN, jdbcType=NVARCHAR},
+        #{POUT_OUT_NAME, mode=IN, jdbcType=NVARCHAR},
+        #{POUT_STAFF_ID, mode=IN, jdbcType=INTEGER},
+        #{POUT_OUT_TYPE, mode=IN, jdbcType=INTEGER},
+        #{POUT_OUT_SPACE_ID, mode=IN, jdbcType=INTEGER},
+        #{POUT_AMOUNT, mode=IN, jdbcType=INTEGER},
+        #{RESULT_MSG, mode=INOUT, jdbcType=NVARCHAR}
+        )
+    </select>
+    <select id="venditionOutinventory" parameterType="java.util.Map" statementType="CALLABLE"
+            resultType="java.util.Map">
+        CALL PRO_VENDITION_SUBMIT
+        (
+          #{P_BATCH_NO, mode=IN, jdbcType=NVARCHAR},
+          #{P_AMOUNT, mode=IN, jdbcType=INTEGER},
+          #{P_SALE_ID,mode=IN, jdbcType=INTEGER},
+          #{P_UNIT,mode=IN, jdbcType=NVARCHAR},
+          #{P_PRODUCT_ID, mode=IN, jdbcType=INTEGER},
+          #{P_SALE_D_ID, mode=IN, jdbcType=INTEGER},
+          #{P_ENTER_D_ID, mode=IN, jdbcType=INTEGER},
+          #{P_UNIT_PRICE, mode=IN, jdbcType=INTEGER},
+          #{P_SPACE_ID, mode=IN, jdbcType=INTEGER},
+          #{P_DESC, mode=IN, jdbcType=NVARCHAR},
+          #{P_OUT_NAME, mode=IN, jdbcType=NVARCHAR},
+          #{P_OPER_ID, mode=IN, jdbcType=INTEGER},
+          #{RESULT_MSG, mode=INOUT, jdbcType=NVARCHAR}
+        )
+    </select>
+
+    <select id="getInventoryDetail" parameterType="Map" resultType="Product_material_out_detail">
+        SELECT
+	t.out_d_id,
+	t2.out_name,
+	t.batch_no,
+	t3.name_ch AS product_name,
+	CONCAT(t.amount, t.unit) AS amount_str,
+	t.out_date,
+	t.out_desc,
+	(
+		SELECT
+			GROUP_CONCAT(t5.space_name, '-')
+		FROM
+			dict_warehouse_space t5
+		WHERE
+			FIND_IN_SET(
+				t5.space_id,
+				query_parent_warehouse (t.space_id)
+			)
+	) AS space_name,
+	t4.staff_name
+FROM
+	product_material_out_detail t
+JOIN product_material_out t2 ON (t.out_id = t2.out_id)
+JOIN product_material_info t3 ON (t.product_id = t3.product_id)
+JOIN staff_info t4 ON (t.staff_id = t4.staff_id)
+WHERE
+	t.enter_d_id = #{purchase_d_id}
+    </select>
+    <select id="enter_id_select" parameterType="Map" resultType="Integer">
+      SELECT
+       enter_d_id
+        FROM
+        product_material_enter_detail
+        WHERE batch_no=#{P_BATCH_NO} AND product_id=#{P_PRODUCT_ID}
+    </select>
+</mapper>

@@ -1,0 +1,254 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="renderer" content="webkit"/>
+	<title>询单报价</title>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<style type="text/css">
+body {
+	font-family: Arial;
+	font-size: 13px;
+}
+input[type=text],
+textarea,
+{
+    -webkit-appearance: none;
+}
+ul,
+li
+{
+    list-style: none;
+}
+p
+{
+    word-wrap: break-word;
+}
+html,
+body,
+fieldset,
+img,
+iframe,
+abbr
+{
+    border: 0;
+}
+*
+{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+input[type=text]{
+	font-size: 13px;
+	outline: none;
+	width: 100%;
+}
+table
+{
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    border: 0;
+}
+tbody
+{
+    display: table-row-group;
+
+    vertical-align: middle;
+
+    border-color: inherit;
+}
+tr
+{
+    display: table-row;
+
+    vertical-align: inherit;
+
+    border-color: inherit;
+}
+td,
+th
+{
+    display: table-cell;
+
+    vertical-align: inherit;
+}
+p
+{
+    word-wrap: break-word;
+}
+*,
+:after,
+:before
+{
+    box-sizing: border-box;
+}
+textarea
+{
+    resize: none;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin: 0;
+    font-size: 13px;
+  
+}
+.left{
+	float: left;
+}
+.right{
+	float: right!important;
+}
+.clear
+{
+    clear: both;
+}
+.normal {font-weight:normal!important;}
+.slogan {width: 100%;overflow: hidden;margin-top: 20px;}
+.logo {
+	text-align: center;
+	width: 15%;
+	margin-top: 20px;
+}
+.logo>img {
+	width: 80%;
+}
+
+.title {
+	text-align: right;
+    float: left;
+    width: 85%;
+    line-height: 25px;
+    color: #86d59d;
+}
+.head >h2 {
+	font-size: 30px;
+	text-align: right;
+	margin-top: 20px;
+}
+.insurance_info .info_text {
+	margin-bottom: 10px;
+}
+.insurance_info ul {margin: 0;padding: 0;}
+.insurance_info ul li {
+	clear: both;
+	margin: 10px 0;
+	overflow: hidden;
+}
+.order table {
+    width: 100%;
+    font-size: 12px;
+    margin-top: 20px;
+    text-align: center;
+    color: #333;
+}
+.order table tr.table-bg {background-color: #bebebe;}
+.order table th, .order table td {
+    border: 1px solid #000;
+    text-align: center;
+}
+@page {
+	size: 8.5in 11in;
+	@
+	bottom-center
+	{
+	content
+	:
+	"page "
+	counter(
+	page
+	)
+	" of  "
+	counter(
+	pages
+	);
+}
+
+</style>
+</head>
+<body>
+<!--page1-->
+	<div class="page">
+		<div class="head">
+			<div class="slogan">
+				<div class="logo left">
+					<img src="${imagePath}/msds/logo-fp.png" width="160px"></img>
+				</div>
+				<div class="title">
+					Liverpool ChiroChem Limited, Department of Chemistry,<br></br>
+					University of Liverpool, Crown Street, Liverpool, L69 7ZD, United Kingdom<br></br>
+					Telephone: +44 (0)151 794 2936   sales@liverpoolchirochem.co.uk<br></br>
+					www.liverpoolchirochem.com
+				</div>
+			</div>
+			<h2 class="clear">Quotation</h2>
+		</div>
+ 		<!---->
+		<div class="insurance_info clear">
+		   <div class="info_text">
+				<ul>
+					<li>
+						<span><b>Quotation Date:</b></span>
+						<span>${quotationDate}</span>
+					</li>
+					<li>
+						<span><b>Quotation Number:</b></span>
+						<span>${quotationNumber}</span>
+					</li>
+					<li>
+						<span><b>To:</b></span>
+						<span>${linkName}</span>
+					</li>
+					<li>
+						<span><b>Customer Name:</b></span>
+						<span>${cusName}</span>
+					</li>
+					<li>
+						<span><b>Customer Number:</b></span>
+						<span>${cusNo}</span>
+					</li>
+				</ul>
+			</div>
+			<!---->
+			<div class="info_text order">
+				<table cellspacing="0" border="1">
+					<tbody>
+						<tr class="table-bg">
+							<th>SKU</th>
+							<th>Chemical Structure and Name</th>
+							<th>CAS Number</th>
+							<th>Purity</th>
+							<th>Size and Price</th>
+							<th>Lead Time</th>
+							<th>Order Type</th>
+						</tr>
+						<tr>
+							<td>${xdCode}</td>
+							<td>
+								<img src="${chemicalStructure}" width="80px;"></img>
+								<p>${nameEn}</p>
+							</td>
+							<td>${cas}</td>
+							<td>${purity}</td>
+							<td>${poundPrices}</td>
+							<td>${deliverStart}-${deliverEnd}weeks</td>
+							<td>${orderType}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!---->
+			<div class="info_text order">
+				<p style="margin-left: 50px;margin-top: 32px;">${validityDescription}</p>
+			</div>
+			<!---->
+		</div>
+	</div>
+<!--End-->
+</body>
+</html>

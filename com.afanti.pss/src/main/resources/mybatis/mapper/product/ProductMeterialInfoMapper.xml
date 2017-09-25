@@ -1,0 +1,1695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.product.dao.ProductMeterialInfoDao">
+
+    <select id="getProductList" parameterType="Map" resultType="Product_material_info">
+        select t.product_id,t.name_ch,t.cas from product_material_info t
+        where t.status = 0
+        <if test="cas!=null and cas!=''">
+            and t.cas like '%${cas}%'
+        </if>
+        <if test="product_name!=null and product_name!=''">
+            and (t.name_ch like '%${product_name}%' or t.name_en like '%${product_name}%')
+        </if>
+        order by t.product_id desc
+        limit 10
+    </select>
+
+    <select id="getProductPageList" parameterType="Map" resultType="Product_material_info">
+        SELECT
+        t.sku,
+        t.product_id,
+        t.name_ch,
+        t.name_en,
+        t.cas,
+        t.mol,
+        t.create_time,
+        t.modify_time,
+        t2.staff_name AS create_oper_name,
+        t3.staff_name AS modify_oper_name
+        FROM
+        product_material_info t
+        left join staff_info t2 on(t.create_oper = t2.staff_id)
+        left join staff_info t3 on(t.modify_oper = t3.staff_id)
+        where t.status = 0
+        <if test="params.product_name!=null and params.product_name!=''">
+            and (t.name_ch like '%${params.product_name}%' or t.name_en like '%${params.product_name}%')
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and (t.sku like '%${params.sku}%' or t.sku like '%${params.sku}%')
+        </if>
+        <if test="params.supplier_id!=null and params.supplier_id!=''">
+            and t.product_id NOT IN(SELECT
+            product_id
+            FROM
+            supplier_product_rel
+            WHERE supplier_id=#{params.supplier_id} AND STATUS=0)
+        </if>
+        order by t.product_id desc
+    </select>
+    <select id="getProductPageCount" parameterType="Map" resultType="Integer">
+        select count(1) from product_material_info t
+        where t.status = 0
+        <if test="params.product_name!=null and params.product_name!=''">
+            and (t.name_ch like '%${params.product_name}%' or t.name_en like '%${params.product_name}%')
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and (t.sku like '%${params.sku}%' or t.sku like '%${params.sku}%')
+        </if>
+    </select>
+
+    <select id="getSupplierProductPageList" parameterType="Map" resultType="Supplier_product_rel">
+        SELECT
+        t.product_id,
+        t5.Supplier_id,
+        t.name_ch,
+        t.name_en,
+        t.cas,
+        t5.p_price as price,
+        t5.p_unit as unit,
+        t5.p_purity as purity
+        FROM
+        product_material_info t
+        JOIN supplier_product_rel t5 ON (t.product_id = t5.Product_id)
+        LEFT JOIN staff_info t2 ON (t.create_oper = t2.staff_id)
+        LEFT JOIN staff_info t3 ON (t.modify_oper = t3.staff_id)
+        WHERE
+        t5.STATUS = 0
+        and t5.supplier_id = #{params.supplier_id}
+        <if test="params.cas!=null and params.cas!=''">
+            and t.cas like '%${params.cas}%'
+        </if>
+        <if test="params.product_name!=null and params.product_name!=''">
+            and (t.name_ch like '%${params.product_name}%' or t.name_en like '%${params.product_name}%')
+        </if>
+        <if test="params.product_ids!=null and params.product_ids!=''">
+            and t.product_id not in(${params.product_ids})
+        </if>
+        order by t.product_id desc
+    </select>
+
+    <select id="getSupplierProductPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_material_info t
+        JOIN supplier_product_rel t5 ON (t.product_id = t5.Product_id)
+        LEFT JOIN staff_info t2 ON (t.create_oper = t2.staff_id)
+        LEFT JOIN staff_info t3 ON (t.modify_oper = t3.staff_id)
+        WHERE
+        t5.STATUS = 0
+        and t5.supplier_id = #{params.supplier_id}
+        <if test="params.cas!=null and params.cas!=''">
+            and t.cas like '%${params.cas}%'
+        </if>
+        <if test="params.product_name!=null and params.product_name!=''">
+            and (t.name_ch like '%${params.product_name}%' or t.name_en like '%${params.product_name}%')
+        </if>
+        <if test="params.product_ids!=null and params.product_ids!=''">
+            and t.product_id not in(${params.product_ids})
+        </if>
+    </select>
+
+    <select id="getProductImage" parameterType="Map" resultType="String">
+        SELECT
+            t.imgage
+        FROM
+            product_material_info t where t.product_id =#{product_id}
+    </select>
+
+
+    <insert id="addProductInfo" parameterType="Map">
+        insert into product_material_info
+        (
+        <if test="warning_amount!=null and warning_amount!=''">
+            warning_amount,
+        </if>
+        sku,
+        mol_weight,
+        purity_category,
+        mol_formula,
+        mol,
+        smiles,
+        name_ch,
+        imgage,
+        name_en,
+        cas,
+        create_oper,
+        create_time,
+        modify_oper,
+        modify_time,
+        `status`,
+        mdl_number,
+        purity,
+        form,
+        website_url,
+        msds,
+        hazard,
+        precautionary,
+        ghs_code,
+        product_type
+        )
+        VALUES
+        (
+        <if test="warning_amount!=null and warning_amount!=''">
+            #{warning_amount},
+        </if>
+        #{sku},
+        #{mol_weight},
+        #{purity_category},
+        #{mol_formula},
+        #{mol},
+        #{smiles},
+        #{name_ch},
+        #{imgage},
+        #{name_en},
+        #{cas},
+        #{create_oper},
+        #{create_time},
+        #{modify_oper},
+        #{modify_time},
+        #{status},
+        #{mdl_number},
+        #{purity},
+        #{form},
+        #{website_url},
+        #{msds},
+        #{hazard},
+        #{precautionary},
+        #{ghs_code},
+        #{product_type}
+        )
+    </insert>
+
+    <update id="delProduct" parameterType="Map">
+        update product_material_info set `status`=1 where product_id =#{product_id}
+    </update>
+
+    <select id="getProductInfo" parameterType="Map" resultType="Product_material_info">
+        select * from product_material_info t where t.status = 0 and t.product_id=#{product_id}
+    </select>
+
+    <update id="updProductInfo" parameterType="Map">
+        update product_material_info
+        <trim prefix="set" suffixOverrides=",">
+            <if test="warning_amount!=null and warning_amount!=''">
+                warning_amount= #{warning_amount},
+            </if>
+            <if test="sku!=null">
+                sku= #{sku},
+            </if>
+            <if test="mol_weight!=null">
+                mol_weight= #{mol_weight},
+            </if>
+            <if test="purity_category!=null">
+                purity_category= #{purity_category},
+            </if>
+            <if test="mol_formula!=null">
+                mol_formula= #{mol_formula},
+            </if>
+            <if test="mol!=null">
+                mol= #{mol},
+            </if>
+            <if test="smiles!=null">
+                smiles= #{smiles},
+            </if>
+            <if test="name_ch!=null">
+                name_ch= #{name_ch},
+            </if>
+            <if test="imgage!=null">
+                imgage= #{imgage},
+            </if>
+            <if test="name_en!=null">
+                name_en= #{name_en},
+            </if>
+            <if test="cas!=null">
+                cas= #{cas},
+            </if>
+            <if test="create_oper!=null">
+                create_oper= #{create_oper},
+            </if>
+            <if test="create_time!=null">
+                create_time= #{create_time},
+            </if>
+            <if test="modify_oper!=null">
+                modify_oper= #{modify_oper},
+            </if>
+            <if test="modify_time!=null">
+                modify_time= #{modify_time},
+            </if>
+            <if test="mdl_number!=null">
+                mdl_number= #{mdl_number},
+            </if>
+            <if test="purity!=null">
+                `purity`= #{purity},
+            </if>
+            <if test="form!=null">
+                `form`= #{form},
+            </if>
+            <if test="website_url!=null">
+                `website_url`= #{website_url},
+            </if>
+            <if test="msds!=null">
+                `msds`= #{msds},
+            </if>
+            <if test="hazard!=null">
+                `hazard`= #{hazard},
+            </if>
+            <if test="precautionary!=null">
+                `precautionary`= #{precautionary},
+            </if>
+            <if test="ghs_code!=null">
+                `ghs_code`= #{ghs_code}
+            </if>
+        </trim>
+        where product_id=#{product_id}
+    </update>
+
+
+    <select id="getProductMaterialList" parameterType="Map" resultType="product_use">
+        SELECT
+        t.use_id,
+        t.product_id,
+        t2.cas,
+        t2.sku,
+        t.use_amount,
+        t.use_unit,
+        t.use_staff,
+        t.use_time,
+        t.use_name,
+        t.`status`,
+        t3.dict_name,
+        t.use_is_del,
+        t.kd_code,
+        t.kd_num,
+        t.use_batch_no,
+        t.space_id,
+        t.check_staff,
+        t.kd_status,
+        t1.staff_name,
+        t2.name_ch
+        FROM
+        product_use t
+        LEFT JOIN staff_info t1 ON t.use_staff = t1.staff_id
+        LEFT JOIN product_material_info t2 ON t.product_id = t2.product_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        WHERE
+        t.use_is_del = 0 AND t.is_usedel=0 AND t1.staff_id=#{staff_id}
+        AND t.`status` IN (
+        5001,
+        5002,
+        5003,
+        5004,
+        11001,
+        11002,
+        11003,
+        11004
+        )
+        ORDER BY t.use_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getProductMaterialCount" parameterType="Map" resultType="Integer">
+      SELECT count(1) FROM product_use t
+        LEFT JOIN staff_info t1 ON t.use_staff = t1.staff_id
+        LEFT JOIN product_material_info t2 ON t.product_id = t2.product_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        WHERE
+            t.use_is_del = 0 AND t.is_usedel=0 AND t1.staff_id=#{staff_id}
+        AND t.`status` IN (
+            5001,
+            5002,
+            5003,
+            5004,
+            11001,
+            11002,
+            11003,
+            11004
+        )
+        ORDER BY t.use_time DESC
+    </select>
+    <select id="use_material" parameterType="Map" resultType="product_use">
+        SELECT
+            t.use_id,
+            t.product_id,
+            t.use_amount,
+            t.use_unit,
+            t.use_staff,
+            t.purity,
+            t.check_staff,
+            t1.purchase_d_id,
+            t1.`desc`,
+            t1.kd_code,
+            t1.kd_num,
+            t2.space_id
+        FROM
+            product_use t
+        LEFT JOIN material_purchase_detail t1 ON t.use_id = t1.use_id
+        LEFT JOIN product_material_enter_detail t2 ON t1.purchase_d_id = t2.enter_type_d_billno
+        WHERE
+            t.use_id = #{use_id}
+        AND t.use_is_del = 0 AND t2.sale_batch_no IS NULL
+    </select>
+
+    <insert id="add_Usematerial" parameterType="Map">
+        INSERT INTO product_use (
+            product_id,
+            use_amount,
+            use_unit,
+            use_staff,
+            purity,
+            check_staff,
+            use_desc,
+            kd_code,
+            kd_num,
+            space_id,
+            use_time,
+            `status`,
+            check_time,
+            kd_status,
+            identifying_code,
+            use_name,
+            use_batch_no,
+            check_desc,
+            use_is_del,
+            is_usedel
+        )
+    VALUES(
+            #{product_id},
+            #{use_amount},
+            #{use_unit},
+            #{use_staff},
+            #{purity},
+            #{check_staff},
+            #{use_desc},
+            #{kd_code},
+            #{kd_num},
+            #{space_id},
+            #{use_time},
+            #{status},
+            #{check_time},
+            #{kd_status},
+            #{identifying_code},
+            #{use_name},
+            #{use_batch_no},
+            #{check_desc},
+            #{use_is_del},
+            #{is_usedel}
+    )
+    </insert>
+
+    <select id="MaterialHistoryList" parameterType="Map" resultType="product_use">
+        SELECT
+        t.use_id,
+        t.product_id,
+        t2.cas,
+        t2.sku,
+        t.use_amount,
+        t.use_unit,
+        t.use_staff,
+        t.use_time,
+        t.use_name,
+        t.`status`,
+        t3.dict_name,
+        t.use_is_del,
+        t.kd_code,
+        t.kd_num,
+        t.use_batch_no,
+        t.space_id,
+        t.check_staff,
+        t.kd_status,
+        t1.staff_name,
+        t2.name_ch
+        FROM
+        product_use t
+        LEFT JOIN staff_info t1 ON t.use_staff = t1.staff_id
+        LEFT JOIN product_material_info t2 ON t.product_id = t2.product_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        WHERE
+        t.use_is_del = 0 AND t1.staff_id=#{staff_id}
+        AND t.`status` IN (8002) AND t.is_usedel=0
+        ORDER BY t.use_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="MaterialHistoryCount" parameterType="Map" resultType="Integer">
+          SELECT count(1) FROM product_use t
+        LEFT JOIN staff_info t1 ON t.use_staff = t1.staff_id
+        LEFT JOIN product_material_info t2 ON t.product_id = t2.product_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        WHERE
+            t.use_is_del = 0 AND t1.staff_id=#{staff_id}
+        AND t.`status` IN (8002) AND t.is_usedel=0
+        ORDER BY t.use_time DESC
+    </select>
+
+    <update id="updProductMaterial" parameterType="Map">
+        UPDATE product_use SET is_usedel = 1 WHERE use_id = #{use_id}
+    </update>
+
+    <select id="getProductSuppliesList" parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.use_id,
+        t.consumable_id,
+        t.amount,
+        t.staff,
+        t.use_time,
+        t.is_del,
+        t.`status`,
+        t.space_id,
+        t.`desc`,
+        t.check_time,
+        t.stock_id,
+        t.kd_num,
+        t.kd_code,
+        t.is_use,
+        t1.consumable_name,
+        t1.consumable_unit,
+        t1.pack,
+        t2.staff_name,
+        t3.dict_name
+        FROM
+        consumable_use t
+        LEFT JOIN consumable_material_info t1 ON t.consumable_id=t1.consumable_id
+        LEFT JOIN staff_info t2 ON t.staff=t2.staff_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        where t.is_del=0 AND t2.staff_id=#{staff_id} AND t.is_use=0 AND t.`status` IN (
+        5001,
+        5002,
+        5003,
+        5004,
+        11001,
+        11002,
+        11003,
+        11004
+        )
+        ORDER BY t.use_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getProductSuppliesCount" parameterType="Map" resultType="Integer">
+        SELECT
+            count(1)
+        FROM
+            consumable_use t
+        LEFT JOIN consumable_material_info t1 ON t.consumable_id=t1.consumable_id
+        LEFT JOIN staff_info t2 ON t.staff=t2.staff_id
+         LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        where t.is_del=0 AND t2.staff_id=#{staff_id} AND t.is_use=0 AND t.`status` IN (
+                    5001,
+                    5002,
+                    5003,
+                    5004,
+                    11001,
+                    11002,
+                    11003,
+                    11004
+                )
+        ORDER BY t.use_time DESC
+    </select>
+    <select id="use_supplies" parameterType="Map" resultType="consumable_use">
+        SELECT
+            t.use_id,
+            t.consumable_id,
+            t.amount,
+            t.staff,
+            t.use_time,
+            t.is_del,
+            t.`status`,
+            t.`desc`,
+            t.check_time,
+            t.stock_id,
+            t.kd_num,
+            t.kd_code,
+            t1.purchase_id,
+            t2.space_id
+        FROM
+            consumable_use t
+        LEFT JOIN consumable_purchase t1 ON t.use_id = t1.use_id
+        LEFT JOIN consumable_stock t2 ON t1.purchase_id = t2.purchase_id
+        WHERE
+            t.use_id = #{use_id}
+        AND t.is_del = 0
+    </select>
+    <insert id="add_Usesupplies" parameterType="Map">
+          INSERT INTO consumable_use (
+                consumable_id,
+                amount,
+                staff,
+                use_time,
+                is_del,
+                `status`,
+                space_id,
+                `desc`,
+                use_name,
+                check_staff,
+                check_time,
+                use_status,
+                stock_id,
+                identifying_code,
+                kd_num,
+                kd_code,
+                is_use
+            )
+        VALUES(
+                #{consumable_id},
+                #{amount},
+                #{staff},
+                #{use_time},
+                #{is_del},
+                #{status},
+                #{space_id},
+                #{desc},
+                #{use_name},
+                #{check_staff},
+                #{check_time},
+                #{use_status},
+                #{stock_id},
+                #{identifying_code},
+                #{kd_num},
+                #{kd_code},
+                #{is_use}
+        )
+    </insert>
+    <update id="updProductSupplies" parameterType="Map">
+        UPDATE consumable_use SET is_use = 1 WHERE use_id = #{use_id}
+    </update>
+    <select id="SuppliesHistoryList" parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.use_id,
+        t.consumable_id,
+        t.amount,
+        t.staff,
+        t.use_time,
+        t.is_del,
+        t.`status`,
+        t.space_id,
+        t.`desc`,
+        t.check_time,
+        t.stock_id,
+        t.kd_num,
+        t.kd_code,
+        t.is_use,
+        t1.consumable_name,
+        t1.consumable_unit,
+        t1.pack,
+        t2.staff_name,
+        t3.dict_name
+        FROM
+        consumable_use t
+        LEFT JOIN consumable_material_info t1 ON t.consumable_id=t1.consumable_id
+        LEFT JOIN staff_info t2 ON t.staff=t2.staff_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        where t.is_del=0 AND t2.staff_id=#{staff_id} AND t.is_use=0 AND t.`status` IN (8002)
+        ORDER BY t.use_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="SuppliesHistoryCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_use t
+        LEFT JOIN consumable_material_info t1 ON t.consumable_id=t1.consumable_id
+        LEFT JOIN staff_info t2 ON t.staff=t2.staff_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        where t.is_del=0 AND t2.staff_id=#{staff_id} AND t.is_use=0 AND t.`status` IN (8002)
+        ORDER BY t.use_time DESC
+    </select>
+    <select id="getProductResearchList" parameterType="Map" resultType="product_research">
+        SELECT
+        t.research_id,
+        t.research_staff,
+        t.research_time,
+        t.research_name,
+        t.product_id,
+        t.amount,
+        t.unit,
+        t.`status`,
+        t.research_is_del,
+        t.research_batch_no,
+        t.purity,
+        t.sale_batch_no,
+        t.face,
+        t.is_waibao,
+        t.is_dy,
+        t1.cas,
+        t1.sku,
+        t1.name_ch,
+        t2.staff_name,
+        t3.dict_name
+        FROM
+        product_research t
+        LEFT JOIN product_material_info t1 ON t.product_id=t1.product_id
+        LEFT JOIN staff_info t2 ON t.research_staff=t2.staff_id
+        LEFT JOIN pss_dict t3 ON t.`status`=t3.dict_id
+        WHERE
+        t.is_dy=0 AND t2.staff_id=#{staff_id} AND t.`status` IN (
+        5002,
+        5003,
+        5004,
+        11001,
+        11003,
+        11004
+        )
+        ORDER BY t.research_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getProductResearchCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+                product_research t
+            LEFT JOIN product_material_info t1 ON t.product_id=t1.product_id
+            LEFT JOIN staff_info t2 ON t.research_staff=t2.staff_id
+            LEFT JOIN pss_dict t3 ON t.`status`=t3.dict_id
+            WHERE
+                 t.is_dy=0 AND t2.staff_id=#{staff_id} AND t.`status` IN (
+                                5001,
+                                5002,
+                                5003,
+                                5004,
+                                11001,
+                                11002,
+                                11003,
+                                11004
+                            )
+                    ORDER BY t.research_time DESC
+    </select>
+    <select id="use_res" parameterType="Map" resultType="product_research">
+        SELECT * FROM product_research t
+        LEFT JOIN product_material_info t1 ON t.product_id = t1.product_id
+        LEFT JOIN staff_info t2 ON t.research_staff = t2.staff_id
+        LEFT JOIN pss_dict t3 ON t.`status` = t3.dict_id
+        WHERE t2.staff_id = #{staff_id} AND t.research_id=#{research_id}
+    </select>
+    <insert id="add_Useres" parameterType="Map">
+        INSERT INTO product_research (
+            research_staff,
+            research_time,
+            research_name,
+            product_id,
+            amount,
+            unit,
+            `status`,
+            research_is_del,
+            research_batch_no,
+            purity,
+            sale_batch_no,
+            face,
+            is_waibao,
+            hours,
+            is_dy
+        )
+        VALUES (
+            #{research_staff},
+            #{research_time},
+            #{research_name},
+            #{product_id},
+            #{amount},
+            #{unit},
+            #{status},
+            #{research_is_del},
+            #{research_batch_no},
+            #{purity},
+            #{sale_batch_no},
+            #{face},
+            #{is_waibao},
+            #{hours},
+            #{is_dy}
+        )
+    </insert>
+    <update id="updProductRes" parameterType="Map">
+        UPDATE product_research SET is_dy = 1 WHERE research_id = #{research_id}
+    </update>
+    <select id="ResearchHistoryList" parameterType="Map" resultType="product_research">
+        SELECT
+            t.research_id,
+            t.research_staff,
+            t.research_time,
+            t.research_name,
+            t.product_id,
+            t.amount,
+            t.unit,
+            t.`status`,
+            t.research_is_del,
+            t.research_batch_no,
+            t.purity,
+            t.sale_batch_no,
+            t.face,
+            t.is_waibao,
+            t.is_dy,
+            t1.cas,
+            t1.sku,
+            t1.name_ch,
+            t2.staff_name,
+            t3.dict_name
+        FROM
+            product_research t
+        LEFT JOIN product_material_info t1 ON t.product_id=t1.product_id
+        LEFT JOIN staff_info t2 ON t.research_staff=t2.staff_id
+        LEFT JOIN pss_dict t3 ON t.`status`=t3.dict_id
+        WHERE
+        t2.staff_id=#{staff_id} AND t.is_dy=2 AND t.`status` IN (
+        5002,
+        5003,
+        5004,
+        11001,
+        11002,
+        11003,
+        11004)
+        ORDER BY t.research_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="ResearchHistoryCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+                product_research t
+            LEFT JOIN product_material_info t1 ON t.product_id=t1.product_id
+            LEFT JOIN staff_info t2 ON t.research_staff=t2.staff_id
+            LEFT JOIN pss_dict t3 ON t.`status`=t3.dict_id
+            WHERE
+                 t2.staff_id=#{staff_id} AND t.is_dy=2 AND t.`status` IN (
+                                5002,
+                                5003,
+                                5004,
+                                11001,
+                                11002,
+                                11003,
+                                11004)
+                    ORDER BY t.research_time DESC
+    </select>
+    <select id="moblieSelect" parameterType="Map" resultType="Staff_info">
+          select mobilephone from staff_info where staff_id=#{staff_id}
+    </select>
+
+
+    <select id="stockSelectCas" parameterType="Map" resultType="Product_material_enter_detail">
+        SELECT
+                t1.enter_d_id,
+                t.product_id,
+                t.cas,
+                t1.space_id,
+                t1.batch_no,
+                t2.space_name,
+                t1.amount,
+                t1.unit
+            FROM
+                product_material_info t
+            LEFT JOIN product_material_enter_detail t1 ON t.product_id=t1.product_id
+            LEFT JOIN dict_warehouse_space t2 ON t1.space_id=t2.space_id
+            WHERE
+	            t.cas = #{cas} AND t.`status`=0
+    </select>
+    <insert id="apply_purchasing" parameterType="Map">
+          INSERT INTO product_use (
+                product_id,
+                use_amount,
+                use_unit,
+                use_staff,
+                use_desc,
+                use_time,
+                use_is_del,
+                `status`,
+                is_usedel
+            )
+            VALUES(
+                #{product_id},
+                #{amount},
+                #{unit},
+                #{staff_id},
+                #{enter_desc},
+                NOW(),
+                0,
+                11004,
+                0
+            )
+    </insert>
+    <select id="use_purchasing" parameterType="Map" resultType="Product_material_enter_detail">
+          select * from product_material_enter_detail where enter_d_id=#{enter_d_id}
+    </select>
+    <insert id="add_purchasing" parameterType="Map">
+        INSERT INTO product_use (
+                product_id,
+                use_amount,
+                use_unit,
+                use_staff,
+                use_time,
+                `status`,
+                space_id,
+                purity,
+                use_is_del,
+                is_usedel
+          )
+        VALUES(
+                #{product_id},
+                #{use_amount},
+                #{use_unit},
+                #{use_staff},
+                #{use_time},
+                #{status},
+                #{space_id},
+                #{purity},
+                #{use_is_del},
+                0
+        )
+    </insert>
+    <select id="suppliesSelectName" parameterType="Map" resultType="consumable_material_info">
+        SELECT
+                *
+            FROM
+                consumable_material_info t
+            LEFT JOIN consumable_stock t1 ON t.consumable_id=t1.consumable_id
+            LEFT JOIN dict_warehouse_space t2 ON t1.space_id=t2.space_id
+            where t.`status`=0 AND t.consumable_name=#{consumable_name}
+    </select>
+    <select id="fanxiu_add_select" parameterType="Map" resultType="consumable_material_info">
+        select * from consumable_material_info where consumable_name=#{consumable_name} AND pack=#{pack}
+    </select>
+    <insert id="addFanxiuRepair" parameterType="Map">
+        INSERT INTO consumable_repair (
+        consumable_id,
+        repair_staff,
+        repair_time,
+        repair_amount,
+        `status`,
+        repair_is_del,
+        repair_desc
+        )
+        VALUES(
+        #{consumable_id},
+        #{repair_staff},
+        #{repair_time},
+        #{repair_amount},
+        #{status},
+        #{repair_is_del},
+        #{repair_desc}
+        )
+    </insert>
+    <insert id="fanxiu_info_add" parameterType="Map" useGeneratedKeys="true" keyProperty="consumable_id"
+            keyColumn="consumable_id">
+        INSERT INTO consumable_material_info (
+
+        consumable_name,
+        consumable_unit,
+        staff_id,
+        create_time,
+        `status`,
+        pack
+        )
+        VALUES(
+        #{consumable_name},
+        #{consumable_unit},
+        #{staff_id},
+        #{create_time},
+        #{status},
+        #{pack}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="consumable_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="add_supplies" parameterType="Map">
+        INSERT INTO consumable_use (
+            consumable_id,
+            amount,
+            staff,
+            use_time,
+            is_del,
+            `status`,
+            `desc`
+            )
+        VALUES(
+            #{consumable_id},
+            #{amount},
+            #{staff},
+            now(),
+            0,
+            11004,
+            #{desc}
+        )
+    </insert>
+    <insert id="add_consumable_use" parameterType="Map">
+        INSERT INTO consumable_use (
+            consumable_id,
+            amount,
+            staff,
+            use_time,
+            is_del,
+            `status`,
+            space_id
+            )
+        VALUES(
+            #{consumable_id},
+            #{amount},
+            #{staff},
+            NOW(),
+            #{is_del},
+            #{status},
+            #{space_id}
+            )
+    </insert>
+    <select id="suppliesRepairList" parameterType="Map" resultType="consumable_repair">
+        SELECT
+        t.*,
+        t1.`consumable_unit`,
+        t1.`pack`,
+        t1.`consumable_name`,
+        t2.`staff_name`,
+        t3.`dict_name`,
+        t4.`staff_name` check_people
+        FROM
+        consumable_repair t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id` = t.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t.`repair_staff` = t2.`staff_id`
+        LEFT JOIN pss_dict t3
+        ON t3.`dict_id` = t.`status`
+        LEFT JOIN staff_info t4
+        ON t4.`staff_id`=t.`checking_staff`
+
+        where t.repair_staff=#{repair_staff}  AND t.repair_is_del=0
+
+        <if test="repair_id!=0">
+            AND repair_id= #{repair_id}
+        </if>
+        ORDER BY t.repair_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="suppliesRepairCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_repair t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id` = t.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t.`repair_staff` = t2.`staff_id`
+        LEFT JOIN pss_dict t3
+        ON t3.`dict_id` = t.`status`
+        LEFT JOIN staff_info t4
+        ON t4.`staff_id`=t.`checking_staff`
+        where t.repair_staff=#{repair_staff} AND t.repair_is_del=0
+        ORDER BY t.repair_time DESC
+    </select>
+    <insert id="addRepairList" parameterType="Map">
+        INSERT INTO consumable_repair (
+        consumable_id,
+        repair_staff,
+        repair_time,
+        repair_amount,
+        `status`,
+        repair_is_del,
+        repair_desc
+        )
+        VALUES(
+        #{consumable_id},
+        #{repair_staff},
+        #{repair_time},
+        #{repair_amount},
+        #{status},
+        #{repair_is_del},
+        #{repair_desc}
+        )
+    </insert>
+    <update id="updRepair" parameterType="Map">
+        UPDATE consumable_repair SET is_usedel=1 where repair_id=#{repair_id}
+    </update>
+    <select id="selectRepairName" parameterType="Map" resultType="consumable_repair">
+        SELECT
+            *
+        FROM
+            consumable_material_info t
+        LEFT JOIN consumable_repair t1 ON t.consumable_id=t1.consumable_id
+        WHERE
+	        t.consumable_name = #{consumable_name} AND t1.`status`=14001 AND t1.is_usedel=0 AND t1.repair_is_del=0
+	        ORDER BY t1.repair_time DESC
+    </select>
+    <select id="selectRepairFanxiu" parameterType="Map" resultType="consumable_repair">
+        select * from consumable_repair where repair_id=#{repair_id}
+    </select>
+    <insert id="addRepairFanxiu" parameterType="Map">
+        INSERT INTO consumable_repair (
+        consumable_id,
+        repair_staff,
+        repair_time,
+        repair_amount,
+        `status`,
+        repair_is_del,
+        repair_desc,
+        is_usedel
+        )
+        VALUES(
+        #{consumable_id},
+        #{repair_staff},
+        #{repair_time},
+        #{repair_amount},
+        #{status},
+        #{repair_is_del},
+        #{repair_desc},
+        #{is_usedel}
+        )
+    </insert>
+    <insert id="no_addRepairFanxiu" parameterType="Map">
+        INSERT INTO consumable_repair (
+        consumable_id,
+        repair_staff,
+        repair_time,
+        repair_amount,
+        `status`,
+        repair_is_del,
+        repair_desc,
+        is_usedel
+        )
+        VALUES(
+        #{consumable_id},
+        #{repair_staff},
+        #{repair_time},
+        #{repair_amount},
+        #{status},
+        #{repair_is_del},
+        #{repair_desc},
+        #{is_usedel}
+        )
+    </insert>
+
+
+
+
+
+
+    <select id="MaterialRequisitionAuditList" parameterType="Map" resultType="product_use">
+          SELECT
+            t.*,
+            t1.dict_name,
+            t2.staff_name,
+            t3.name_ch nameCh,
+            t3.name_en nameEn,
+            t3.cas,
+            t3.sku
+        FROM
+        product_use t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.use_staff
+        LEFT JOIN product_material_info t3
+        ON t3.product_id=t.product_id
+        WHERE use_is_del=0 AND t.`status`=11004
+		order by t.use_time desc
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="MaterialRequisitionAuditCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_use t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.use_staff
+        LEFT JOIN product_material_info t3
+        ON t3.product_id=t.product_id
+        WHERE use_is_del=0 AND t.`status`=11004
+    </select>
+    <update id="ConfirmationAudit" parameterType="Map" >
+        UPDATE product_use t
+        SET t.status=#{status},t.check_time=#{check_time},t.check_staff=#{check_staff},t.check_desc=#{desc}
+        WHERE t.use_id=#{use_id}
+    </update>
+    <select id="Receive_Preview" parameterType="java.lang.Integer" resultType="product_use">
+        SELECT
+        pmi.*,
+        pu.*,
+        t1.`staff_name`,
+        t2.`staff_name` check_name
+        FROM
+        product_material_info pmi
+        INNER JOIN product_use pu
+        ON (pmi.product_id = pu.product_id)
+        INNER JOIN staff_info t1
+        ON t1.`staff_id`=pu.`use_staff`
+        INNER JOIN staff_info t2
+        ON t2.`staff_id`=pu.`check_staff`
+        WHERE pu.use_id=#{use_id}
+    </select>
+    <select id="staff_mobilephone" parameterType="Map" resultType="Staff_info">
+        SELECT
+        t1.role_name,
+        t3.staff_name,
+        t3.mobilephone
+        FROM
+        pss_role t1
+        INNER JOIN pss_role_user t2 ON t1.role_id=t2.role_user_roleid
+        INNER JOIN staff_info t3 ON t3.staff_id=t2.role_user_staffinfoid
+        WHERE
+        t1.role_id = 49
+    </select>
+    <select id="consumable_mobilephone" parameterType="Map" resultType="consumable_use">
+        SELECT
+        `status`
+        FROM
+        consumable_use
+        WHERE
+        use_id = #{use_id}
+    </select>
+    <select id="getConsumableList"  parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.*,
+        t1.`staff_name`,
+        t2.`consumable_name`,
+        t2.`create_time`,
+        t2.`pack`,
+        t3.`dict_name`,
+        t2.consumable_unit,
+        t4.`staff_name` check_name
+        FROM
+        consumable_use t
+        LEFT JOIN staff_info t1
+        ON t.staff = t1.`staff_id`
+        LEFT JOIN consumable_material_info t2
+        ON t.`consumable_id` = t2.`consumable_id`
+        LEFT JOIN pss_dict t3
+        ON t.`status` = t3.`dict_id`
+        LEFT JOIN staff_info t4
+        ON t.`check_staff` = t4.`staff_id`
+        WHERE t.is_del = 0 AND t.`status`=11004
+        ORDER BY t.check_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getConsumableCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_use t
+        LEFT JOIN staff_info t1
+        ON t.staff=t1.`staff_id`
+        LEFT JOIN consumable_material_info t2
+        ON t.`consumable_id`=t2.`consumable_id`
+        LEFT JOIN pss_dict t3
+        ON t.`status`=t3.`dict_id`
+        WHERE t.is_del = 0 AND t.`status`=11004
+    </select>
+    <update id="useUpdate" parameterType="Map" >
+        UPDATE consumable_use t
+        SET t.amount=#{use_amount},t.use_name=#{use_name}
+        WHERE t.use_id=#{use_id}
+    </update>
+    <select id="getResearchList"  parameterType="Map" resultType="product_research">
+        SELECT
+        t.*,
+        t1.dict_name,
+        t2.staff_name,
+        t3.cas,
+        t3.sku,
+        t3.name_ch,
+        GROUP_CONCAT(t4.putu_url) putu_url
+        FROM
+        product_research t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.research_staff
+        LEFT JOIN product_material_info t3
+        ON t3.`product_id`=t.`product_id`
+        LEFT JOIN pss_research_doc t4
+        on t.research_id=t4.research_id
+        WHERE research_is_del=0 AND t.`status` in(11004,11003)
+        GROUP BY t.research_id
+        order by t.research_time desc
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getResearchCount"  parameterType="Map" resultType="Integer">
+      SELECT
+        count(1)
+        FROM
+        product_research t
+        LEFT JOIN pss_dict t1
+        ON t.status=t1.dict_id
+        LEFT JOIN staff_info t2
+        ON t2.staff_id=t.research_staff
+        LEFT JOIN product_material_info t3
+        ON t3.`product_id`=t.`product_id`
+        LEFT JOIN pss_research_doc t4
+        on t.research_id=t4.research_id
+        WHERE research_is_del=0 AND t.`status` in(11004,11003)
+    </select>
+    <update id="researchStatusUp" parameterType="Map" >
+        UPDATE product_research t
+        SET t.status=${status}
+        WHERE t.research_id=${research_id}
+    </update>
+    <update id="researchDel" parameterType="product_research" >
+        UPDATE product_research t
+        SET t.research_is_del=#{research_is_del}
+        WHERE t.research_id=#{research_id}
+    </update>
+
+
+
+
+    <select id="warehouseMaterialList" parameterType="Map" resultType="PurchaseInventoryInfo">
+          SELECT
+        *
+        FROM
+        (SELECT
+        9001 AS in_type,
+        k1.name_en,
+        k1.`name_ch`,
+        k1.`cas`,
+        k1.`sku`,
+        t.purchase_id,
+        t.supplier_id,
+        t.stock_status,
+        d.dict_name AS stock_status_name,
+        k.`amount`,
+        k.`unit`,
+        k.`kd_code`,
+        k.`kd_num`,
+        t.all_total,
+        t.purchase_time,
+        t2.staff_name,
+        t3.`name` AS supplier_name
+        FROM
+        material_purchase t
+        LEFT JOIN staff_info t2
+        ON (t.staff_id = t2.staff_id)
+        LEFT JOIN cus_supplier_info t3
+        ON (t.supplier_id = t3.cs_sup_id)
+        LEFT JOIN pss_dict d
+        ON (t.stock_status = d.dict_id)
+        LEFT JOIN material_purchase_detail k
+        ON k.`purchase_id` = t.`purchase_id`
+        LEFT JOIN product_material_info k1
+        ON k1.`product_id` = k.`product_id`
+        WHERE t.purchase_isdel = 0
+
+        UNION
+        ALL
+        SELECT
+        7003 AS in_type,
+        k3.name_en,
+        k3.name_ch,
+        k3.cas,
+        k3.sku,
+        p1.research_id,
+        '',
+        p1.status,
+        p2.dict_name AS stock_status_name,
+        p1.amount,
+        p1.unit,
+        '',
+        '',
+        p1.amount,
+        p1.research_time,
+        p3.staff_name,
+        ''
+        FROM
+        product_research p1
+        LEFT JOIN pss_dict p2
+        ON (p1.status = p2.dict_id)
+        LEFT JOIN staff_info p3
+        ON (p3.staff_id = p1.research_staff)
+        LEFT JOIN product_material_info k3
+        ON k3.`product_id` = p1.`product_id`
+        WHERE p1.research_is_del = 0
+        UNION
+        ALL
+        SELECT
+        9002 AS in_type,
+        k5.name_en,
+        k5.name_ch,
+        k5.cas,
+        k5.sku,
+        t1.sale_id,
+        t1.customer_id,
+        t3.stock_status,
+        d2.dict_name AS stock_status_name,
+        k4.amount,
+        k4.unit,
+        '',
+        '',
+        t1.all_total,
+        t3.return_time,
+        sf.staff_name,
+        cu.`name` AS supplier_name
+        FROM
+        product_sale t1
+        LEFT JOIN product_sale_return t3
+        ON (t3.sale_id = t1.sale_id)
+        LEFT JOIN pss_dict d2
+        ON (t3.stock_status = d2.dict_id)
+        LEFT JOIN cus_supplier_info cu
+        ON (cu.cs_sup_id = t1.customer_id)
+        LEFT JOIN staff_info sf
+        ON (sf.staff_id = t1.staff_id)
+        LEFT JOIN product_sale_return_detail k4
+        ON k4.r_sale_id = t3.`r_sale_id`
+        LEFT JOIN product_material_info k5
+        ON k5.product_id = k4.product_id
+        WHERE t1.sale_isdel = 0) t1
+        WHERE t1.stock_status IS NOT NULL
+        and t1.stock_status =5002
+        order by t1.purchase_time desc
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="warehouseMaterialCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        (SELECT
+        9001 AS in_type,
+        k1.name_en,
+        k1.`name_ch`,
+        k1.`cas`,
+        k1.`sku`,
+        t.purchase_id,
+        t.supplier_id,
+        t.stock_status,
+        d.dict_name AS stock_status_name,
+        k.`amount`,
+        k.`unit`,
+        k.`kd_code`,
+        k.`kd_num`,
+        t.all_total,
+        t.purchase_time,
+        t2.staff_name,
+        t3.`name` AS supplier_name
+        FROM
+        material_purchase t
+        LEFT JOIN staff_info t2
+        ON (t.staff_id = t2.staff_id)
+        LEFT JOIN cus_supplier_info t3
+        ON (t.supplier_id = t3.cs_sup_id)
+        LEFT JOIN pss_dict d
+        ON (t.stock_status = d.dict_id)
+        LEFT JOIN material_purchase_detail k
+        ON k.`purchase_id` = t.`purchase_id`
+        LEFT JOIN product_material_info k1
+        ON k1.`product_id` = k.`product_id`
+        WHERE t.purchase_isdel = 0
+
+        UNION
+        ALL
+        SELECT
+        7003 AS in_type,
+        k3.name_en,
+        k3.name_ch,
+        k3.cas,
+        k3.sku,
+        p1.research_id,
+        '',
+        p1.status,
+        p2.dict_name AS stock_status_name,
+        p1.amount,
+        p1.unit,
+        '',
+        '',
+        p1.amount,
+        p1.research_time,
+        p3.staff_name,
+        ''
+        FROM
+        product_research p1
+        LEFT JOIN pss_dict p2
+        ON (p1.status = p2.dict_id)
+        LEFT JOIN staff_info p3
+        ON (p3.staff_id = p1.research_staff)
+        LEFT JOIN product_material_info k3
+        ON k3.`product_id` = p1.`product_id`
+        WHERE p1.research_is_del = 0
+        UNION
+        ALL
+        SELECT
+        9002 AS in_type,
+        k5.name_en,
+        k5.name_ch,
+        k5.cas,
+        k5.sku,
+        t1.sale_id,
+        t1.customer_id,
+        t3.stock_status,
+        d2.dict_name AS stock_status_name,
+        k4.amount,
+        k4.unit,
+        '',
+        '',
+        t1.all_total,
+        t3.return_time,
+        sf.staff_name,
+        cu.`name` AS supplier_name
+        FROM
+        product_sale t1
+        LEFT JOIN product_sale_return t3
+        ON (t3.sale_id = t1.sale_id)
+        LEFT JOIN pss_dict d2
+        ON (t3.stock_status = d2.dict_id)
+        LEFT JOIN cus_supplier_info cu
+        ON (cu.cs_sup_id = t1.customer_id)
+        LEFT JOIN staff_info sf
+        ON (sf.staff_id = t1.staff_id)
+        LEFT JOIN product_sale_return_detail k4
+        ON k4.r_sale_id = t3.`r_sale_id`
+        LEFT JOIN product_material_info k5
+        ON k5.product_id = k4.product_id
+        WHERE t1.sale_isdel = 0) t1
+        WHERE t1.stock_status IS NOT NULL
+        and t1.stock_status =5002
+    </select>
+    <select id="warehouseMaterialList_history" parameterType="Map" resultType="PurchaseInventoryInfo">
+        SELECT
+        *
+        FROM
+        (SELECT
+        9001 AS in_type,
+        k1.name_en,
+        k1.`name_ch`,
+        k1.`cas`,
+        k1.`sku`,
+        t.purchase_id,
+        t.supplier_id,
+        t.stock_status,
+        d.dict_name AS stock_status_name,
+        k.`amount`,
+        k.`unit`,
+        k.`kd_code`,
+        k.`kd_num`,
+        t.all_total,
+        t.purchase_time,
+        t2.staff_name,
+        t3.`name` AS supplier_name
+        FROM
+        material_purchase t
+        LEFT JOIN staff_info t2
+        ON (t.staff_id = t2.staff_id)
+        LEFT JOIN cus_supplier_info t3
+        ON (t.supplier_id = t3.cs_sup_id)
+        LEFT JOIN pss_dict d
+        ON (t.stock_status = d.dict_id)
+        LEFT JOIN material_purchase_detail k
+        ON k.`purchase_id` = t.`purchase_id`
+        LEFT JOIN product_material_info k1
+        ON k1.`product_id` = k.`product_id`
+        WHERE t.purchase_isdel = 0
+
+        UNION
+        ALL
+        SELECT
+        7003 AS in_type,
+        k3.name_en,
+        k3.name_ch,
+        k3.cas,
+        k3.sku,
+        p1.research_id,
+        '',
+        p1.status,
+        p2.dict_name AS stock_status_name,
+        p1.amount,
+        p1.unit,
+        '',
+        '',
+        p1.amount,
+        p1.research_time,
+        p3.staff_name,
+        ''
+        FROM
+        product_research p1
+        LEFT JOIN pss_dict p2
+        ON (p1.status = p2.dict_id)
+        LEFT JOIN staff_info p3
+        ON (p3.staff_id = p1.research_staff)
+        LEFT JOIN product_material_info k3
+        ON k3.`product_id` = p1.`product_id`
+        WHERE p1.research_is_del = 0
+        UNION
+        ALL
+        SELECT
+        9002 AS in_type,
+        k5.name_en,
+        k5.name_ch,
+        k5.cas,
+        k5.sku,
+        t1.sale_id,
+        t1.customer_id,
+        t3.stock_status,
+        d2.dict_name AS stock_status_name,
+        k4.amount,
+        k4.unit,
+        '',
+        '',
+        t1.all_total,
+        t3.return_time,
+        sf.staff_name,
+        cu.`name` AS supplier_name
+        FROM
+        product_sale t1
+        LEFT JOIN product_sale_return t3
+        ON (t3.sale_id = t1.sale_id)
+        LEFT JOIN pss_dict d2
+        ON (t3.stock_status = d2.dict_id)
+        LEFT JOIN cus_supplier_info cu
+        ON (cu.cs_sup_id = t1.customer_id)
+        LEFT JOIN staff_info sf
+        ON (sf.staff_id = t1.staff_id)
+        LEFT JOIN product_sale_return_detail k4
+        ON k4.r_sale_id = t3.`r_sale_id`
+        LEFT JOIN product_material_info k5
+        ON k5.product_id = k4.product_id
+        WHERE t1.sale_isdel = 0) t1
+        WHERE t1.stock_status IS NOT NULL
+        and t1.stock_status =5001
+        order by t1.purchase_time desc
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="warehouseMaterialCount_history" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        (SELECT
+        9001 AS in_type,
+        k1.name_en,
+        k1.`name_ch`,
+        k1.`cas`,
+        k1.`sku`,
+        t.purchase_id,
+        t.supplier_id,
+        t.stock_status,
+        d.dict_name AS stock_status_name,
+        k.`amount`,
+        k.`unit`,
+        k.`kd_code`,
+        k.`kd_num`,
+        t.all_total,
+        t.purchase_time,
+        t2.staff_name,
+        t3.`name` AS supplier_name
+        FROM
+        material_purchase t
+        LEFT JOIN staff_info t2
+        ON (t.staff_id = t2.staff_id)
+        LEFT JOIN cus_supplier_info t3
+        ON (t.supplier_id = t3.cs_sup_id)
+        LEFT JOIN pss_dict d
+        ON (t.stock_status = d.dict_id)
+        LEFT JOIN material_purchase_detail k
+        ON k.`purchase_id` = t.`purchase_id`
+        LEFT JOIN product_material_info k1
+        ON k1.`product_id` = k.`product_id`
+        WHERE t.purchase_isdel = 0
+
+        UNION
+        ALL
+        SELECT
+        7003 AS in_type,
+        k3.name_en,
+        k3.name_ch,
+        k3.cas,
+        k3.sku,
+        p1.research_id,
+        '',
+        p1.status,
+        p2.dict_name AS stock_status_name,
+        p1.amount,
+        p1.unit,
+        '',
+        '',
+        p1.amount,
+        p1.research_time,
+        p3.staff_name,
+        ''
+        FROM
+        product_research p1
+        LEFT JOIN pss_dict p2
+        ON (p1.status = p2.dict_id)
+        LEFT JOIN staff_info p3
+        ON (p3.staff_id = p1.research_staff)
+        LEFT JOIN product_material_info k3
+        ON k3.`product_id` = p1.`product_id`
+        WHERE p1.research_is_del = 0
+        UNION
+        ALL
+        SELECT
+        9002 AS in_type,
+        k5.name_en,
+        k5.name_ch,
+        k5.cas,
+        k5.sku,
+        t1.sale_id,
+        t1.customer_id,
+        t3.stock_status,
+        d2.dict_name AS stock_status_name,
+        k4.amount,
+        k4.unit,
+        '',
+        '',
+        t1.all_total,
+        t3.return_time,
+        sf.staff_name,
+        cu.`name` AS supplier_name
+        FROM
+        product_sale t1
+        LEFT JOIN product_sale_return t3
+        ON (t3.sale_id = t1.sale_id)
+        LEFT JOIN pss_dict d2
+        ON (t3.stock_status = d2.dict_id)
+        LEFT JOIN cus_supplier_info cu
+        ON (cu.cs_sup_id = t1.customer_id)
+        LEFT JOIN staff_info sf
+        ON (sf.staff_id = t1.staff_id)
+        LEFT JOIN product_sale_return_detail k4
+        ON k4.r_sale_id = t3.`r_sale_id`
+        LEFT JOIN product_material_info k5
+        ON k5.product_id = k4.product_id
+        WHERE t1.sale_isdel = 0) t1
+        WHERE t1.stock_status IS NOT NULL
+        and t1.stock_status =5001
+    </select>
+</mapper>

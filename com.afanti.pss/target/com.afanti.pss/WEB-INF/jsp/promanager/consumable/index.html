@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>耗材领用</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+<div class="container">
+
+    <h3>耗材领用</h3>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <span class="col-sm-5 text-right form-control-static">耗材名：</span>
+            <input id="consumable_name" type="text" class="form-control input-sm" style="width: 50%" placeholder="" maxlength="20">
+        </div>
+        <span><button id="con_query"  disabled="disabled" type="button" class="btn btn-primary">查询</button></span>
+        <span class="ml10"><button disabled="disabled" type="button" class="btn btn-success" id="con_add">+ 新增领用单</button></span>
+    </div>
+    <div class="Pro-table table">
+        <table class="table table-bordered table-hover definewidth m20">
+            <thead>
+                <tr>
+                    <th>耗材名</th>
+                    <th>领用数量</th>
+                    <th>领用状态</th>
+                    <th>领用时间</th>
+                    <th>领用人员</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="data_tbody">
+            </tbody>
+        </table>     
+    </div>
+    <div  id="pages" class="tabl Pagination">
+    </div>
+</div>
+</form>
+<!--删除弹出框-->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <input type="hidden" id="del">
+            <div class="modal-header">
+                <h4>请确认</h4>
+            </div>
+            <div class="modal-body">
+                确认删除该信息吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a class="btn btn-danger btn-ok" id="shanchusubmit">删除</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/consumable.js"></script>
+</body>
+</html>

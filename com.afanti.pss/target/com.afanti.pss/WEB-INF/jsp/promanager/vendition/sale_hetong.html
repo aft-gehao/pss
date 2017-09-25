@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="renderer" content="webkit">
+	<title>进销存销售合同</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<style>
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+p,
+blockquote,
+pre,
+hr,
+figure,
+table,
+caption,
+th,
+td,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+menu
+{
+    margin: 0;
+    padding: 0;
+}
+header,
+footer,
+section,
+article,
+aside,
+nav,
+hgroup,
+address,
+figure,
+figcaption,
+menu,
+details
+{
+    display: block;
+}
+body,
+textarea,
+input,
+button,
+select,
+keygen,
+legend
+{
+    font: 14px/1.5 'FangSong', Arial,sans-serif;
+
+    color: #333;
+    outline: 0;
+}
+html,
+body,
+div,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+pre,
+form,
+p,
+blockquote,
+input,
+abbr,
+article,
+aside,
+figcaption,
+fieldset,
+figure,
+footer,
+header,
+mark,
+meter,
+menu,
+nav,
+output,
+progress,
+section,
+summary,
+time
+{
+    margin: 0;
+    padding: 0;
+
+    vertical-align: baseline;
+}
+html,
+body,
+fieldset,
+img,
+iframe,
+abbr
+{
+    border: 0;
+}
+*
+{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+button,
+input[type=button],
+input[type=text],
+textarea,
+button
+{
+    -webkit-appearance: none;
+}
+table
+{
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    border: 0;
+}
+tbody
+{
+    display: table-row-group;
+
+    vertical-align: middle;
+
+    border-color: inherit;
+}
+tr
+{
+    display: table-row;
+
+    vertical-align: inherit;
+
+    border-color: inherit;
+}
+td,
+th
+{
+    display: table-cell;
+
+    vertical-align: inherit;
+}
+textarea
+{
+    resize: none;
+    overflow-x:hidden;
+    overflow-y:hidden;
+}
+div
+{
+    display: block;
+}
+p
+{
+    word-wrap: break-word;
+}
+i,
+em
+{
+    font-style: normal;
+}
+img
+{
+    vertical-align: middle;
+}
+ul,
+li
+{
+    list-style: none;
+}
+a
+{
+    cursor: pointer;
+    text-decoration: none;
+
+    color: #333;
+    outline: none;
+}
+a:link
+{
+    text-decoration: none;
+
+    outline: 0;
+}
+a:visited
+{
+    text-decoration: none;
+}
+*,
+:after,
+:before
+{
+    box-sizing: border-box;
+}
+.clearfix
+{
+    zoom: 1;
+}
+.clearfix:after
+{
+    clear: both;
+    overflow: hidden;
+}
+.clearfix:before,
+.clearfix:after
+{
+    display: table;
+
+    content: '';
+}
+/**/
+/*通用*/
+.clear
+{
+    clear: both;
+}
+.over
+{
+    overflow: hidden;
+}
+.relative
+{
+    position: relative;
+}
+.auto
+{
+    margin: 0 auto;
+}
+
+.t-indent2
+{
+    text-indent: 2em;
+}
+.right
+{
+    float: right;
+}
+.left
+{
+    float: left;
+}
+.mt30
+{
+    margin-top: 30px;
+}
+.mt10
+{
+    margin-top: 10px;
+}
+.ml30
+{
+    margin-left: 30px;
+}
+.grey_6
+{
+    color: #666;
+}
+.grey_9
+{
+    color: #999;
+}
+.black
+{
+	color: #000;
+	font-weight: bold;
+}
+.fs16
+{
+    font-size: 16px!important;
+}
+.wd20
+{
+    width: 20%!important;
+}
+.wd30
+{
+    width: 30%!important;
+}
+.wd50
+{
+    width: 50%!important;
+}
+.wd74
+{
+    width: 74%!important;
+    text-decoration: none!important;
+}
+.text-under {text-decoration: underline;}
+.center
+{
+    text-align: center;
+}
+.content {
+	padding: 0 45px;
+	font-size: 16px;
+}
+.head {overflow: hidden;border-bottom: 2px solid #333;}
+.logo {
+    text-align: center;
+}
+.ht-title .ht-bh { width: 50%;text-align: left;}
+.ht-title p {margin-bottom: 10px;}
+.ht-title p>span { text-decoration:underline;}
+ul.mmsf {float: left;width: 50%}
+ul.mmsf li {margin-bottom: 10px;}
+ul.mmsf li>span {display: inline-block;}
+ul.mmsf li div.input {display: inline-block; border-bottom: 1px solid #333;}
+ul.mmsf li>input {width: 90%;}
+.page .text01 .chanping table  {
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    color: #333;
+    border:1px solid #333;
+}
+.page .text01 .chanping table tr.table-bg{
+    background-color: #ddd;
+    cursor: pointer;
+    text-align: center;
+}
+.page .text01 .chanping table th,.page .text01 .chanping table td {
+    padding: 10px 0;
+    text-align: center;
+}
+.page .text01 .chanping table tr td>textarea.name {
+    height: 110px;
+    width: 90%;
+}
+
+.hetong {padding:0 10px;}
+.hetong h1
+{
+	text-align: center;
+	font-weight: normal;
+	font-weight: bold;
+	font-size: 30px;
+}
+.hetong input,.hetong .text01 .chanping textarea {
+    border: none;
+    font-size: 16px;
+    letter-spacing:1px;
+}
+.hetong ul.company li input {
+    text-decoration:underline;
+    width: 50%;
+}
+.text01 {position: relative;}
+.hetong .text01 .chanping table  {
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    color: #333;
+    border:1px solid #333;
+}
+.hetong .text01 .chanping table tr.table-bg{
+    background-color: #ddd;
+    cursor: pointer;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+.hetong .text01 .chanping table th,.hetong .text01 .chanping table td {
+    padding: 10px 4px;
+    text-align: center;
+}
+.hetong .text01 .chanping table td img {
+    width: 60%;
+}
+.hetong .text01 .chanping table tr td>textarea.name {
+    height: 110px;
+    width: 90%;
+}
+.hetong .text01 .chanping .two{
+	margin-top: 10px;
+	letter-spacing: 2px;
+}
+.hetong .text01 .chanping .two textarea{
+	width: 80%;
+	padding: 0!important;
+	float: left;
+	letter-spacing: 3px;
+	text-align: left!important;
+	text-decoration: underline;
+}
+.contact {
+	margin-top: 80px;
+}
+.contact ul {
+	width: 50%;
+	float: left;
+}
+.contact ul li {margin-bottom: 10px}
+.seal{
+    position: absolute;
+    top: 86%;
+    left: 8%;
+}
+.text02>h3,.text02 h5 {
+	font-size: 18px;
+}
+.text02 p {
+	text-indent: 4rem;
+}
+.text02 p>span {
+	text-decoration: underline;
+}
+.bt-scht {width: 200px;margin:20px auto;}
+.bt-scht button.scht {border:none;color: #fff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+	width: 200px;
+	padding: 5px;
+	font-size: 18px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.bt-scht button.scht:hover {
+	color: #fff;
+	background-color: #449d44;
+	border-color: #398439;
+}
+</style>
+<body>
+
+<div id="content" class="content clear">
+   
+    <div id="mainContent" class="clear">
+    	 <!--第一页-->
+	    <div id="header" class="clearfix">
+	        <!--***************页眉_start*****************-->
+	       <div class="head">
+	            <div class="logo left" style="width: 50%;">
+	                <img src="/images/slogn.png" style="width: 67%;"></img>
+	            </div>
+	            <div class="logo right" style="width: 50%;">
+	                <img src="/images/logo.png" style="width: 44%;"></img>
+	            </div>
+	        </div>
+	        <!--***************页眉_end*****************-->
+	    </div>
+        <!-- start #mainContent -->
+        <div class="hetong clearfix">
+			<h1>销售合同</h1>
+			<div class="ht-title">
+				<div class="right">
+					<p class="">合同编号：<span id="hetong_no"></span></p>
+				</div>
+				<div class="clear over">
+					<ul class="mmsf over">
+						<li>
+							<b>买方：</b>
+							<div class="input" style="width: 50%"><input type="text" id="customer" style="width: 100%" name="" value=""/></div>
+						</li>
+						<li>
+							卖方：<span class="text-under">凯诺科（泰州）药物研发有限公司</span>
+						</li>
+						
+					</ul>
+					<ul class="mmsf over" style="width: auto;float: right">
+						<li>
+							签订地点：<span class="text-under">江苏省泰州市</span>
+						</li>
+						<li>
+							签订日期：<span id="time"></span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<p class="t-indent2 mt10">为明确买卖双方的责任及权利，根据《中华人民共和国合同法》及其它相关法律法规及规范，经买卖双方充分并友好协商，特订立本合同，双方共同遵守。</p>
+			<div class="text01 mt10 clearfix">
+				<div class="chanping ml30">
+					<p class="black">一、产品名称、数量、金额</p>
+					<table cellspacing="0" border="1">
+						<tbody>
+							<tr class="table-bg">
+								<th class="wd50">产品名称</th>
+								<th class="wd50">CAS</th>
+								<th>数量</th>
+								<th>单位</th>
+								<th>总价（元）</th>
+								<th>备注</th>
+							</tr>
+							<tr>
+								<td id="name_en"></td>
+								<td id="cas"></td>
+								<td>
+                                    <input type="hidden" id="sale_d_id">
+									<input id="amount" type="" name="" value="" class="center"/>
+								</td>
+								<td>
+									<input id="unit" type="" name="" value="" class="center" />
+								</td>
+								<td>
+									<input id="price" type="" name="" value="" class="center" />
+								</td>
+								<td>
+									<textarea  id="desc" rows="1" cols="1" class="center" style="width: 150px;"></textarea>
+								</td>
+							</tr>
+							<tr>
+								
+								<td colspan="6" class="black" style="text-align: left;text-indent: 2rem;">总金额（人民币）：<span id="price_2" style="font-weight: normal;"></span>元,大写：<span id="price_daxie" style="font-weight: normal;"></span>整</td>
+							</tr>
+						</tbody>
+					</table>
+					<p class="mt10"><b>注</b>：<span>以上价格包括包装费及送货到门运费。</span></p>
+					<div class="mt10 over">
+						<p class="black">二、质量标准（状态、纯度）</p>
+						<input type="text" id="zhil_biaozhun" name="" value=""/>
+					</div>
+
+					<div class="mt10 over">
+						<p class="black">三、运输与交货</p>
+						<p><span>1、交货日期：</span><input type="text" id="jiaohuo_time" name="" value="" class="wd74" /></p>
+						<p><span>2、收货地址：</span><input type="text" id="jiaohuo_address" name="" value="" class="wd74" /></p>
+						<p class="mt10"><span>3、说明：</span><span>买方指定的国内地址，货物送达收货地址后，其后续的货物卸载、转运、保管等风险责任由买方承担。</span></p>
+					</div>
+
+					<div class="mt10 over">
+						<p class="black">四、付款与开票</p>
+						<p class="mt10"><span>1、款到发货， 卖方银行账户资料见本合同盖章落款处。</span></p>
+						<p class="mt10"><span>2、卖方负责开具17%的增值税专用发票。</span></p>
+					</div>
+
+					<div class="mt10 over">
+						<p class="black">五、验货</p>
+						<p class="mt10 t-indent2">卖方交货前应针对本合同第一条和第二条的要求进行全面精确的检验，并随货提供相关检测资料。在本合同产品到达买方指定的收货地址后，由买方就本合同第一条和第二条的要求进行复检；若发现与本合同不符，则应在收货后的十个工作日内向卖方书面提出异议，如果买方在约定时限内未书面提出异议，则视为买方对本合同产品全面验收合格。</p>
+					</div>
+                    <div class="over">
+                        <p class="black">六、不可抗力</p>
+                        <p class="mt10 t-indent2">如因发生在制造过程中或装运过程中或运输过程中的不可抗力，导致不能交货或延迟交货的，卖方不承担违约责任。卖方应在上述不可抗力事件发生的三个工作日内通知买方，并由双方确定是否续签合同并确定相关细节。</p>
+                    </div>
+
+                    <div class="mt10 over">
+                        <p class="black">七、违约责任</p>
+                        <p class="mt10 t-indent2">除不可抗力或买方责任，若卖方不能按照本合同第三条规定进行交货的，应向买方支付违约金。违约金按延迟天数计算，每日金额=违约产品金额*万分之五，总违约金额不大于违约产品金额的百分之五。产品质量未达到合同约定的标准，卖方须进一步进行纯化，直至达到合同约定标准。</p>
+                        <p class="mt10 t-indent2">除不可抗力或卖方责任，若买方在产品复检合格后，未能按规定付款的，应向卖方支付违约金。违约金按延迟天数计算，每日金额=本合同金额*万分之五，超过十个工作日的卖方有权解除本合同并要求买方赔偿由此给卖方造成的实际损失。</p>
+                    </div>
+
+                    <div class="mt10 over">
+                        <p class="black">八、争议解决</p>
+                        <p class="mt10 t-indent2">凡因本合同产生的一切争议，买卖双方均可友好协商解决。不能解决的，向卖方当地的仲裁委员会提出仲裁申请，或向卖方所在地人民法院提起诉讼。</p>
+                    </div>
+
+                    <div class="mt10 over">
+                        <p class="black">九、合同生效</p>
+                        <p class="mt10 t-indent2">本合同经买卖双方盖章后生效，买卖双方保证签字盖章真实有效；传真件、扫描件具有同等法律效力。 </p>
+                        <p class="mt10 t-indent2">本合同一式两份，买卖双方各执一份。 </p>
+                    </div>
+                    <div class="contact clearfix">
+                        <ul>
+                            <li>
+                                <span class="black">买方(盖章)：</span>
+                                <input type="text" id="company" name="" value="" class="wd74" />
+                            </li>
+                            <li>
+                                <span class="black">税号：</span>
+                                <input type="text" id="shuihao" name="" value="" class="wd74" />
+                            </li>
+                            <li>
+                                <span class="black">开户行：</span>
+                                <input type="text" id="bank" name="" value="" class="wd74" />
+                            </li>
+                            <li>
+                                <span class="black">账号：</span>
+                                <input type="text" id="bank_number" name="" value="" class="wd74" />
+                            </li>
+                            <li>
+                                <span class="black">代表人：</span>
+                                <input type="text" id="company_people" name="" value="" class="wd74" />
+                            </li>
+                            <li>
+                                <span class="black">电话：</span>
+                                <input type="text" id="telephone" name="" value="" class="wd74" />
+                            </li>
+                        </ul>
+                        <ul>
+                            <li>
+                                <span class="black">卖方(盖章)：</span>
+                                <span>凯诺科（泰州）药物研发有限公司</span>
+                            </li>
+                            <li>
+                                <span class="black">税号：</span>
+                                <span>913212913222179156</span>
+                            </li>
+                            <li>
+                                <span class="black">开户行：</span>
+                                <span>农行泰州医药科技支行</span>
+                            </li>
+                            <li>
+                                <span class="black">账号：</span>
+                                <span>10200601040003470</span>
+                            </li>
+                            <li>
+                                <span class="black">代表人：</span>
+                                <span>吴秋燕</span>
+                            </li>
+                            <li>
+                                <span class="black">电话：</span>
+                                <span>0523-86810091</span>
+                            </li>
+                        </ul>
+                    </div>
+					<!-- end -->
+				</div>
+		</div>
+			<div class="bt-scht">
+				<button id="hetong_sure" type="button" class="scht">生成合同</button>
+			</div>
+	    </div>
+	</div>
+</div>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/layer/extend/layer.ext.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/sale_hetong.js"></script>
+</body>
+</html>

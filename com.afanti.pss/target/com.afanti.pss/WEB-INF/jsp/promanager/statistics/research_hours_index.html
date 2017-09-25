@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/commons/fileinput/fileinput.js"></script><!--上传图片-->
+</head>
+<body>
+<form class="form-inline definewidth m20">
+    <div class="container">
+        <h3>项目工期报表</h3>
+        <div class="row">
+            <a id="excel" target="_blank;" onclick=""></a>
+            <div class="col-md-2 form-group">
+                <span class="col-sm-4 text-right form-control-static">CAS：</span>
+                <input id="cas" type="text" class="form-control input-sm" style="width: 50%" placeholder="" maxlength="20">
+            </div>
+            <div class="col-md-2 form-group">
+                <span class="col-sm-4 text-right form-control-static">SKU：</span>
+                <input id="sku" type="text" class="form-control input-sm" style="width: 60%" placeholder="" maxlength="20">
+            </div>
+            <div class="col-md-5 form-group">
+                <span class="col-sm-2 text-right left  form-control-static">周期：</span>
+                <input id="start_time" name="start_time"
+                       class="form-control input-sm" style="width: 28%"  placeholder="请选择开始时间"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'end_time\')}'})"
+                       readonly="readonly">
+                <span>~</span>
+                <input id="end_time" class="form-control input-sm" style="width: 28%"  placeholder="请选择终止时间" readonly="readonly"
+                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'start_time\')}'})">
+            </div>
+            <div class="col-md-3" style="margin-left: -90px;">
+                <span><button id="pro_query"  type="button"
+                              class="btn btn-primary">查询</button></span>
+                <span style="margin-left: 0px;"><button  type="button" class="btn btn-success" id="excel_add">生成报表</button></span>
+            <!--end-->
+        </div>
+        </div>
+        <!--表单-->
+        <div class="gsy-adm table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th>CAS</th>
+                    <th>SKU</th>
+                    <th>产出量</th>
+                    <th>工时(/半天)</th>
+                    <th>生产时间</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+        </div>
+        <!--删除弹出框-->
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <input type="hidden" id="del">
+                    <div class="modal-header">
+                        <h4>请确认</h4>
+                    </div>
+                    <div class="modal-body">
+                        确认删除该信息吗？
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <a class="btn btn-danger btn-ok" id="shanchusubmit">删除</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--新增弹出框-->
+        <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">新增耗材</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row top20">
+                            <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">耗材名：</span>
+                            <input type="text" class="form-control input-sm" placeholder=""    id="consumablename">
+
+                            <br/><br/>
+                            <span class=" text-right form-control-static" style="width: 17.4%;">耗材单位：</span>
+                            <input type="text" id="consumable_unit" class="form-control input-sm" placeholder="">
+                            <br/><br/>
+                            <span class=" text-right form-control-static" style="width: 17.4%;">规格型号：</span>
+                            <input type="text" id="pack" class="form-control input-sm" placeholder="">
+                            <br/><br/>
+                            <span class=" text-right form-control-static" style="width: 17.4%;">库存预警线：</span>
+                            <input type="text" id="warning_amount" class="form-control input-sm" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="con_add">添加</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--修改弹出框-->
+        <div class="modal fade" id="myModal-3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel1">修改耗材</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row top20">
+                            <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">耗材名：</span>
+                            <input type="text" class="form-control input-sm" placeholder=""
+                                   id="updconsumablename">
+                            <br/><br/>
+                            <span class=" text-right form-control-static" style="width: 17.4%;">耗材单位：</span>
+                            <input type="text" id="updconsumable_unit" class="form-control input-sm" placeholder="">
+                            <br/><br/>
+                            <span class=" text-right form-control-static" style="width: 17.4%;">规格型号：</span>
+                            <input type="text" id="updpack" class="form-control input-sm" placeholder="">
+                            <input type="hidden" id="updconsumable_id">
+                            <br/><br/>
+                            <span class=" text-right form-control-static" style="width: 17.4%;">库存预警线：</span>
+                            <input type="text" id="warning_amount_mod" class="form-control input-sm" placeholder="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="con_upd">修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="pages" class="tabl Pagination">
+        </div>
+    </div>
+</form>
+<input type="hidden" id="unit">
+<script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/baobiao_research.js"></script>
+</body>
+</html>

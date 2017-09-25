@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.vendition.dao.VenditionReturnDao">
+
+    <select id="getVenditionReturnPageList" parameterType="Map" resultType="Product_sale">
+        SELECT
+        t.sale_id,
+        t.all_total,
+        t.sale_time,
+        t.sale_name,
+        t3.staff_name,
+        t2.`name` as cus_name,
+        t4.stock_status
+        FROM
+        product_sale t
+        LEFT JOIN cus_supplier_info t2 ON (t2.cs_sup_id = t.customer_id)
+        LEFT JOIN staff_info t3 ON (t3.staff_id = t.staff_id)
+        LEFT JOIN product_sale_return t4 ON (t.sale_id = t4.sale_id)
+        LEFT JOIN product_sale_return_detail t5
+        ON t4.r_sale_id = t5.r_sale_id
+        LEFT JOIN product_material_info t6
+        ON t5.product_id = t6.product_id
+        WHERE t.`status` IN (8001,8003)
+        <if test="params.cas!=null and params.cas!=''">
+            and t6.cas like '%${params.cas}%'
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t6.sku like '%${params.sku}%'
+        </if>
+        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        order by t.sale_time desc
+    </select>
+    <select id="getVenditionReturnPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        product_sale t
+        LEFT JOIN cus_supplier_info t2 ON (t2.cs_sup_id = t.customer_id)
+        LEFT JOIN staff_info t3 ON (t3.staff_id = t.staff_id)
+        LEFT JOIN product_sale_return t4 ON (t.sale_id = t4.sale_id)
+        LEFT JOIN product_sale_return_detail t5
+        ON t4.r_sale_id = t5.r_sale_id
+        LEFT JOIN product_material_info t6
+        ON t5.product_id = t6.product_id
+        WHERE t.`status` IN (8001, 8003)
+        <if test="params.cas!=null and params.cas!=''">
+            and t6.cas like '%${params.cas}%'
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t6.sku like '%${params.sku}%'
+        </if>
+        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+    </select>
+
+    <select id="getVenditionReturnProductList" parameterType="Map" resultType="Product_sale_detail">
+       				SELECT
+                        t.sale_d_id,
+                        t.batch_no,
+                        t2.name_en AS product_name,
+                        t.sale_status,
+                        t.product_id,
+                        t.amount AS amount_used,
+                         r.amount,
+                        t.purity,
+                        t.unit,
+                        t.unit_price,
+                        t.space_id,
+                        (
+                        SELECT
+                        GROUP_CONCAT(d.space_name, '-')
+                        FROM
+                        dict_warehouse_space d
+                        WHERE
+                        FIND_IN_SET(
+                        d.space_id,
+                        query_parent_warehouse (t.space_id)
+                        )
+                        ) AS space_name,
+                        t.`desc`
+                        FROM
+                        product_sale_detail t
+                        LEFT JOIN product_material_info t2 ON (t2.product_id = t.product_id)
+                        LEFT JOIN product_sale_return_detail r on(r.sale_d_id = t.sale_d_id)
+                        LEFT JOIN product_material_out_detail dt on(dt.enter_d_id = t.sale_d_id)
+                        where t.sale_d_isdel =0 and dt.amount is not null and t.sale_id = #{sale_id}
+    </select>
+    <select id="venditionReturnSubmit" parameterType="java.util.Map" statementType="CALLABLE" resultType="java.util.Map">
+        CALL PRO_VENDITION_RETURN_SUBMIT(
+        #{P_SALE_ID, mode=IN, jdbcType=INTEGER},
+        #{P_BATCH_NO, mode=IN, jdbcType=NVARCHAR},
+        #{P_SALE_D_ID, mode=IN, jdbcType=INTEGER},
+        #{P_PRODUCT_ID, mode=IN, jdbcType=INTEGER},
+        #{P_AMOUNT, mode=IN, jdbcType=INTEGER},
+        #{P_UNIT, mode=IN, jdbcType=NVARCHAR},
+        #{P_REASON, mode=IN, jdbcType=NVARCHAR},
+        #{P_STAFF_ID, mode=IN, jdbcType=INTEGER},
+        #{RESULT_MSG, mode=INOUT, jdbcType=NVARCHAR}
+        )
+    </select>
+</mapper>

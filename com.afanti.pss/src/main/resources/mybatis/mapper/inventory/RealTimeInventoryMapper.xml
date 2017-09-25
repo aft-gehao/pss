@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.inventory.dao.RealTimeInventoryDao">
+    <select id="stockSelectPageList" parameterType="Map" resultType="Product_material_stock">
+        SELECT
+        t2.cas,
+        t2.sku,
+        t1.product_id,
+        t2.name_ch as nameCh,
+        t2.name_en as nameEn,
+        t1.unit,
+        CASE
+        t1.unit
+        WHEN 'kg'
+        THEN (SUM(t1.amount)) * 1000
+        WHEN 'g'
+        THEN SUM(t1.amount)
+        WHEN 'ml'
+        THEN SUM(t1.amount)
+        WHEN 'mg'
+        THEN (SUM(t1.amount)) / 1000
+        WHEN 'l'
+        THEN (SUM(t1.amount)) * 1000
+        END AS amountFloat,
+        CONCAT(sum(t1.amount),t1.unit) as usedAmount
+        FROM
+        product_material_enter_detail t1
+        LEFT JOIN product_material_info t2 ON (
+        t1.product_id = t2.product_id
+        )
+        where
+        t2.`status` = 0 and t2.product_type=${params.product_type} and t1.enter_d_isdel=0
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku like '%${params.sku}%'
+        </if>
+        <if test="params.nameCh!=null and params.nameCh!=''">
+            and t2.name_ch like '%${params.nameCh}%'
+        </if>
+        <if test="params.nameEn!=null and params.nameEn!=''">
+            and t2.name_en like '%${params.nameEn}%'
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND (t2.name_en like '%${params.search}%' OR t2.name_ch like '%${params.search}%' OR t2.cas like '%${params.search}%' OR t2.sku like '%${params.search}%')
+        </if>
+        GROUP BY
+        t2.cas,
+        t2.sku,
+        t1.product_id,
+        t2.name_ch,
+        t2.name_en
+    </select>
+
+    <select id="stockSelectPageCount" parameterType="Map" resultType="Product_material_stock">
+        SELECT COUNT(1) FROM
+        product_material_enter_detail t1
+        LEFT JOIN product_material_info t2 ON (
+        t1.product_id = t2.product_id
+        )
+        where
+        t2.`status` = 0 and t2.product_type=${params.product_type} and t1.enter_d_isdel=0
+        <if test="params.material==1">
+            and t2.product_type=4001
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas like '%${params.cas}%'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku like '%${params.sku}%'
+        </if>
+        <if test="params.nameCh!=null and params.nameCh!=''">
+            and t2.name_ch like '%${params.nameCh}%'
+        </if>
+        <if test="params.nameEn!=null and params.nameEn!=''">
+            and t2.name_en like '%${params.nameEn}%'
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND (t2.name_en like '%${params.search}%' OR t2.name_ch like '%${params.search}%' OR t2.cas like '%${params.search}%' OR t2.sku like '%${params.search}%')
+        </if>
+    </select>
+    <select id="selectInventoryDetailPageList" parameterType="Map" resultType="Product_material_stock">
+        SELECT
+        t1.enter_d_id,
+        t2.cas,
+        t1.sale_batch_no,
+        t1.batch_no,
+        t1.product_id,
+        t1.purity,
+        t2.name_ch AS nameCh,
+        t2.name_en AS nameEn,
+        t1.amount AS amount,
+        CONCAT(t1.amount, t1.unit) AS usedAmount,
+        (SELECT
+        GROUP_CONCAT(t5.space_name, '-')
+        FROM
+        dict_warehouse_space t5
+        WHERE FIND_IN_SET(
+        t5.space_id,
+        query_parent_warehouse (s.space_id)
+        )) AS space_name,
+        t1.enter_date
+        <if test="params.flag==1">
+            ,(SELECT
+            GROUP_CONCAT(q3.`putu_url`, '')
+            FROM
+            pss_research_doc q3
+            WHERE q3.research_id=t1.enter_type_d_billno) putu
+        </if>
+        FROM
+        product_material_enter_detail t1
+        LEFT JOIN product_material_info t2
+        ON (t1.product_id = t2.product_id)
+        LEFT JOIN dict_warehouse_space s
+        ON (t1.space_id = s.space_id)
+        <if test="params.flag==1">
+            LEFT JOIN product_material_enter t5
+            ON t5.`enter_id`=t1.`enter_id`
+            LEFT JOIN pss_research_doc t3
+            ON t3.research_id=t1.`enter_type_d_billno`
+            LEFT JOIN product_research t4
+            ON t4.research_id=t1.`enter_type_d_billno`
+        </if>
+        WHERE t2.`status` = 0
+        AND t1.product_id = #{params.productId}
+        AND t1.amount != 0
+        <if test="params.flag==1">
+            AND t5.`enter_type_billno`=t1.`enter_type_d_billno`
+        </if>
+        GROUP BY  t1.enter_d_id
+        ORDER BY t1.enter_date DESC
+    </select>
+    <select id="selectInventoryDetailPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+               count(1)
+            FROM
+                product_material_enter_detail t1
+
+            LEFT JOIN product_material_info t2 ON (
+                t1.product_id = t2.product_id
+            )
+            WHERE
+                t2.`status` = 0
+            and t1.product_id =#{params.productId}
+            and t1.amount!=0
+            order by t1.enter_date desc
+    </select>
+    <select id="baobiaoSelectPageList" parameterType="Map" resultType="Product_material_stock">
+        SELECT
+          t1.product_id,
+          t1.amount amount_leave,
+          IFNULL(t2.enter_amount, 0) a_in,
+          IFNULL(t3.out_amount, 0) a_out,
+          t1.unit,
+          t4.cas,
+          t4.sku,
+          t4.name_en nameEn
+        FROM
+          (SELECT
+            t.`unit`,
+            t.product_id,
+            SUM(t.amount) amount
+          FROM
+            product_material_enter_detail t
+             LEFT JOIN product_material_info t2
+             ON t2.`product_id`=t.`product_id`
+             WHERE t2.`status`=0
+            AND t.enter_date BETWEEN '${params.start_time}'
+            AND '${params.end_time}'
+            <if test="params.cas!=null and params.cas!=''">
+                and t2.cas REGEXP  '${params.cas}'
+            </if>
+            <if test="params.sku!=null and params.sku!=''">
+                and t2.sku like '%${params.sku}%'
+            </if>
+          GROUP BY t.product_id) t1
+          LEFT JOIN
+            (SELECT
+              t.product_id,
+              SUM(t.left_amount) enter_amount
+            FROM
+              product_material_enter_detail t
+            WHERE t.enter_date BETWEEN '${params.start_time}'
+              AND '${params.end_time}'
+            GROUP BY t.product_id) t2
+            ON t1.product_id = t2.product_id
+          LEFT JOIN
+            (SELECT
+              t.product_id,
+              SUM(t.amount) out_amount
+            FROM
+              product_material_out_detail t
+            WHERE t.out_date BETWEEN '${params.start_time}'
+              AND '${params.end_time}'
+            GROUP BY t.product_id) t3
+            ON t1.product_id = t3.product_id
+          LEFT JOIN
+            (SELECT
+              t.`product_id`,
+              t.`cas`,
+              t.`sku`,
+              t.`name_en`
+            FROM
+              product_material_info t
+            WHERE t.`status` = 0) t4
+            ON t1.product_id = t4.product_id
+    </select>
+    <select id="baobiaoSelectPageCount" parameterType="Map" resultType="Integer">
+        SELECT
+         COUNT(1)
+        FROM
+        (SELECT
+        t.`unit`,
+        t.product_id,
+        SUM(t.amount) amount
+        FROM
+        product_material_enter_detail t
+        LEFT JOIN product_material_info t2
+        ON t2.`product_id`=t.`product_id`
+        WHERE t2.`status`=0
+        AND t.enter_date BETWEEN '${params.start_time}%'
+        AND '${params.end_time}%'
+        <if test="params.cas!=null and params.cas!=''">
+            and t2.cas REGEXP  '${params.cas}'
+        </if>
+        <if test="params.sku!=null and params.sku!=''">
+            and t2.sku like '%${params.sku}%'
+        </if>
+        GROUP BY t.product_id) t1
+        LEFT JOIN
+        (SELECT
+        t.product_id,
+        SUM(t.left_amount) enter_amount
+        FROM
+        product_material_enter_detail t
+        WHERE t.enter_date BETWEEN '${params.start_time}'
+        AND '${params.end_time}'
+        GROUP BY t.product_id) t2
+        ON t1.product_id = t2.product_id
+        LEFT JOIN
+        (SELECT
+        t.product_id,
+        SUM(t.amount) out_amount
+        FROM
+        product_material_out_detail t
+        WHERE t.out_date BETWEEN '${params.start_time}'
+        AND '${params.end_time}'
+        GROUP BY t.product_id) t3
+        ON t1.product_id = t3.product_id
+        LEFT JOIN
+        (SELECT
+        t.`product_id`,
+        t.`cas`,
+        t.`sku`,
+        t.`name_en`
+        FROM
+        product_material_info t
+        WHERE t.`status` = 0) t4
+        ON t1.product_id = t4.product_id
+            </select>
+    <select id="baobiaoSelect" parameterType="Map" resultType="Product_material_stock">
+       SELECT
+        SUM(t.`amount`) amount_leave
+        FROM product_material_enter_detail t
+        WHERE t.`product_id`=#{product_id}
+      </select>
+    <select id="baobiaoSelectForExcel" parameterType="Map" resultType="Product_material_stock">
+        SELECT
+        t1.product_id,
+        t1.amount amount_leave,
+        <if test="unit!=null and unit!=''">
+            CASE
+            t1.unit
+            WHEN 'kg'
+            THEN CONVERT(IFNULL(t2.enter_amount, 0) * 1000,DECIMAL(18,2))
+            WHEN 'mg'
+            THEN CONVERT(IFNULL(t2.enter_amount, 0) / 1000, DECIMAL(18,2))
+            ELSE CONVERT(IFNULL(t2.enter_amount, 0), DECIMAL(18,2))
+            END AS a_in,
+            CASE
+            t1.unit
+            WHEN 'kg'
+            THEN CONVERT(IFNULL(t3.out_amount, 0) * 1000,DECIMAL(18,2))
+            WHEN 'mg'
+            THEN CONVERT(IFNULL(t3.out_amount, 0) / 1000, DECIMAL(18,2))
+            ELSE CONVERT(IFNULL(t3.out_amount, 0), DECIMAL(18,2))
+            END AS a_out,
+            CASE
+            t1.unit
+            WHEN 'kg'
+            THEN 'g'
+            WHEN 'mg'
+            THEN 'g'
+            ELSE t1.unit
+            END AS unit,
+        </if>
+        <if test="unit==null and unit==''">
+            IFNULL(t2.enter_amount, 0) a_in,
+            IFNULL(t3.out_amount, 0) a_out,
+            t1.unit,
+        </if>
+        t4.cas,
+        t4.sku,
+        t4.name_en nameEn
+        FROM
+        (SELECT
+        t.`unit`,
+        t.product_id,
+        SUM(t.amount) amount
+        FROM
+        product_material_enter_detail t
+        LEFT JOIN product_material_info t2
+        ON t2.`product_id`=t.`product_id`
+        WHERE t2.`status`=0
+        AND t.enter_date BETWEEN #{start_time}
+        AND #{end_time}
+        <if test="cas!=null and cas!=''">
+            and t2.cas REGEXP  '${cas}'
+        </if>
+        <if test="sku!=null and sku!=''">
+            and t2.sku like '%${sku}%'
+        </if>
+        GROUP BY t.product_id) t1
+        LEFT JOIN
+        (SELECT
+        t.product_id,
+        SUM(t.left_amount) enter_amount
+        FROM
+        product_material_enter_detail t
+        WHERE t.enter_date BETWEEN #{start_time}
+        AND #{end_time}
+        GROUP BY t.product_id) t2
+        ON t1.product_id = t2.product_id
+        LEFT JOIN
+        (SELECT
+        t.product_id,
+        SUM(t.amount) out_amount
+        FROM
+        product_material_out_detail t
+        WHERE t.out_date BETWEEN #{start_time}
+        AND #{end_time}
+        GROUP BY t.product_id) t3
+        ON t1.product_id = t3.product_id
+        LEFT JOIN
+        (SELECT
+        t.`product_id`,
+        t.`cas`,
+        t.`sku`,
+        t.`name_en`
+        FROM
+        product_material_info t
+        WHERE t.`status` = 0) t4
+        ON t1.product_id = t4.product_id
+    </select>
+</mapper>

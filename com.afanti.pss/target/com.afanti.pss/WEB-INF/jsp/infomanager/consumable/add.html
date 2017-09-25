@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增耗材</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/commons/fileinput/fileinput.js"></script><!--上传图片-->
+</head>
+<body >
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/infomanager/consumable/index.html">耗材管理</a></li>
+            <li><a>新增耗材</a></li>
+        </ol>
+        <div class="row top20">
+            <div class="row">
+                <div class="row top20">
+                    <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">耗材名：</span>
+                    <input type="text" class="form-control input-sm" placeholder="" style="width: 52%;"
+                           id="name_ch" maxlength="20">
+                </div>
+                <div class="col-md-5 form-group">
+                    <span class="col-sm-5 text-right form-control-static">耗材单位：</span>
+                    <input type="text" id="sku" class="form-control input-sm" placeholder="" maxlength="20">
+                </div>
+                <div class="col-md-4 form-group">
+                    <span class="col-sm-5 text-right form-control-static">规格型号：</span>
+                    <input type="text" id="cas" class="form-control input-sm" placeholder="" maxlength="20">
+                </div>
+            </div>
+        </div>
+        <div class="add-gys">
+            <div class="Button-two">
+                <button type="button" class="btn btn-success" id="submit">提交</button>
+                <button type="button" class="btn btn-danger" id="cancel">返回</button>
+            </div>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            <dl class="dl-horizontal" style="left:0%;">
+                <dt style="font-size:25px;color: red">温馨提示！</dt>
+                <dd></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>耗材名</dt>
+                <dd>必填字段，必须填写一个耗材名。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>耗材单位</dt>
+                <dd>必填字段，必须填写一个耗材单位。</dd>
+            </dl>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/consumable_add.js"></script>
+</body>
+</html>

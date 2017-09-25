@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>出入库报表</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/echarts.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <h3>出入库查询</h3>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <span class="col-sm-5 text-right form-control-static">CAS：</span>
+                <input id="cas" type="text" class="form-control input-sm" style="width: 50%"
+                       placeholder="">
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="col-sm-5 text-right form-control-static">采购单名称：</span>
+                <input id="purchase_name" type="text" class="form-control input-sm" style="width: 50%"
+                       placeholder="">
+            </div>
+            <div class="col-md-5 form-group" style="width: 938px">
+                <div>
+                    <span class="">采购时间：</span>
+                    <input id="start_time" name="start_time"
+                           class="form-control input-sm" style="width: 28%" placeholder="请选择开始时间"
+                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'end_time\')}'})"
+                           readonly="readonly">
+                    <span class="">销售时间：</span>
+                    <input id="end_time" name="start_time"
+                           class="form-control input-sm" style="width: 28%" placeholder="请选择开始时间"
+                           onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'end_time\')}'})"
+                           readonly="readonly">
+                </div>
+            </div>
+            <span><button id="pur_return_query" disabled="disabled" type="button" class="btn btn-primary">查询</button></span>
+        </div>
+        <!--表单-->
+        <div class="Pro-table table">
+            <table class="table table-bordered table-hover definewidth m20">
+                <thead>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品英文名称</th>
+                    <th>状态</th>
+                    <th>时间</th>
+                    <th>数量</th>
+                    <th>单位</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="data_tbody">
+
+                </tbody>
+            </table>
+            <input id="Shaped" value="状图"/><input id="Pie" value="饼图"/>
+        </div>
+    </div>
+</form>
+<div id="main" style="width: 600px;height:400px;" ></div>
+<div id="main2" style="width: 600px;height:400px;" ></div>
+<script type="text/javascript">
+    $("#Shaped").click(function() {
+        var myChart = echarts.init(document.getElementById("main"));
+        myChart.setOption({
+            title: {
+                text: '库存量柱状图',
+            },
+            tooltip: {},
+            legend: {
+                data: ['入库量']
+            },
+            xAxis: {
+                data: []
+            },
+            yAxis: {},
+            series: [{
+                name: '入库量',
+                type: 'bar',
+                data: []
+            }]
+        });
+        var $father = $(this).parents("div").find("tr.one");
+        alert($father.html());
+        var data=[];
+        var categories=[];
+        var Storage=[];
+        $father.each(function fetchData(cb) {
+            var result=$(this).find("td[class='d']").html();
+            var result3=$(this).find("td[class='Storage']").html();
+            alert(result);
+            categories.push(result);
+            data.push(result);
+            Storage.push(result3);
+            myChart.setOption({
+                xAxis: {
+                    data:categories
+                },
+                series: [{
+                    // 根据名字对应到相应的系列
+                    type:"bar",
+                    data: Storage
+                }]
+            });Storage
+        });
+    });
+
+</script>
+
+<script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/layer/extend/layer.ext.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/inAndOutInventory_List.js"></script>
+</body>
+</html>

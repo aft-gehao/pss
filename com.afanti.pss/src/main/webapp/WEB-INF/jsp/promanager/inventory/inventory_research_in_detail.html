@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>产品入库详情</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/promanager/inventory/add.html">产品入库</a></li>
+            <li><a>研发入库</a></li>
+        </ol>
+        <div class="table gys-detail">
+            <div class="table-responsive m20">
+                <div class="bg-primary add-info clearfix"><h3 class="text-center m10"><b>研发详情</b></h3></div>
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">研发单名称</th>
+                        <td colspan="3"><span id="research_name"></span></td>
+                        <th scope="row" class="text-center">研发人员/研发时间</th>
+                        <td><span id="staff_name"></span></td>
+                       <input type="hidden" id="name">
+                        <input type="hidden" id="time">
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="table gys-detail">
+            <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+                <h4 class="left" style="margin-top: 3px;">研发产品详细</h4>
+            <span class="right">
+            </span>
+            </div>
+            <div class="gsy-adm">
+                <table id="contentTable" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th width="2%"><input type="checkbox" id="checkAll"/></th>
+                        <th width="9%">序列号</th>
+                        <th width="9%">批次号</th>
+                        <th width="9%">外观</th>
+                        <th width="9%">状态</th>
+                        <th width="9%">产品名称</th>
+                        <th width="9%">入库量</th>
+                        <th width="9%">纯度</th>
+                        <th width="11%">仓位</th>
+                        <th width="11%">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="product_table">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--表单-->
+    </div>
+</form>
+<div id="button_div" class="Button-two" style="margin-top: 20px">
+    <button type="button" style="margin-left: 130px;" class="btn btn-danger" id="back">返回入库列表</button>
+</div>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/layer/extend/layer.ext.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/inventory_research_in_detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <div class="container">
+            <section class="panel-cont">
+                <div class="search-cont">
+                    <div class="switch-show filter_column">
+                        <div class="search-li clearfix">
+                            <label class="pull-left search-label">状态：</label>
+                            <input type="hidden" id="status">
+                            <input type="hidden" id="time">
+                            <div class="clearfix search-link">
+                                <div class="auto">
+                                    <a onclick="test(this)" data="" class="info1 active" >全部</a>
+                                    <a onclick="test(this)" data="11001" class="info" >审核通过</a>
+                                    <a onclick="test(this)" data="11002" class="info" >审核不通过</a>
+                                    <a onclick="test(this)" data="11004" class="info" >待审核</a>
+                                    <a onclick="test(this)" data="11003" class="info" >暂不审核</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-li clearfix">
+                            <label class="pull-left search-label">采购时间：</label>
+                            <div class="clearfix search-link">
+                                <div class="auto">
+                                    <a  class="time1 active">全部</a>
+                                    <a onclick="test(this)" data="DATEDIFF(purchase_time,NOW())=0" class="time" >今天</a>
+                                    <a onclick="test(this)" data="DATEDIFF(purchase_time,NOW())=-1" class="time" >昨天</a>
+                                    <a onclick="test(this)" data="YEARWEEK(date_format(purchase_time,'%Y-%m-%d')) = YEARWEEK(now())" class="time" >本周</a>
+                                    <a onclick="test(this)" data="YEARWEEK(date_format(purchase_time,'%Y-%m-%d')) = YEARWEEK(now())-1" class="time" >上周</a>
+                                    <a onclick="test(this)" data="DATE_FORMAT(purchase_time,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')" class="time" >本月</a>
+                                    <a onclick="test(this)" data="date_format(purchase_time,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') " class="time" >上月</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <div class="pull-right normal-search">
+                <div class="input-group">
+                    <div class="table-cell" style="width: 150px;">
+
+                    </div>
+                    <div class="table-cell">
+                     <span style="position:relative;margin:0" class="add-clear-span">
+                        <input type="text" name="cas" id="cas" class="form-control  addclear">
+                    </span>
+                    </div>
+                <span class="input-group-btn">
+                  <button name="button" type="button" id="pur_query" class="btn btn-default btn-outline">查询</button>
+                </span>
+                </div>
+            </div>
+            <br/> <br/>
+            <div class="Pro-table table">
+                <table class="table table-bordered table-hover definewidth m20">
+                    <thead>
+                    <tr>
+                        <th>产品中文名</th>
+                        <th>CAS</th>
+                        <th>请购数量</th>
+                        <th>请购人员</th>
+                        <th>请购时间</th>
+                        <th>请购状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="data_tbody">
+                    </tbody>
+                </table>
+            </div>
+            <!--处理弹出框-->
+            <div class="modal fade" id="Handle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4>处理</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="handle-group" style="margin-left: 50px;">
+                                    <div>
+                                        <span>意见：</span>
+                                        <input type="hidden" id="status_yijian">
+                                        <input type="hidden" id="use_id">
+
+                                        <div class="form-group">
+                                            <div class="btn-group">
+                                                <button type="button" yijian="11001"  class="yijian btn btn-default">同意</button>
+                                            </div>
+                                            <div class="btn-group btn-su">
+                                                <button type="button"  yijian="11002"  class="yijian btn btn-default">不同意</button>
+                                            </div>
+                                            <div class="btn-group btn-su">
+                                                <button type="button" yijian="11003"   class="yijian btn btn-default">待定</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span>备注：</span>
+                                        <div class="form-group m10">
+                                            <textarea id="desc" class="form-control left" rows="2" cols="30"></textarea>
+                                        </div>
+                                    </div>
+                                    <!--   <div>
+                                           <span>标签：</span>
+                                           <div class="form-group" style="width: 430px">
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">手误点错</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">研发专用</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">销售管理</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">数据精确</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">手误点错</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">研发专用</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">销售管理</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">数据精确</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">销售管理</button>
+                                               </div>
+                                               <div class="btn-group">
+                                                   <button type="button" class="btn btn-default">数据精确</button>
+                                               </div>
+                                           </div>
+                                       </div>-->
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                            <a class="btn btn-success btn-ok" id="sure">确认</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div  id="pages" class="tabl Pagination">
+            </div>
+        </div>
+</form>
+<script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/use_manager.js"></script>
+</body>
+</html>

@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>采购单查询</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
+    
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">  
+    
+     <ul class="nav nav-tabs db-nav" role="tablist">
+        <li role="presentation" class="active"><a href="#yuanl" aria-controls="yuanl" role="tab" data-toggle="tab"><span class="iconfont">&#xe607;</span> 原料</a></li>
+        <li role="presentation"><a href="#haoc" id="haocai" aria-controls="haoc" role="tab" data-toggle="tab"><span class="iconfont">&#xe60e;</span> 耗材</a></li>
+    </ul>
+    <div class="clearfix" style="margin-bottom: 80px;">
+         <!-- Tab panes -->
+        <div class="tab-content">
+            <!--原料-->
+            <div  role="tabpanel"  class="tab-pane active" id="yuanl">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>待入库<span style="font-size: 14px;" id="count_material"></span></h4>
+                            <a onclick="materialHistory(0)" class="btn btn-success btn-mini">入库历史</a>
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">CAS</th>
+                                            <th width="13%">SKU</th>
+                                            <th width="15%">中文名</th>
+                                            <th width="10%">申请量</th>
+                                            <th width="15%">申请时间</th>
+                                            <th width="12%">申请人</th>
+                                            <th width="25%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_material">
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_material(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_material_history(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>待出库<span style="font-size: 14px;" id="count_material_out"></span></h4>
+
+                            <a onclick="material_out_History(0)" class="btn btn-success btn-mini">出库历史</a>
+
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table">
+                                    <thead>
+                                        <tr>
+                                            <!--<th width="9%">产品中文名</th>-->
+                                            <th width="10%">cas</th>
+                                            <th width="10%">sku</th>
+                                            <th width="10%">出库量</th>
+                                            <th width="15%">出库类型</th>
+                                            <th width="10%">出库人</th>
+                                            <th width="10%">出库状态</th>
+                                            <th width="10%">出库时间</th>
+                                            <th width="10%">供应商/客户</th>
+                                            <th width="15%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_material_out">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_material_out(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_material_out_history(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+            </div>
+            <!--耗材-->
+            <div  role="tabpanel" class="tab-pane" id="haoc">
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>待入库<span style="font-size: 14px;" id="count_supplies_in"></span></h4>
+
+                            <a onclick="ruku_supplies_history(0)" class="btn btn-success btn-mini">入库历史</a>
+
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                 <table class="table table-bordered table-hover db-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">耗材名</th>
+                                            <th width="13%">规格</th>
+                                            <th width="15%">采购量</th>
+                                            <th width="12%">状态</th>
+                                            <th width="10%">操作人员</th>
+                                            <th width="15%">操作时间</th>
+                                            <th width="25%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_supplies">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_supplies_in(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_supplies_in_history(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                <div class="db-cont">
+                    <div class="cont">
+                    <div class="bs-callout bs-callout-danger">
+                        <h4>待出库<span style="font-size: 14px;" id="count_supplies_out"></span></h4>
+
+                            <a onclick="supplies_out_history(0)" class="btn btn-success btn-mini">出库历史</a>
+
+                    </div>
+
+                    <div class="Pro-adm table m20">
+                        <div class="add-info clearfix"  style="padding: 0;">
+                            <div class="Pro-table">
+                                <table class="table table-bordered table-hover db-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="10%">耗材名</th>
+                                            <th width="10%">规格</th>
+                                            <th width="15%">申请量</th>
+                                            <th width="15%">所在仓位</th>
+                                            <th width="15%">状态</th>
+                                            <th width="10%">申请人</th>
+                                            <th width="15%">申请时间</th>
+                                            <th width="20%">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="data_tbody_supplies_out">
+                                    </tbody>
+                                </table>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_supplies_out(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                                <div style="text-align: center;cursor: pointer;color: #31708f">
+                                    <a onclick="show_more_supplies_out_history(1)" class="toggle" style="text-decoration: none;">
+                                        更多
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>  <!--end-->
+    </div>     
+<!-- 右操作按钮 -->
+<ul class="index-float">
+    <li class="btn-success">
+        <a  href="" title="原料库存">
+            <span class="iconfont">&#xe724;</span></br>
+            原料代领
+        </a>
+    </li>
+    <li class="btn-info">
+        <a  href="" title="耗材库存">
+            <span class="iconfont">&#xe724;</span></br>
+            耗材代领
+        </a>
+    </li>
+</ul>
+<!--End-->
+
+<!--删除弹出框-->
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>请确认</h4>
+            </div>
+            <div class="modal-body" style="height: 70px;">
+                确认取消此采购吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a class="btn btn-danger btn-ok">删除</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+    <!--原料入库研发弹出框-->
+    <div class="modal fade" id="ruku_yanfa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>入库信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="navbar-form navbar-left" role="search">
+                    <h5 id="yanfa">研发详情</h5>
+                	<div style="margin-left: 50px;">
+                        <div>
+                            <span>研发单名称</span>
+                            <div class="form-group">
+                                <input id="ruku_research_name" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>研发人员/研发时间</span>
+                            <div class="form-group">
+                                <input id="ruku_staff_name" type="text" disabled="disabled" class="form-control">
+                                <input type="hidden" id="staff_id">
+                            </div>
+                        </div>
+                        <div>
+                            <span>cas</span>
+                            <div class="form-group">
+                                <input id="ruku_cas" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>sku</span>
+                            <div class="form-group">
+                                <input id="ruku_sku" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>产品名称</span>
+                            <div class="form-group">
+                                <textarea id="ruku_pro_name" type="text" disabled="disabled" class="form-control"></textarea>
+                                <input type="hidden" id="product_id">
+                            </div>
+                        </div>
+                		<div>
+				            <span>序列号</span>
+							<div class="form-group">
+								<input id="ruku_batch_no" type="text" disabled="disabled" class="form-control">
+							</div>
+						</div>
+						<div>
+				            <span>批次号：</span>
+							<div class="form-group">
+								<input id="ruku_sale_batch_no" type="text" disabled="disabled" class="form-control">
+							</div>
+						</div>
+                        <div>
+                            <span>外观：</span>
+                            <div class="form-group">
+                                <input id="ruku_face" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>状态：</span>
+                            <div class="form-group">
+                                <input id="ruku_status" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>入库量：</span>
+                            <div class="form-group">
+                                <input id="ruku_amount" type="text" disabled="disabled" class="form-control">
+                                <input id="ruku_unit" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>纯度：</span>
+                            <div class="form-group">
+                                <input id="ruku_purity" type="text" disabled="disabled" class="form-control">
+                            </div>
+                        </div>
+                        <div>
+                            <span>仓库：</span>
+                            <div class="form-group">
+                                <input type="hidden" id="space_id_0">
+                                <textarea readonly="readonly" onclick="select_dictWarehouseSpace(0)" id="space_name_0" class="form-control left" rows="1" cols="6" style="width: 150px;"></textarea>
+                            </div>
+                        </div>
+                	</div>
+				</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal">取消</button>
+                <a onclick="yanfa_ruku()" class="btn btn-success btn-ok">确认</a>
+            </div>
+            <input type="hidden" id="purchase_id">
+        </div>
+    </div>
+</div>
+    <!--原料入库采购弹出框-->
+    <div class="modal fade" id="ruku_caigou" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>入库信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <h5 id="caigou">采购详情</h5>
+                        <div style="margin-left: 50px;">
+                            <div>
+                                <span>入库单名</span>
+                                <div class="form-group">
+                                    <input id="ruku_enter_name_caigou" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div hidden="hidden">
+                            <div>
+                                <span>采购单名称</span>
+                                <div class="form-group">
+                                    <input id="ruku_purchase_name_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>采购总额(元)</span>
+                                <div class="form-group">
+                                    <input id="ruku_all_total_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>供应商/联系人</span>
+                                <div class="form-group">
+                                    <input id="ruku_supplier_name_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>采购时间</span>
+                                <div class="form-group">
+                                    <input id="ruku_purchase_time_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>采购描述</span>
+                                <div class="form-group">
+                                    <textarea id="ruku_desc1_caigou" type="text" disabled="disabled" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <span>产品英文名称</span>
+                                <div class="form-group">
+                                    <textarea id="ruku_product_name_en_caigou" type="text" disabled="disabled" class="form-control"></textarea>
+                                    <input type="hidden" id="product_id_caigou">
+                                </div>
+                            </div>
+                            <div>
+                                <span>纯度</span>
+                                <div class="form-group">
+                                    <input id="ruku_purity_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>采购量：</span>
+                                <div class="form-group">
+                                    <input id="ruku_amount_caigou" type="text" disabled="disabled" class="form-control">
+                                    <input id="ruku_unit_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>已入库：</span>
+                                <div class="form-group">
+                                    <input id="ruku_amount_used_Incaigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>退货量：</span>
+                                <div class="form-group">
+                                    <input id="ruku_amount_used_Outcaigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>入库次数：</span>
+                                <div class="form-group">
+                                    <input id="ruku_in_count_caigou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>入库状态：</span>
+                                <div class="form-group">
+                                    <input id="ruku_status_caigou" type="text" disabled="disabled" class="form-control" value="未入库">
+                                </div>
+                            </div>
+                            </div>
+                            <div>
+                                <span>本次入库：</span>
+                                <div class="form-group">
+                                    <input id="ruku_new_amount_caigou" type="text" class="form-control">
+                                    <input id="ruku_new_unit_caigou" disabled="disabled" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>所在仓库：</span>
+                                <div class="form-group">
+                                    <input type="hidden" id="space_id_1">
+                                    <textarea readonly="readonly" onclick="select_dictWarehouseSpace(1)" id="space_name_1" class="form-control left" rows="1" cols="6" style="width: 150px;"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <span>备注：</span>
+                                <div class="form-group">
+                                    <input id="ruku_desc2_caigou" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">取消</button>
+                    <a onclick="caigou_ruku()" class="btn btn-success btn-ok">确认</a>
+                </div>
+                <input type="text" id="purchase_id_caigou">
+                <input type="text" id="purchase_d_id_caigou">
+            </div>
+        </div>
+    </div>
+    <!--原料入库销售弹出框-->
+    <div class="modal fade" id="ruku_xiaoshou" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>入库信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <h5>销售详情</h5>
+                        <div style="margin-left: 50px;">
+                            <div>
+                                <span>入库单名</span>
+                                <div class="form-group">
+                                    <input id="enter_name_xaioshou" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>销售量</span>
+                                <div class="form-group">
+                                    <input id="amount_xaioshou" type="text" disabled="disabled" class="form-control">
+                                    <input id="unit_xaioshou" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>所在仓库：</span>
+                                <div class="form-group">
+                                    <textarea readonly="readonly" id="space_name_xiaoshou" disabled="disabled" class="form-control left" rows="1" cols="6" style="width: 150px;"></textarea>
+                                </div>
+                            </div>
+                            <div>
+                                <span>备注：</span>
+                                <div class="form-group">
+                                    <input id="ruku_desc_xiaoshou" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">取消</button>
+                    <a onclick="xiaoshou_ruku()" class="btn btn-success btn-ok">确认</a>
+                </div>
+                <input type="text" id="purchase_id_xiaoshou">
+                <input type="text" id="batch_no_xiaoshou">
+                <input type="hidden" id="space_id_xiaoshou">
+            </div>
+        </div>
+    </div>
+    <!--原料出库弹出框-->
+    <div class="modal fade" id="chuku_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>出库信息</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div style="margin-left: 50px;">
+                            <div>
+                                <span>出库单名：</span>
+                                <div class="form-group">
+                                    <input id="chuku_desc_name" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>出库量：</span>
+                                <div class="form-group">
+                                    <input id="chuku_amount" type="text" disabled="disabled" class="form-control">
+                                    <input id="chuku_unit" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>仓位：</span>
+                                <div class="form-group">
+                                    <input id="chuku_space_name" type="text" disabled="disabled" class="form-control">
+                                </div>
+                            </div>
+                            <div>
+                                <span>备注：</span>
+                                <div class="form-group">
+                                    <input id="chuku_desc" type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <input id="purchase_id_chuku" type="hidden">
+                        <input id="product_id_chuku" type="hidden">
+                        <input id="purchase_d_id_chuku" type="hidden">
+                        <input id="space_id_chuku" type="hidden">
+                        <input id="batch_no_chuku" type="hidden">
+                        <input id="out_type_id" type="hidden">
+                        <input id="unit_price_chuku" type="hidden">
+                        <input id="sale_d_id_chuku" type="hidden">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">取消</button>
+                    <a onclick="pending_delivery_chuku()" class="btn btn-success btn-ok">确认</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--end-->
+
+<!--耗材采购弹出框-->
+<div class="modal fade" id="caigou-delete-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>请输入采购信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="navbar-form navbar-left" role="search">
+                	<div style="margin-left: 50px;">
+                		<div>
+				            <span>采&nbsp购&nbsp量&nbsp：</span>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+								<select class="form-control input-sm">
+					                <option>/件</option>
+					                <option>/卷</option>
+					                <option>/袋</option>
+					                <option>/包</option>
+					            </select>
+							</div>
+						</div>
+						<div>
+				            <span>采购总价：</span>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="请输入采购总价" style="width: 200px;">
+							</div>
+						</div>
+                	</div>
+				</form>
+            </div>
+            <div class="modal-footer" style="clear: both;">
+                <button type="button" class="btn btn-success" data-dismiss="modal">取消</button>
+                <a class="btn btn-success btn-ok">确认</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end-->
+
+<script>
+//tab页切换
+$('#myTabs a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+
+//点击页面跳转
+$(function () {
+
+    $('#addnew').click(function(){
+
+        window.location.href="add.html";
+    });
+    $('.modify').click(function(){
+
+        window.location.href="modify.html";
+    });
+    $('.details').click(function(){
+
+        window.location.href="detail.html";
+    });
+
+});
+/*删除弹出框*/
+function del(id) {
+
+if(confirm("确定要删除吗？"))
+    {
+
+        var url = "index.html";
+        
+        window.location.href=url;       
+
+    }
+
+}
+</script>
+</form>
+</body>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/db-kucun.js"></script>
+</html>

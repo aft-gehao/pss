@@ -1,0 +1,1001 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.consumable.dao.ConsumableDao">
+    <select id="getConsumablePageList"  parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.*,
+        t1.`staff_name`,
+        t2.`consumable_name`,
+        t2.`create_time`,
+        t2.`pack`,
+        t3.`dict_name`,
+        t2.consumable_unit,
+        t4.`staff_name` check_name
+        FROM
+        consumable_use t
+        LEFT JOIN staff_info t1
+        ON t.staff = t1.`staff_id`
+        LEFT JOIN consumable_material_info t2
+        ON t.`consumable_id` = t2.`consumable_id`
+        LEFT JOIN pss_dict t3
+        ON t.`status` = t3.`dict_id`
+        LEFT JOIN staff_info t4
+        ON t.`check_staff` = t4.`staff_id`
+        WHERE t.is_del = 0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t2.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status = '${params.status}'
+        </if>
+
+        <if test="params.status_id!=null and params.status_id!=''">
+            and t.status in(${params.status_id})
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
+            AND t.use_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND (t2.consumable_name like '%${params.search}%' or t1.staff_name like '%${params.search}%')
+        </if>
+        ORDER BY t.check_time DESC
+    </select>
+    <select id="getConsumablePageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_use t
+        LEFT JOIN staff_info t1
+        ON t.staff=t1.`staff_id`
+        LEFT JOIN consumable_material_info t2
+        ON t.`consumable_id`=t2.`consumable_id`
+        LEFT JOIN pss_dict t3
+        ON t.`status`=t3.`dict_id`
+        WHERE t.is_del = 0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t2.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status ='${params.status}'
+        </if>
+        <if test="params.status_id!=null and params.status_id!=''">
+            and t.status in(${params.status_id})
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
+            AND t.check_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND (t2.consumable_name like '%${params.search}%' or t1.staff_name like '%${params.search}%')
+        </if>
+    </select>
+	 <!--耗材列表-->
+    <select id="getConsumableInfoPageList"  parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.*,
+        s.staff_name
+        FROM
+        consumable_material_info t
+        LEFT JOIN staff_info s
+        ON t.`staff_id` = s.`staff_id`
+        WHERE t.status = 0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t.consumable_name like '%${params.consumable_name}%'
+        </if>
+        ORDER BY t.`create_time` DESC
+    </select>
+    <select id="getConsumableInfoPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_material_info t
+        where t.status=0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t.consumable_name like '%${params.consumable_name}%'
+        </if>
+    </select>
+    <insert id="consumable_add" parameterType="Map">
+        insert into consumable_use
+        (
+        consumable_id,
+        amount,
+        staff,
+        use_time,
+        is_del,
+        status,
+       `desc`
+        ,space_id,
+        stock_id
+        <if test="identifying_code!=null and identifying_code!=''">
+            ,identifying_code
+        </if>
+        <if test="check_time!=null and check_time!=''">
+            ,check_time
+        </if>
+        )
+        VALUES
+        (
+        #{consumable_id},
+        #{amount},
+        #{staff_id},
+        #{use_time},
+        #{is_del},
+         #{status},
+         #{desc},
+        #{space_id},
+        #{stock_id}
+        <if test="identifying_code!=null and identifying_code!=''">
+            ,#{identifying_code}
+        </if>
+        <if test="check_time!=null and check_time!=''">
+                ,#{check_time}
+        </if>
+        )
+    </insert>
+    <select id="getStockPageList"  parameterType="Map" resultType="consumable_stock">
+        SELECT
+        t.*,
+        t1.`consumable_name`,
+        t1.`pack`,
+        t1.`consumable_unit`,
+        (SELECT
+        GROUP_CONCAT(t5.space_name, '-')
+        FROM
+        dict_warehouse_space t5
+        WHERE FIND_IN_SET(
+        t5.space_id,
+        query_parent_warehouse (t2.space_id)
+        )) AS space_name
+        <if test="params.flag!=null and params.flag!=''">
+            ,SUM(t.`amount`) total
+        </if>
+        FROM
+        consumable_stock t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id` = t.`consumable_id`
+        LEFT JOIN `dict_warehouse_space` t2
+        ON t.`space_id` = t2.`space_id`
+        WHERE t.enter_is_del = 0
+        <if test="params.search!=null and params.search!=''">
+            and t1.consumable_name like '%${params.search}%'
+        </if>
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t1.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.flag!=null and params.flag!=''">
+            GROUP BY t.`consumable_id`
+        </if>
+        ORDER BY t.enter_time DESC
+    </select>
+    <select id="getStockPageCount"  parameterType="Map" resultType="consumable_stock">
+        SELECT
+         count(1)
+        FROM
+        consumable_stock t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id` = t.`consumable_id`
+        LEFT JOIN `dict_warehouse_space` t2
+        ON t.`space_id` = t2.`space_id`
+        WHERE t.enter_is_del = 0
+        <if test="params.search!=null and params.search!=''">
+            and t1.consumable_name like '%${params.search}%'
+        </if>
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t1.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.flag!=null and params.flag!=''">
+            GROUP BY t.`consumable_id`
+        </if>
+    </select>
+    <select id="useSelect"  parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.*,
+        t1.`staff_name`,
+        t2.`consumable_name`,
+        t2.`create_time`,
+        t2.`pack`,
+        t3.`dict_name`,
+        t2.consumable_unit
+        FROM
+        consumable_use t
+        LEFT JOIN staff_info t1
+        ON t.staff = t1.`staff_id`
+        LEFT JOIN consumable_material_info t2
+        ON t.`consumable_id` = t2.`consumable_id`
+        LEFT JOIN pss_dict t3
+        ON t.`status` = t3.`dict_id`
+        WHERE t.is_del = 0 AND t.use_id=#{use_id}
+    </select>
+    <update id="useUpdate" parameterType="Map" >
+        UPDATE consumable_use t
+        SET t.amount=#{use_amount},t.use_name=#{use_name}
+        WHERE t.use_id=#{use_id}
+    </update>
+    <update id="purchaseStatusUpdate" parameterType="Map" >
+        UPDATE consumable_purchase t
+        SET t.status=#{status}
+        WHERE t.purchase_id=#{purchase_id}
+    </update>
+    <update id="useStatusUpdate" parameterType="Map" >
+        UPDATE consumable_use t
+        SET t.status=#{status},t.check_staff=#{check_staff},t.check_time=#{check_time}
+        WHERE t.use_id=#{use_id}
+    </update>
+    <update id="repairStatusUpdate" parameterType="Map" >
+        UPDATE consumable_repair t
+        SET t.status=#{status}
+        WHERE t.repair_id=#{purchase_id}
+    </update>
+    <update id="useStatusUpdateForPurchase" parameterType="Map" >
+        UPDATE consumable_use t
+        SET t.status=#{status}
+        WHERE t.use_id=#{use_id}
+    </update>
+    <update id="useDel" parameterType="Map" >
+        UPDATE consumable_use t
+        SET t.is_del=1
+        WHERE t.use_id=#{use_id}
+    </update>
+    <!--添加耗材-->
+    <insert id="consumableAdd" parameterType="Map">
+        INSERT INTO consumable_material_info (
+        consumable_name,
+        consumable_unit,
+        staff_id,
+        create_time,
+        STATUS,
+        pack
+        <if test="warning_amount!=null and warning_amount!=''">
+            ,warning_amount
+        </if>
+        )
+        VALUES
+        (
+        "${consumable_name}",
+        "${consumable_unit}",
+        ${staff_id},
+        "${create_time}",
+        ${status},
+        "${pack}"
+        <if test="warning_amount!=null and warning_amount!=''">
+            ,"${warning_amount}"
+        </if>
+        )
+    </insert>
+    <!--删除耗材-->
+    <update id="upd_consumable" parameterType="Map">
+        UPDATE
+        consumable_material_info
+        SET
+        STATUS = 1
+        WHERE consumable_id = ${consumable_id }
+    </update>
+    <!--修改耗材-->
+    <update id="update_consumable" parameterType="Map">
+        UPDATE
+        consumable_material_info
+        <trim prefix="set" suffixOverrides=",">
+                <if test="consumable_name!=null and consumable_name!=''">
+                    consumable_name = "${consumable_name }"
+                </if>
+                <if test="pack!=null and pack!=''">
+                    ,pack="${pack }"
+                </if>
+                <if test="consumable_unit!=null and consumable_unit!=''">
+                    ,consumable_unit="${consumable_unit }"
+                </if>
+                <if test="warning_amount!=null and warning_amount!=''">
+                    ,warning_amount="${warning_amount }"
+                </if>
+        </trim>
+        WHERE consumable_id = ${consumable_id }
+    </update>
+
+    <!--根据id查询耗材-->
+    <select id="getConsumable" parameterType="Map" resultType="consumable_material_info">
+        SELECT
+        t.*,
+        s.staff_name
+        FROM
+        consumable_material_info t
+        LEFT JOIN staff_info s
+        ON t.`staff_id` = s.`staff_id`
+        WHERE
+        t.consumable_id = ${consumable_id }
+    </select>
+    <select id="getPurchasingPageList"  parameterType="Map" resultType="consumable_purchase">
+        SELECT * from consumable_list t where t.consumable_id IS NOT NULL
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and  t.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.stock_status!=null and params.stock_status!=''">
+            and t.status IN ${params.stock_status}
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t.consumable_name like '%${params.cas}%'
+            or t.staff_name like '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        order by t.purchase_time desc
+    </select>
+    <select id="getPurchasingPageCount"  parameterType="Map" resultType="Integer">
+        SELECT count(1) from consumable_list t where t.consumable_id IS NOT NULL
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and  t.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.stock_status!=null and params.stock_status!=''">
+            and  t.status IN ${params.stock_status}
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t.consumable_name like '%${params.cas}%'
+            or t.staff_name like '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+    </select>
+
+    <select id="getPurchasingList" parameterType="Map" resultType="consumable_purchase">
+        SELECT
+            *
+        FROM
+            consumable_list t
+        WHERE
+            t.consumable_id IS NOT NULL
+        AND t.`status`!=14001 AND t.`status`!=5001
+        ORDER BY
+	        t.purchase_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getPurchasingCount" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_list t
+        WHERE
+        t.consumable_id IS NOT NULL
+        AND t.`status`!=14001 AND t.`status`!=5001
+        ORDER BY
+        t.purchase_time DESC
+    </select>
+    <select id="getPurchasingList_history" parameterType="Map" resultType="consumable_purchase">
+        SELECT
+        *
+        FROM
+        consumable_stock t
+        LEFT JOIN consumable_list t1 ON t.consumable_id = t1.consumable_id
+        WHERE
+        t1.`status` = 5001
+        ORDER BY
+        t1.purchase_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getPurchasingCount_history" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_stock t
+        LEFT JOIN consumable_list t1 ON t.consumable_id = t1.consumable_id
+        WHERE
+        t1.`status` = 5001
+        ORDER BY
+        t1.purchase_time DESC
+    </select>
+
+
+    <insert id="add_purchasing" parameterType="Map">
+        insert into consumable_purchase
+        (
+        consumable_id,
+        use_id,
+        amount,
+        staff_id,
+        purchase_time,
+        purchase_is_del,
+        status,
+        purchase_money,
+        `desc`
+        )
+        VALUES
+        (
+        #{consumable_id},
+        #{use_id},
+        #{amount},
+        #{staff_id},
+        #{purchase_time},
+        #{purchase_is_del},
+        #{status},
+        #{purchase_money},
+        #{desc}
+        )
+    </insert>
+    <select id="getUseId"  parameterType="Map" resultType="Integer">
+        SELECT
+        use_id
+        FROM consumable_purchase
+        WHERE purchase_id="${purchase_id}"
+    </select>
+    <insert id="consumableInventory" parameterType="Map">
+        INSERT INTO consumable_stock (
+        consumable_id,
+        amount,
+        space_id,
+        enter_staff,
+        enter_time,
+        enter_is_del,
+        purchase_id
+        )
+        VALUES
+        (
+        #{consumable_id},
+       #{new_amount},
+        #{space_id},
+       #{enter_staff},
+       #{enter_time},
+        #{enter_is_del},
+       #{purchase_id}
+        )
+    </insert>
+    <select id="getUsePageList"  parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.*,
+        t1.`dict_name`,
+        t2.`dict_name` use_status_name,
+        t3.`staff_name`,
+        (SELECT
+        GROUP_CONCAT(t5.space_name, '-')
+        FROM
+        dict_warehouse_space t5
+        WHERE FIND_IN_SET(
+        t5.space_id,
+        query_parent_warehouse (t4.space_id)
+        )) AS space_name,
+        t5.`consumable_name`,
+        t5.`consumable_type`,
+        t5.`consumable_unit`,
+        t5.`pack`,
+        t6.`dict_name` type_name,
+        IFNULL(SUM(t7.`out_amount`),0) out_amount
+        FROM
+        consumable_use t
+        LEFT JOIN pss_dict t1
+        ON t.`status` = t1.`dict_id`
+        LEFT JOIN pss_dict t2
+        ON t.`use_status` = t2.`dict_id`
+        LEFT JOIN staff_info t3
+        ON t3.`staff_id` = t.`staff`
+        LEFT JOIN dict_warehouse_space t4
+        ON t.`space_id` = t4.`space_id`
+        LEFT JOIN consumable_material_info t5
+        ON t5.`consumable_id`=t.`consumable_id`
+        LEFT JOIN pss_dict t6
+        ON t6.`dict_id`=t5.`consumable_type`
+        LEFT JOIN consumable_out_stock t7
+        ON t7.`use_id`=t.`use_id`
+        WHERE t.is_del=0 AND t.space_id!=0 AND t5.`status`=0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t5.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.stock_status!=null and params.stock_status!=''">
+            and t.status = '${params.stock_status}'
+        </if>
+        GROUP BY t.`use_id`
+        ORDER BY t.`use_time` DESC
+    </select>
+    <select id="getUsePageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_use t
+        LEFT JOIN pss_dict t1
+        ON t.`status` = t1.`dict_id`
+        LEFT JOIN pss_dict t2
+        ON t.`use_status` = t2.`dict_id`
+        LEFT JOIN staff_info t3
+        ON t3.`staff_id` = t.`staff`
+        LEFT JOIN dict_warehouse_space t4
+        ON t.`space_id` = t4.`space_id`
+        LEFT JOIN consumable_material_info t5
+        ON t5.`consumable_id`=t.`consumable_id`
+        LEFT JOIN pss_dict t6
+        ON t6.`dict_id`=t5.`consumable_type`
+        WHERE t.is_del=0 AND t.space_id!=0 AND t5.`status`=0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t5.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.stock_status!=null and params.stock_status!=''">
+            and t.status = '${params.stock_status}'
+        </if>
+    </select>
+
+
+    <select id="getUseList" parameterType="Map" resultType="consumable_use">
+        SELECT
+        t.*,
+        t1.`dict_name`,
+        t2.`dict_name` use_status_name,
+        t3.`staff_name`,
+        (SELECT
+        GROUP_CONCAT(t5.space_name, '-')
+        FROM
+        dict_warehouse_space t5
+        WHERE FIND_IN_SET(
+        t5.space_id,
+        query_parent_warehouse (t4.space_id)
+        )) AS space_name,
+        t5.`consumable_name`,
+        t5.`consumable_type`,
+        t5.`consumable_unit`,
+        t5.`pack`,
+        t6.`dict_name` type_name,
+        IFNULL(SUM(t7.`out_amount`),0) out_amount
+        FROM
+        consumable_use t
+        LEFT JOIN pss_dict t1
+        ON t.`status` = t1.`dict_id`
+        LEFT JOIN pss_dict t2
+        ON t.`use_status` = t2.`dict_id`
+        LEFT JOIN staff_info t3
+        ON t3.`staff_id` = t.`staff`
+        LEFT JOIN dict_warehouse_space t4
+        ON t.`space_id` = t4.`space_id`
+        LEFT JOIN consumable_material_info t5
+        ON t5.`consumable_id`=t.`consumable_id`
+        LEFT JOIN pss_dict t6
+        ON t6.`dict_id`=t5.`consumable_type`
+        LEFT JOIN consumable_out_stock t7
+        ON t7.`use_id`=t.`use_id`
+        WHERE t.is_del=0 AND t.space_id!=0 AND t5.`status`=0 and t.`status` = 8002
+        GROUP BY t.`use_id`
+        ORDER BY t.`use_time` DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getUseCount" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        consumable_use t
+        LEFT JOIN pss_dict t1
+        ON t.`status` = t1.`dict_id`
+        LEFT JOIN pss_dict t2
+        ON t.`use_status` = t2.`dict_id`
+        LEFT JOIN staff_info t3
+        ON t3.`staff_id` = t.`staff`
+        LEFT JOIN dict_warehouse_space t4
+        ON t.`space_id` = t4.`space_id`
+        LEFT JOIN consumable_material_info t5
+        ON t5.`consumable_id`=t.`consumable_id`
+        LEFT JOIN pss_dict t6
+        ON t6.`dict_id`=t5.`consumable_type`
+        WHERE t.is_del=0 AND t.space_id!=0 AND t5.`status`=0 and t.`status` = 8002
+    </select>
+
+    <select id="getUseList_history" parameterType="Map" resultType="consumable_use">
+        SELECT
+        *
+        FROM
+        consumable_out_stock t
+        LEFT JOIN consumable_use t1 ON t.use_id = t1.use_id
+        LEFT JOIN dict_warehouse_space t2 ON t1.space_id = t2.space_id
+        LEFT JOIN consumable_material_info t3 ON t1.consumable_id = t3.consumable_id
+        LEFT JOIN staff_info t4 ON t1.staff = t4.staff_id
+        LEFT JOIN pss_dict t5 ON t1.`status` = t5.dict_id
+        ORDER BY
+        t1.use_time DESC
+        <if test="is_all!=1">
+            LIMIT 3
+        </if>
+    </select>
+    <select id="getUseCount_history" resultType="Integer">
+        SELECT
+            count(1)
+        FROM
+            consumable_out_stock t
+        LEFT JOIN consumable_use t1 ON t.use_id = t1.use_id
+        LEFT JOIN dict_warehouse_space t2 ON t1.space_id = t2.space_id
+        LEFT JOIN consumable_material_info t3 ON t1.consumable_id = t3.consumable_id
+        LEFT JOIN staff_info t4 ON t1.staff = t4.staff_id
+        LEFT JOIN pss_dict t5 ON t1.`status` = t5.dict_id
+        ORDER BY
+            t1.use_time DESC
+    </select>
+
+
+
+
+    <insert id="insert_out_stock" parameterType="Map">
+        INSERT INTO consumable_out_stock (
+        out_amount,
+        use_id,
+        out_staff,
+        out_time
+        )
+        VALUES
+        (
+        #{amount},
+        #{use_id},
+        #{out_staff},
+        #{out_time}
+        )
+    </insert>
+    <!--更新库存-->
+    <update id="update_stock_amount" parameterType="Map">
+      UPDATE
+          consumable_stock
+        SET
+          amount = amount -#{amount}
+        WHERE stock_id = #{stock_id}
+    </update>
+    <select id="getStockDetailPageList"  parameterType="Map" resultType="consumable_stock">
+        SELECT
+        t2.`consumable_name`,
+        t2.`pack`,
+        SUM(t.`amount`) amount,
+        t2.`consumable_unit`,
+        t.enter_time,
+        (SELECT
+        GROUP_CONCAT(t5.space_name, '-')
+        FROM
+        dict_warehouse_space t5
+        WHERE FIND_IN_SET(
+        t5.space_id,
+        query_parent_warehouse (t1.space_id)
+        )) AS space_name
+        FROM
+        consumable_stock t
+        LEFT JOIN dict_warehouse_space t1
+        ON t.`space_id` = t1.`space_id`
+        LEFT JOIN consumable_material_info t2
+        ON t2.`consumable_id` = t.`consumable_id`
+        WHERE t.`consumable_id`='${params.consumable_id}' and t.`enter_is_del` = 0
+        GROUP BY t.`consumable_id`
+    </select>
+    <select id="getStockDetailPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+          COUNT(1)
+        FROM
+        consumable_stock t
+        LEFT JOIN dict_warehouse_space t1
+        ON t.`space_id` = t1.`space_id`
+        LEFT JOIN consumable_material_info t2
+        ON t2.`consumable_id` = t.`consumable_id`
+        WHERE t.`consumable_id`='${params.consumable_id}' and t.`enter_is_del` = 0
+    </select>
+    <select id="warningSelect"  parameterType="Map" resultType="consumable_material_info">
+        SELECT
+          CASE
+            WHEN t.`warning_amount` > SUM(t1.`amount`)
+            THEN t.consumable_name
+          END AS consumable_name,
+          t.pack,
+          SUM(t1.`amount`) AS amount
+        FROM
+          `consumable_material_info` t
+          LEFT JOIN `consumable_stock` t1
+            ON t.`consumable_id` = t1.`consumable_id`
+        WHERE t.`warning_amount` IS NOT NULL
+          AND t1.`enter_is_del` = 0
+          AND t.status = 0
+        GROUP BY t1.`consumable_id`
+    </select>
+    <select id="getConsumableRepairPageList"  parameterType="Map" resultType="consumable_repair">
+        SELECT
+        t.*,
+        t1.`consumable_unit`,
+        t1.`pack`,
+        t1.`consumable_name`,
+        t2.`staff_name`,
+        t3.`dict_name`,
+        t4.`staff_name` check_people
+        FROM
+        consumable_repair t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id` = t.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t.`repair_staff` = t2.`staff_id`
+        LEFT JOIN pss_dict t3
+        ON t3.`dict_id` = t.`status`
+        LEFT JOIN staff_info t4
+        ON t4.`staff_id`=t.`checking_staff`
+        WHERE t.`repair_is_del` = 0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t1.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t1.consumable_name like '%${params.cas}%'
+            or t4.staff_name like '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.repair_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        ORDER BY t.repair_time DESC
+    </select>
+    <select id="getConsumableRepairPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM consumable_repair t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id`=t.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t.`repair_staff`=t2.`staff_id`
+        LEFT JOIN pss_dict t3
+        ON t3.`dict_id`=t.`status`
+        WHERE t.`repair_is_del`=0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t1.consumable_name like '%${params.consumable_name}%'
+        </if>
+        <if test="params.cas!=null and params.cas!=''">
+            and t1.consumable_name like '%${params.cas}%'
+            or t4.staff_name like '%${params.cas}%'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and  ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.repair_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+    </select>
+    <!--添加耗材返修申请-->
+    <insert id="consumable_repair_add" parameterType="Map">
+        INSERT INTO consumable_repair (
+        consumable_id,
+        repair_staff,
+        repair_time,
+        repair_amount,
+        `status`,
+        repair_is_del
+        <if test="repair_desc!=null and repair_desc!=''">
+            ,repair_desc
+        </if>
+        )
+        VALUES
+        (
+        #{consumable_id},
+        #{repair_staff},
+        #{repair_time},
+        #{repair_amount},
+        #{status},
+        #{repair_is_del}
+        <if test="repair_desc!=null and repair_desc!=''">
+            ,#{repair_desc}
+        </if>
+        )
+    </insert>
+    <!--更新库存-->
+    <update id="consumable_repair_del" parameterType="Map">
+        UPDATE
+        consumable_repair
+        SET
+        repair_is_del =#{repair_is_del}
+        WHERE repair_id = #{repair_id}
+    </update>
+    <!--更新库存-->
+    <update id="consumable_repair_upd" parameterType="Map">
+        UPDATE
+        consumable_repair
+        SET
+        <if test="repair_amount!=null and repair_amount!=''">
+            repair_amount =#{repair_amount},
+            repair_desc=#{repair_desc}
+        </if>
+        <if test="amount!=null and amount!=''">
+            checking_repair=#{amount}
+            ,checking_staff=#{checking_staff}
+            ,status=#{status}
+        </if>
+        WHERE repair_id = #{repair_id}
+    </update>
+    <select id="repairSelect"  parameterType="Map" resultType="consumable_repair">
+        SELECT
+        t.*,
+        t1.`consumable_unit`,
+        t1.`pack`,
+        t1.`consumable_name`,
+        t2.`staff_name`,
+        t3.`dict_name`
+        FROM consumable_repair t
+        LEFT JOIN consumable_material_info t1
+        ON t1.`consumable_id`=t.`consumable_id`
+        LEFT JOIN staff_info t2
+        ON t.`repair_staff`=t2.`staff_id`
+        LEFT JOIN pss_dict t3
+        ON t3.`dict_id`=t.`status`
+        WHERE t.`repair_is_del`=0
+        AND t.`repair_id`=#{repair_id}
+    </select>
+    <!--耗材返修、取消-->
+    <update id="consumable_repair_cl" parameterType="Map">
+        UPDATE
+        consumable_repair
+        SET
+        repair_is_del =#{repair_is_del}
+        WHERE repair_id = #{repair_id}
+    </update>
+    <update id="consumable_pur_cancel" parameterType="Map">
+        UPDATE
+        consumable_use
+        SET
+        is_del =#{ is_del}
+        WHERE use_id = #{use_id}
+    </update>
+
+    <select id="staff_mobilephone" parameterType="Map" resultType="staff_info">
+        SELECT
+	        t1.role_name,
+	        t3.staff_name,
+	        t3.mobilephone
+        FROM
+	        pss_role t1
+          INNER JOIN pss_role_user t2 ON t1.role_id=t2.role_user_roleid
+          INNER JOIN staff_info t3 ON t3.staff_id=t2.role_user_staffinfoid
+        WHERE
+	        t1.role_id = 49
+    </select>
+    <select id="consumable_mobilephone" parameterType="Map" resultType="consumable_use">
+        SELECT
+	      `status`
+        FROM
+	      consumable_use
+        WHERE
+	      use_id = #{use_id}
+    </select>
+    <select id="getConsumablePurchasePageList"  parameterType="Map" resultType="consumable_purchase">
+        SELECT
+        t.*,
+        t1.`use_time`,
+        t1.`desc`,
+        t2.`staff_name`,
+        t3.consumable_name,
+        t3.`consumable_unit`,
+        t3.`pack`,
+        t4.`dict_name`
+        FROM
+        consumable_purchase t
+        LEFT JOIN consumable_use t1
+        ON t.`use_id`=t1.`use_id`
+        LEFT JOIN staff_info t2
+        ON t2.`staff_id`=t1.`staff`
+        LEFT JOIN `consumable_material_info` t3
+        ON t1.`consumable_id`=t3.consumable_id
+        LEFT JOIN pss_dict t4
+        ON t4.`dict_id`=t.`status`
+        where t.purchase_is_del=0
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t2.consumable_name like '%${params.consumable_name}%'
+        </if>
+        ORDER BY t.purchase_time DESC
+    </select>
+    <select id="getConsumablePurchasePageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+       count(1)
+        FROM
+        consumable_purchase t
+        LEFT JOIN consumable_use t1
+        ON t.`use_id`=t1.`use_id`
+        LEFT JOIN staff_info t2
+        ON t2.`staff_id`=t1.`staff`
+        LEFT JOIN `consumable_material_info` t3
+        ON t1.`consumable_id`=t3.consumable_id
+        <if test="params.consumable_name!=null and params.consumable_name!=''">
+            and t2.consumable_name like '%${params.consumable_name}%'
+        </if>
+        ORDER BY t.purchase_time DESC
+    </select>
+    <update id="con_purchase_modify_del" parameterType="Map">
+        UPDATE
+        consumable_purchase
+        SET
+         purchase_is_del=#{is_del}
+        WHERE purchase_id = #{purchase_id}
+    </update>
+    <update id="con_purchase_modify" parameterType="Map">
+        UPDATE
+        consumable_purchase
+        SET
+        amount =#{amount},
+        purchase_money=#{purchase_money}
+        WHERE purchase_id = #{purchase_id}
+    </update>
+    <!--更新库存-->
+    <update id="fahuo" parameterType="Map">
+        UPDATE
+        consumable_use
+        SET
+         kd_num =#{kd_num},
+         kd_code =#{kd_code},
+         status=#{status}
+        WHERE use_id = #{use_id}
+     </update>
+    <!--更新库存-->
+    <update id="pur_fahuo" parameterType="Map">
+        UPDATE
+        consumable_purchase
+        SET
+        kd_num =#{kd_num},
+        kd_code =#{kd_code},
+        status=#{status}
+        WHERE use_id = #{use_id}
+    </update>
+    <select id="consumable_name_select" parameterType="Map" resultType="Integer">
+        SELECT
+         COUNT(1)
+        FROM
+        consumable_material_info t
+        WHERE t.`consumable_name` = #{consumable_name}
+    </select>
+    <select id="consumable_id_select" parameterType="Map" resultType="Integer">
+        SELECT
+         t.consumable_id
+        FROM
+        consumable_material_info t
+        WHERE t.`consumable_name` = #{consumable_name}
+    </select>
+    <select id="getConsumableId" parameterType="Map" resultType="Integer">
+        SELECT
+        consumable_id
+        FROM
+        consumable_material_info
+        ORDER BY consumable_id DESC
+        LIMIT 1
+    </select>
+    <select id="getConsumableUseId" parameterType="Map" resultType="Integer">
+        SELECT
+        use_id
+        FROM
+        consumable_use
+        ORDER BY use_id DESC
+        LIMIT 1
+    </select>
+    <select id="kd_info_select" parameterType="Map" resultType="kudi_info">
+        SELECT
+        *
+        FROM
+        kd_info
+       where kd_name like '%${kd_name}%'
+       LIMIT 1
+    </select>
+    <update id="check_repair" parameterType="Map" >
+        UPDATE consumable_repair t
+        SET t.checking_repair=#{amount},t.status=#{status},t.checking_staff=#{checking_staff},t.price=#{price},t.repair_comp=#{company},t.check_time=#{check_time}
+        WHERE t.repair_id=#{repair_id}
+    </update>
+    <update id="fahuo_repair" parameterType="Map" >
+        UPDATE consumable_repair t
+        SET t.status=#{status},t.kd_code=#{kd_code},t.kd_num=#{kd_num}
+        WHERE t.repair_id=#{repair_id}
+    </update>
+</mapper>

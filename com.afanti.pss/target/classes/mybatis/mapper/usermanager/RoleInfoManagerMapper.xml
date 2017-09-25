@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.usermanager.dao.RoleInfoManagerDao">
+    <select id="getPssRoleList" parameterType="Map" resultType="Pss_Role">
+        select * from pss_role t where t.role_status=0
+        <if test="role_name!=null and role_name!=''">
+            and t.role_name = #{role_name}
+        </if>
+        order by role_id desc
+    </select>
+    <select id="getPssRolePageList" parameterType="Map" resultType="Pss_Role">
+        select * from pss_role t
+        where t.role_status = 0
+        <if test="params.role_name!=null and params.role_name!=''">
+            and t.role_name like '%${params.role_name}%'
+        </if>
+        order by role_id desc
+    </select>
+    <select id="getPssRolePageCount" parameterType="Map" resultType="Integer">
+        select count(1) from pss_role t
+        where t.role_status = 0
+        <if test="params.role_name!=null and params.role_name!=''">
+            and t.role_name like '%${params.role_name}%'
+        </if>
+    </select>
+    <insert id="addRole" parameterType="Map">
+        INSERT INTO pss_role (role_name, role_status)
+        VALUES
+	    (#{role_name}, #{role_status})
+    </insert>
+
+    <update id="delRole" parameterType="Map">
+        update pss_role set role_status = 1 where role_id = #{role_id}
+    </update>
+
+    <update id="updRole" parameterType="Map">
+        update pss_role set role_name =#{role_name}
+         where role_id = #{role_id}
+    </update>
+
+    <select id="getRoleInfo" parameterType="Map" resultType="Pss_Role">
+        select * from pss_role t where t.role_id =#{role_id}
+    </select>
+
+    <select id="getMenuList" parameterType="Map" resultType="Pss_Menu">
+        select * from pss_menu where menu_status = 0
+    </select>
+
+    <select id="getRoleMenuids" parameterType="Map" resultType="Pss_Menu">
+      SELECT
+        t2.*
+        FROM
+            pss_role_menu t
+        JOIN pss_menu t2 ON (
+            t.role_menu_menuid = t2.menu_id
+        )
+        WHERE
+            t.role_menu_roleid = #{role_id}
+        AND t.role_menu_status = 0
+    </select>
+
+    <update id="delRoleMenusByRoleId" parameterType="Map">
+        update pss_role_menu set role_menu_status = 1 where
+        role_menu_roleid =#{role_id}
+        <if test="menu_ids!=null and menu_ids!='' and type==2">
+            and role_menu_menuid in(${menu_ids})
+        </if>
+    </update>
+
+    <insert id="addRoleMenu" parameterType="Map">
+        insert into pss_role_menu
+        (
+          role_menu_roleid,
+          role_menu_menuid,
+          role_menu_status
+        )
+        VALUES
+        (
+          #{role_menu_roleid},
+          #{role_menu_menuid},
+          #{role_menu_status}
+        )
+    </insert>
+    <select id="checkPssMenu" parameterType="Map" resultType="Pss_Menu">
+        select * from pss_menu t where t.menu_parent =#{menu_parent} LIMIT 1;
+     </select>
+    <insert id="addMenuInfo" useGeneratedKeys="true" keyProperty="menu_id" parameterType="Pss_menu">
+      insert into pss_menu
+      (
+        menu_name,
+        menu_status,
+        menu_parent,
+        menu_order,
+        menu_url,
+        menu_type
+      )
+      VALUES
+      (
+        #{menu_name},
+        #{menu_status},
+        #{menu_parent},
+        #{menu_order},
+        #{menu_url},
+        #{menu_type}
+      )
+    </insert>
+
+    <select id="getMenuByParent" parameterType="Map" resultType="String">
+        SELECT
+            GROUP_CONCAT(menu_id)
+            FROM
+            pss_menu
+            WHERE
+            menu_status = 0
+            and
+            FIND_IN_SET(
+            menu_id,
+            query_child_menu (#{menu_parent})
+            )
+    </select>
+
+    <update id="delMenu" parameterType="Map">
+        update pss_menu set menu_status =1 where menu_id in(${menu_ids})
+    </update>
+
+    <select id="getMenuInfo" parameterType="Map" resultType="Pss_Menu">
+        select * from pss_menu where menu_id = #{menu_id}
+    </select>
+    <select id="roleSelect" parameterType="Map" resultType="Integer">
+        SELECT COUNT(1) FROM pss_role_user WHERE role_user_roleid=${role_id} and role_user_status=0
+    </select>
+
+    <update id="updMenuSave" parameterType="Map">
+        update pss_menu
+        <trim prefix="set" suffixOverrides=",">
+            <if test="menu_name!=null">
+                menu_name= #{menu_name},
+            </if>
+            <if test="menu_url!=null">
+                menu_url= #{menu_url},
+            </if>
+        </trim>
+        where menu_id =#{menu_id}
+    </update>
+</mapper>

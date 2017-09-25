@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>销售询价</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+
+</head>
+<style type="text/css" media="screen">
+.db-table > thead > tr > th {
+	    background: #EAEAEA;
+	    box-shadow:none;
+	    color: #333;
+}
+</style>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container" style="margin-bottom: 80px;">
+    	<h3>销售询价</h3>
+        <div class="db-cont">
+            <div class="bs-callout" style="border:none;padding: 20px 0">
+                <div class="col-md-10" style="padding-left: 0;">
+                    <div class="col-md-3 form-group" style="padding-left: 0;">
+                        <span class="col-sm-6 text-right form-control-static">CAS：</span>
+                        <input id="cas" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
+                               placeholder="" maxlength="20">
+                    </div>
+                    <div class="col-md-3 form-group" style="padding-left: 0;">
+                        <span class="col-sm-6 text-right form-control-static">SKU：</span>
+                        <input id="sku" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
+                               placeholder="" maxlength="20">
+                    </div>
+
+                    <span><button type="button" id="xunjia_query"
+                                  class="btn btn-primary">查询</button></span>
+			    </div>
+                <div class="col-md-2 right">
+                    <a class="cg-history" data-toggle="modal" data-target="#Add-xj">
+                        <button class="btn btn-info" data-dismiss="modal" id="add_select">添加询价</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="Pro-adm table m20">
+                <div class="add-info clearfix"  style="padding: 0;">
+                    <div class="Pro-table">
+                        <table class="table table-bordered table-hover db-table" style="border:1px solid #ddd">
+                            <thead>
+                                <tr>
+                                    <th width="9%">SKU</th>
+                                    <th width="9%">CAS</th>
+                                    <th width="9%">纯度</th>
+                                    <th width="9%">数量</th>
+                                    <th width="9%">价格</th>
+                                    <th width="14%">时间</th>
+                                    <th width="9%">客户</th>
+                                    <th width="9%">税率</th>
+                                    <th width="14%">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="data_tbody">
+
+                            </tbody>
+                        </table>
+                        <div id="pages" class="tabl Pagination">
+                        </div>
+                 		<!-- end -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <input type="hidden" id="staff_name">
+       
+
+
+<!--增加询单弹出框-->
+        <div class="modal fade" id="Add-xj" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>添加询价</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 130px;">
+                                <div>
+                                    <span>C&nbsp&nbspA&nbsp&nbspS&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="add_cas" type="text" class="form-control" required="required" placeholder="请输入CAS" style="width: 200px;" maxlength="255">
+                                        <input type="hidden" id="product_cas" class="form-control input-sm" value="0"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>S&nbsp&nbspK&nbsp&nbspU&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="add_sku" type="text" class="form-control" required="required" placeholder="请输入SKU" style="width: 200px;" maxlength="255">
+                                        <input type="hidden" id="product_sku" class="form-control input-sm" value="0"/>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>英文名：</span>
+                                    <div class="form-group">
+                                        <input id="add_name_en" type="text" class="form-control" required="required" placeholder="请输入产品英文名" style="width: 200px;" maxlength="255">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>纯&nbsp&nbsp&nbsp&nbsp度&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="add_purity" type="text" class="form-control" placeholder="请输入纯度" style="width: 200px;" maxlength="20">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>数&nbsp&nbsp&nbsp&nbsp量&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="add_amount" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
+                                        <select id="add_unit" class="form-control input-sm">
+                                            <option>g</option>
+                                            <option>ml</option>
+                                            <option>L</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>价&nbsp&nbsp&nbsp&nbsp格&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="add_price" type="number" class="form-control" placeholder="请输入价格" style="width: 200px;" maxlength="20">
+                                        <span style="font-size: 14px;">元</span>
+                                    </div>
+                                </div>
+                              <!--  <div>
+                                    <span>货&nbsp&nbsp&nbsp&nbsp期&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="add_leadStart" type="number" class="form-control" placeholder="" style="width: 88px;" maxlength="20">
+                                        ~
+                                        <input id="add_leadEnd" type="number" class="form-control" placeholder="" style="width: 88px;" maxlength="20">
+                                        <span style="font-size: 14px;">周</span>
+                                    </div>
+                                </div>-->
+                                <div>
+                                    <span>客&nbsp&nbsp&nbsp&nbsp户&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" required="required" id="customer_name" placeholder="请输入客户" style="width: 200px;" maxlength="20">
+                                        <input type="hidden" id="customer_id" class="form-control input-sm"  value="0" />
+                                    </div>
+                                </div>
+                                <input type="hidden" id="add_rate" value="17%">
+                               <!-- <div>
+                                    <span>税率&nbsp:&nbsp</span>
+                                    <select id="add_rate"  class="form-control input-sm">
+                                        <option>17%</option>
+                                        <option>7%</option>
+                                        <option>3%</option>
+                                    </select>
+                                </div>-->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="add_quxiao" type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <a id="add_xunjia" class="btn btn-success btn-ok">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--end-->
+        <!--存货弹窗-->
+        <div class="modal fade" id="Add-qh" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>订单转换</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="navbar-form navbar-left" role="search">
+                            <div style="margin-left: 130px;">
+                                <div>
+                                    <span>C&nbsp&nbspA&nbsp&nbspS&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="cunhuo_cas" disabled="disabled" type="text" class="form-control" required="required" placeholder="请输入CAS" style="width: 200px;" maxlength="255">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>S&nbsp&nbspK&nbsp&nbspU&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="cunhuo_sku" disabled="disabled" type="text" class="form-control" required="required" placeholder="请输入SKU" style="width: 200px;" maxlength="255">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>英文名：</span>
+                                    <div class="form-group">
+                                        <input id="cunhuo_name_en" disabled="disabled" type="text" class="form-control" required="required" placeholder="请输入产品英文名" style="width: 200px;" maxlength="255">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>纯&nbsp&nbsp&nbsp&nbsp度&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="cunhuo_purity" type="text" class="form-control" placeholder="请输入纯度" style="width: 200px;" maxlength="20">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>数&nbsp&nbsp&nbsp&nbsp量&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="cunhuo_amount" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
+                                        <select id="cunhuo_unit"  class="form-control input-sm">
+                                            <option>g</option>
+                                            <option>mg</option>
+                                            <option>kg</option>
+                                            <option>ml</option>
+                                            <option>L</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>价&nbsp&nbsp&nbsp&nbsp格&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input id="cunhuo_price" type="number" class="form-control" placeholder="请输入价格" style="width: 200px;" maxlength="20">
+                                        <span style="font-size: 14px;">元</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>客&nbsp&nbsp&nbsp&nbsp户&nbsp:&nbsp</span>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" required="required" id="customer_cunhuo" placeholder="请输入客户" style="width: 200px;" maxlength="20">
+                                    </div>
+                                </div>
+                                <input type="hidden" id="cunhuo_rate" value="17%">
+                             <!--   <div>
+                                    <span>税率&nbsp:&nbsp</span>
+                                    <select id="cunhuo_rate" class="form-control input-sm">
+                                        <option>17%</option>
+                                        <option>7%</option>
+                                        <option>3%</option>
+                                        <option>无税</option>
+                                    </select>
+                                </div>-->
+                                <div>
+                                    <span>路&nbsp&nbsp&nbsp&nbsp线&nbsp:&nbsp</span>
+                                    <select id="sale_way" class="form-control">
+                                        <option value="S">现货</option>
+                                        <option value="C">定制</option>
+                                    </select>
+                                </div>
+                                <div id="add_sale1" style="display: none">
+                                    <span style="color: red;">温馨提示：您选择的产品无库存，需要安排生产哦！</span>
+                                    <!--<div>-->
+                                        <!--<input id="add_allowance1" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">-->
+                                        <!--<button type="button" id="add_task1" class="btn btn-primary">是</button>-->
+                                    <!--</div>-->
+                                </div>
+                                <div id="add_sale2" style="display: none">
+                                    <span style="color: red;font-size: 12px;">您选择的产品库存中余量为:<span id="su_amount"></span></span><br />
+                                     <span style="color: red;font-size: 12px;">尚缺:<span id="add_allowance2"></span>需要安排生产哦！</span>
+                                    <!--<div>-->
+                                        <!--<button type="button" id="add_task2" class="btn btn-primary">是</button>-->
+                                    <!--</div>-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <input type="hidden" id="quotation_id">
+                    <input type="hidden" id="product_id">
+                    <input type="hidden" id="custom">
+                    <div class="modal-footer">
+                        <button type="button" id="qu_xiao" class="btn btn-primary" data-dismiss="modal">取消</button>
+                        <a id="add_cunhuo" class="btn btn-success btn-ok">确认</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+</form>
+
+<script type="text/javascript">
+
+
+//点击页面跳转
+$(function () {
+
+    $('#addnew').click(function(){
+
+        window.location.href="add.html";
+    });
+    $('.modify').click(function(){
+
+        window.location.href="modify.html";
+    });
+    $('.details').click(function(){
+
+        window.location.href="detail.html";
+    });
+
+});
+/*删除弹出框*/
+function del(id) {
+
+if(confirm("确定要删除吗？"))
+    {
+
+        var url = "index.html";
+        
+        window.location.href=url;       
+
+    }
+
+}
+</script>
+
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/sales_quotation.js"></script>
+</body>
+</html>

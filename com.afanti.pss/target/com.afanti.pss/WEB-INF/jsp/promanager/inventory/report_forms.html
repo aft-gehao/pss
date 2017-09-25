@@ -1,0 +1,196 @@
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <title>领料单</title>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script  type="text/javascript" src="/js/echarts.js"></script>
+    <style type="text/css">
+        body {
+            margin-left: 45px;
+            margin-right: 45px;
+            font-family: Times New Roman;
+            font-size: 14px;
+        }
+        p
+        {
+            word-wrap: break-word;
+        }
+        *
+        {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        input[type=text]{
+            font-size: 13px;
+            font-family: Times New Roman;
+            outline: none;
+            width: 100%;
+        }
+        table {
+            border-collapse:collapse;
+            border-spacing:0;
+        }
+        tbody
+        {
+            display: table-row-group;
+
+            vertical-align: middle;
+
+            border-color: inherit;
+        }
+        tr
+        {
+            display: table-row;
+
+            vertical-align: inherit;
+
+            border-color: inherit;
+        }
+        td,
+        th
+        {
+            display: table-cell;
+
+            vertical-align: inherit;
+        }
+        p
+        {
+            word-wrap: break-word;
+        }
+        fieldset,img {
+            border:0;
+        }
+        address,caption,cite,code,dfn,em,strong,th,var {
+            font-style:normal;
+            font-weight:normal;
+        }
+        ol,ul {
+            list-style:none;
+        }
+        caption,th {
+            text-align:left;
+        }
+
+        q:before,q:after {
+            content:'';
+        }
+        abbr,acronym { border:0;
+        }
+        *,
+        :after,
+        :before
+        {
+            box-sizing: border-box;
+        }
+        textarea
+        {
+            resize: none;
+            overflow-x:hidden;
+            overflow-y:hidden;
+            width: 100%;
+            height: auto;
+            padding: 5px;
+            margin: 0;
+            font-size: 13px;
+
+        }
+        .left{
+            float: left;
+        }
+        .right{
+            float: right!important;
+        }
+        .clear
+        {
+            clear: both;
+        }
+        .over {overflow: hidden;}
+        .normal {font-weight:normal!important;}
+        .top10 {margin-top: 10px;}
+        .head {text-align: center;margin-top: 50px;overflow: hidden;}
+        .head >h1 {margin-left: 50px;line-height: 10px;letter-spacing:60px;font-size: 30px;}
+        .head .line {width: 16%;height: 1px; background-color: #333;margin: 0 auto;}
+        .insurance_info .title {clear: both;overflow: hidden;width: 100%;}
+        .insurance_info .title .dwei,.insurance_info .title .date{width: 50%;float: left;}
+        .insurance_info .title .dwei .font {font-weight: bold;}
+        .insurance_info .title .dwei .input {border-bottom: 1px dashed #333;margin-left: 20px;}
+        .insurance_info .title .dwei .input >input {border:none;text-indent:1rem;}
+        .insurance_info .title .date {width: 18%;}
+        .insurance_info .title .date span {float: left;}
+        .insurance_info .title .date span.time {font-weight: bold;}
+        .insurance_info .title .date .input >input  {border:none;text-align: center;width: 100%;}
+        .insurance_info .title .date .input{width: 20%; margin-left: 10px;}
+        .insurance_info .info_text {
+            margin-bottom: 10px;
+        }
+        .Material table {
+            width: 100%;
+            margin-top: 10px;
+            color: #333;
+            text-align: left;
+            font-size: 15px;
+        }
+        .Material table>thead,.Material table >tbody {border: 2px solid #000;}
+        .Material table >tbody>td>font {font-size: 10px;vertical-align: super;}
+        .Material table tr {margin-top: 20px;}
+        .Material table thead tr.c th {text-align: center;}
+        .Material table th {
+            text-align: center;
+            padding: 15px 10px;
+        }
+        .Material table td{text-align: center;}
+        .Material table td>input {text-align: center;border:none;padding: 10px 0;}
+
+    </style>
+</head>
+<body>
+<div class="page">
+    <div class="head">
+        <h1>产品库存量</h1>
+
+    </div>
+    <!---->
+    <div class="insurance_info clear">
+        <div class="info_text Material Test">
+            <table border="1" cellpadding="0" cellspacing="0">
+
+                <tbody>
+                <tr style="background-color: #ccc;">
+                    <td width="15%" rowspan="2">时间</td>
+                    <td width="30%" rowspan="2">产品名称</td>
+                    <td width="10%" rowspan="2">产品规格</td>
+                    <td width="5%" rowspan="2">单位</td>
+                    <td width="20%" colspan="2">数量</td>
+                    <td width="20%" rowspan="2">总数量</td>
+                </tr>
+                <tr style="background-color: #ccc;">
+                    <td>入库</td>
+                    <td>未入库</td>
+                </tr>
+                </tbody>
+            </table>
+            <input id="Shaped" value="状图"/><input id="Pie" value="饼图"/>
+        </div>
+        <!---->
+    </div>
+</div>
+<div id="main"style="height:500px;border:1px solid #ccc;padding:10px;"></div>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/report_forms.js"></script>
+</body>
+</html>

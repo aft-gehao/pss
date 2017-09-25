@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>修改产品</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/commons/fileinput/fileinput.js"></script><!--上传图片-->
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/infomanager/product/index.html">产品管理</a></li>
+            <li><a>产品详情</a></li>
+        </ol>
+        <div class="row top20">
+            <div class="row">
+                <div class="col-md-5 form-group">
+                    <span class="col-sm-5 text-right form-control-static">SKU：</span>
+                    <input type="text" disabled="disabled" id="sku" class="form-control input-sm" placeholder="" maxlength="20">
+                </div>
+                <div class="col-md-4 form-group">
+                    <span class="col-sm-5 text-right form-control-static">CAS：</span>
+                    <input type="text" id="cas" disabled="disabled" class="form-control input-sm" placeholder="" maxlength="20">
+                </div>
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">中文名称：</span>
+                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" style="width: 52%;"
+                       id="name_ch" maxlength="20">
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">英文名称：</span>
+                <input type="text" disabled="disabled" class="form-control input-sm" placeholder="" style="width: 52%;"
+                       id="name_en" maxlength="20">
+            </div>
+            <div class="row top20">
+                <div class="col-md-5 form-group">
+                    <span class="col-sm-5 text-right form-control-static">分子式：</span>
+                    <input type="text" disabled="disabled" id="mol_formula" class="form-control input-sm" maxlength="30" placeholder=""
+                    >
+                </div>
+                <div class="col-md-4 form-group">
+                    <span class="col-sm-5 text-right form-control-static">分子量：</span>
+                    <input type="text" disabled="disabled" id="mol_weight" class="form-control input-sm" maxlength="30" placeholder=""
+                    >
+                </div>
+            </div>
+            <div class="row top20">
+                <div class="col-md-5 form-group">
+                    <span class="col-sm-5 text-right form-control-static">形态：</span>
+                    <input type="text" disabled="disabled" id="form" class="form-control input-sm" placeholder="" maxlength="255">
+                </div>
+                <div class="col-md-4 form-group">
+                    <span class="col-sm-5 text-right form-control-static">MDL号：</span>
+                    <input type="text" disabled="disabled" id="mdl_number" class="form-control input-sm" placeholder="" maxlength="30">
+                </div>
+            </div>
+            <div class="row top20">
+                <div class="col-md-5 form-group">
+                    <span class="col-sm-5 text-right form-control-static">纯度：</span>
+                    <input id="purity" disabled="disabled" type="text" class="form-control input-sm" placeholder="" maxlength="20">
+                </div>
+                <div class="col-md-4 form-group">
+                    <span class="col-sm-5 text-right form-control-static">纯度分类：</span>
+                    <input id="purity_category" disabled="disabled" type="text" class="form-control input-sm" placeholder="" maxlength="20">
+                </div>
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">SMILES编码：</span>
+                <input type="text" id="smiles" disabled="disabled" class="form-control input-sm" style="width: 52%;" placeholder="" maxlength="60">
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">LCC官网地址：</span>
+                <input type="text" id="website_url" disabled="disabled" class="form-control input-sm" style="width: 52%;" placeholder="" maxlength="255">
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">产品MSDS文件：</span>
+                <input type="text" id="msds" disabled="disabled" class="form-control input-sm" style="width: 52%;" placeholder="" maxlength="255">
+                <span>
+                    <button type="button" id="view"  class="btn btn-info btn-sm">预览文件</button>
+                </span>
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">危险说明：</span>
+                <div class="form-group">
+                    <textarea id="hazard" disabled="disabled" class="form-control left" rows="3" cols="50" style="color: #999;font-size: 12px;" maxlength="255"></textarea>
+                </div>
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">防范说明：</span>
+                <div class="form-group">
+                    <textarea id="precautionary" disabled="disabled" class="form-control left" rows="3" cols="50" style="color: #999;font-size: 12px;" maxlength="255"></textarea>
+                </div>
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">GHS CODE：</span>
+                <input type="text"  id="ghs_code" disabled="disabled" class="form-control input-sm" style="width: 20%;" placeholder="" maxlength="60">
+            </div>
+            <div class="row top20">
+                <span class="col-sm-2 text-right form-control-static" style="width: 17.4%;">MOL：</span>
+                <input type="text"  id="mol" disabled="disabled" class="form-control input-sm" style="width: 20%;" placeholder="" maxlength="60">
+            </div>
+        <div class="row m10">
+            <span class="col-sm-2 text-right" style="width: 17%;margin-right: 15px">上传结构图：</span>
+            <div class="form-group">
+                <div id="addCommodityIndex">
+                    <div class="input-group row">
+                        <div class="col-sm-9 big-photo">
+                            <div id="preview">
+                                <img id="imghead"  border="0" src="/js/commons/fileinput/img/photo_icon.png" width="220"
+                                     height="220" >
+                            </div>
+                            <input type="file"  style="display: none;" id="previewImg">
+                        </div>
+
+                    </div>
+                    <p class="m10" ><span class="text-danger"></span>上传结构图</p>
+                </div>
+            </div>
+        </div></div>
+        <div class="Button-one m20">
+            <button type="button" class="btn btn-info"  id="back">返回产品列表</button>
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/product_detial.js"></script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.afanti.psi.shinfo.dao.Cus_SupplierInfoDao">
+    <select id="shinfoSelectPageList"  parameterType="Map" resultType="Cus_Supplier_info">
+        SELECT
+        t.*,
+        tt.dict_name s_type,
+        ttt.dict_name s_level
+        FROM cus_supplier_info t
+        LEFT JOIN pss_dict tt
+        ON t.type=tt.dict_id
+        LEFT JOIN pss_dict ttt
+        ON t.credit_level=ttt.dict_id
+        WHERE t.status =0 AND t.supplier_id!=0
+        <if test="params.supplier_name!=null and params.supplier_name!=''">
+            and t.name like '%${params.supplier_name}%'
+        </if>
+        <if test="params.credit_level!=null and params.credit_level!=''">
+            and t.credit_level ='${params.credit_level}'
+        </if>
+    </select>
+    <select id="cusinfoSelectPageList"  parameterType="Map" resultType="Cus_Supplier_info">
+        SELECT
+        t.*,
+        tt.dict_name s_type,
+        ttt.dict_name s_level
+        FROM cus_supplier_info t
+        LEFT JOIN pss_dict tt
+        ON t.type=tt.dict_id
+        LEFT JOIN pss_dict ttt
+        ON t.credit_level=ttt.dict_id
+        WHERE t.status =0 AND t.customer_id!=0
+        <if test="params.supplier_name!=null and params.supplier_name!=''">
+            and t.name like '%${params.supplier_name}%'
+        </if>
+        <if test="params.credit_level!=null and params.credit_level!=''">
+            and t.credit_level ='${params.credit_level}'
+        </if>
+    </select>
+    <select id="cusinfoSelectPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM cus_supplier_info t
+        LEFT JOIN pss_dict tt
+        ON t.type=tt.dict_id
+        LEFT JOIN pss_dict ttt
+        ON t.credit_level=ttt.dict_id
+        WHERE t.status =0 AND  t.customer_id!=0
+        <if test="params.supplier_name!=null and params.supplier_name!=''">
+            and t.name like '%${params.supplier_name}%'
+        </if>
+        <if test="params.credit_level!=null and params.credit_level!=''">
+            and t.credit_level ='${params.credit_level}'
+        </if>
+    </select>
+    <select id="shinfoSelectPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+       count(1)
+        FROM cus_supplier_info t
+        LEFT JOIN pss_dict tt
+        ON t.type=tt.dict_id
+        LEFT JOIN pss_dict ttt
+        ON t.credit_level=ttt.dict_id
+        WHERE t.status =0 AND t.supplier_id!=0
+        <if test="params.supplier_name!=null and params.supplier_name!=''">
+            and t.name like '%${params.supplier_name}%'
+        </if>
+        <if test="params.credit_level!=null and params.credit_level!=''">
+            and t.credit_level ='${params.credit_level}'
+        </if>
+    </select>
+    <insert id="addShInfo" parameterType="Cus_Supplier_info">
+        insert into cus_supplier_info
+        (
+            name,
+            supplier_id,
+            tel,
+            type,
+            email,
+            Short_Name,
+            fax,
+            profile,
+            address,
+            cust_no,
+            create_oper,
+            create_time,
+            status
+        )
+        VALUES
+        (
+            #{name},
+             1,
+            #{tel},
+            #{type},
+            #{email},
+            #{short_name},
+            #{fax},
+            #{profile},
+            #{address},
+            #{cust_no},
+            #{create_oper},
+            #{create_time},
+           #{status}
+        )
+    </insert>
+    <select id="shinfoNameSelect"  parameterType="Map" resultType="Integer">
+        SELECT
+        count(1)
+        FROM
+        cus_supplier_info
+        WHERE name = #{supplier_name}
+        <if test="cs_sup_id!=null and cs_sup_id!=''">
+            and cs_sup_id !=#{cs_sup_id}
+        </if>
+    </select>
+    <select id="getAddress" parameterType="Map" resultType="customer_delivery_address">
+        SELECT
+        t.*,
+        tt.dict_name type_name
+        FROM
+        customer_delivery_address t
+        LEFT JOIN pss_dict tt
+        ON tt.dict_id = t.address_type
+        where  t.status = 0
+        <if test="id!=null and id!=''">
+            and t.customer_id =#{id}
+        </if>
+    </select>
+    <select id="shinfoIdSelect"  resultType="Integer">
+        SELECT
+        cs_sup_id
+        FROM
+        cus_supplier_info
+        ORDER BY create_time DESC
+        LIMIT 0,1;
+    </select>
+    <select id="shinfoDetailSelect"  parameterType="Integer" resultType="Cus_Supplier_info">
+      SELECT
+          t.*,
+          tt.dict_name s_level,
+          ttt.dict_name s_type
+        FROM
+          cus_supplier_info t
+          LEFT JOIN pss_dict tt
+          ON t.credit_level=tt.dict_id
+          LEFT JOIN pss_dict ttt
+          ON t.type=ttt.dict_id
+        WHERE cs_sup_id=#{cs_sup_id}
+    </select>
+    <insert id="linkmanAdd" parameterType="Linkman">
+        insert into linkman
+        (
+        supplier_id,
+        is_owner,
+        chinesename,
+        englishname,
+        ttitle,
+        fax,
+        email,
+        mobilephone,
+        fixedphone,
+        address,
+        create_oper,
+        create_time,
+        status
+        )
+        VALUES
+        (
+        #{supplier_id},
+        #{is_owner},
+        #{chinesename},
+        #{englishname},
+        #{ttitle},
+        #{fax},
+        #{email},
+        #{mobilephone},
+        #{fixedphone},
+        #{address},
+        #{create_oper},
+        #{create_time},
+        #{status}
+        )
+    </insert>
+    <insert id="cuslinkmanAdd" parameterType="Linkman">
+        insert into linkman
+        (
+        customer_id,
+        is_owner,
+        chinesename,
+        englishname,
+        ttitle,
+        fax,
+        email,
+        mobilephone,
+        fixedphone,
+        address,
+        create_oper,
+        create_time,
+        status
+        )
+        VALUES
+        (
+        #{customer_id},
+        #{is_owner},
+        #{chinesename},
+        #{englishname},
+        #{ttitle},
+        #{fax},
+        #{email},
+        #{mobilephone},
+        #{fixedphone},
+        #{address},
+        #{create_oper},
+        #{create_time},
+        #{status}
+        )
+    </insert>
+    <select id="linkmanSelect" parameterType="Integer" resultType="Linkman">
+       SELECT
+        *
+        FROM
+        linkman
+        WHERE linkman_id= #{s_linkman_id}
+    </select>
+    <update id="linkmanUpdate" parameterType="Linkman" >
+        UPDATE linkman t
+        SET t.status=#{status},
+        t.address=#{address},
+        t.chinesename=#{chinesename},
+        t.email=#{email},
+        t.englishname=#{englishname},
+        t.fax=#{fax},
+        t.fixedphone=#{fixedphone},
+        t.is_owner=#{is_owner},
+        t.mobilephone=#{mobilephone},
+        t.modify_oper=#{modify_oper},
+        t.ttitle=#{ttitle}
+        WHERE t.linkman_id=#{linkman_id}
+    </update>
+    <update id="linkmanDelete" parameterType="Linkman" >
+        UPDATE linkman t
+        SET t.status=1
+        WHERE t.linkman_id=#{linkman_id}
+    </update>
+    <update id="updataShInfo" parameterType="Cus_Supplier_info">
+        UPDATE  cus_supplier_info
+        SET
+        name=#{name},
+        tel= #{tel},
+        type=#{type},
+        email=#{email},
+        Short_Name=#{short_name},
+        fax=#{fax},
+        profile= #{profile},
+        address=#{address},
+        cust_no= #{cust_no},
+        modify_oper=#{modify_oper},
+        modify_time=#{modify_time}
+        where cs_sup_id=#{cs_sup_id}
+    </update>
+    <update id="shinfoDelete" parameterType="Integer" >
+        UPDATE cus_supplier_info t
+        SET t.status=1
+        WHERE t.cs_sup_id=#{cs_sup_id}
+    </update>
+    <select id="shinfoProductSelectPageList"  parameterType="Map" resultType="Supplier_product_rel">
+        SELECT
+        t.*,
+        tt.cas,
+        tt.name_ch,
+        tt.name_en,
+        ttt.dict_name product_type_name
+        FROM
+        supplier_product_rel t
+        LEFT JOIN  (SELECT * FROM product_material_info f where f.status=0
+         ) tt
+        ON t.Product_id=tt.product_id
+        LEFT JOIN pss_dict ttt
+        ON t.p_type=ttt.dict_id
+        WHERE t.supplier_id=${params.cs_sup_id} and t.status=0
+        <if test="params.cas!=null and params.cas!=''">
+            and tt.cas = '${params.cas}'
+        </if>
+        <if test="params.name_ch!=null and params.name_ch!=''">
+            AND tt.name_ch LIKE '%${params.name_ch}%' OR  tt.name_en LIKE '%${params.name_ch}%'
+        </if>
+        <if test="params.name_en!=null and params.name_en!=''">
+            and tt.name_en like '${params.name_en}'
+        </if>
+    </select>
+    <select id="shinfoProductSelectPageCount"  parameterType="Map" resultType="Integer">
+        SELECT
+       count(1)
+        FROM
+        supplier_product_rel t
+        LEFT JOIN  (SELECT * FROM product_material_info f where f.status=0
+        ) tt
+        ON t.Product_id=tt.product_id
+        LEFT JOIN pss_dict ttt
+        ON t.p_type=ttt.dict_id
+        WHERE t.supplier_id=${params.cs_sup_id} and t.status=0
+        <if test="params.cas!=null and params.cas!=''">
+            and tt.cas = '${params.cas}'
+        </if>
+        <if test="params.name_ch!=null and params.name_ch!=''">
+            AND tt.name_ch LIKE '%${params.name_ch}%' OR  tt.name_en LIKE '%${params.name_ch}%'
+        </if>
+        <if test="params.name_en!=null and params.name_en!=''">
+            and tt.name_en like '${params.name_en}'
+        </if>
+    </select>
+    <insert id="productAdd" parameterType="Supplier_product_rel">
+        insert into supplier_product_rel
+        (
+        product_id,
+        supplier_id,
+        p_price,
+        p_unit,
+        p_purity,
+        status,
+        p_type,
+        create_oper,
+        create_time
+        )
+        VALUES
+        (
+        #{product_id},
+        #{supplier_id},
+        #{p_price},
+        #{p_unit},
+        #{p_purity},
+        #{status},
+        #{p_type},
+        #{create_oper},
+        #{create_time}
+        )
+    </insert>
+    <select id="productAddJiaoYan"  parameterType="Supplier_product_rel" resultType="Integer">
+        SELECT COUNT(1)
+        FROM supplier_product_rel
+        WHERE supplier_id=#{supplier_id} AND product_id= #{product_id} AND status= 0
+    </select>
+    <select id="productUpDataSelect"  parameterType="Map" resultType="Supplier_product_rel">
+      SELECT
+        IFNULL(t.p_pack, '') p_packs,
+          t.*,
+          tt.cas,
+          tt.name_ch,
+          tt.name_en
+        FROM
+          supplier_product_rel t
+        LEFT JOIN product_material_info tt
+        ON t.Product_id=tt.product_id
+        WHERE t.supplier_id=${supplier_id} AND t.product_id= ${product_id} AND t.status=0
+    </select>
+    <update id="shinfoProductUpData" parameterType="Map" >
+       UPDATE
+      supplier_product_rel t
+    SET
+      t.p_pack='${p_pack}',
+      t.p_purity='${p_purity}'
+    WHERE t.Supplier_id=${supplier_id} AND t.Product_id= ${product_id} AND t.status=0
+    </update>
+    <update id="shinfoProductDelete" parameterType="Map" >
+        UPDATE
+        supplier_product_rel t
+        SET
+         t.status=1
+        WHERE t.Supplier_id=${supplier_id} AND t.Product_id= ${product_id}
+    </update>
+    <insert id="addcusInfo" parameterType="Cus_Supplier_info">
+        insert into cus_supplier_info
+        (
+        name,
+        customer_id,
+        tel,
+        type,
+        email,
+        Short_Name,
+        vat_number,
+        profile,
+        address,
+        payment_terms,
+        create_oper,
+        create_time,
+        invoice_title,
+        status
+        )
+        VALUES
+        (
+        #{name},
+        #{customer_id},
+        #{tel},
+        #{type},
+        #{email},
+        #{short_name},
+        #{vat_number},
+        #{profile},
+        #{address},
+        #{payment_terms},
+        #{create_oper},
+        #{create_time},
+        #{invoice_title},
+        #{status}
+        )
+    </insert>
+    <update id="modifycusInfo" parameterType="Cus_Supplier_info">
+        UPDATE  cus_supplier_info
+        SET
+        name=#{name},
+        tel= #{tel},
+        type=#{type},
+        email=#{email},
+        Short_Name=#{short_name},
+        invoice_title=#{invoice_title},
+        vat_number=#{vat_number},
+        payment_terms=#{payment_terms},
+        profile= #{profile},
+        address=#{address},
+        cust_no= #{cust_no},
+        modify_oper=#{modify_oper},
+        modify_time=#{modify_time}
+        where cs_sup_id=#{cs_sup_id}
+    </update>
+    <insert id="addaddress" parameterType="Customer_delivery_address">
+        insert into customer_delivery_address
+        (
+        customer_id,
+        address_type,
+        address,
+        postcode,
+        oper_name,
+        oper_tel,
+        status,
+        create_oper,
+        create_time
+        )
+        VALUES
+        (
+        #{customer_id},
+        #{address_type},
+        #{address},
+        #{postcode},
+        #{oper_name},
+        #{oper_tel},
+        #{status},
+        #{create_oper},
+        #{create_time}
+        )
+    </insert>
+    <select id="addressSelect" parameterType="Map" resultType="Customer_delivery_address">
+       SELECT
+          t.*,
+          tt.dict_name type_name
+        FROM
+          customer_delivery_address t
+          LEFT JOIN pss_dict tt
+            ON tt.dict_id = t.address_type
+        WHERE t.address_id =  #{address_id}
+    </select>
+    <update id="addressModify" parameterType="Map">
+        UPDATE  Customer_delivery_address
+        SET
+        address=#{oper_address},
+        address_type= #{address_type},
+        postcode=#{oper_code},
+        oper_name=#{oper_name},
+        oper_tel=#{oper_tel},
+        modify_oper=#{modify_oper},
+        modify_time=#{modify_time}
+        where address_id=#{address_id}
+    </update>
+    <update id="addressDelete" parameterType="Map">
+        UPDATE  Customer_delivery_address
+         SET
+          status=1
+        where address_id=#{address_id}
+    </update>
+    <select id="test" parameterType="java.util.Map"  statementType="CALLABLE" resultType="Map">
+            CALL test11(
+            #{CUSTOMER_ID,mode=IN,jdbcType=INTEGER},
+            #{TEL,mode=OUT,jdbcType=VARCHAR}
+            )
+    </select>
+</mapper>

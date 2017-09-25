@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增领料</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/promanager/researchAndUse/index.html">物料申请查询</a></li>
+            <li><a>新增申请</a></li>
+        </ol>
+        <div class="row m10">
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right">申请时间：</span>
+                <span><input id="use_time" class="form-control input-sm" type="text" readonly="readonly"></span>
+            </div>
+        </div>
+        <div class="row m10">
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right form-control-static">申请人：</span>
+                <input id="staff_name" type="text" class="form-control input-sm" placeholder="" maxlength="20">
+                <input id="staff_id"  type="hidden"  value="">
+                <input id="mobilephone"  type="hidden"  value="">
+            </div>
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right form-control-static">申请单名称：</span>
+                <input id="use_name" type="text" class="form-control input-sm" placeholder="" maxlength="150">
+            </div>
+        </div>
+        <div class="table gys-detail">
+
+            <div class="table gys-detail">
+                <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+                    <h4 class="left" style="margin-top: 3px;">申请单产品详细</h4>
+                 <span class="right">
+                <button type="button" class="btn btn-success btn-sm" id="add_product">+ 选择产品</button>
+            </span>
+                </div>
+                <div class="gsy-adm">
+                    <table id="product_table" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>产品名称</th>
+                            <th>批次号</th>
+                            <th>库存量</th>
+                            <th>纯度</th>
+                            <th>申请量</th>
+                            <th>仓位</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbody_product">
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="Button-two">
+                    <button id="submit" type="button" class="btn btn-success">保存申请单</button>
+                    <button type="button" class="btn btn-danger" id="cancel">返回</button>
+                </div>
+            </div>
+
+            <div class="alert alert-warning" role="alert">
+                <dl class="dl-horizontal" style="left:0%;">
+                    <dt style="font-size:25px;color: red">温馨提示！</dt>
+                    <dd></dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>申请人</dt>
+                    <dd>必填字段，必须为员工姓名。</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>申请单名称</dt>
+                    <dd>必填字段，不能大于150个字符。</dd>
+                </dl>
+                <dl class="dl-horizontal">
+                    <dt>申请量</dt>
+                    <dd>必填字段，必须为数字。</dd>
+                </dl>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-inline">
+        <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <a href="#" data-toggle="modal"  id="i_code"  data-target="#myModal-2"></a>\
+            <div class="modal-dialog" role="document" style="width: 350px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">验证码</h4>
+                        <input id="xiugai" type="hidden">
+                    </div>
+                    <div class="modal-body">
+                        <div class="definewidth" style="margin-left: -35px;">
+                            <form class="form-inline">
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">验证码：</span>
+                                    <input type="text" id="code" class="form-control input-sm" value="">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="Button-two">
+                            <button type="button" class="btn btn-success" id="submit1">确认</button>
+                            <button type="button" data-dismiss="modal" class="btn btn-default" id="cancel1">取消</button>
+                        </div>
+                        <!--end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/product_use_add.js"></script>
+</body>
+</html>

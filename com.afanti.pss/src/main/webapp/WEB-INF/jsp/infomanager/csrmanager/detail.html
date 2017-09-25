@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>客户管理详情</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="/css/docs.css" />
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+  
+</head>
+<form class="form-horizontal m20" action="index.html" method="get">  
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a>当前位置：</a></li>
+        <li><a href="/infomanager/csrmanager/index.html">客户管理</a></li>
+        <li><a>客户详情</a></li>
+    </ol>
+    <input type="hidden" id="xiugai">
+    <input type="hidden" id="id">
+    <div class="bg-primary add-info clearfix"><h3 class="text-center m10"><b>客户详情</b></h3></div>
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <th scope="row" class="text-center">客户名称</th>
+            <td><span id="supplier_name"></span></td>
+            <th scope="row" class="text-center">客户类型</th>
+            <td><span id="supplier_type"></span></td>
+            <th scope="row" class="text-center">公司简称</th>
+            <td><span id="short_name"></span></td>
+
+
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">公司电话</th>
+            <td><span id="supplier_tel"></span></td>
+            <th scope="row" class="text-center">公司邮箱</th>
+            <td><span id="supplier_email"></span></td>
+            <th scope="row" class="text-center">统一社会信用代码</th>
+            <td><span id="vat_number"></span></td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">发票抬头</th>
+            <td ><span id="invoice_title"></span></td>
+            <th scope="row" class="text-center">信用等级</th>
+            <td><span id="credit_level"></span></td>
+            <th scope="row" class="text-center">账期</th>
+            <td><span id="payment_terms"></span><span >天</span></td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-center">公司地址</th>
+            <td colspan="5"><span id="supplier_address"></span></td>
+        </tr>
+        </tbody>
+    </table>
+   <!-- <div class="row p20">
+        <div class="col-md-6 left">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">客户名称：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="supplier_name">南京阿凡提医药信息技术有限公司</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">客户类型：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="supplier_type">企业</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" >公司简称：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="short_name">阿凡提</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">公司地址：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="supplier_address">江苏省南京市浦口区高兴开发区星火路10号人才大厦江苏省南京市浦口区高兴开发区星火路1</p>
+                </div>
+            </div>
+        </div>
+        &lt;!&ndash;右&ndash;&gt;
+        <div class="col-md-6 left">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">信用等级：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="credit_level">优秀</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">公司邮箱：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="supplier_email">861913508@qq.com</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">支付条件：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="payment_terms" >30天</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">发票抬头：</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="invoice_title" >南京阿凡提医药信息技术有限公司</p>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-md-10 form-group">
+            <label class="col-sm-2 control-label" style="width: 15.4%;"> 公司简介：</label>
+            <div class="col-sm-10">
+                <p id="profile" class="form-control-static">江苏省南京市浦口区高新开发区人才大厦E座803</p>
+            </div>
+        </div>
+    </div>-->
+    <!--表单-->
+    <div class="table gys-detail">
+        <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+            <h4 class="left">联系人</h4>
+            <span class="right">
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal">+ 新增联系人</button>
+            </span>
+        </div>
+        <div class="gsy-adm">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>中文名</th>
+                        <th>英文名</th>
+                        <th>职位</th>
+                        <th>手机号码</th>
+                        <th>固定电话</th>
+                        <th>传真</th>
+                        <th>电子邮箱</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="data_tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--表单2-->
+    <div class="table gys-detail">
+        <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+            <h4 class="left">地址</h4>
+            <span class="right">
+                <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal-3">+ 新增地址</button>
+            </span>
+        </div>
+        <div class="gsy-adm">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>联系方式</th>
+                        <th>邮编</th>
+                        <th>地址</th>
+                        <th>类型</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="datas">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!---->
+    <div class="Button-one m20">
+        <button type="button" class="btn btn-info"  id="back-Cg">返回客户管理</button>
+    </div>
+ </div>
+    <!-- 新增联系人弹出框Modal -->
+    <div class="form-inline">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style="width: 350px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="">新增联系人信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="definewidth">
+                            <form class="form-inline">
+                                <div class="modify-p m10">
+                                    <span class="form-control-static"><span class="text-danger">(*必填)</span>中文名：</span>
+                                    <input type="text" id="chinesename" maxlength="10" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">英文名：</span>
+                                    <input type="text" id="englishname" maxlength="30" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">职位：</span>
+                                    <input type="text" id="ttitle" maxlength="10" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">传真：</span>
+                                    <input type="text" id="fax" maxlength="20" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">电子邮箱：</span>
+                                    <input type="text" id="email" maxlength="20" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static"><span class="text-danger">(*必填)</span>手机号码：</span>
+                                    <input type="text" id="mobilephone" maxlength="20" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">固定号码：</span>
+                                    <input type="text" id="fixedphone" maxlength="20" class="form-control input-sm"  placeholder="">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">通信地址：</span>
+                                    <textarea class="form-control" maxlength="50" id="address" rows="1" cols="20"></textarea>
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">是否为负责人：</span>
+                                    <select class="form-control input-sm" id="is_owner">
+                                        <option>是</option>
+                                        <option>否</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <!---->
+                        <div class="Button-two">
+                            <button type="button" id="lianxisubmit" class="btn btn-success">提交</button>
+                            <button type="button" class="btn btn-danger" id="cancel">取消</button>
+                        </div>
+                        <!--end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--end-->
+    <!--end-->
+    <!-- 修改联系人弹出框Modal -->
+    <div class="form-inline">
+        <div class="modal fade" id="myModal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" style="width: 350px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">修改联系人信息</h4>
+                        <input id="xiugai" type="hidden">
+                    </div>
+                    <div class="modal-body">
+                        <div class="definewidth">
+                            <form class="form-inline">
+                                <div class="modify-p m10">
+                                    <span class="form-control-static"><span class="text-danger">(*必填)</span>中文名：</span>
+                                    <input type="text" id="x_chinesename" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">英文名：</span>
+                                    <input type="text" id="x_englishname" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">职位：</span>
+                                    <input type="text" id="x_ttitle" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">传真：</span>
+                                    <input type="text" id="x_fax" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">电子邮箱：</span>
+                                    <input type="text" id="x_email" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static"><span class="text-danger">(*必填)</span>手机号码：</span>
+                                    <input type="text" id="x_mobilephone" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">固定号码：</span>
+                                    <input type="text" id="x_fixedphone" class="form-control input-sm" value="" maxlength="20">
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">通信地址：</span>
+                                    <textarea class="form-control" id="x_address" rows="1" cols="20" maxlength="255"></textarea>
+                                </div>
+                                <div class="modify-p m10">
+                                    <span class="form-control-static">是否为负责人：</span>
+                                    <select class="form-control input-sm" id="x_is_owner">
+                                        <option>是</option>
+                                        <option>否</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <!---->
+                        <div class="Button-two">
+                            <button type="button" class="btn btn-success" id="xiugaisubmit">提交</button>
+                            <button type="button" class="btn btn-danger" id="cancel-2">取消</button>
+                        </div>
+                        <!--end-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--end-->
+<!-- 新增联系人弹出框Modal -->
+<div class="form-inline">
+    <div class="modal fade" id="myModal-3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document" style="width: 350px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">新增地址信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="definewidth">
+                    <form class="form-inline">
+                        <div class="modify-p m10">
+                            <span class="form-control-static">地址类型：</span>
+                            <select class="form-control input-sm" id="address_type">
+                                <option>发票地址</option>
+                                <option>收货地址</option>
+                            </select>
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">姓名：</span>
+                            <input type="text" id="oper_name" class="form-control input-sm"  placeholder="请输入您的姓名" maxlength="20">
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">联系方式：</span>
+                            <input type="text" id="oper_tel" class="form-control input-sm"  placeholder="请输入您的联系方式" maxlength="20">
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">邮编：</span>
+                            <input type="text" id="oper_code" class="form-control input-sm"  placeholder="请输入您的邮编" maxlength="20">
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">地址：</span>
+                            <textarea id="oper_address" class="form-control" rows="1" cols="20" maxlength="255"></textarea>
+                        </div>
+                    </form>
+                </div>
+               <!---->
+               <div class="Button-two">
+                    <button type="button" id="dizhisubmit" class="btn btn-success">提交</button>
+                    <button type="button" class="btn btn-danger" id="cancel_3">取消</button>
+                </div>    
+            <!--end-->        
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!--end-->
+<!-- 修改联系人弹出框Modal -->
+<div class="form-inline">
+    <div class="modal fade" id="myModal-4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document" style="width: 350px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="">修改地址信息</h4>
+                <input type="hidden" id="x_address_id">
+            </div>
+            <div class="modal-body">
+                <div class="definewidth">
+                    <form class="form-inline">
+                        <div class="modify-p m10">
+                            <span class="form-control-static">地址类型：</span>
+                            <select class="form-control input-sm" id="x_address_type">
+                                <option>发票地址</option>
+                                <option>收货地址</option>
+                            </select>
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">姓名：</span>
+                            <input type="text" id="x_oper_name" class="form-control input-sm"  value="" maxlength="20">
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">联系方式：</span>
+                            <input type="text" id="x_oper_tel" class="form-control input-sm"  value="" maxlength="20">
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">邮编：</span>
+                            <input type="text" id="x_postcode" class="form-control input-sm"  value="" maxlength="20">
+                        </div>
+                        <div class="modify-p m10">
+                            <span class="form-control-static">地址：</span>
+                            <textarea class="form-control" id="x_c_address" rows="1" cols="20" maxlength="255"></textarea>
+                        </div>
+                    </form>
+                </div>
+               <!---->
+               <div class="Button-two">
+                    <button type="button" class="btn btn-success" id="xiugaidizhi">提交</button>
+                    <button type="button" class="btn btn-danger" id="cancel_1">取消</button>
+                </div>    
+            <!--end-->        
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!--end-->
+<!--删除弹出框-->
+    <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <input type="hidden" id="del">
+                <input type="hidden" id="deldizhi">
+                <div class="modal-header">
+                    <h4>请确认</h4>
+                </div>
+                <div class="modal-body">
+                    确认删除该信息吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="cancel_4" data-dismiss="modal">取消</button>
+                    <a class="btn btn-danger btn-ok" id="shanchusubmit">删除</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--end-->
+</form>
+<script>
+     $(function () {
+
+
+         $('#cancel,#cancel_1,#cancel-2').click(function(){
+
+           var id = $("#id").val();
+           window.location.href="/infomanager/csrmanager/detail.html?cs_sup_id="+id;
+         });
+      $('#back-Cg').click(function(){
+
+                window.location.href="index.html";
+         });
+
+    });
+
+    function del(id) {
+        
+        if(confirm("确定要删除吗？"))
+        {
+        
+            var url = "index.html";
+            
+            window.location.href=url;       
+        
+        }
+    
+    }
+</script>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/cusinfodetail.js"></script>
+</body>
+</html>

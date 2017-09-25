@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增销售</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/js/commons/time/moment-with-locales.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/time/bootstrap-datetimepicker.js"></script><!--时间控件-->
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="/css/docs.css" />
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/promanager/vendition/index.html">销售单查询</a></li>
+            <li><a>新增销售单</a></li>
+        </ol>
+        <div class="row m10">
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right">销售单时间：</span>
+                <span><input id="sale_time" class="form-control input-sm" type="text" readonly="readonly"></span>
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="col-sm-5 text-right form-control-static">销售单名称：</span>
+                <input id="sale_name" type="text" class="form-control input-sm" placeholder="" maxlength="20">
+            </div>
+        </div>
+        <div class="row m10">
+            <div class="col-md-5 form-group">
+                <span class="col-sm-5 text-right form-control-static">客户名称：</span>
+                <input type="text" class="form-control input-sm" id="customer_name" maxlength="20"/>
+                <input type="hidden" id="customer_id"   class="form-control input-sm"  value="0" />
+            </div>
+            <div class="col-md-4 form-group">
+                <span class="col-sm-5 text-right form-control-static">客户联系人：</span>
+                <select id="c_linkman_id" class="form-control input-sm">
+                    <option value="">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="row m10">
+            <span class="col-sm-2 text-right" style="width: 17.4%;">备注：</span>
+            <div class="form-group">
+                <textarea id="desc" class="form-control left" rows="2" cols="40" maxlength="255"></textarea>
+            </div>
+        </div>
+
+        <div class="table gys-detail">
+            <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+                <h4 class="left" style="margin-top: 3px;">销售单产品详细</h4>
+                 <span class="right">
+                <button type="button" class="btn btn-success btn-sm" id="add_product">+ 选择产品</button>
+            </span>
+            </div>
+            <div class="gsy-adm">
+                <table id="product_table" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>序列号</th>
+                        <th>产品名称</th>
+                        <th>SKU</th>
+                        <th>CAS</th>
+                        <th>外观</th>
+                        <th>批次号</th>
+                        <th>库存量</th>
+                        <th>纯度</th>
+                        <th>销售量</th>
+                        <th>价格（元）</th>
+                        <th>仓位</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody_product">
+                    <tr>
+                        <td colspan="12" style="text-align: right;">
+                            <span  id="showMsg">总金额：</span>
+                            <input readonly="readonly" id="all_total" type="text" class="form-control input-sm">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="Button-two">
+                <button id="submit" type="button" class="btn btn-success">保存销售单</button>
+                <button type="button" class="btn btn-danger" id="cancel">返回</button>
+            </div>
+        </div>
+    </div>
+</form>
+<input type="hidden" id="flag">
+<script type='text/javascript' src='/js/plugins/autocomplete/js/jquery.autocomplete.js'></script>
+<script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/vendition_add.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新增员工</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+
+    <script type="text/javascript" src="/js/commons/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/commons/ckform.js"></script>
+    <script type="text/javascript" src="/js/commons/common.js"></script>
+    <style>
+        label {
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        label i {
+            font-size: 13px;
+            font-style: normal;
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            text-align: center;
+            line-height: 13px;
+            color: #fff;
+            vertical-align: middle;
+            margin: -2px 2px 1px 0px;
+            border: #2489c5 1px solid;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            display: none;
+        }
+
+        input[type="checkbox"]:checked + i, input[type="radio"]:checked + i {
+            background: #2489c5;
+        }
+
+        input[type="checkbox"]:disabled + i, input[type="radio"]:disabled + i {
+            border-color: #ccc;
+        }
+
+        input[type="checkbox"]:checked:disabled + i, input[type="radio"]:checked:disabled + i {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<form class="form-inline definewidth m20" action="index.html" method="get">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a>当前位置：</a></li>
+            <li><a href="/infomanager/usermanager/index.html">员工管理</a></li>
+            <li><a>新增员工</a></li>
+        </ol>
+        <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+            <h4 class="left" style="margin-top: 3px;">权限信息</h4>
+        </div>
+        <div class="row m10">
+            <div id="jueses_div" class="col-md-6 form-group">
+            </div>
+        </div>
+        <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+            <h4 class="left" style="margin-top: 3px;">用户资料</h4>
+        </div>
+
+        <div class="row p20">
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">员工姓名<span class="text-danger"></span>：</span>
+                <input type="text" class="form-control input-sm" placeholder="" style="width: 40%;"
+                       id="staff_name" maxlength="20">
+            </div>
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">电话号码<span class="text-danger"></span>：</span>
+                <input type="text" id="mobilephone" class="form-control input-sm" maxlength="30" placeholder=""
+                       style="width: 40%;">
+            </div>
+        </div>
+        <div class="row m10">
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">邮箱<span class="text-danger"></span>：</span>
+                <input type="text" id="email" class="form-control input-sm" maxlength="30" placeholder=""
+                       style="width: 40%;">
+            </div>
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">家庭住址<span class="text-danger"></span>：</span>
+                <textarea class="form-control left" id="address" rows="1" cols="30" placeholder="" maxlength="255"></textarea>
+            </div>
+        </div>
+        <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
+            <h4 class="left" style="margin-top: 3px;">账户信息</h4>
+        </div>
+        <div class="row m10">
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">用户名<span class="text-danger"></span>：</span>
+                <input type="text" class="form-control input-sm" placeholder="" style="width: 40%;" id="user_name" maxlength="20">
+            </div>
+            <div class="col-md-6 form-group" style="display: none;">
+                <span class="col-sm-4 text-right form-control-static"><span class="text-danger"></span></span>
+                <input type=""  class="form-control input-sm" placeholder="" style="width: 40%;" maxlength="20">
+            </div>
+        </div>
+        <div class="row m10">
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">密码<span class="text-danger"></span>：</span>
+                <input type="password" class="form-control input-sm" placeholder="" style="width: 40%;" id="password" maxlength="20">
+            </div>
+            <div class="col-md-6 form-group" style="display: none;">
+                <span class="col-sm-4 text-right form-control-static"><span class="text-danger"></span></span>
+                <input type=""  class="form-control input-sm" placeholder="" style="width: 40%;" maxlength="20">
+            </div>
+        </div>
+        <div class="row m10">
+            <div class="col-md-6 form-group">
+                <span class="col-sm-4 text-right form-control-static">确认密码<span class="text-danger"></span>：</span>
+                <input type="password" class="form-control input-sm" placeholder="" style="width: 40%;" id="next_password" maxlength="20">
+            </div>
+            <div class="col-md-6 form-group" style="display: none;">
+                <span class="col-sm-4 text-right form-control-static"><span class="text-danger"></span></span>
+                <input type=""  class="form-control input-sm" placeholder="" style="width: 40%;" maxlength="20">
+            </div>
+        </div>
+        <div class="add-gys">
+            <div class="Button-two">
+                <button type="button" class="btn btn-success" id="submit">提交</button>
+                <button type="button" class="btn btn-danger" id="cancel">返回</button>
+            </div>
+        </div>
+        <div class="alert alert-warning" role="alert">
+            <dl class="dl-horizontal" style="left:0%;">
+                <dt style="font-size:25px;color: red">温馨提示！</dt>
+                <dd></dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>员工姓名</dt>
+                <dd>必填字段，必须填写员工姓名。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>电话号码</dt>
+                <dd>必填字段，必须填写电话号码。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>邮箱</dt>
+                <dd>必填字段，必须邮箱。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>家庭住址</dt>
+                <dd>必填字段，必须家庭住址。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>用户名</dt>
+                <dd>必填字段，必须必须。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>密码</dt>
+                <dd>必填字段，必须密码。</dd>
+            </dl>
+            <dl class="dl-horizontal">
+                <dt>确认密码</dt>
+                <dd>必填字段，必须确认密码。</dd>
+            </dl>
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript" src="/plugins/layer/layer.js"></script>
+<script type="text/javascript" src="/plugins/pager/pager.js"></script>
+<script type="text/javascript" src="/js/utils.js"></script>
+<script type="text/javascript" src="/js/bus/user_upd.js"></script>
+</body>
+</html>

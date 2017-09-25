@@ -774,4 +774,35 @@ $('#switch-show').click(function (){
 
     $("#now_status").val(statuss);
 });
+function add_pur_sure(){
+    var product_id=$("#add_product_id").val();
+    var cas=$("#add_cas").val();
+    var name_ch=$("#add_name_ch").val()
+    var supplier_name=$("#add_supplier_name1").val();
+    var supplier_id=$("#supplier_id").val();
+    var amount=$("#add_amount").val();
+    var unit=$("#add_unit").val();
+    var price=$("#add_price").val();
+    var desc=$("#add_desc").val();
+    $.ajax({
+        type: 'POST',
+        url: "/meterialpurchease/manager/add_pur_for_cg",
+        data: {
+            cas: cas,
+            name_ch: name_ch,
+            supplier_name: supplier_name,
+            supplier_id: supplier_id,
+            amount: amount,
+            unit: unit,
+            price: price,
+            desc: desc,
+            product_id:product_id
+        },
+        dataType: "json",
+        success: function (data) {
+            layer.msg("操作成功");
+            window.location.reload();
+        }
+    })
 
+}

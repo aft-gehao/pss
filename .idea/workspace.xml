@@ -1,0 +1,2082 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" readonly="true" id="5abe619b-4c41-44ea-8f06-05328c50e7b3" name="Default" comment="" />
+    <ignored path="com.afanti.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/com.afanti.pss/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="hideWarnings" value="true" />
+    <option name="HIDE_WARNINGS" value="true" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="com.afanti" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="24" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#1;n#button#0;n#div#1;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#1;n#button#0;n#div#2;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#0;n#div#2;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#0;n#div#3;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db-yanfa.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/db-yanfa.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db-yanfa.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/db-yanfa.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="696" column="324" selection-start-line="696" selection-start-column="324" selection-end-line="696" selection-end-column="324" />
+              <folding>
+                <marker date="1506253484452" expanded="true" signature="1513:2497" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="2688:3275" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="3467:4070" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="4261:4864" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="5057:5658" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="5852:6455" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="6648:7251" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="7443:8047" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="12464:13065" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="14683:15557" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="15748:16308" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="16500:17076" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="17267:17843" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="18036:18610" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="18804:19380" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="19573:20149" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="20341:20918" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="25147:25721" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="27254:28235" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="28418:29399" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="29582:30564" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="30748:31349" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="31533:32514" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="32698:33680" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="37914:38516" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="40952:40971" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="41431:41456" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="46012:46031" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="46536:46561" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="49477:49499" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="49815:49840" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="50153:50178" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="50350:50375" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="50644:51251" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="51756:52389" placeholder="..." />
+                <marker date="1506253484452" expanded="true" signature="52327:52358" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="director-yanfa.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/director-yanfa.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kucun.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/kucun.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="152">
+              <caret line="23" column="58" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="db-kucun.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/db-kucun.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="753" column="17" selection-start-line="753" selection-start-column="15" selection-end-line="753" selection-end-column="17" />
+              <folding>
+                <marker date="1505803933062" expanded="true" signature="967:1001" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="2755:3348" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="15852:16406" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="19982:20739" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="31558:32275" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="33722:33747" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="33914:33936" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="35258:35873" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="37743:37768" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="37935:37957" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="39279:39894" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="41340:41365" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="41603:41628" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="42530:43176" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="45489:45514" placeholder="..." />
+                <marker date="1505803933062" expanded="true" signature="45584:46191" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConsumableController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/consumable/web/ConsumableController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-40">
+              <caret line="487" column="0" selection-start-line="487" selection-start-column="0" selection-end-line="487" selection-end-column="0" />
+              <folding>
+                <element signature="e#1519#1535#0" expanded="true" />
+                <element signature="e#2342#2358#0" expanded="true" />
+                <element signature="e#3084#3100#0" expanded="true" />
+                <element signature="e#4915#4931#0" expanded="true" />
+                <element signature="e#5755#5771#0" expanded="true" />
+                <element signature="e#6534#6550#0" expanded="true" />
+                <element signature="e#8439#8455#0" expanded="true" />
+                <element signature="e#9063#9079#0" expanded="true" />
+                <element signature="e#10243#10259#0" expanded="true" />
+                <element signature="e#10929#10945#0" expanded="true" />
+                <element signature="e#11625#11641#0" expanded="true" />
+                <element signature="e#12599#12615#0" expanded="true" />
+                <element signature="e#13868#13884#0" expanded="true" />
+                <element signature="e#16387#16403#0" expanded="true" />
+                <element signature="e#17604#17620#0" expanded="true" />
+                <element signature="e#18397#18413#0" expanded="true" />
+                <element signature="e#19503#19519#0" expanded="true" />
+                <element signature="e#20271#20287#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeterialPurcheaseReturnController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/web/MeterialPurcheaseReturnController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-433">
+              <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+              <folding>
+                <element signature="e#1829#1845#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeterialPurcheaseController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/web/MeterialPurcheaseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="288" column="40" selection-start-line="288" selection-start-column="40" selection-end-line="288" selection-end-column="40" />
+              <folding>
+                <element signature="e#2304#2320#0" expanded="true" />
+                <element signature="e#3797#3813#0" expanded="true" />
+                <element signature="e#5714#5730#0" expanded="true" />
+                <element signature="e#7677#7693#0" expanded="true" />
+                <element signature="e#8801#8817#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="Class" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/realtimeInventory.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/use/service/impl/UseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/researchAndUse/detail_use.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/consumableRepair/detail_use.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/researchAndUse/use_shenhe.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_add_use.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_shenhe_manager.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/index_return.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/use_manager.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/use/web/UseController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/purchasing/MaterialPurchaseReturnMapper.xml" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/purchasing/checking.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/purchasing/edit.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/consumable/checking.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/use_purchasing.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/use/UseMapper.xml" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/css/bootstrap.css" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_purchasing.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/purchansing_return_list.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/consumableRepair/repair_checking.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/web/MeterialPurcheaseReturnController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/consumable/web/ConsumableController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/consumable/ConsumableMapper.xml" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/purchasingmanager.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_repair_checking.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/purchasing/index.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/web/MeterialPurcheaseController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/purchasing/MaterialPurchaseMapper.xml" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/researchAndUse/modify_research.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/product_research_modify.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/storage.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/product_research_add.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/inventory/detail.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/realtimedetail.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/web/RealTimeInventoryController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/inventory/RealTimeInventoryMapper.xml" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/vo/Product_material_stock.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/commons/web/CommonController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/web/ResearchController.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/service/ResearchService.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/dao/ResearchDao.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/service/impl/ResearchServiceImpl.java" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/research/ResearchMapper.xml" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/yanfamanage.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/main/main.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/main.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/index.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/db-yanfa.js" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/db-yanfa.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/director-yanfa.html" />
+        <option value="$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/kucun.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolPackageJson" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="promanager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="promanager" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mywork" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jsp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psscode-jxc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.afanti.pss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="psi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane">
+        <subPane />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js.buildTools.grunt.grunt-cli.package" value="" />
+    <property name="SearchEverywhereHistoryKey" value="db-kucun&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/db-kucun.js&#10;product_research_modify&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/product_research_modify.js&#10;Product_material_stock&#9;PSI&#9;JAVA://com.afanti.psi.inventory.vo.Product_material_stock&#10;realtimeInventory&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/realtimeInventory.js&#10;consumable_repair_checking&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_repair_checking.js&#10;material_purchase_page&#9;PSI&#9;JAVA://com.afanti.psi.purchasing.web.MeterialPurcheaseController#material_purchase_page&#10;purchasingmanager&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/purchasingmanager.js&#10;purchansing_return_list&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/purchansing_return_list.js&#10;consumable_purchasing&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_purchasing.js&#10;use_purchasing&#9;FILE&#9;file://C:/Users/Administrator/Desktop/新版本调整/psscode-jxc/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/use_purchasing.js&#10;consumable_stock&#9;PSI&#9;JAVA://com.afanti.psi.consumable.vo.consumable_stock&#10;out_inventory_list&#9;FILE&#9;file://F:/gz/psscode/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/out_inventory_list.js&#10;getPurchasingPage&#9;PSI&#9;JAVA://com.afanti.psi.consumable.service.ConsumableService#getPurchasingPage&#10;sales_quotation&#9;FILE&#9;file://F:/gz/psscode/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/sales_quotation.js&#10;useUpdate&#9;PSI&#9;JAVA://com.afanti.psi.consumable.dao.ConsumableDao#useUpdate" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\gz\psscode\com.afanti.pss\src\main\webapp\WEB-INF\jsp\promanager\mywork" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.afanti.psi.vendition.vo" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\Desktop\新版本调整\psscode-jxc\com.afanti.pss\src\main\webapp\WEB-INF\jsp\assets" />
+      <recent name="C:\Users\Administrator\Desktop\新版本调整\psscode-jxc\com.afanti.pss\src\main\webapp\WEB-INF\jsp\images" />
+      <recent name="C:\Users\Administrator\Desktop\新版本调整\psscode-jxc\com.afanti.pss\src\main\webapp\WEB-INF\jsp\js\commons\fileinput\img" />
+      <recent name="F:\gz\psscode\com.afanti.pss\src\main\webapp\WEB-INF\jsp\js" />
+      <recent name="F:\gz\psscode\com.afanti.pss\src\main\webapp\WEB-INF\jsp" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.psi">
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" ALTERNATIVE_JRE_ENABLED="false">
+      <deployment />
+      <server-settings />
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="depsClasspath" value="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="com.afanti" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.grunt" factoryName="Grunt.js">
+      <node-interpreter value="project" />
+      <envs />
+      <force value="false" />
+      <verbose value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="false" name="psi" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.40" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.6">
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
+      <option name="UPDATE_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
+      <deployment>
+        <artifact name="com.afanti.pss:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_com_afanti_4" />
+      </server-settings>
+      <predefined_log_file id="Tomcat" enabled="true" />
+      <predefined_log_file id="Tomcat Catalina" enabled="true" />
+      <predefined_log_file id="Tomcat Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
+      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="57471" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="com.afanti.pss:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.psi" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5abe619b-4c41-44ea-8f06-05328c50e7b3" name="Default" comment="" />
+      <created>1503309724070</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1503309724070</updated>
+      <workItem from="1503309725427" duration="75000" />
+      <workItem from="1503309841228" duration="414000" />
+      <workItem from="1503364364716" duration="1721000" />
+      <workItem from="1503366203052" duration="1314000" />
+      <workItem from="1503368830174" duration="163000" />
+      <workItem from="1503369069693" duration="1440000" />
+      <workItem from="1503370598114" duration="1511000" />
+      <workItem from="1503372162517" duration="3964000" />
+      <workItem from="1503378551101" duration="2092000" />
+      <workItem from="1503380774226" duration="2534000" />
+      <workItem from="1503383453297" duration="3704000" />
+      <workItem from="1503387214188" duration="1314000" />
+      <workItem from="1503388586367" duration="3979000" />
+      <workItem from="1503393831173" duration="4643000" />
+      <workItem from="1503450922188" duration="1544000" />
+      <workItem from="1503452540417" duration="5090000" />
+      <workItem from="1503457711607" duration="1343000" />
+      <workItem from="1503459171549" duration="10366000" />
+      <workItem from="1503474930888" duration="6250000" />
+      <workItem from="1503537722772" duration="2612000" />
+      <workItem from="1503540672162" duration="2966000" />
+      <workItem from="1503543706487" duration="1789000" />
+      <workItem from="1503545588711" duration="3391000" />
+      <workItem from="1503553467104" duration="28000" />
+      <workItem from="1503553560482" duration="2797000" />
+      <workItem from="1503556512845" duration="2365000" />
+      <workItem from="1503558928761" duration="7744000" />
+      <workItem from="1503566930431" duration="2003000" />
+      <workItem from="1503569258155" duration="1794000" />
+      <workItem from="1503571195043" duration="1529000" />
+      <workItem from="1503623744024" duration="7487000" />
+      <workItem from="1503631320019" duration="5661000" />
+      <workItem from="1503641910138" duration="1163000" />
+      <workItem from="1503643136488" duration="915000" />
+      <workItem from="1503644197060" duration="2384000" />
+      <workItem from="1503646671360" duration="895000" />
+      <workItem from="1503647685725" duration="975000" />
+      <workItem from="1503648771844" duration="416000" />
+      <workItem from="1503649201538" duration="976000" />
+      <workItem from="1503650244360" duration="3486000" />
+      <workItem from="1503653788821" duration="1752000" />
+      <workItem from="1503655623396" duration="2789000" />
+      <workItem from="1503728119520" duration="1094000" />
+      <workItem from="1503882927982" duration="3944000" />
+      <workItem from="1503887041157" duration="249000" />
+      <workItem from="1503887434470" duration="783000" />
+      <workItem from="1503889636219" duration="2031000" />
+      <workItem from="1503891755317" duration="2976000" />
+      <workItem from="1503898341821" duration="3223000" />
+      <workItem from="1503901626919" duration="1884000" />
+      <workItem from="1503903575742" duration="2499000" />
+      <workItem from="1503906126013" duration="1986000" />
+      <workItem from="1503908214800" duration="5778000" />
+      <workItem from="1503914240216" duration="2393000" />
+      <workItem from="1503968921672" duration="12167000" />
+      <workItem from="1503984817502" duration="3175000" />
+      <workItem from="1503988175266" duration="1713000" />
+      <workItem from="1503990462589" duration="8646000" />
+      <workItem from="1503999242298" duration="819000" />
+      <workItem from="1504000190636" duration="863000" />
+      <workItem from="1504001204804" duration="353000" />
+      <workItem from="1504001639935" duration="624000" />
+      <workItem from="1504054845101" duration="12696000" />
+      <workItem from="1504072664562" duration="4472000" />
+      <workItem from="1504077214884" duration="2246000" />
+      <workItem from="1504079604905" duration="3767000" />
+      <workItem from="1504083419686" duration="2382000" />
+      <workItem from="1504085864576" duration="302000" />
+      <workItem from="1504086504699" duration="3113000" />
+      <workItem from="1504089733003" duration="1138000" />
+      <workItem from="1504142019022" duration="6394000" />
+      <workItem from="1504148711683" duration="5031000" />
+      <workItem from="1504158716140" duration="13774000" />
+      <workItem from="1504172918265" duration="1027000" />
+      <workItem from="1504228801035" duration="7002000" />
+      <workItem from="1504235935216" duration="574000" />
+      <workItem from="1504236605610" duration="1567000" />
+      <workItem from="1504238233484" duration="4801000" />
+      <workItem from="1504248119032" duration="248000" />
+      <workItem from="1504248413707" duration="11576000" />
+      <workItem from="1504487726567" duration="12743000" />
+      <workItem from="1504505574359" duration="4223000" />
+      <workItem from="1504509893734" duration="632000" />
+      <workItem from="1504510598014" duration="993000" />
+      <workItem from="1504511660483" duration="3905000" />
+      <workItem from="1504515677216" duration="8487000" />
+      <workItem from="1504574119377" duration="5572000" />
+      <workItem from="1504582069133" duration="3235000" />
+      <workItem from="1504588438528" duration="1374000" />
+      <workItem from="1504589863193" duration="201000" />
+      <workItem from="1504590165436" duration="993000" />
+      <workItem from="1504591211051" duration="3399000" />
+      <workItem from="1504594668311" duration="6438000" />
+      <workItem from="1504601906527" duration="1383000" />
+      <workItem from="1504603352717" duration="1703000" />
+      <workItem from="1504605105976" duration="2889000" />
+      <workItem from="1504608115048" duration="2111000" />
+      <workItem from="1504617250454" duration="2334000" />
+      <workItem from="1504619651162" duration="1608000" />
+      <workItem from="1504660165124" duration="3808000" />
+      <workItem from="1504664029558" duration="416000" />
+      <workItem from="1504664494657" duration="3712000" />
+      <workItem from="1504668320957" duration="8710000" />
+      <workItem from="1504679310387" duration="2089000" />
+      <workItem from="1504681487435" duration="2709000" />
+      <workItem from="1504684317946" duration="9928000" />
+      <workItem from="1504746677459" duration="6012000" />
+      <workItem from="1504753888882" duration="2043000" />
+      <workItem from="1504756075159" duration="8790000" />
+      <workItem from="1504768596840" duration="2337000" />
+      <workItem from="1504771040093" duration="3081000" />
+      <workItem from="1504774463617" duration="1418000" />
+      <workItem from="1504775957726" duration="4766000" />
+      <workItem from="1504832817317" duration="2039000" />
+      <workItem from="1504835024610" duration="7018000" />
+      <workItem from="1504842720219" duration="1655000" />
+      <workItem from="1504849623873" duration="8810000" />
+      <workItem from="1504858602034" duration="5824000" />
+      <workItem from="1504864566117" duration="814000" />
+      <workItem from="1504865437043" duration="2563000" />
+      <workItem from="1504928680165" duration="4356000" />
+      <workItem from="1504934694110" duration="7207000" />
+      <workItem from="1505027626911" duration="1670000" />
+      <workItem from="1505029397274" duration="2835000" />
+      <workItem from="1505033392430" duration="556000" />
+      <workItem from="1505092711936" duration="2765000" />
+      <workItem from="1505095539946" duration="1441000" />
+      <workItem from="1505097212886" duration="3299000" />
+      <workItem from="1505100701927" duration="5615000" />
+      <workItem from="1505111378165" duration="4005000" />
+      <workItem from="1505115459852" duration="4661000" />
+      <workItem from="1505120174972" duration="1717000" />
+      <workItem from="1505122089901" duration="2792000" />
+      <workItem from="1505124972190" duration="1113000" />
+      <workItem from="1505126155251" duration="635000" />
+      <workItem from="1505128790141" duration="2196000" />
+      <workItem from="1505137862497" duration="1703000" />
+      <workItem from="1505179050789" duration="6340000" />
+      <workItem from="1505187834122" duration="4365000" />
+      <workItem from="1505199500287" duration="10470000" />
+      <workItem from="1505214519504" duration="1856000" />
+      <workItem from="1505223882677" duration="2132000" />
+      <workItem from="1505265051827" duration="16339000" />
+      <workItem from="1505286325175" duration="6734000" />
+      <workItem from="1505294211881" duration="3697000" />
+      <workItem from="1505297954095" duration="2371000" />
+      <workItem from="1505300456891" duration="3012000" />
+      <workItem from="1505303541018" duration="684000" />
+      <workItem from="1505351502728" duration="751000" />
+      <workItem from="1505352521952" duration="3637000" />
+      <workItem from="1505356562975" duration="1074000" />
+      <workItem from="1505357717107" duration="1358000" />
+      <workItem from="1505359171240" duration="989000" />
+      <workItem from="1505360206446" duration="2712000" />
+      <workItem from="1505367364131" duration="14564000" />
+      <workItem from="1505384061588" duration="3674000" />
+      <workItem from="1505438711936" duration="1726000" />
+      <workItem from="1505440935070" duration="2110000" />
+      <workItem from="1505443093134" duration="2090000" />
+      <workItem from="1505445223962" duration="4357000" />
+      <workItem from="1505456109954" duration="4423000" />
+      <workItem from="1505460679629" duration="3898000" />
+      <workItem from="1505464901625" duration="3966000" />
+      <workItem from="1505469042655" duration="2433000" />
+      <workItem from="1505612657802" duration="1814000" />
+      <workItem from="1505614564942" duration="1449000" />
+      <workItem from="1505616103109" duration="1672000" />
+      <workItem from="1505617903981" duration="2657000" />
+      <workItem from="1505621167704" duration="6431000" />
+      <workItem from="1505636016354" duration="3224000" />
+      <workItem from="1505639348343" duration="4329000" />
+      <workItem from="1505643794772" duration="2522000" />
+      <workItem from="1505646358205" duration="702000" />
+      <workItem from="1505696804954" duration="2838000" />
+      <workItem from="1505699742073" duration="4323000" />
+      <workItem from="1505704110837" duration="7215000" />
+      <workItem from="1505716161352" duration="2039000" />
+      <workItem from="1505718269761" duration="1782000" />
+      <workItem from="1505720136739" duration="10666000" />
+      <workItem from="1505733232322" duration="1016000" />
+      <workItem from="1505734293555" duration="570000" />
+      <workItem from="1505741756855" duration="964000" />
+      <workItem from="1505783874124" duration="1389000" />
+      <workItem from="1505785361398" duration="1522000" />
+      <workItem from="1505786977154" duration="673000" />
+      <workItem from="1505787737315" duration="838000" />
+      <workItem from="1505788649439" duration="3364000" />
+      <workItem from="1505792117158" duration="1475000" />
+      <workItem from="1505793660411" duration="3582000" />
+      <workItem from="1505799447353" duration="579000" />
+      <workItem from="1505800137579" duration="3126000" />
+      <workItem from="1505803409192" duration="2873000" />
+      <workItem from="1505806362969" duration="7356000" />
+      <workItem from="1505813769699" duration="5097000" />
+      <workItem from="1505819633379" duration="1310000" />
+      <workItem from="1505821010697" duration="1747000" />
+      <workItem from="1505822848997" duration="3887000" />
+      <workItem from="1505869580333" duration="3560000" />
+      <workItem from="1505873203389" duration="5620000" />
+      <workItem from="1505878882276" duration="6799000" />
+      <workItem from="1505888674754" duration="1481000" />
+      <workItem from="1505890242554" duration="206000" />
+      <workItem from="1505890564501" duration="1036000" />
+      <workItem from="1505891687265" duration="930000" />
+      <workItem from="1505892709010" duration="54000" />
+      <workItem from="1505892891421" duration="6057000" />
+      <workItem from="1505899670154" duration="2294000" />
+      <workItem from="1505902033311" duration="1899000" />
+      <workItem from="1505903987897" duration="100000" />
+      <workItem from="1505904229189" duration="3378000" />
+      <workItem from="1505907664382" duration="1673000" />
+      <workItem from="1505956279904" duration="5548000" />
+      <workItem from="1505961898126" duration="1073000" />
+      <workItem from="1505963062346" duration="18300000" />
+      <workItem from="1505987452957" duration="6858000" />
+      <workItem from="1506042737734" duration="20568000" />
+      <workItem from="1506065719331" duration="6246000" />
+      <workItem from="1506072084163" duration="5681000" />
+      <workItem from="1506084334965" duration="5986000" />
+      <workItem from="1506091226573" duration="580000" />
+      <workItem from="1506134995615" duration="19088000" />
+      <workItem from="1506227796878" duration="20261000" />
+      <workItem from="1506252757954" duration="2011000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="806099000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25326797" sideWeight="0.49394855" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.06699347" sideWeight="0.12481089" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5139116" sideWeight="0.4969743" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21482602" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2685325" sideWeight="0.5709282" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27912253" sideWeight="0.5103245" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.04236006" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2685325" sideWeight="0.4290718" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06699347" sideWeight="0.8751891" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44353518" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/web/RealTimeInventoryController.java</url>
+          <line>200</line>
+          <properties />
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/use/web/UseController.java</url>
+          <line>140</line>
+          <properties />
+          <option name="timeStamp" value="285" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/use/service/impl/UseServiceImpl.java</url>
+          <line>122</line>
+          <properties />
+          <option name="timeStamp" value="288" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/web/ResearchController.java</url>
+          <line>221</line>
+          <properties />
+          <option name="timeStamp" value="324" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/director-yanfa.html</url>
+          <line>57</line>
+          <properties />
+          <option name="timeStamp" value="325" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="326" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/use/web/UseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="305" column="13" selection-start-line="289" selection-start-column="8" selection-end-line="305" selection-end-column="13" />
+          <folding>
+            <element signature="e#12785#12801#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/consumable/service/ConsumableService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="17" column="51" selection-start-line="17" selection-start-column="28" selection-end-line="17" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/consumable/ConsumableMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="768" column="110" selection-start-line="768" selection-start-column="30" selection-end-line="768" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/consumableRepair/repair_checking.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="207" column="18" selection-start-line="207" selection-start-column="18" selection-end-line="207" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/consumable_repair_checking.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="115" column="150" selection-start-line="115" selection-start-column="150" selection-end-line="115" selection-end-column="150" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/purchasing/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="154" column="70" selection-start-line="154" selection-start-column="66" selection-end-line="154" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/service/MaterialPurchaseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="26" column="23" selection-start-line="26" selection-start-column="16" selection-end-line="26" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/service/impl/MaterialPurchaseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="185" column="45" selection-start-line="185" selection-start-column="28" selection-end-line="185" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/purchasingmanager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="527" column="48" selection-start-line="527" selection-start-column="41" selection-end-line="527" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/purchasing/MaterialPurchaseMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="267" column="24" selection-start-line="267" selection-start-column="24" selection-end-line="267" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/storage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="198" column="1" selection-start-line="198" selection-start-column="1" selection-end-line="198" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/product_research_add.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="539">
+          <caret line="251" column="1" selection-start-line="251" selection-start-column="1" selection-end-line="251" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/realtimeInventory.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="83" column="60" selection-start-line="83" selection-start-column="54" selection-end-line="83" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/inventory/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="149" column="7" selection-start-line="149" selection-start-column="7" selection-end-line="149" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/inventory/detail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="43" column="37" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/realtimedetail.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="64" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/web/RealTimeInventoryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="86" column="59" selection-start-line="86" selection-start-column="59" selection-end-line="86" selection-end-column="59" />
+          <folding>
+            <element signature="e#2977#2993#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/service/RealTimeInventoryService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="15" column="54" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/vo/Product_material_stock.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="429" column="23" selection-start-line="429" selection-start-column="23" selection-end-line="429" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/inventory/service/impl/RealTimeInventoryServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/inventory/RealTimeInventoryMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-629">
+          <caret line="87" column="20" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/researchAndUse/modify_research.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="46" column="14" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/commons/web/CommonController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="490" column="29" selection-start-line="490" selection-start-column="29" selection-end-line="490" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/AFT/psscode/com.afanti.pss/src/main/java/com/afanti/psi/research/web/ResearchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="376" column="5" selection-start-line="376" selection-start-column="5" selection-end-line="376" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/service/ResearchService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="27" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/dao/ResearchDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="41" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/service/impl/ResearchServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="131" column="41" selection-start-line="131" selection-start-column="41" selection-end-line="131" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/dao/ResearchDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/resources/mybatis/mapper/research/ResearchMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="349" column="17" selection-start-line="349" selection-start-column="17" selection-end-line="349" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/service/ResearchService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="29" column="11" selection-start-line="29" selection-start-column="11" selection-end-line="29" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/product_research_modify.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="114" column="51" selection-start-line="114" selection-start-column="41" selection-end-line="114" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/researchAndUse/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/researchAndUse/research_index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="85" column="55" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/yanfamanage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="134" column="34" selection-start-line="134" selection-start-column="34" selection-end-line="134" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/assets/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/research/web/ResearchController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3800">
+          <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/assets/js/bui-min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/assets/assets/js/common/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/assets/js/common/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13661">
+          <caret line="719" column="2" selection-start-line="719" selection-start-column="2" selection-end-line="719" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/utils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="50" selection-start-line="6" selection-start-column="50" selection-end-line="6" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/main/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="24" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#font#0;n#span#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#1;n#button#0;n#div#1;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#2;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#1;n#button#0;n#div#2;n#div#0;n#div#1;n#div#3;n#div#0;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#0;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#2;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#0;n#div#3;n#div#0;n#form#0;n#div#1;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#5;n#div#0;n#div#0;n#form#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/db-yanfa.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="696" column="324" selection-start-line="696" selection-start-column="324" selection-end-line="696" selection-end-column="324" />
+          <folding>
+            <marker date="1506253484452" expanded="true" signature="1513:2497" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="2688:3275" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="3467:4070" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="4261:4864" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="5057:5658" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="5852:6455" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="6648:7251" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="7443:8047" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="12464:13065" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="14683:15557" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="15748:16308" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="16500:17076" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="17267:17843" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="18036:18610" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="18804:19380" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="19573:20149" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="20341:20918" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="25147:25721" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="27254:28235" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="28418:29399" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="29582:30564" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="30748:31349" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="31533:32514" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="32698:33680" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="37914:38516" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="40952:40971" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="41431:41456" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="46012:46031" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="46536:46561" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="49477:49499" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="49815:49840" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="50153:50178" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="50350:50375" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="50644:51251" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="51756:52389" placeholder="..." />
+            <marker date="1506253484452" expanded="true" signature="52327:52358" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/db-yanfa.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#h4#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/director-yanfa.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/promanager/mywork/kucun.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="23" column="58" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/web/MeterialPurcheaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="288" column="40" selection-start-line="288" selection-start-column="40" selection-end-line="288" selection-end-column="40" />
+          <folding>
+            <element signature="e#2304#2320#0" expanded="true" />
+            <element signature="e#3797#3813#0" expanded="true" />
+            <element signature="e#5714#5730#0" expanded="true" />
+            <element signature="e#7677#7693#0" expanded="true" />
+            <element signature="e#8801#8817#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/purchasing/web/MeterialPurcheaseReturnController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-433">
+          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
+          <folding>
+            <element signature="e#1829#1845#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/java/com/afanti/psi/consumable/web/ConsumableController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40">
+          <caret line="487" column="0" selection-start-line="487" selection-start-column="0" selection-end-line="487" selection-end-column="0" />
+          <folding>
+            <element signature="e#1519#1535#0" expanded="true" />
+            <element signature="e#2342#2358#0" expanded="true" />
+            <element signature="e#3084#3100#0" expanded="true" />
+            <element signature="e#4915#4931#0" expanded="true" />
+            <element signature="e#5755#5771#0" expanded="true" />
+            <element signature="e#6534#6550#0" expanded="true" />
+            <element signature="e#8439#8455#0" expanded="true" />
+            <element signature="e#9063#9079#0" expanded="true" />
+            <element signature="e#10243#10259#0" expanded="true" />
+            <element signature="e#10929#10945#0" expanded="true" />
+            <element signature="e#11625#11641#0" expanded="true" />
+            <element signature="e#12599#12615#0" expanded="true" />
+            <element signature="e#13868#13884#0" expanded="true" />
+            <element signature="e#16387#16403#0" expanded="true" />
+            <element signature="e#17604#17620#0" expanded="true" />
+            <element signature="e#18397#18413#0" expanded="true" />
+            <element signature="e#19503#19519#0" expanded="true" />
+            <element signature="e#20271#20287#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.afanti.pss/src/main/webapp/WEB-INF/jsp/js/bus/db-kucun.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="753" column="17" selection-start-line="753" selection-start-column="15" selection-end-line="753" selection-end-column="17" />
+          <folding>
+            <marker date="1505803933062" expanded="true" signature="967:1001" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="2755:3348" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="15852:16406" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="19982:20739" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="31558:32275" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="33722:33747" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="33914:33936" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="35258:35873" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="37743:37768" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="37935:37957" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="39279:39894" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="41340:41365" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="41603:41628" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="42530:43176" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="45489:45514" placeholder="..." />
+            <marker date="1505803933062" expanded="true" signature="45584:46191" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

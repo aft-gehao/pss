@@ -90,10 +90,9 @@ function  doSearch(p) {
                         <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["repair_amount"]) + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                        <td>' + append[i]["staff_name"] + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
-                         <td>' + $.alle_null2Str(html2) + '</td>\
+                        <td>' + append[i]["staff_name"] + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["repair_time"])+'</td>\
+                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"])+'<br>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
+                        <td>' + $.alle_null2Str(html2) + '</td>\
                         <td class="operation">\
                         <input  type="button" onclick="jianding(this)" class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" data-target="#Handle" value="鉴定">\
                         </td>\
@@ -104,13 +103,12 @@ function  doSearch(p) {
                     else if(append[i]["status"]==5004){
                         value += '\
                     <tr >\
-                        <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
+                    <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["repair_amount"]) + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                        <td>' + append[i]["staff_name"] + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
-                         <td>' + $.alle_null2Str(html2) + '</td>\
+                        <td>' + append[i]["staff_name"] + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["repair_time"])+'</td>\
+                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"])+'<br>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
+                        <td>' + $.alle_null2Str(html2) + '</td>\
                         <td class="operation">\
                         <a title="发货" id="fahuo"  onclick="fahuo(this)"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" data-target="#test"><i class="icon-edit"></i> 发货</a>\
                         <input disabled="disabled" type="button" data="' + append[i]["repair_id"] + '"  id="con_rep_mod" class="btn btn-success btn-sm" value="修改"/>\
@@ -123,13 +121,12 @@ function  doSearch(p) {
                     else if(append[i]["status"]==5002){
                         value += '\
                     <tr >\
-                        <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
+                      <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["repair_amount"]) + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                        <td>' + append[i]["staff_name"] + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
-                        \ <td>' + $.alle_null2Str(html2) + '</td>\
+                        <td>' + append[i]["staff_name"] + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["repair_time"])+'</td>\
+                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"])+'<br>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
+                        <td>' + $.alle_null2Str(html2) + '</td>\
                         <td class="operation">\
                         <input  disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_det"  class="btn btn-success btn-sm" value="详情"/>\
                         </td>\
@@ -139,13 +136,12 @@ function  doSearch(p) {
                     } else if(append[i]["status"]==14003){
                         value += '\
                     <tr >\
-                        <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
+                      <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["repair_amount"]) + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                        <td>' + append[i]["staff_name"] + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
-                         <td>' + $.alle_null2Str(html2) + '</td>\
+                        <td>' + append[i]["staff_name"] + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["repair_time"])+'</td>\
+                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"])+'<br>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
+                        <td>' + $.alle_null2Str(html2) + '</td>\
                         <td class="operation">\
                         </td>\
                         </tr>\
@@ -154,13 +150,12 @@ function  doSearch(p) {
                     }  else if(append[i]["status"]==5001){
                         value += '\
                     <tr >\
-                        <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
+                      <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["repair_amount"]) + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                        <td>' + append[i]["staff_name"] + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '</td>\
-                        <td>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
-                         <td>' + $.alle_null2Str(html2) + '</td>\
+                        <td>' + append[i]["staff_name"] + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["repair_time"])+'</td>\
+                        <td>' + $.alle_null2Str(append[i]["check_people"]) + '<br>'+ $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"])+'<br>' + $.alle_null2Str(append[i]["repair_desc"]) + '</td>\
+                        <td>' + $.alle_null2Str(html2) + '</td>\
                         <td class="operation">\
                         <input  disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_det"  class="btn btn-success btn-sm" value="详情"/>\
                         </td>\

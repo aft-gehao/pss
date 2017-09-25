@@ -82,11 +82,15 @@
         t.all_total,
         t3.staff_name ,
         t4.`name`as supplier_name,
-        t2.stock_status
+        t2.stock_status,
+        t8.unit_price
         FROM
         material_purchase t
         LEFT JOIN material_purchase_return t2 ON (
         t.purchase_id = t2.purchase_id
+        )
+        LEFT JOIN material_purchase_detail t8 ON (
+        t.purchase_id = t8.purchase_id
         )
         LEFT JOIN staff_info t3 on(t.staff_id = t3.staff_id)
         LEFT JOIN cus_supplier_info t4 on(t4.cs_sup_id = t.supplier_id)

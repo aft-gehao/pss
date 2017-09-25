@@ -8,6 +8,8 @@ $(function(){
 
 //原料待入库首页
 function doSearch_material(is_all) {
+    $("#show_storage_history").hide()
+    $("#show_storage").show()
     $.ajax({
         type: 'POST',
         url: "/product/manager/warehouseMaterialList",
@@ -317,6 +319,8 @@ function cancle_submit(id){
 
 //原料待入库-->历史记录
 function materialHistory(is_all) {
+    $("#show_storage_history").show()
+    $("#show_storage").hide()
         $.ajax({
             type: 'POST',
             url: "/product/manager/warehouseMaterialList_history",
@@ -365,6 +369,8 @@ function show_more_material_history(is_all) {
 
 //原料待出库首页
 function doSearch_material_out(is_all) {
+    $("#show_library").show()
+    $("#show_library_history").hide()
     var inventory_type=""
     $.ajax({
         type: 'POST',
@@ -652,6 +658,8 @@ function cancle_inventory_info(id){
 
 //原料待出库-->历史记录按钮
 function material_out_History(is_all) {
+    $("#show_library").hide()
+    $("#show_library_history").show()
     $.ajax({
         type: 'POST',
         url: "/inventory/productOut/inventory_out_list_history",
@@ -708,6 +716,8 @@ $("a[id*='haocai']").each(function () {
     })
 })
 function doSearch_supplies(is_all) {
+    $("#show_haocai_storage").show()
+    $("#show_haocai_storage_history").hide()
     $.ajax({
         type: 'POST',
         url: "/consumable/manager/PurchasingList",
@@ -789,6 +799,8 @@ function show_more_supplies_in(is_all) {
 
 //耗材待入库-->历史记录
 function ruku_supplies_history(is_all) {
+    $("#show_haocai_storage").hide()
+    $("#show_haocai_storage_history").show()
     $.ajax({
         type: 'POST',
         url: "/consumable/manager/PurchasingList_history",
@@ -862,6 +874,8 @@ function show_more_supplies_in_history(is_all) {
 
 //耗材待出库-->首页加载
 function doSearch_supplies_out(is_all) {
+    $("#show_haocai_library").show()
+    $("#show_haocai_library_history").hide()
     $.ajax({
         type: 'POST',
         url: "/consumable/manager/UseList",
@@ -979,6 +993,8 @@ function out_cancle(id) {
 
 //耗材待出库-->历史记录
 function supplies_out_history(is_all) {
+    $("#show_haocai_library").hide()
+    $("#show_haocai_library_history").show()
     $.ajax({
         type: 'POST',
         url: "/consumable/manager/UseList_history",

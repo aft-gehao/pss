@@ -44,6 +44,9 @@ public class VenditionReturnController extends BaseController {
             params.put("sku", getParameterString("sku"));
             params.put("start_time", start_time);
             params.put("end_time", end_time);
+            params.put("status",getParameterString("status"));
+            params.put("search",getParameterString("search"));
+            params.put("time",getParameterString("time"));
             params.put("p", getParameterString("p"));
             Page page = venditionReturnService.getVenditionReturnPageList(params);
             jsonData.setAppend(page);

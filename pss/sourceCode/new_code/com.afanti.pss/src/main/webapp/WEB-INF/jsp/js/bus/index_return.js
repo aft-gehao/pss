@@ -9,19 +9,45 @@ $(function () {
     });
 })
 
+
+function find(str,cha,num){
+    var x=str.indexOf(cha);
+    for(var i=0;i<num;i++){
+        x=str.indexOf(cha,x+1);
+    }
+    return x;
+}
+
+
 function doSearch(p) {
 
-    var start_time = $("#start_time").val();
-    var end_time = $("#end_time").val();
-    var cas = $("#cas").val();
-    var status = $("#status").val();
+    var str = $("#test16").val()
+    var number_str= find(str,'-',2)
+    var start_time=str.substring(0,number_str-1);
+    var end_time=str.substring(number_str+2);
+    if (str==""){
+        $("#type_custom_time").html("所有")
+    }  else {
+        $("#type_custom_time").html(str)
+    }
+
+    var status = $("#status_id").val();
+    if (status==""){
+        $("#type_status").html("全部")
+    }
+
     var time = $("#time").val();
+    if (time==""){
+        $("#type_time").html("全部")
+    }
+    var search=$("#search").val()
+
     $.ajax({
         type: 'POST',
         url: "/vendition/return/vendition_retun_page",
         data: {
+            search:search,
             time:time,
-            cas: cas,
             status: status,
             start_time: start_time,
             end_time: end_time,
@@ -41,17 +67,17 @@ function doSearch(p) {
                     var html_type = "";
                     var html_sumbit = "";
                     if (append[i]["stock_status"] == 5001) {
-                        html_type += '<span class="label label-success">已入库</span>';
+                        html_type += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black">已入库</button>';
                     }
                     else if (append[i]["stock_status"] == 5003) {
-                        html_type += '<span class="label label-info">部分入库</span>';
+                        html_type += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black">部分入库</button>';
                     }
                     else if (append[i]["stock_status"] == 5002 || append[i]["stock_status"]==0) {
-                        html_type += '<span class="label label-danger">未入库</span></span>';
+                        html_type += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black;border-color: red;">未入库</button></span>';
                     }else {
                         layer.msg("类型异常,联系管理员");
                     }
-                    html_sumbit += "<input id='ven_return_submit' disabled='disabled'  class='btn btn-link btn-xs' type='button' onclick='vendition_return(" + append[i].sale_id + ")' value='退货'/>";
+                    html_sumbit += "<a id='ven_return_submit' class='btn btn-success' type='button' onclick='vendition_return(" + append[i].sale_id + ")'>退货</a>";
                     value += '\
                     <tr >\
                         <td>' + $.alle_null2Str(append[i]["sale_name"]) + '</td>\
@@ -81,8 +107,10 @@ function vendition_return(sale_id) {
 function vendition_detial(sale_id) {
     window.location.href = "/promanager/vendition/vendition_return_submit.html?sale_id=" + sale_id;
 }
+
+
 function test(e){
-    console.log("123");
+    //console.log("123");
     if($(e).attr("class")=='info active'){
         $(e).removeClass("info active").attr("class","info");
     }else if($(e).attr("class")=='info'){
@@ -99,14 +127,21 @@ function test(e){
 
     var info="";
     var time="";
+    var type_status=""
+    var type_time=""
     $("a[class='info active']").each(function(){
         info +=$(this).attr("data")+",";
+        type_status +=$(this).html()+"/"
     })
-    $("#status").val(info);
+    $("#type_status").html(type_status.substring(0,type_status.length-1));
+    $("#status_id").val(info.substring(0,info.length-1));
     $("a[class='time active']").each(function(){
         time +=$(this).attr("data");
+        type_time=$(this).html();
+
     })
     $("#time").val(time);
+    $("#type_time").html(type_time)
     if($("a[class='info active']").length!=0 ) {
         $("a[class='info1 active']").removeClass("info1 active").attr("class","info1");
     } else{
@@ -117,6 +152,11 @@ function test(e){
     }else{
         $("a[class='time1']").removeClass("time1").attr("class","time1 active");
     }
+    $("#search").val("")
+    $("#test16").val("")
     doSearch(1);
 }
 
+function do_query() {
+    doSearch(1)
+}

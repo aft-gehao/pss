@@ -53,12 +53,12 @@
                                     <tbody id="data_tbody_material">
                                 </table>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_material(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_storage" hidden="hidden" onclick="show_more_material(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_material_history(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_storage_history" hidden="hidden" onclick="show_more_material_history(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
@@ -99,12 +99,12 @@
                                     </tbody>
                                 </table>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_material_out(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_library" hidden="hidden" onclick="show_more_material_out(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_material_out_history(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_library_history" hidden="hidden" onclick="show_more_material_out_history(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
@@ -144,12 +144,12 @@
                                     </tbody>
                                 </table>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_supplies_in(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_haocai_storage" hidden="hidden" onclick="show_more_supplies_in(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_supplies_in_history(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_haocai_storage_history" hidden="hidden" onclick="show_more_supplies_in_history(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
@@ -177,22 +177,22 @@
                                             <th width="10%">规格</th>
                                             <th width="15%">申请量</th>
                                             <th width="15%">所在仓位</th>
-                                            <th width="15%">状态</th>
+                                            <th width="10%">状态</th>
                                             <th width="10%">申请人</th>
                                             <th width="15%">申请时间</th>
-                                            <th width="20%">操作</th>
+                                            <th width="15%">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody id="data_tbody_supplies_out">
                                     </tbody>
                                 </table>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_supplies_out(1)" class="toggle" style="text-decoration: none;">
+                                    <a id="show_haocai_library" hidden="hidden" onclick="show_more_supplies_out(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
                                 <div style="text-align: center;cursor: pointer;color: #31708f">
-                                    <a onclick="show_more_supplies_out_history(1)" class="toggle" style="text-decoration: none;">
+                                    <a href="javascript:;" id="show_haocai_library_history" hidden="hidden" onclick="show_more_supplies_out_history(1)" class="toggle" style="text-decoration: none;">
                                         更多
                                     </a>
                                 </div>
@@ -205,20 +205,7 @@
       </div>  <!--end-->
     </div>     
 <!-- 右操作按钮 -->
-<ul class="index-float">
-    <li class="btn-success">
-        <a  href="" title="原料库存">
-            <span class="iconfont">&#xe724;</span></br>
-            原料代领
-        </a>
-    </li>
-    <li class="btn-info">
-        <a  href="" title="耗材库存">
-            <span class="iconfont">&#xe724;</span></br>
-            耗材代领
-        </a>
-    </li>
-</ul>
+
 <!--End-->
 
 <!--删除弹出框-->

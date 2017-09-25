@@ -2,6 +2,7 @@ package com.afanti.psi.consumable.web;
 
 import com.afanti.psi.base.BaseController;
 import com.afanti.psi.consumable.service.ConsumableService;
+import com.afanti.psi.consumable.vo.consumable_purchase;
 import com.afanti.psi.consumable.vo.consumable_repair;
 import com.afanti.psi.consumable.vo.consumable_use;
 import com.afanti.psi.kuaidi.vo.kudi_info;
@@ -768,6 +769,84 @@ public class ConsumableController extends BaseController {
             params.put("repair_id", getParameterString("repair_id"));
             consumableService.fahuo_repair(params);
             jsonData.setMessage("操作成功");
+            jsonData.setResult(SUCCESS);
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage(e.toString());
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+
+    @RequestMapping(value = "/PurchasingList", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData PurchasingList() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("is_all", this.getParameterString("is_all"));
+            int count=consumableService.getPurchasingCount(params);
+            List<consumable_purchase> list = consumableService.getPurchasingList(params);
+            jsonData.setAppend(list);
+            jsonData.setAppend_ext("("+count+")");
+            jsonData.setResult(SUCCESS);
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage(e.toString());
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+    @RequestMapping(value = "/PurchasingList_history", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData PurchasingList_history() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("is_all", this.getParameterString("is_all"));
+            int count=consumableService.getPurchasingCount_history(params);
+            List<consumable_purchase> list = consumableService.getPurchasingList_history(params);
+            jsonData.setAppend(list);
+            jsonData.setAppend_ext("("+count+")");
+            jsonData.setResult(SUCCESS);
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage(e.toString());
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+    @RequestMapping(value = "/UseList", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData UseList() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("is_all", getParameterString("is_all"));
+            int count = consumableService.getUseCount(params);
+            List<consumable_use> list = consumableService.getUseList(params);
+            jsonData.setAppend(list);
+            jsonData.setAppend_ext("("+count+")");
+            jsonData.setResult(SUCCESS);
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage(e.toString());
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+
+    @RequestMapping(value = "/UseList_history", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData UseList_history() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("is_all", getParameterString("is_all"));
+            int count = consumableService.getUseCount_history(params);
+            List<consumable_use> list = consumableService.getUseList_history(params);
+            jsonData.setAppend(list);
+            jsonData.setAppend_ext("("+count+")");
             jsonData.setResult(SUCCESS);
         } catch (Exception e) {
             jsonData.setResult(FAIL);

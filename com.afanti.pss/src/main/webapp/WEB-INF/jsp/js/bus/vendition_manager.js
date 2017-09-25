@@ -10,20 +10,47 @@ $(function () {
     
 })
 
+function find(str,cha,num){
+    var x=str.indexOf(cha);
+    for(var i=0;i<num;i++){
+        x=str.indexOf(cha,x+1);
+    }
+    return x;
+}
+
 
 function doSearch(p) {
-    var start_time = $("#start_time").val();
-    var end_time = $("#end_time").val();
-    var cas = $("#cas").val();
-    var sku = $("#sku").val();
+    var str = $("#test16").val()
+    var number_str= find(str,'-',2)
+    var start_time=str.substring(0,number_str-1);
+    var end_time=str.substring(number_str+2);
+    if (str==""){
+        $("#type_custom_time").html("所有")
+    }  else {
+        $("#type_custom_time").html(str)
+    }
+
+    var status=$("#status_id").val()
+    if (status==""){
+        $("#type_status").html("全部")
+    }
+
+    var time=$("#time").val()
+    if (time==""){
+        $("#type_time").html("全部")
+    }
+
+    var search=$("#search").val()
+
     $.ajax({
         type: 'POST',
         url: "/vendition/manager/vendition_purchase_page",
         data: {
-            cas: cas,
-            sku: sku,
-            start_time: start_time,
-            end_time: end_time,
+            search:search,
+            start_time:start_time,
+            end_time:end_time,
+            time:time,
+            status:status,
             p: p
         },
         dataType: "json",
@@ -42,15 +69,15 @@ function doSearch(p) {
                     var html_sumbit = "";
                     var html_doc = "";
                     if (append[i]["status"] == 8001) {
-                        html_type += '<span class="label label-success">' + append[i]["status_str"] + '</span>';
+                        html_type += '<button class="btn btn-success btn-sm" style="background-color:white;color:black">' + append[i]["status_str"] + '</button>';
                     }
                     if (append[i]["status"] == 8003) {
-                        html_type += '<span class="label label-info">' + append[i]["status_str"] + '</span> ';
+                        html_type += '<button class="btn btn-success btn-sm" style="background-color:white;color:black">' + append[i]["status_str"] + '</button> ';
                     }
                     if (append[i]["status"] == 8002) {
-                        html_type += '<span class="label label-danger">' + append[i]["status_str"] + '</span></span>';
-                        html_doc += "<a  id='ven_doc' class='btn btn-link' style='padding: 0px;' onclick='test(this)' data='"+append[i]["hetong_doc"]+"'>下载合同</a>";
-                        html_mod += "<a  id='ven_doc'data-toggle='modal' data-target='#hetong-mod' class='btn btn-link' style='padding: 0px; 'onclick='mod_doc(this)' data='"+append[i]["sale_d_id"]+"'>修改合同</a>";
+                        html_type += '<button class="btn btn-success btn-sm" style="background-color:white;color:black;border-color: red;">' + append[i]["status_str"] + '</button></span>';
+                        html_doc += "<a  id='ven_doc' class='btn btn-success' type='button' style='padding: 0px;' onclick='test(this)' data='"+append[i]["hetong_doc"]+"'>下载合同</a>";
+                        html_mod += "<a  id='ven_doc' class='btn btn-success' type='button' data-toggle='modal' data-target='#hetong-mod' style='padding: 0px; 'onclick='mod_doc(this)' data='"+append[i]["sale_d_id"]+"'>修改合同</a>";
                     }
                     value += '\
                     <tr >\
@@ -190,3 +217,64 @@ $("#sure_mod").click(function () {
 
 })
 
+function test(e)
+{
+    if($(e).attr("class")=='info active')
+    {
+        $(e).removeClass("info active").attr("class","info");
+    }
+    else if($(e).attr("class")=='info'){
+
+        $(e).removeClass("info").attr("class","info active");
+    }
+    if($(e).attr("class")=='time active')
+    {
+        $("a[class='time active']").removeClass("time active").attr("class","time");
+    }
+    else if($(e).attr("class")=='time'){
+
+        $("a[class='time active']").removeClass("time active").attr("class","time");
+        $(e).removeClass("time").attr("class","time active");
+    }
+    var info="";
+    var time="";
+    var type_status=""
+    var type_time=""
+    $("a[class='info active']").each(function(){
+        info +=$(this).attr("data")+",";
+        type_status +=$(this).html()+"/"
+    })
+
+    $("#type_status").html(type_status.substring(0,type_status.length-1));
+    $("#status_id").val(info.substring(0,info.length-1));
+
+    $("a[class='time active']").each(function(){
+        time +=$(this).attr("data");
+        type_time=$(this).html();
+    })
+
+    $("#time").val(time);
+    $("#type_time").html(type_time)
+    if($("a[class='info active']").length!=0 )
+    {
+        $("a[class='info1 active']").removeClass("info1 active").attr("class","info1");
+    }
+    else{
+        $("a[class='info1']").removeClass("info1").attr("class","info1 active");
+    }
+    if($("a[class='time active']").length!=0 )
+    {
+        $("a[class='time1 active']").removeClass("time1 active").attr("class","time1");
+    }
+    else{
+        $("a[class='time1']").removeClass("time1").attr("class","time1 active");
+    }
+    $("#search").val("")
+    $("#test16").val("")
+    doSearch(1)
+}
+
+
+function do_query() {
+    doSearch(1)
+}

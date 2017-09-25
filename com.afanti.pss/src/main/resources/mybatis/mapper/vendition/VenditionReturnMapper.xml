@@ -21,13 +21,18 @@
         LEFT JOIN product_material_info t6
         ON t5.product_id = t6.product_id
         WHERE t.`status` IN (8001,8003)
-        <if test="params.cas!=null and params.cas!=''">
-            and t6.cas like '%${params.cas}%'
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%' OR t2.`name` like '%${params.search}%')
         </if>
-        <if test="params.cas!=null and params.cas!=''">
-            and t6.sku like '%${params.sku}%'
+        <if test="params.status!=null and params.status!=''">
+            AND t.`status` in(${params.status})
         </if>
-        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
         order by t.sale_time desc
     </select>
     <select id="getVenditionReturnPageCount" parameterType="Map" resultType="Integer">
@@ -43,13 +48,18 @@
         LEFT JOIN product_material_info t6
         ON t5.product_id = t6.product_id
         WHERE t.`status` IN (8001, 8003)
-        <if test="params.cas!=null and params.cas!=''">
-            and t6.cas like '%${params.cas}%'
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%' OR t2.`name` like '%${params.search}%')
         </if>
-        <if test="params.cas!=null and params.cas!=''">
-            and t6.sku like '%${params.sku}%'
+        <if test="params.status!=null and params.status!=''">
+            AND t.`status` in(${params.status})
         </if>
-        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
     </select>
 
     <select id="getVenditionReturnProductList" parameterType="Map" resultType="Product_sale_detail">

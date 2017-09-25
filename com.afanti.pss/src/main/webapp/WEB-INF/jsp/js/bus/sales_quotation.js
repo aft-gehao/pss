@@ -9,15 +9,40 @@ $(function () {
     })
 })
 
+
+function find(str,cha,num){
+    var x=str.indexOf(cha);
+    for(var i=0;i<num;i++){
+        x=str.indexOf(cha,x+1);
+    }
+    return x;
+}
+
 function doSearch(p) {
-    var sku = $("#sku").val();
-    var cas = $("#cas").val();
+
+    var str = $("#test16").val()
+    var number_str= find(str,'-',2)
+    var start_time=str.substring(0,number_str-1);
+    var end_time=str.substring(number_str+2);
+    if (str==""){
+        $("#type_custom_time").html("所有")
+    }  else {
+        $("#type_custom_time").html(str)
+    }
+
+    var time = $("#time").val();
+    if (time==""){
+        $("#type_time").html("全部")
+    }
+    var search=$("#search").val()
     $.ajax({
         type: 'POST',
         url: "/vendition/manager/materialQuotationSelect",
         data: {
-            cas: cas,
-            sku: sku,
+            search:search,
+            time:time,
+            start_time: start_time,
+            end_time: end_time,
             p: p,
         },
         dataType: "json",
@@ -565,3 +590,50 @@ $("#add_task2").click(function () {
     add_task(add_allowance)
     $("#add_task2").hide()
 })*/
+
+
+function test(e){
+    //console.log("123");
+    if($(e).attr("class")=='info active'){
+        $(e).removeClass("info active").attr("class","info");
+    }else if($(e).attr("class")=='info'){
+
+        $(e).removeClass("info").attr("class","info active");
+    }
+    if($(e).attr("class")=='time active'){
+        $("a[class='time active']").removeClass("time active").attr("class","time");
+    } else if($(e).attr("class")=='time'){
+
+        $("a[class='time active']").removeClass("time active").attr("class","time");
+        $(e).removeClass("time").attr("class","time active");
+    }
+
+
+    var time="";
+    var type_time=""
+
+    $("a[class='time active']").each(function(){
+        time +=$(this).attr("data");
+        type_time=$(this).html();
+
+    })
+    $("#time").val(time);
+    $("#type_time").html(type_time)
+    if($("a[class='info active']").length!=0 ) {
+        $("a[class='info1 active']").removeClass("info1 active").attr("class","info1");
+    } else{
+        $("a[class='info1']").removeClass("info1").attr("class","info1 active");
+    }
+    if($("a[class='time active']").length!=0 ) {
+        $("a[class='time1 active']").removeClass("time1 active").attr("class","time1");
+    }else{
+        $("a[class='time1']").removeClass("time1").attr("class","time1 active");
+    }
+    $("#search").val("")
+    $("#test16").val("")
+    doSearch(1);
+}
+
+function do_query() {
+    doSearch(1)
+}

@@ -12,44 +12,108 @@
     <script type="text/javascript" src="/js/commons/bootstrap.js"></script>
     <script type="text/javascript" src="/js/commons/ckform.js"></script>
     <script type="text/javascript" src="/js/commons/common.js"></script>
+    <script type="text/javascript" src="/js/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css"/>
+    <style type="text/css">
+        a:hover{
+            cursor: pointer;
+        }
+        .auto a:hover{
+            background-color: #5CB85C;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<form class="form-inline definewidth m20" action="index.html" method="get">
-    <div class="container">
-        <h3>销售退货查询</h3>
-        <div class="row">
-            <div class="col-md-4 form-group" style="width: 20%;">
-                <span class="col-sm-5 text-right form-control-static">CAS：</span>
-                <input id="cas" type="text" class="form-control input-sm" style="width: 55%" placeholder="" maxlength="20">
+<form class="form-inline definewidth" action="index.html" method="get">
+    <input id="status_id" hidden="hidden">
+    <input id="time" hidden="hidden">
+    <div class="filter-box switch-close">
+        <section class="panel-cont">
+            <div class="search-cont">
+                <div class="switch-show filter_column">
+                    <div class="search-li clearfix">
+                        <label class="pull-left search-label">销售状态：</label>
+                        <div class="clearfix search-link">
+                            <div class="auto">
+                                <a onclick="test(this)" data="" class="info1 active" >全部</a>
+                                <a onclick="test(this)" data="8001" class="info" >已出库</a>
+                                <a onclick="test(this)" data="8002" class="info" >未出库</a>
+                                <a onclick="test(this)" data="8003" class="info" >部分出库</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-li clearfix">
+                        <label class="pull-left search-label">申请时间：</label>
+                        <div class="clearfix search-link">
+                            <div class="auto">
+                                <a class="time1 active">全部</a>
+                                <a onclick="test(this)" data="DATEDIFF(sale_time,NOW())=0" class="time" >今天</a>
+                                <a onclick="test(this)" data="DATEDIFF(sale_time,NOW())=-1" class="time" >昨天</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(sale_time,'%Y-%m-%d')) = YEARWEEK(now())" class="time" >本周</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(sale_time,'%Y-%m-%d')) = YEARWEEK(now())-1" class="time" >上周</a>
+                                <a onclick="test(this)" data="DATE_FORMAT(sale_time,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')" class="time" >本月</a>
+                                <a onclick="test(this)" data="date_format(sale_time,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') " class="time" >上月</a>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" style="height: 25px;width: 160px;" class="layui-input" id="test16" placeholder="自定义时间">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="switch-hide">
+                    <div class="search-li clearfix" id="filter_column_collapse_container"><label class="pull-left search-label">筛选条件：</label>
+                        <div class="clearfix search-link">
+
+                            <a id="type_status" class="active">全部</a>
+
+                            <a id="type_time" class="active">全部</a>
+
+                            <a id="type_custom_time" class="active">所有</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4 form-group"style="width: 20%;">
-                <span class="col-sm-5 text-right form-control-static">SKU：</span>
-                <input id="sku" type="text" class="form-control input-sm" style="width: 55%" placeholder="" maxlength="20">
+        </section>
+        <div class="text-center ">
+            <a href="javascript:;" class="filter-down" data-toggle="click-switch" data-parents=".filter-box">
+                <span class="switch-show" title="收起筛选">∧</span>
+                <span class="switch-hide" title="展开筛选">∨</span>
+            </a>
+        </div>
+
+
+    <div class="table-container">
+        <div class="sekect_box clearfix">
+            <div class="pull-right normal-search">
+                <div class="input-group">
+                    <div class="table-cell" style="width: 150px;">
+                    </div>
+                    <div class="table-cell">
+                     <span style="position:relative;margin:0" class="add-clear-span">
+                        <input type="text" name="search_key" id="search" class="form-control  addclear" placeholder="销售名称,销售人员,客户名">
+                    </span>
+                    </div>
+                <span class="input-group-btn">
+                 <button type="button" onclick="do_query()" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
+                </span>
+                </div>
             </div>
-            <div class="col-md-5 form-group">
-                <span class="col-sm-4 text-right left  form-control-static">销售时间：</span>
-                <input id="start_time" name="start_time"
-                       class="form-control input-sm" style="width: 28%"  placeholder="请选择开始时间"
-                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'end_time\')}'})"
-                       readonly="readonly">
-                <span>~</span>
-                <input id="end_time" class="form-control input-sm" style="width: 28%"  placeholder="请选择终止时间" readonly="readonly"
-                       onclick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'start_time\')}'})">
-            </div>
-            <span><button id="ven_return_query" disabled="disabled" type="button" class="btn btn-primary">查询</button></span>
         </div>
         <!--表单-->
         <div class="Pro-table table">
             <table class="table table-bordered table-hover definewidth m20">
                 <thead>
                 <tr>
-                    <th>销售名称</th>
-                    <th>状态</th>
-                    <th>销售金额</th>
-                    <th>销售时间</th>
-                    <th>销售人员</th>
-                    <th>客户名称</th>
-                    <th>操作</th>
+                    <th width="20%">销售名称</th>
+                    <th width="10%">状态</th>
+                    <th width="10%">销售金额</th>
+                    <th width="15%">销售时间</th>
+                    <th width="10%">销售人员</th>
+                    <th width="15%">客户名称</th>
+                    <th width="20%">操作</th>
                 </tr>
                 </thead>
                 <tbody id="data_tbody">
@@ -66,4 +130,13 @@
 <script type="text/javascript" src="/js/utils.js"></script>
 <script type="text/javascript" src="/js/bus/index_return.js"></script>
 </body>
+<script type="text/javascript" >
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#test16'
+            ,range: true
+        });
+    });
+</script>
 </html>

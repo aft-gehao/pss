@@ -47,6 +47,9 @@ public class VenditionManagereController extends BaseController {
             params.put("sku", getParameterString("sku"));
             params.put("start_time", start_time);
             params.put("end_time", end_time);
+            params.put("status",getParameterString("status"));
+            params.put("search",getParameterString("search"));
+            params.put("time",getParameterString("time"));
             params.put("p", getParameterString("p"));
             Page page = venditionService.getVenditionPageList(params);
             jsonData.setAppend(page);
@@ -195,9 +198,22 @@ public class VenditionManagereController extends BaseController {
     public JsonData materialQuotationSelect() {
         JsonData jsonData = new JsonData();
         try {
+            DateTime dateTime = new DateTime();
+            String start_time = getParameterString("start_time");
+            String end_time = getParameterString("end_time");
+            if (start_time == null || "".equals(start_time)) {
+                start_time = dateTime.plusDays(-dateTime.getDayOfMonth() + 1).toString("yyyy-MM-dd");
+            }
+            if (end_time == null || "".equals(end_time)) {
+                end_time = dateTime.toString("yyyy-MM-dd");
+            }
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("sku", this.getParameterString("sku"));
             params.put("cas", this.getParameterString("cas"));
+            params.put("start_time", start_time);
+            params.put("end_time", end_time);
+            params.put("search",getParameterString("search"));
+            params.put("time",getParameterString("time"));
             //页码
             params.put("p", getParameterString("p"));
             Page page = venditionService.materialQuotationSelect(params);

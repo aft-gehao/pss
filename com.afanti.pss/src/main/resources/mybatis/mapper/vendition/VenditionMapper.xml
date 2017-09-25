@@ -37,13 +37,18 @@
         ON t5.product_id=t4.product_id
         WHERE
         t.sale_isdel = 0
-        <if test="params.cas!=null and params.cas!=''">
-            and t5.cas like '%${params.cas}%'
+        <if test="params.search!=null and params.search!=''">
+            and (t5.cas like '%${params.search}%' OR t5.sku like '%${params.search}%' OR t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%')
         </if>
-        <if test="params.sku!=null and params.sku!=''">
-            and t5.sku like '%${params.sku}%'
+        <if test="params.status!=null and params.status!=''">
+            AND t.`status` in(${params.status})
         </if>
-        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
         order by t.sale_time desc
     </select>
 
@@ -60,13 +65,18 @@
         ON t5.product_id=t4.product_id
         WHERE
         t.sale_isdel = 0
-        <if test="params.cas!=null and params.cas!=''">
-            and t5.cas like '%${params.cas}%'
+        <if test="params.search!=null and params.search!=''">
+            and (t5.cas like '%${params.search}%' OR t5.sku like '%${params.search}%' OR t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%')
         </if>
-        <if test="params.sku!=null and params.sku!=''">
-            and t5.sku like '%${params.sku}%'
+        <if test="params.status!=null and params.status!=''">
+            AND t.`status` in(${params.status})
         </if>
-        AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
     </select>
 
     <select id="getProductInventoryPageList" parameterType="Map" resultType="SelectProductInventory">
@@ -407,11 +417,14 @@
         LEFT JOIN staff_info t4 ON t1.staff_id = t4.staff_id
         WHERE
         t1.status=0
-        <if test="params.cas!=null and params.cas!=''">
-            and t2.cas like '%${params.cas}%'
+        <if test="params.search!=null and params.search!=''">
+            and (t2.cas like '%${params.search}%' OR t2.sku like '%${params.search}%' OR t3.`name` like '%${params.search}%')
         </if>
-        <if test="params.sku!=null and params.sku!=''">
-            and t2.sku like '%${params.sku}%'
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t1.create_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
         </if>
         ORDER BY t1.create_time DESC
     </select>
@@ -425,11 +438,14 @@
         LEFT JOIN staff_info t4 ON t1.staff_id = t4.staff_id
         WHERE
          t1.status=0
-        <if test="params.cas!=null and params.cas!=''">
-            and t2.cas like '%${params.cas}%'
+        <if test="params.search!=null and params.search!=''">
+            and (t2.cas like '%${params.search}%' OR t2.sku like '%${params.search}%' OR t3.`name` like '%${params.search}%')
         </if>
-        <if test="params.sku!=null and params.sku!=''">
-            and t2.sku like '%${params.sku}%'
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t1.create_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
         </if>
         ORDER BY t1.create_time DESC
     </select>

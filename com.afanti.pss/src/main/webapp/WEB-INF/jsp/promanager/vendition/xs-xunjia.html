@@ -15,6 +15,8 @@
     <script type="text/javascript" src="/js/commons/common.js"></script>
     <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
     <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+    <script type="text/javascript" src="/js/layui/layui.js"></script>
+    <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css"/>
 
 </head>
 <style type="text/css" media="screen">
@@ -23,32 +25,79 @@
 	    box-shadow:none;
 	    color: #333;
 }
+a:hover{
+    cursor: pointer;
+}
+.auto a:hover{
+    background-color: #5CB85C;
+    color: white;
+}
 </style>
 <body>
-<form class="form-inline definewidth m20" action="index.html" method="get">
-    <div class="container" style="margin-bottom: 80px;">
-    	<h3>销售询价</h3>
-        <div class="db-cont">
-            <div class="bs-callout" style="border:none;padding: 20px 0">
-                <div class="col-md-10" style="padding-left: 0;">
-                    <div class="col-md-3 form-group" style="padding-left: 0;">
-                        <span class="col-sm-6 text-right form-control-static">CAS：</span>
-                        <input id="cas" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
-                               placeholder="" maxlength="20">
+<form class="form-inline definewidth" action="index.html" method="get">
+    <input id="time" hidden="hidden">
+    <div class="filter-box switch-close">
+        <section class="panel-cont">
+            <div class="search-cont">
+                <div class="switch-show filter_column">
+                    <div class="search-li clearfix">
+                        <label class="pull-left search-label">申请时间：</label>
+                        <div class="clearfix search-link">
+                            <div class="auto">
+                                <a class="time1 active">全部</a>
+                                <a onclick="test(this)" data="DATEDIFF(t1.create_time,NOW())=0" class="time" >今天</a>
+                                <a onclick="test(this)" data="DATEDIFF(t1.create_time,NOW())=-1" class="time" >昨天</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(t1.create_time,'%Y-%m-%d')) = YEARWEEK(now())" class="time" >本周</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(t1.create_time,'%Y-%m-%d')) = YEARWEEK(now())-1" class="time" >上周</a>
+                                <a onclick="test(this)" data="DATE_FORMAT(t1.create_time,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')" class="time" >本月</a>
+                                <a onclick="test(this)" data="date_format(t1.create_time,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') " class="time" >上月</a>
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" style="height: 25px;width: 160px;" class="layui-input" id="test16" placeholder="自定义时间">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-3 form-group" style="padding-left: 0;">
-                        <span class="col-sm-6 text-right form-control-static">SKU：</span>
-                        <input id="sku" type="text" class="form-control input-sm" style="width: 50%;padding: 1px;"
-                               placeholder="" maxlength="20">
-                    </div>
+                </div>
+                <div class="switch-hide">
+                    <div class="search-li clearfix" id="filter_column_collapse_container"><label class="pull-left search-label">筛选条件：</label>
+                        <div class="clearfix search-link">
 
-                    <span><button type="button" id="xunjia_query"
-                                  class="btn btn-primary">查询</button></span>
-			    </div>
-                <div class="col-md-2 right">
-                    <a class="cg-history" data-toggle="modal" data-target="#Add-xj">
-                        <button class="btn btn-info" data-dismiss="modal" id="add_select">添加询价</button>
-                    </a>
+                            <a id="type_time" class="active">全部</a>
+
+                            <a id="type_custom_time" class="active">所有</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center ">
+            <a href="javascript:;" class="filter-down" data-toggle="click-switch" data-parents=".filter-box">
+                <span class="switch-show" title="收起筛选">∧</span>
+                <span class="switch-hide" title="展开筛选">∨</span>
+            </a>
+        </div>
+
+
+        <div class="table-container">
+            <div class="sekect_box clearfix">
+                <div class="pull-right normal-search">
+                    <div class="input-group">
+                        <div class="table-cell" style="width: 150px;">
+                        </div>
+                        <div class="table-cell">
+                     <span style="position:relative;margin:0" class="add-clear-span">
+                        <input type="text" name="search_key" id="search" class="form-control  addclear" placeholder="CAS,SKU,客户">
+                    </span>
+                        </div>
+                <span class="input-group-btn">
+                 <button type="button" onclick="do_query()" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
+                </span>&nbsp;&nbsp;
+                        <span class="input-group-btn" data-toggle="modal" data-target="#Add-xj">
+                            <button class="btn btn-info" data-dismiss="modal" id="add_select">添加询价</button>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -325,4 +374,13 @@ if(confirm("确定要删除吗？"))
 <script type="text/javascript" src="/js/utils.js"></script>
 <script type="text/javascript" src="/js/bus/sales_quotation.js"></script>
 </body>
+<script type="text/javascript" >
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+            elem: '#test16'
+            ,range: true
+        });
+    });
+</script>
 </html>

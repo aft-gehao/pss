@@ -336,4 +336,23 @@ public class product_use {
     public void setStaff_id(int staff_id) {
         this.staff_id = staff_id;
     }
+
+    private int is_sale;
+    private int sale_d_id;
+
+    public int getIs_sale() {
+        return is_sale;
+    }
+
+    public void setIs_sale(int is_sale) {
+        this.is_sale = is_sale;
+    }
+
+    public int getSale_d_id() {
+        return sale_d_id;
+    }
+
+    public void setSale_d_id(int sale_d_id) {
+        this.sale_d_id = sale_d_id;
+    }
 }

@@ -4,6 +4,8 @@ $(function () {
     stock_status = $.alle_getUrlParam("stock_status");
     var use_id = 0;
     use_id = $.alle_getUrlParam("use_id");
+    var is_sale=$.alle_getUrlParam("is_sale");
+    var supplier_id=$.alle_getUrlParam("supplier_id");
 $("#back").click(function(){
 
     window.location.href="/promanager/inventory/edit.html";
@@ -11,7 +13,7 @@ $("#back").click(function(){
 })
     load_vendition_info(use_id)
 })
-function load_vendition_info(use_id) {
+function load_vendition_info(use_id,is_sale,supplier_id) {
     $.ajax({
         type: 'POST',
         url: "/product_use/manage/useSelect",
@@ -97,7 +99,7 @@ function load_product(use_id,batch_no, product_id, pro_name,  amount,  unit,  sp
     $html += '<td>';
     //alert(sale_status);
     if (sale_status == 8002 || sale_status == 8003) {
-       $html += '<a data="'+use_id+'" onclick="useOut(this)">出库</a>';
+       $html += '<a data="'+use_id+'" is_sale="'+$.alle_getUrlParam("is_sale")+'" supplier_id="'+$.alle_getUrlParam("supplier_id")+'" onclick="useOut(this)">出库</a>';
     }else{
         $html += '<a href="/promanager/inventory/OutboundOrder.html?purchase_id='+a+'&pro_name='+pro_name+'&stock_status='+stock_status+'">预览</a>';//领用详情预览
     }
@@ -109,10 +111,14 @@ function useOut(e)
 {
 
     var use_id=$(e).attr("data");
+    var is_sale=$(e).attr("is_sale");
+    var supplier_id=$(e).attr("supplier_id");
     $.ajax({
         type: 'POST',
         url: "/product_use/manage/useOut",
         data: {
+            is_sale:is_sale,
+            supplier_id:supplier_id,
             use_id: use_id
         },
         dataType: "json",

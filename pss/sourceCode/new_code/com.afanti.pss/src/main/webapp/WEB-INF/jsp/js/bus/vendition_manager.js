@@ -68,6 +68,7 @@ function doSearch(p) {
                     var html_type = "";
                     var html_sumbit = "";
                     var html_doc = "";
+                    var html_use='<a class="btn btn-success" id="material_lingyong" style="margin-left: 0px" type="button" data='+append[i]["sale_d_id"]+'>领用产品</a>&nbsp;'
                     if (append[i]["status"] == 8001) {
                         html_type += '<button class="btn btn-success btn-sm" style="background-color:white;color:black">' + append[i]["status_str"] + '</button>';
                     }
@@ -76,8 +77,8 @@ function doSearch(p) {
                     }
                     if (append[i]["status"] == 8002) {
                         html_type += '<button class="btn btn-success btn-sm" style="background-color:white;color:black;border-color: red;">' + append[i]["status_str"] + '</button></span>';
-                        html_doc += "<a  id='ven_doc' class='btn btn-success' type='button' style='padding: 0px;' onclick='test(this)' data='"+append[i]["hetong_doc"]+"'>下载合同</a>";
-                        html_mod += "<a  id='ven_doc' class='btn btn-success' type='button' data-toggle='modal' data-target='#hetong-mod' style='padding: 0px; 'onclick='mod_doc(this)' data='"+append[i]["sale_d_id"]+"'>修改合同</a>";
+                        html_doc += "<a  id='ven_doc' class='btn btn-success' style='margin-left: 0px' type='button' onclick='test(this)' data='"+append[i]["hetong_doc"]+"'>下载合同</a>";
+                        html_mod += "<a  id='ven_doc' class='btn btn-success' style='margin-left: 0px' type='button' data-toggle='modal' data-target='#hetong-mod' onclick='mod_doc(this)' data='"+append[i]["sale_d_id"]+"'>修改合同</a>&nbsp;";
                     }
                     value += '\
                     <tr >\
@@ -85,17 +86,23 @@ function doSearch(p) {
                          <td>' + $.alle_null2Str(append[i]["sku"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
-                      <td>' + $.alle_null2Str(append[i]["sale_batch_no"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["sale_batch_no"]) + '</td>\
                         <td>' + $.alle_null2Str(append[i]["cus_name"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["staff_name"]) + '</td>\
                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["sale_time"]) + '</td>\
                         <td>' +html_type + '</td>\
-                         <td class="operation">' + html_sumbit + ''+html_mod+''+html_doc+'</td>\
+                         <td class="operation">' + html_use+ '' + html_sumbit + ''+html_mod+''+html_doc+'</td>\
                         </tr>\
                     \
                     ';
                 }
                 $("#data_tbody").html(value);
+                $("a[id*='material_lingyong']").each(function () {
+                    $(this).click(function(){
+                        var sale_d_id=$(this).attr("data")
+                        $.alle_dialog('/promanager/researchAndUse/add_use_yanfa.html?permissions=1&sale_d_id='+sale_d_id+'')
+                    })
+                })
                 //调用设置分页
                 PAGE_INIT("#pages", data["append"].pageNo, data["append"].totalPage)
             } else {
@@ -278,3 +285,4 @@ function test(e)
 function do_query() {
     doSearch(1)
 }
+

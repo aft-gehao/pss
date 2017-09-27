@@ -156,6 +156,8 @@ public class UseServiceImpl implements UseService {
         product_use.setPurity(String.valueOf(params.get("purity")));
         product_use.setUse_desc(String.valueOf(params.get("use_desc")));
         product_use.setUse_is_del(0);
+        product_use.setIs_sale(Integer.valueOf(String.valueOf(params.get("is_sale"))));
+        product_use.setSale_d_id(Integer.valueOf(String.valueOf(params.get("sale_d_id"))));
         String space_id=String.valueOf(params.get("space_id"));
         if(space_id.equals("0")||space_id==""||space_id==null){
             product_use.setStatus(11004);
@@ -232,5 +234,12 @@ public class UseServiceImpl implements UseService {
     {
         List<Staff_info> list=useDao.staffSelect();
         return list;
+    }
+    public List<product_use> select_product_useStatus(Map<String,Object> params){
+        List<product_use> list=useDao.select_product_useStatus(params);
+        return list;
+    }
+    public void update_status(Map<String,Object> params){
+        useDao.update_status(params);
     }
 }

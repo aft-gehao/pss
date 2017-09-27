@@ -20,8 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.awt.SystemColor.info;
-
 /**
  * Created by Administrator on 2017/4/13 0013.
  */
@@ -171,7 +169,7 @@ public class VenditionServiceImpl implements VenditionService {
                 addParams.put("sale_way",sale_way);
                 //add by gehao  获取此次销售单需求量查找库存量，若有符合条件的数据则获取并更新至销售单中
                 Product_material_enter_detail info = venditionDao.kucun_info_select(addParams);
-               if(info!=null)
+              /* if(info!=null)
                 {
                     addParams.put("sale_d_isdel",0);
                     addParams.put("space_id",info.getSpace_id());
@@ -181,7 +179,7 @@ public class VenditionServiceImpl implements VenditionService {
                else{
                     addParams.put("sale_d_isdel",1);
                 }
-                addParams.put("sale_status", FunctionUtil.PRODUCT_SALE_TYPE_NOOUT);
+                addParams.put("sale_status", FunctionUtil.PRODUCT_SALE_TYPE_NOOUT);*/
                 if (params2.length == 7) {
                     addParams.put("desc", params2[6]);
                 } else {

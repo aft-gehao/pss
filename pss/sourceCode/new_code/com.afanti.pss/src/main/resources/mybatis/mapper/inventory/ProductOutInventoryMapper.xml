@@ -109,8 +109,8 @@
         tt1.use_id,
         '',
         tt1.use_time,
-        '',
-        ''
+        tt1.sale_d_id,
+        tt1.is_sale
         FROM
         product_use tt1
         LEFT JOIN staff_info tt2
@@ -178,7 +178,7 @@
             AND (t1.cas like '%${params.search}%' or t1.sku like '%${params.search}%' or staff_name like '%${params.search}%')
         </if>
         <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
-            AND t1.return_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+            AND t1.return_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
         </if>
         ORDER BY
         t1.return_time DESC
@@ -239,8 +239,8 @@
         tt1.use_id,
         '',
         tt1.use_time,
-        '',
-        ''
+        tt1.sale_d_id,
+        tt1.is_sale
         FROM
         product_use tt1
         LEFT JOIN staff_info tt2
@@ -305,7 +305,7 @@
             AND (t1.cas like '%${params.search}%' or t1.sku like '%${params.search}%' or staff_name like '%${params.search}%')
         </if>
         <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
-            AND t1.return_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+            AND t1.return_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
         </if>
     </select>
     <select id="getInventoryOutList" parameterType="Map" resultType="Product_material_out">

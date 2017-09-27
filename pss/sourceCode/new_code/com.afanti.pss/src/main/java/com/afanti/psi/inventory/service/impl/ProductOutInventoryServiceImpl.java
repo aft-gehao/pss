@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Created by Administrator on 2017/4/13 0013.
@@ -37,6 +38,7 @@ public class ProductOutInventoryServiceImpl implements ProductOutInventoryServic
         params.put("p_dict_id", FunctionUtil.INVENTORY_OUT_TYPE);
         return commonsService.getDict(params);
     }
+    Logger logger=Logger.getLogger(ProductOutInventoryServiceImpl.class.getName());
     @Override
     public Page<Product_material_out> getInventoryOutPageList(Map<String, Object> params) {
         Page<Product_material_out> pageInfo = new Page<Product_material_out>(FunctionUtil.PAGE_SIZE);

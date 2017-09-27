@@ -310,46 +310,32 @@
     </select>
     <select id="getPurchasingPageList"  parameterType="Map" resultType="consumable_purchase">
         SELECT * from consumable_list t where t.consumable_id IS NOT NULL
-        <if test="params.consumable_name!=null and params.consumable_name!=''">
-            and  t.consumable_name like '%${params.consumable_name}%'
+        <if test="params.search!=null and params.search!=''">
+            and  (t.consumable_name like '%${params.search}%' or t.staff_name like '%${params.search}%')
         </if>
         <if test="params.stock_status!=null and params.stock_status!=''">
-            and t.status IN ${params.stock_status}
-        </if>
-        <if test="params.cas!=null and params.cas!=''">
-            and t.consumable_name like '%${params.cas}%'
-            or t.staff_name like '%${params.cas}%'
-        </if>
-        <if test="params.status!=null and params.status!=''">
-            and t.status IN ${params.status}
+            and t.status IN (${params.stock_status})
         </if>
         <if test="params.time!=null and params.time!=''">
-            and  ${params.time}
+            and ${params.time}
         </if>
-        <if test="params.start_time!=null and params.start_time!=''">
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
             AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
         </if>
         order by t.purchase_time desc
     </select>
     <select id="getPurchasingPageCount"  parameterType="Map" resultType="Integer">
         SELECT count(1) from consumable_list t where t.consumable_id IS NOT NULL
-        <if test="params.consumable_name!=null and params.consumable_name!=''">
-            and  t.consumable_name like '%${params.consumable_name}%'
+        <if test="params.search!=null and params.search!=''">
+            and  (t.consumable_name like '%${params.search}%' or t.staff_name like '%${params.search}%')
         </if>
         <if test="params.stock_status!=null and params.stock_status!=''">
-            and  t.status IN ${params.stock_status}
-        </if>
-        <if test="params.cas!=null and params.cas!=''">
-            and t.consumable_name like '%${params.cas}%'
-            or t.staff_name like '%${params.cas}%'
-        </if>
-        <if test="params.status!=null and params.status!=''">
-            and t.status IN ${params.status}
+            and t.status IN (${params.stock_status})
         </if>
         <if test="params.time!=null and params.time!=''">
-            and  ${params.time}
+            and ${params.time}
         </if>
-        <if test="params.start_time!=null and params.start_time!=''">
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
             AND t.purchase_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
         </if>
     </select>

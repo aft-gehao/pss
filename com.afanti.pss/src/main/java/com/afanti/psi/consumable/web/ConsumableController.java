@@ -332,7 +332,7 @@ public class ConsumableController extends BaseController {
     public JsonData Purchasing() {
         JsonData jsonData = new JsonData();
         try {
-            Map<String, Object> params = new HashMap<String, Object>();
+            //时间
             DateTime dateTime = new DateTime();
             String start_time = getParameterString("start_time");
             String end_time = getParameterString("end_time");
@@ -342,35 +342,25 @@ public class ConsumableController extends BaseController {
             if (end_time == null || "".equals(end_time)) {
                 end_time = dateTime.toString("yyyy-MM-dd");
             }
-            params.put("start_time", getParameterString("start_time"));
-            params.put("end_time", getParameterString("end_time"));
-            params.put("cas", getParameterString("cas"));
-            params.put("time",this.getParameterString("time"));
-            if(String.valueOf(this.getParameterString("status"))!=""){
-                String[] statuss=String.valueOf(this.getParameterString("status")).split(",");
-                String status ="(";
-                for(int i=0;i<statuss.length;i++) {
-                    if (i == statuss.length - 1) {
-                        status += statuss[i].toString();
-
-                    } else {
-                        status +=statuss[i].toString() +",";
-                    }
-                }
-                status +=")";
-                params.put("status",status.toString());
-            }
+            Map<String, Object> params = new HashMap<String, Object>();
             params.put("consumable_name", this.getParameterString("consumable_name"));
-            params.put("stock_status", this.getParameterString("stock_stauts"));
+            params.put("stock_status", this.getParameterString("stock_status"));
             params.put("p", this.getParameterString("p"));
-            if(Integer.valueOf(String.valueOf(params.get("stock_status")))==5002)
-            {
-                params.put("stock_status", "(5002,14003)");
-            }
-            else if(Integer.valueOf(String.valueOf(params.get("stock_status")))==5004){
+            params.put("search", getParameterString("search"));
+            params.put("time",this.getParameterString("time"));
+            params.put("start_time", start_time);
+            params.put("end_time", end_time);
+            /*if(String.valueOf(params.get("stock_status"))!="") {
+                if (Integer.valueOf(String.valueOf(params.get("stock_status"))) == 5002)
+                {
+                    params.put("stock_status", "(5002,14003)");
+                }
+                else
+                if ( Integer.valueOf(String.valueOf(params.get("stock_status"))) == 5004) {
 
-                params.put("stock_status", "(5002,5001,5004)");
-            }
+                    params.put("stock_status", "(5002,5001,5004)");
+                }
+            }*/
             Page page = consumableService.getPurchasingPage(params);
             jsonData.setAppend(page);
             jsonData.setResult(SUCCESS);

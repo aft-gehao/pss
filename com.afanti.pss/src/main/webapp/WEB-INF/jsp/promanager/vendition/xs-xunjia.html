@@ -95,7 +95,7 @@ a:hover{
                  <button type="button" onclick="do_query()" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
                 </span>&nbsp;&nbsp;
                         <span class="input-group-btn" data-toggle="modal" data-target="#Add-xj">
-                            <button class="btn btn-info" data-dismiss="modal" id="add_select">添加询价</button>
+                            <button class="btn btn-success" data-dismiss="modal" id="add_select">添加询价</button>
                         </span>
                     </div>
                 </div>
@@ -376,7 +376,7 @@ if(confirm("确定要删除吗？"))
 </body>
 <script type="text/javascript" >
     layui.use('laydate', function(){
-        var laydate = layui.laydate;
+        var laydate = layui.laydate
         laydate.render({
             elem: '#test16'
             ,range: true

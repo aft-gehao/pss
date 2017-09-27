@@ -350,7 +350,7 @@ function doSearch(p) {
                             }
                             var html2 = '';
                             if (append[i]["stock_status"] != 8001) {
-                                html2 += '<a id="inv_out_submit" type="button" class="btn btn-success" onclick="out_inventory_info(' + append[i]["purchase_id"] + ',' + append[i]["out_type"] + ')">出库</a>';
+                                html2 += '<a id="inv_out_submit" type="button" class="btn btn-success" onclick="out_inventory_info(' + append[i]["purchase_id"] + ',' + append[i]["out_type"] + ',' + append[i]["supplier_name"] + ',' + append[i]["supplier_id"] + ')">出库</a>';
                             }
                             else {
                                 html2 += '<a id="inv_out_detail" type="button" class="btn btn-success" onclick="out_inventory_info(' + append[i]["purchase_id"] + ',' + append[i]["out_type"] + ')">详情</a>' ;
@@ -407,7 +407,7 @@ function doSearch(p) {
         });
     }
 }
-function out_inventory_info(purchase_id, out_type) {
+function out_inventory_info(purchase_id, out_type,is_sale,supplier_id) {
     //编写出库
     if (out_type == 9001) {//采退
         window.location.href = "/promanager/inventory/inventory_out_info.html?purchase_id=" + purchase_id;
@@ -415,7 +415,7 @@ function out_inventory_info(purchase_id, out_type) {
         window.location.href = "/promanager/inventory/inventory_vendition_out_info.html?sale_id=" + purchase_id;
     }
     else if (out_type == 9003) {//领用
-        window.location.href = "/promanager/inventory/inventory_use_out_info.html?use_id=" + purchase_id;
+        window.location.href = "/promanager/inventory/inventory_use_out_info.html?use_id="+purchase_id+"&is_sale="+is_sale+"&supplier_id="+supplier_id+"";
     }else {
         layer.msg("数据存在问题，请联系管理员");
     }

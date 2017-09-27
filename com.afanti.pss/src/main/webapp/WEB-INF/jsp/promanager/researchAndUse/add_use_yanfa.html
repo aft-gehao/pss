@@ -18,13 +18,16 @@
 </head>
 <body>
 <form class="form-inline definewidth m20" action="index.html" method="get">
+
+    <input id="type_sale" hidden="hidden">
+    <input id="sale_d_id" hidden="hidden">
     <div class="container">
         <ol class="breadcrumb">
             <li><a>当前位置：</a></li>
             <li><a href="/promanager/researchAndUse/index.html">物料申请查询</a></li>
             <li><a>新增申请</a></li>
         </ol>
-        <div class="row m10">
+        <div class="row m10" id="permissions">
             <div class="col-md-5 form-group">
                 <span class="col-sm-5 text-right">申请时间：</span>
                 <span><input id="use_time" class="form-control input-sm" type="text" readonly="readonly"></span>
@@ -75,7 +78,7 @@
                     <dt style="font-size:25px;color: red">温馨提示！</dt>
                     <dd></dd>
                 </dl>
-                <dl class="dl-horizontal">
+                <dl class="dl-horizontal" id="apply_name">
                     <dt>申请单名称</dt>
                     <dd>必填字段，不能大于150个字符。</dd>
                 </dl>

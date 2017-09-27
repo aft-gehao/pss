@@ -53,4 +53,6 @@ public interface UseDao {
     List<product_use> use_mobilephone(Map<String,Object> params);
     List<Staff_info> staff_mobilephone(Map<String,Object> params);
     List<Staff_info> staffSelect();
+    List<product_use> select_product_useStatus(Map<String,Object> params);
+    void update_status(Map<String,Object> params);
 }

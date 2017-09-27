@@ -1,11 +1,23 @@
 $(function () {
 
+    var permissions = $.alle_getUrlParam("permissions");
+    var sale_d_id=$.alle_getUrlParam("sale_d_id")
+    if (permissions==1){
+        $("#sale_d_id").val(sale_d_id)
+        $("#type_sale").val("1")
+        $("#use_name").val("销售单")
+        $("#permissions").hide()
+        $("#qinggou_product").hide()
+        $("#apply_name").hide()
+    }
+
+
     $.alle_sysdate_date("use_time");
     $("#submit").click(function(){
         use_save();
     })
     $("#add_product").click(function(){
-        $.alle_dialog('/promanager/researchAndUse/select_product.html','选择产品', ["85%", "85%"])
+        $.alle_dialog('/promanager/researchAndUse/select_product.html','选择产品', ["100%", "100%"])
     })
     $("#qinggou_product").click(function(){
         $.alle_dialog("/promanager/researchAndUse/qinggou_select_product.html", "选择产品", ["85%", "85%"]);
@@ -18,6 +30,9 @@ $(function () {
 })
 
 function use_save() {
+
+    var type_sale=$("#type_sale").val()
+    var sale_d_id=$("#sale_d_id").val()
     var use_time = $("#use_time").val();
     var use_name = $("#use_name").val();
     if (!use_name) {
@@ -60,6 +75,8 @@ function use_save() {
                 type: 'POST',
                 url: "/product_use/manage/useAdd_yanfa",
                 data: {
+                    sale_d_id:sale_d_id,
+                    type_sale:type_sale,
                     use_time: use_time,
                     use_name: use_name,
                     batch_no: batch_no,
@@ -75,7 +92,8 @@ function use_save() {
                     layer.msg(data["message"]);
                     if (data["result"] == "success") {
                         setTimeout(function () {
-                            window.location.href = "/promanager/researchAndUse/index.html?flag=1";
+                            //window.location.href = "/promanager/researchAndUse/index.html?flag=1";
+                            window.location.reload()
                         }, 1000);
                     }
                 }

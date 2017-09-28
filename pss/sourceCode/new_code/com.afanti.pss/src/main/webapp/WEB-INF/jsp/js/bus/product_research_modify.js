@@ -18,8 +18,8 @@ $(function () {
             alert("缺少flash！");
         },
         onUploadSuccess:function(file,data,respone){
-
             var data1 = eval("(" + data+ ")");
+
             var commonUrl = data1["commonUrl"]
             var fileName = data1["myFileName"];//七牛公共空间
             if(data1.code==1){

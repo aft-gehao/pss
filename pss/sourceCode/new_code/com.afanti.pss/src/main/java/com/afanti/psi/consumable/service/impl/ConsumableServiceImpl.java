@@ -182,7 +182,7 @@ public class ConsumableServiceImpl implements ConsumableService {
         Page<consumable_use> pageInfo = new Page<consumable_use>(FunctionUtil.PAGE_SIZE);
         pageInfo.setPageNo(Integer.valueOf(params.get("p").toString()));
         pageInfo.setParams(params);
-        List<consumable_use> List = consumableDao.getUsePageList(pageInfo);
+        List<consumable_use> List = consumableDao.getUseforconPageList(pageInfo);
         pageInfo.setResults(List);
         FunctionUtil.pageInit(pageInfo);
         return pageInfo;

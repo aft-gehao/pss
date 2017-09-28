@@ -8,7 +8,8 @@
         t4.menu_parent,
         t4.menu_url,
         t4.menu_status,
-        t4.menu_order
+        t4.menu_order,
+        t4.menu_icon
         FROM
         Pss_role_user t1
         LEFT JOIN Pss_role t2 ON (

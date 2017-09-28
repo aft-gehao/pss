@@ -10,6 +10,8 @@ public class MenuInfo {
     private int menu_id;
 
     private String menu_name;
+    //add by gehao 菜单图标编码
+    private String menu_icon;
 
     private int menu_status;
 
@@ -87,4 +89,11 @@ public class MenuInfo {
         this.childMenus = childMenus;
     }
 
+    public String getMenu_icon() {
+        return menu_icon;
+    }
+
+    public void setMenu_icon(String menu_icon) {
+        this.menu_icon = menu_icon;
+    }
 }

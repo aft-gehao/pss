@@ -78,8 +78,8 @@ function doSearch(is_all) {
                         <td>' + $.alle_null2Str(append[i]["purity"]) + '' + $.alle_null2Str(append[i]["use_desc"]) + '</td>\
                         <td><button class="btn btn-info btn-sm" style="background-color:white;color:black">' + $.alle_null2Str(append[i]["dict_name"]) + '</button></td>\
                         <td>\
-                        <a title="采购"  onclick="purchase_sure(this)" data="' + append[i]["use_id"] + '" datas="' + append[i]["product_id"] + '" datass="' + append[i]["use_unit"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="icon-edit"></i> 采购</a>\
-                        <a title="删除"  onclick="purchase_cancle(this)"   data="' + append[i]["use_id"] + '" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete"><i class="icon-trash"></i> 取消</a>\
+                        <a title="采购"  onclick="purchase_sure(this)" data="' + append[i]["use_id"] + '" datas="' + append[i]["product_id"] + '" datass="' + append[i]["use_unit"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe666;</i> 采购</a>\
+                        <a title="删除"  onclick="purchase_cancle(this)"   data="' + append[i]["use_id"] + '" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete"><i class="iconfont" style="font-size: 12px;">&#xe76b;</i> 取消</a>\
                     </td>\
                     </tr>\
                     \
@@ -97,7 +97,7 @@ function doSearch(is_all) {
                         <td>' + $.alle_null2Str(append[i]["purity"]) + '' + $.alle_null2Str(append[i]["use_desc"]) + '</td>\
                         <td><button class="btn btn-info btn-sm" style="background-color:white;color:red">' + $.alle_null2Str(append[i]["dict_name"]) + '</button></td>\
                         <td>\
-                        <a title="发货"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo"><i class="icon-edit"></i> 发货</a>\
+                        <a title="发货"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo"><i class="iconfont">&#xe61d;</i> 卖方发货</a>\
                     </td>\
                     </tr>\
                     \
@@ -116,7 +116,7 @@ function doSearch(is_all) {
                         <td>' + $.alle_null2Str(append[i]["purity"]) + '' + $.alle_null2Str(append[i]["use_desc"]) + '</td>\
                         <td><button class="btn btn-info btn-sm" style="background-color:white;color:red">' + $.alle_null2Str(append[i]["dict_name"]) + '</button></td>\
                         <td>\
-                        <a title="发货"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo"><i class="icon-edit"></i> 发货</a>\
+                        <a title="发货"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo"><i class="iconfont">&#xe61d;</i> 卖方发货</a>\
                     </td>\
                     </tr>\
                     \
@@ -134,8 +134,8 @@ function doSearch(is_all) {
                         <td>' + $.alle_null2Str(append[i]["purity"]) + '' + $.alle_null2Str(append[i]["use_desc"]) + '</td>\
                         <td><button class="btn btn-info btn-sm" style="background-color:white;color:black">' + $.alle_null2Str(append[i]["dict_name"]) + '</button></td>\
                         <td>\
-                        <a title="采购"  onclick="purchase_sure(this)" data="' + append[i]["use_id"] + '" datas="' + append[i]["product_id"] + '" datass="' + append[i]["use_unit"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="icon-edit"></i> 采购</a>\
-                        <a title="删除"  onclick="purchase_cancle(this)"   data="' + append[i]["use_id"] + '" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete"><i class="icon-trash"></i> 取消</a>\
+                        <a title="采购"  onclick="purchase_sure(this)" data="' + append[i]["use_id"] + '" datas="' + append[i]["product_id"] + '" datass="' + append[i]["use_unit"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe666;</i> 采购</a>\
+                        <a title="删除"  onclick="purchase_cancle(this)"   data="' + append[i]["use_id"] + '" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete"><i class="iconfont" style="font-size: 12px;">&#xe76b;</i> 取消</a>\
                     </td>\
                     </tr>\
                     \
@@ -155,8 +155,8 @@ function doSearch(is_all) {
                          <td>' + $.alle_null2Str(appends[i]["desc"]) + '</td>\
                        <td><button class="btn btn-info btn-sm" style="background-color:white;color:black">' + $.alle_null2Str(appends[i]["dict_name"]) + '</button></td>\
                      <td>\
-                         <a title="采购" onclick="sure_consumable(this)" dataname="' + appends[i]["consumable_name"] + '" data="' + appends[i]["consumable_unit"] + '" datas="' + appends[i]["use_id"] + '" datass="' + appends[i]["amount"] + '"  datasss="' + appends[i]["consumable_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete-2"><i class="icon-edit"></i> 采购</a>\
-                        <a title="删除"  data="' + appends[i]["use_id"] + '" onclick="con_cancle(this)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete1"><i class="icon-trash"></i> 取消</a>\
+                         <a title="采购" onclick="sure_consumable(this)" dataname="' + appends[i]["consumable_name"] + '" data="' + appends[i]["consumable_unit"] + '" datas="' + appends[i]["use_id"] + '" datass="' + appends[i]["amount"] + '"  datasss="' + appends[i]["consumable_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete-2"><i class="iconfont">&#xe666;</i> 采购</a>\
+                        <a title="删除"  data="' + appends[i]["use_id"] + '" onclick="con_cancle(this)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete1"><i class="iconfont" style="font-size: 12px;">&#xe76b;</i> 取消</a>\
                     </td>\
                     </tr>\
                     \
@@ -174,7 +174,7 @@ function doSearch(is_all) {
                                 <td>' + $.alle_null2Str(appends[i]["desc"]) + '</td>\
                                 <td><button class="btn btn-info btn-sm" style="background-color:white;color:red">' + $.alle_null2Str(appends[i]["dict_name"]) + '</button></td>\
                                 <td>\
-                                <a title="发货"  onclick="con_fahuo(this)" data="' + appends[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="icon-edit"></i> 发货</a>\
+                                <a title="发货"  onclick="con_fahuo(this)" data="' + appends[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="iconfont">&#xe61d;</i> 卖方发货</a>\
                                 </td>\
                                 </tr>\
                             \
@@ -191,7 +191,7 @@ function doSearch(is_all) {
                     <td>' + $.alle_null2Str(appends[i]["desc"]) + '</td>\
                     <td><button class="btn btn-info btn-sm" style="background-color:white;color:red">' + $.alle_null2Str(appends[i]["dict_name"]) + '</button></td>\
                     <td>\
-                    <a title="发货"  onclick="con_fahuo(this)" data="' + appends[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="icon-edit"></i> 发货</a>\
+                    <a title="发货"  onclick="con_fahuo(this)" data="' + appends[i]["use_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="iconfont">&#xe61d;</i> 卖方发货</a>\
                     </td>\
                     </tr>\
                     \
@@ -208,8 +208,8 @@ function doSearch(is_all) {
                          <td>' + $.alle_null2Str(appends[i]["desc"]) + '</td>\
                        <td><button class="btn btn-info btn-sm"style="background-color:white;color:black">' + $.alle_null2Str(appends[i]["dict_name"]) + '</button></td>\
                      <td>\
-                    <a title="采购" onclick="sure_consumable(this)" dataname="' + appends[i]["consumable_name"] + '" data="' + appends[i]["consumable_unit"] + '" datas="' + appends[i]["use_id"] + '" datass="' + appends[i]["amount"] + '"  datasss="' + appends[i]["consumable_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete-2"><i class="icon-edit"></i> 采购</a>\
-                        <a title="删除"  data="' + appends[i]["use_id"] + '" onclick="con_cancle(this)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete1"><i class="icon-trash"></i> 取消</a>\
+                    <a title="采购" onclick="sure_consumable(this)" dataname="' + appends[i]["consumable_name"] + '" data="' + appends[i]["consumable_unit"] + '" datas="' + appends[i]["use_id"] + '" datass="' + appends[i]["amount"] + '"  datasss="' + appends[i]["consumable_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete-2"><i class="iconfont">&#xe666;</i> 采购</a>\
+                        <a title="删除"  data="' + appends[i]["use_id"] + '" onclick="con_cancle(this)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete1"><i class="iconfont" style="font-size: 12px;">&#xe76b;</i> 取消</a>\
                     </td>\
                     </tr>\
                     \
@@ -226,22 +226,6 @@ function doSearch(is_all) {
 }
 function  con_cancle(e) {
     $("#use_id").val($(e).attr("data"));
-}
-function sure_consumable(e) {
-    $("#con_name").val($(e).attr("dataname"));
-    $("#use_id").val($(e).attr("datas"));
-    $("#consumable_id").val($(e).attr("datasss"));
-    $("#consumable_unit").val($(e).attr("data"));
-    $("#amount").val($(e).attr("datass"));
-    $("#con_amount").val($(e).attr("datass"));
-    if($(e).attr("data")==null || $(e).attr("data")=="")
-    {
-        var str="<option>个</option>"
-    }
-    else {
-        var str = "<option>" + $(e).attr("data") + "</option>"
-    }
-    $("#con_unit").html(str);
 }
 function purchase_sure(e){
     $("#use_id").val($(e).attr("data"));
@@ -799,6 +783,7 @@ function add_pur_sure(){
               var product_id=$("#add_product_id").val();
               var cas=$("#add_cas").val();
               var name_ch=$("#add_name_ch").val()
+              var purity=$("#add_purity").val()
               var supplier_name=$("#add_supplier_name").val();
               var supplier_id=$("#supplier_id").val();
               var amount=$("#add_amount").val();
@@ -813,6 +798,7 @@ function add_pur_sure(){
                     name_ch: name_ch,
                     supplier_name: supplier_name,
                     supplier_id: supplier_id,
+                    purity:purity,
                     amount: amount,
                     unit: unit,
                     price: price,

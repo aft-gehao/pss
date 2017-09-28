@@ -336,12 +336,6 @@ public class ConsumableController extends BaseController {
             DateTime dateTime = new DateTime();
             String start_time = getParameterString("start_time");
             String end_time = getParameterString("end_time");
-            if (start_time == null || "".equals(start_time)) {
-                start_time = dateTime.plusDays(-dateTime.getDayOfMonth() + 1).toString("yyyy-MM-dd");
-            }
-            if (end_time == null || "".equals(end_time)) {
-                end_time = dateTime.toString("yyyy-MM-dd");
-            }
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("consumable_name", this.getParameterString("consumable_name"));
             params.put("stock_status", this.getParameterString("stock_status"));
@@ -350,17 +344,23 @@ public class ConsumableController extends BaseController {
             params.put("time",this.getParameterString("time"));
             params.put("start_time", start_time);
             params.put("end_time", end_time);
-            /*if(String.valueOf(params.get("stock_status"))!="") {
-                if (Integer.valueOf(String.valueOf(params.get("stock_status"))) == 5002)
-                {
-                    params.put("stock_status", "(5002,14003)");
-                }
-                else
-                if ( Integer.valueOf(String.valueOf(params.get("stock_status"))) == 5004) {
+            if(String.valueOf(this.getParameterString("status"))!=""){
+                String[] statuss=String.valueOf(this.getParameterString("status")).split(",");
+                String status ="(";
+                for(int i=0;i<statuss.length;i++) {
+                    if (i == statuss.length - 1) {
+                        status += statuss[i].toString();
 
-                    params.put("stock_status", "(5002,5001,5004)");
+                    } else {
+                        status +=statuss[i].toString() +",";
+                    }
                 }
-            }*/
+                status +=")";
+                params.put("status",status.toString());
+            }
+            else if(String.valueOf(this.getParameterString("flag"))=="1" && String.valueOf(this.getParameterString("status"))==""){
+                params.put("status","(5001,5002,5003,5004)");
+            }
             Page page = consumableService.getPurchasingPage(params);
             jsonData.setAppend(page);
             jsonData.setResult(SUCCESS);
@@ -403,9 +403,37 @@ public class ConsumableController extends BaseController {
         JsonData jsonData = new JsonData();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
-            params.put("consumable_name", getParameterString("consumable_name"));
+            params.put("consumable_name", this.getParameterString("consumable_name"));
+            params.put("search", this.getParameterString("search"));
             params.put("stock_status", getParameterString("stock_status"));
-            params.put("p", getParameterString("p"));
+            DateTime dateTime = new DateTime();
+            String start_time = this.getParameterString("start_time");
+            String end_time = this.getParameterString("end_time");
+            params.put("start_time", getParameterString("start_time"));
+            params.put("end_time", getParameterString("end_time"));
+            params.put("time",this.getParameterString("time"));
+            params.put("flag",this.getParameterString("flag"));
+            if(this.getParameterString("status")!=""){
+                String[] statuss=String.valueOf(this.getParameterString("status")).split(",");
+                String status ="(";
+                for(int i=0;i<statuss.length;i++) {
+                    if (i == statuss.length - 1) {
+                        status += statuss[i];
+
+                    } else {
+                        status +=statuss[i] +",";
+                    }
+                }
+                status +=")";
+                params.put("status",status.toString());
+            }
+            else if(String.valueOf(params.get("flag")).equals("1"))
+            {
+                params.put("status","(11001,11002,11003,11004)");
+            }
+            params.put("search", this.getParameterString("search"));
+            params.put("stock_status", this.getParameterString("stock_stauts"));
+            params.put("p", this.getParameterString("p"));
             Page page = consumableService.getUsePage(params);
             jsonData.setAppend(page);
             jsonData.setResult(SUCCESS);

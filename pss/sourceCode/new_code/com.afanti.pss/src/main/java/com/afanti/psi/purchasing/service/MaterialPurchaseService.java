@@ -19,6 +19,8 @@ public interface MaterialPurchaseService {
     public List<Material_purchase_detail> getPurchase(Map<String,Object> params);
     public Page<Material_purchase> getMaterialPurchasePageList(Map<String,Object> params);
     public void purchaseingSave(Map<String,Object> params);
+    public void addhetong(Map<String,Object> params);
+    public void addmaterial(Map<String,Object> params);
     public Map<String,Object> loadPurchasingInfo(String purchase_id);
     public void purchaseingUpd(Map<String,Object> params);
     public void purchaseingDel(Map<String,Object> params);

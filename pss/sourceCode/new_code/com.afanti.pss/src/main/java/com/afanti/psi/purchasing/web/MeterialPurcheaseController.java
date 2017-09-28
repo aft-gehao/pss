@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -47,12 +44,6 @@ public class MeterialPurcheaseController extends BaseController {
             DateTime dateTime = new DateTime();
             String start_time = this.getParameterString("start_time");
             String end_time = this.getParameterString("end_time");
-            if (start_time == null || "".equals(start_time)) {
-                start_time = dateTime.plusDays(-dateTime.getDayOfMonth() + 1).toString("yyyy-MM-dd");
-            }
-            if (end_time == null || "".equals(end_time)) {
-                end_time = dateTime.toString("yyyy-MM-dd");
-            }
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("cas", this.getParameterString("cas"));
             params.put("time",this.getParameterString("time"));
@@ -252,6 +243,7 @@ public class MeterialPurcheaseController extends BaseController {
             Map<String,Object> params = new HashMap<String, Object>();
             params.put("cas",this.getParameterString("cas"));
             params.put("name_ch",this.getParameterString("name_ch"));
+            params.put("purity",this.getParameterString("purity"));
             params.put("use_name","采购经理快速创建");
             params.put("staff_id",this.getSessionData().getStaffInfo().getStaff_id());
             params.put("supplier_name",this.getParameterString("supplier_name"));
@@ -335,6 +327,44 @@ public class MeterialPurcheaseController extends BaseController {
         }
         return jsonData;
     }
+     //采购原料所需要上传的合同以及付款材料记录
+    @RequestMapping(value = "/add_doc", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData add_material() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("purchase_d_id",this.getParameterString("purchase_d_id"));
+            params.put("doc_time",new Date());
+            params.put("doc_staff",this.getSessionData().getStaffInfo().getStaff_id());
+            if(this.getParameterString("hetong")!=null)
+            {
+                String[] hetong=this.getParameterString("hetong").split(",");
+                for (int i=0;i<hetong.length;i++)
+                {
+                    params.put("hetong",hetong[i]);
+                    materialPurchaseService.addhetong(params);
+                }
+            }
+            if(this.getParameterString("material")!=null)
+            {
+                String[] material=this.getParameterString("material").split(",");
+                for (int i=0;i<material.length;i++)
+                {
+                    params.put("material",material[i]);
+                    materialPurchaseService.addmaterial(params);
+                }
+            }
+            jsonData.setResult(SUCCESS);
+            jsonData.setMessage("操作成功");
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage("操作失败");
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+
     /*@RequestMapping(value = "/material_info", method = RequestMethod.POST)
     @ResponseBody
     public JsonData material_info()

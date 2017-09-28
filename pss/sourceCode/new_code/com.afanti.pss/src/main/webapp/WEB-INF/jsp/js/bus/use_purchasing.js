@@ -144,11 +144,11 @@ function doSearch(p) {
                         <td>' + append[i]["use_amount"] + '' + append[i]["use_unit"] + '</td>\
                          <td>' + $.alle_null2Str(append[i]["purity"])  + html3 + '</td>\
                          <td>' + append[i]["staff_name"] + '<br>' + $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]) + '<br>' + append[i]["use_desc"] + '</td>\
-                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' +append[i]["check_name"] + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' +$.alle_null2Str(append[i]["check_name"]) + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
                          <td><span class="btn"  style="border-color: blue " disabled="disabled">' + $.alle_null2Str(append[i]["dict_name"])+ '</span></td>\
                          <td class="operation">\
-                            <a title="采购"  onclick="purchase_sure(this)" data="' + append[i]["use_id"] + '" datas="' + append[i]["product_id"] + '" datass="' + append[i]["use_unit"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="icon-edit"></i> 采购</a>\
-                            <a title="删除"  onclick="purchase_cancle(this)"   data="' + append[i]["use_id"] + '" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete"><i class="icon-trash"></i> 取消</a>\
+                            <a title="采购"  onclick="purchase_sure(this)" data="' + append[i]["use_id"] + '" datas="' + append[i]["product_id"] + '" datass="' + append[i]["use_unit"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe666;</i> 采购</a>\
+                            <a title="删除"  onclick="purchase_cancle(this)"   data="' + append[i]["use_id"] + '" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete"><i class="iconfont" style="font-size: 12px;">&#xe76b;</i>取消</a>\
                          </td>\
                     </tr>\
                     \
@@ -160,8 +160,10 @@ function doSearch(p) {
                         <td>' + append[i]["use_amount"] + '' + append[i]["use_unit"] + '</td>\
                          <td>' + $.alle_null2Str(append[i]["purity"])  + html3 + '</td>\
                          <td>' + append[i]["staff_name"] + '<br>' + $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]) + '<br>' + append[i]["use_desc"] + '</td>\
-                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' + append[i]["check_name"] + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' +$.alle_null2Str( append[i]["check_name"]) + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
                         <td><span class="btn"  style="border-color: #5cb85c">' + $.alle_null2Str(append[i]["dict_name"])+ '</span></td>\
+                         <td class="operation">\
+                         </td>\
                     ';
                     }else if (append[i]["dict_name"] == '审核不通过') {
                         value += '\
@@ -170,7 +172,7 @@ function doSearch(p) {
                         <td>' + append[i]["use_amount"] + '' + append[i]["use_unit"] + '</td>\
                          <td>' + $.alle_null2Str(append[i]["purity"])  + html3 + '</td>\
                          <td>' + append[i]["staff_name"] + '<br>' + $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]) + '<br>' + append[i]["use_desc"] + '</td>\
-                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' + append[i]["check_name"] + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' +$.alle_null2Str( append[i]["check_name"]) + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
                          <td><span class="btn"  style="border-color: red">' + $.alle_null2Str(append[i]["dict_name"])+ '</span></td>\
                          <td class="operation">\
                          </td>\
@@ -183,7 +185,7 @@ function doSearch(p) {
                         <td>' + append[i]["use_amount"] + '' + append[i]["use_unit"] + '</td>\
                          <td>' + $.alle_null2Str(append[i]["purity"])  + html3 + '</td>\
                          <td>' + append[i]["staff_name"] + '<br>' + $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]) + '<br>' + append[i]["use_desc"] + '</td>\
-                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' +append[i]["check_name"] + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' +$.alle_null2Str(append[i]["check_name"]) + '<br>' + $.alle_null2Str(append[i]["check_desc"]) + '</td>\
                               <td><span class="btn"  style="border-color: greenyellow">' + $.alle_null2Str(append[i]["dict_name"])+ '</span></td>\
                              <td class="operation">\
                              </td>\

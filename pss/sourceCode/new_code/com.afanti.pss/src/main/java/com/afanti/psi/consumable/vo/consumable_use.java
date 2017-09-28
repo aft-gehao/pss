@@ -132,6 +132,7 @@ public class consumable_use {
     private String use_name;
     /*备注*/
     private String staff_name;
+
     /*备注*/
     private String consumable_name;
     /*备注*/

@@ -34,12 +34,6 @@ public class MeterialPurcheaseReturnController extends BaseController {
             DateTime dateTime = new DateTime();
             String start_time = getParameterString("start_time");
             String end_time = getParameterString("end_time");
-            if (start_time == null || "".equals(start_time)) {
-                start_time = dateTime.plusDays(-dateTime.getDayOfMonth() + 1).toString("yyyy-MM-dd");
-            }
-            if (end_time == null || "".equals(end_time)) {
-                end_time = dateTime.toString("yyyy-MM-dd");
-            }
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("cas", getParameterString("cas"));
             params.put("time",this.getParameterString("time"));

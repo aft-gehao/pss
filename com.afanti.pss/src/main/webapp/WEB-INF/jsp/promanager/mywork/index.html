@@ -16,6 +16,8 @@
     <script type="text/javascript" src="/js/commons/common.js"></script>
     <link rel="stylesheet" type="text/css" href="/js/plugins/autocomplete/css/jquery.autocomplete.css">
     <link rel="stylesheet" type="text/css" href="/css/docs.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/fonts/iconfont.css" />
+    <script type="text/javascript" src="/css/fonts/iconfont.js"></script>
 </head>
 <form class="form-inline definewidth " action="index.html" method="get">
     <div class="clearfix" style="margin-bottom: 80px;">
@@ -210,13 +212,13 @@
                                 <div>
                                     <span>供&nbsp应&nbsp商&nbsp：</span>
                                     <div class="form-group">
-                                        <input maxlength="50" type="text" id="supplier_name" class="form-control" placeholder="请输入供应商名称" style="width: 250px;">
+                                        <input maxlength="50" type="text" id="supplier_name" class="form-control"  style="width: 250px;">
                                     </div>
                                 </div>
                                 <div>
                                     <span>采&nbsp购&nbsp量&nbsp：</span>
                                     <div class="form-group m10">
-                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="new_amount" class="form-control" placeholder="请输入采购量" style="width: 250px;">
+                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="new_amount" class="form-control"  style="width: 250px;">
                                     <select class="form-control" id="unit">
 
                                       </select>
@@ -232,13 +234,13 @@
                                 <div class="form-group m10">
                                     <span>采购总价：</span>
                                     <div class="form-group">
-                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="price" class="form-control" placeholder="请输入采购总价" style="width: 250px;">&nbsp;<span>元</span>
+                                        <input maxlength="20" onkeyup="value=value.replace(/[^\d.]/g,'')" type="text" id="price" class="form-control" style="width: 250px;">&nbsp;<span>元</span>
                                     </div>
                                 </div>
                                 <div class="form-group m10">
                                     <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                     <div class="form-group">
-                                        <input maxlength="30" type="text" id="pur_desc" class="form-control" placeholder="请输入采购备注" style="width: 250px;">
+                                        <input maxlength="30" type="text" id="pur_desc" class="form-control" style="width: 250px;">
                                     </div>
                                 </div>
                             </div>
@@ -272,7 +274,7 @@
                                 <div class="form-group m10">
                                     <span>采&nbsp购&nbsp量&nbsp：</span>
                                     <div class="form-group">
-                                        <input type="text" id="con_amount" class="form-control" placeholder="请输入采购量" style="width: 160px;">
+                                        <input type="text" id="con_amount" class="form-control" style="width: 160px;">
                                         <select id="con_unit" class="form-control input-sm">
                                         </select>
                                     </div>
@@ -280,13 +282,13 @@
                                 <div class="form-group m10">
                                     <span>采购总价：</span>
                                     <div class="form-group">
-                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="con_price" class="form-control" placeholder="请输入采购总价" style="width: 220px;">&nbsp;&nbsp;<span>元</span>
+                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="con_price" class="form-control"  style="width: 220px;">&nbsp;&nbsp;<span>元</span>
                                     </div>
                                 </div>
                                 <div class="form-group m10">
                                     <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                     <div class="form-group">
-                                        <input type="text" maxlength="40" id="desc" class="form-control" placeholder="请输入备注" style="width: 220px;">
+                                        <input type="text" maxlength="40" id="desc" class="form-control"  style="width: 220px;">
                                     </div>
                                 </div>
                             </div>
@@ -318,7 +320,7 @@
                                     <div class="form-group m10">
                                         <span>采&nbsp购&nbsp量&nbsp：</span>
                                         <div class="form-group">
-                                            <input type="text" id="add_con_amount" class="form-control" placeholder="请输入采购量" style="width: 160px;">
+                                            <input type="text" id="add_con_amount" class="form-control"  style="width: 160px;">
                                             <select id="add_con_unit" class="form-control input-sm">
                                                 <option value="个">个</option>
                                                 <option value="双">双</option>
@@ -332,13 +334,13 @@
                                     <div class="form-group m10">
                                         <span>采购总价：</span>
                                         <div class="form-group">
-                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_con_price" class="form-control" placeholder="请输入采购总价" style="width: 220px;">&nbsp;&nbsp;<span>元</span>
+                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_con_price" class="form-control" style="width: 220px;">&nbsp;&nbsp;<span>元</span>
                                         </div>
                                     </div>
                                     <div class="form-group m10">
                                         <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                         <div class="form-group">
-                                            <input type="text" maxlength="40" id="add_con_desc" class="form-control" placeholder="请输入备注" style="width: 220px;">
+                                            <input type="text" maxlength="40" id="add_con_desc" class="form-control" style="width: 220px;">
                                         </div>
                                     </div>
                                 </div>
@@ -375,6 +377,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group m10">
+                                    <span>纯&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp度：</span>
+                                    <div class="form-group">
+                                        <input type="text" maxlength="40" id="add_purity" class="form-control"style="width: 200px;">
+                                    </div>
+                                </div>
+                                <div class="form-group m10">
                                     <span>供&nbsp应&nbsp商&nbsp：</span>
                                     <div class="form-group">
                                         <input maxlength="20" type="text" id="add_suppllier_name"  class="form-control" placeholder="" style="width: 188px;">
@@ -384,7 +392,7 @@
                                 <div class="form-group m10">
                                     <span>采&nbsp购&nbsp量&nbsp：</span>
                                     <div class="form-group">
-                                        <input type="text" id="add_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                        <input type="text" id="add_amount" class="form-control" style="width: 120px;">
                                         <select id="add_unit" class="form-control input-sm">
                                             <option value="g">g</option>
                                             <option value="kg">kg</option>
@@ -397,13 +405,13 @@
                                 <div class="form-group m10">
                                     <span>采购总价：</span>
                                     <div class="form-group">
-                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                        <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_price" class="form-control"  style="width: 200px;">&nbsp;&nbsp;<span>元</span>
                                     </div>
                                 </div>
                                 <div class="form-group m10">
                                     <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                     <div class="form-group">
-                                        <input type="text" maxlength="40" id="add_desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                        <input type="text" maxlength="40" id="add_desc" class="form-control"  style="width: 200px;">
                                     </div>
                                 </div>
                             </div>

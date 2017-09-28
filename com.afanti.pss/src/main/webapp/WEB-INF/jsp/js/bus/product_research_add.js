@@ -184,7 +184,7 @@ function  test(product_id) {
     $("#putu").val(product_id);
     $("#imghead").hide();
     $("#gyFile").uploadify({
-        'buttonImage':'/js/commons/fileinput/img/photo_icon.png',//路径换成对应自己的路径
+        'buttonImage':'/js/commons/fileinput/img/photo_icon1.png',//路径换成对应自己的路径
         'swf':'/js/uploadify/uploadify.swf',     //路径换成对应自己的路径
         'uploader':'/common/upload?path=upload.sd.gysnl',   //路径换成对应自己的路径
         'buttonText': '上传谱图',
@@ -200,7 +200,7 @@ function  test(product_id) {
         onUploadComplete:function(file){
             layer.msg("上传成功");
             var $html = '';
-            $html += '<a onclick="putu(this)" data="' + file.name + '"id="putu_'+$("#putu").val()+'" data="'+$("#putu").val()+'" title="'+file.name+'" alt="'+file.name+'">';
+            $html += '<a href="http://source.tanyangnet.com/'+file.name+'" id="putu_'+$("#putu").val()+'" data="'+$("#putu").val()+'" title="'+file.name+'" alt="'+file.name+'">';
             $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/photo_icon.png"  >'
             $html += '</a>';
             $html += '<a onclick="remove_putu(this)" id="putu_'+$("#putu").val()+'" data="putu_'+$("#putu").val()+'" style="position: absolute;margin-top: 0;right: 20px;">x</a>';
@@ -245,8 +245,4 @@ function remove_putu(e)
 {
     $("a[id="+$(e).attr("data")+"]").remove();
     $("a[data="+$(e).attr("data")+"]").remove();
-}
-function putu(e)
-{
-    window.open("http://source.tanyangnet.com/"+$(e).attr("data"));
 }

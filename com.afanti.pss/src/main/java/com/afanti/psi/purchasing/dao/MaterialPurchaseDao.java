@@ -35,12 +35,14 @@ public interface MaterialPurchaseDao {
     public void fahuo_pur(Map<String,Object> params);
     public void addMaterialPurchaseDetail(Map<String,Object> params);
     public void addMaterialPurchaseDetailForcg(Map<String,Object> params);
+    public void addhetong(Map<String,Object> params);
+    public void uphetong(Map<String,Object> params);
     public Integer addMaterialPurchaseForMap(Map<String,Object> params);
     public void updMaterialPurchaseDetail(Map<String,Object> params);
     public Material_purchase getMaterialPurchaseInfo(Map<String,Object> params);
     public List<Material_purchase_detail> getMaterialPurchaseDetailList(Map<String,Object> params);
-
-
+    public void addmaterial(Map<String,Object> params);
+    public void upmaterial(Map<String,Object> params);
     Product_material_enter_detail select_enter_time(Map<String,Object> params);
 
 }

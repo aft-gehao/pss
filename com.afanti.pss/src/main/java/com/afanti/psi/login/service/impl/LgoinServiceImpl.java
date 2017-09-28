@@ -130,7 +130,7 @@ public class LgoinServiceImpl implements LoginService {
                 stringBuffer.append("{id:'" + menuInfo.getMenu_id() + "', homePage:'" + homePage + "',menu:[");
                 if (menuInfo.getChildMenus() != null) {
                     for (MenuInfo menuInfo2 : menuInfo.getChildMenus()) {
-                        stringBuffer.append("{text:'" + menuInfo2.getMenu_name() + "',items:[");
+                        stringBuffer.append("{text:'<span class=\"iconfont\">" +menuInfo2.getMenu_icon()+"</span>"+ menuInfo2.getMenu_name() + "',items:[");
                         for (MenuInfo menuInfo3 : menuInfo2.getChildMenus()) {
                             stringBuffer.append("{id:'" + menuInfo3.getMenu_id() + "',text:'" + menuInfo3.getMenu_name() + "',href:'" + menuInfo3.getMenu_url() + "'},");
                         }

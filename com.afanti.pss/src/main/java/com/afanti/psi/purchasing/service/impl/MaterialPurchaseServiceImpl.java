@@ -168,7 +168,6 @@ public class MaterialPurchaseServiceImpl implements MaterialPurchaseService {
         params.put("purchase_id",params.get("purchase_id"));
         materialPurchaseDao.addMaterialPurchaseDetailForcg(params);
     }
-
     @Override
     public void pur_upd(Map<String, Object> params) {
         //更新采购主表返回主键ID
@@ -181,6 +180,7 @@ public class MaterialPurchaseServiceImpl implements MaterialPurchaseService {
             materialPurchaseDao.insert_supplier(params);
             params.put("supplier_id",params.get("cs_sup_id"));
         }
+        params.put("purchase_isdel",0);
         //刪除明細表
         materialPurchaseDao.updMaterialPurchase(params);
         materialPurchaseDao.updPurchaseDetail(params);
@@ -202,5 +202,12 @@ public class MaterialPurchaseServiceImpl implements MaterialPurchaseService {
             return Integer.valueOf(String.valueOf(params.get("product_id")));
         }
     }
-
+    public void addhetong(Map<String,Object> params){
+        materialPurchaseDao.addhetong(params);
+        materialPurchaseDao.uphetong(params);
+    }
+    public void addmaterial(Map<String,Object> params){
+        materialPurchaseDao.addhetong(params);
+        materialPurchaseDao.upmaterial(params);
+    }
 }

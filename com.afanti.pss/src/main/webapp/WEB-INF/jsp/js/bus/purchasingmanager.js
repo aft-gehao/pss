@@ -52,7 +52,6 @@ function doSearch(p) {
                 }
                 var append = eval(data["append"]["results"]);
                 for (var i = 0; i < append.length; i++) {
-
                     var html = "";
                     var html2 = "";
                     if (append[i]["stock_status"] == 5001) {
@@ -77,7 +76,8 @@ function doSearch(p) {
                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
                          <td class="operation">\
-                            <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')" add_cas="' + append[i]["cas"] + '" add_name_ch="' + append[i]["name_ch"] + '" add_price="' + append[i]["unit_price"] + '" add_amount="' + append[i]["amount"] + '" add_suppllier_name="' + append[i]["supplier_name"] + '"   class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" data-target="#addcaigou"><i class="icon-edit"></i> 详细</a>\
+                             <a title="材料" id="cailiao"  onclick="cailiao(this)" data="' + append[i]["purchase_d_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#add_cailiao"><i class="iconfont">&#xe606;</i>  上传材料</a>\
+                            <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')" add_cas="' + append[i]["cas"] + '" add_name_ch="' + append[i]["name_ch"] + '" add_price="' + append[i]["unit_price"] + '" add_amount="' + append[i]["amount"] + '" add_suppllier_name="' + append[i]["supplier_name"] + '"   class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" ><i class="iconfont">&#xe8a0;</i>  详细</a>\
                             <input   disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_del" class="btn btn-link btn-xs" value=""/>\
                          </td>\
                     </tr>\
@@ -94,34 +94,16 @@ function doSearch(p) {
                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
                          <td class="operation">\
-                            <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo1"><i class="icon-edit"></i> 发货</a>\
-                            <a title="修改" onclick="pur_up(this)" id="pro_mod"  class="btn btn-success btn-sm"  data="'+append[i]["purchase_id"]+'" purchase_id="' + append[i]["purchase_id"] + '" cas="' + append[i]["cas"] + '" name_ch="' + append[i]["name_ch"] + '" supplier_name="' + append[i]["supplier_name"] + '" amount="' + append[i]["amount"] + '" unit_price="' + append[i]["unit_price"] + '"data-toggle="modal" data-target="#addcaigou"><i class="icon-edit"></i> 修改</a>\
-                            <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" ><i class="icon-edit"></i>详细</a>\
+                            <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo1"><i class="iconfont">&#xe61d;</i>卖方发货</a>\
+                            <a title="修改" onclick="pur_up(this)" id="pro_mod"  class="btn btn-success btn-sm"  data="'+append[i]["purchase_id"]+'" purchase_id="' + append[i]["purchase_id"] + '" cas="' + append[i]["cas"] + '" name_ch="' + append[i]["name_ch"] + '" supplier_name="' + append[i]["supplier_name"] + '" amount="' + append[i]["amount"] + '" unit_price="' + append[i]["unit_price"] + '"data-toggle="modal" data-target="#addcaigou" ><i class="iconfont">&#xe606;</i> 修改</a>\
+                            <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" ><i class="iconfont">&#xe8a0;</i>详细</a>\
                          <input   disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_del" class="btn btn-link btn-xs" value=""/>\
                          </td>\
                     </tr>\
                     \
                     ';
                     }
-                    /*if(append[i]["stock_status"] == 5003) {
-                     value += '\
-                     <tr >\
-                     <td>' + $.alle_null2Str(append[i]["cas"]) + '</td>\
-                     <td>' + $.alle_null2Str(append[i]["name_ch"]) + '</td>\
-                     <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
-                     <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
-                     <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
-                     <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '</td>\
-                     <td>' + append[i]["staff_name"] + '</td>\
-                     <td>' + $.alle_null2Str(html2) + '</td>\
-                     <td class="operation">' + html + '</td>\
-                     </tr>\
-                     \
-                     ';
-                     }*/
-
                 }
-
                 $("#data_tbody").html(value);
                 $(document).on('mouseover',  "button[id='example']", function() {
                     var kd_num=$(this).attr("data");
@@ -444,7 +426,7 @@ function pur_up(e)
             var append1=  data["append"]["materialPurchase"];
             for(var i=0;i<append.length;i++)
             {
-                $("#supplier_name").val(append1["supplier_name"]);
+                $("#add_suppllier_name").val(append1["supplier_name"]);
                 $("#new_amount").val(append[i]["amount"]);
                 var html=""
                 if($(e).attr("datass")=="g"){
@@ -779,6 +761,7 @@ function add_pur_sure(){
     var cas=$("#add_cas").val();
     var name_ch=$("#add_name_ch").val()
     var supplier_name=$("#add_supplier_name1").val();
+    var purity=$("#add_purity").val();
     var supplier_id=$("#supplier_id").val();
     var amount=$("#add_amount").val();
     var unit=$("#add_unit").val();
@@ -790,6 +773,7 @@ function add_pur_sure(){
         data: {
             cas: cas,
             name_ch: name_ch,
+            purity:purity,
             supplier_name: supplier_name,
             supplier_id: supplier_id,
             amount: amount,
@@ -805,4 +789,115 @@ function add_pur_sure(){
         }
     })
 
+}
+function cailiao(e)
+{
+    $("#purchase_d_id").val($(e).attr("data"))
+    $('#gyFile').uploadify({
+        'buttonImage':'/js/commons/fileinput/img/photo_icon1.png',//路径换成对应自己的路径
+        'swf':'/js/uploadify/uploadify.swf',     //路径换成对应自己的路径
+        'uploader':'/common/uploadhetong?path=upload.sd.gysnl',   //路径换成对应自己的路径
+        'buttonText': '上传谱图',
+        'multi': true,
+        'height': 50,
+        'width':50,
+        fileSizeLimit:'5MB',//设置上传文件的容量最大值
+        uploadLimit: 20,//上传文件的数量。
+        'method'   :'post',
+        'onFallback' : function() {//检测FLASH失败调用
+            alert("缺少flash！");
+        },
+        onUploadSuccess:function(file,data,respone){
+            var data1 = eval("(" + data+ ")");
+
+            var commonUrl = data1["commonUrl"]
+            var fileName = data1["myFileName"];//七牛公共空间
+            if(data1.code==1){
+                var url = data1["url"];//相对路径
+                var allUrl = commonUrl+url;//七牛全路径-用于d标签点击打开
+                var $html = '';
+                $html += '<a  class="hetong" onclick="putu(this)" datas="'+url+'" data="'+allUrl+'" title="'+fileName+'" alt="'+fileName+'">';
+                $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/photo_icon.png"  >'
+                $html += '</a>';
+                $("#hetong").append($html);
+            }
+        },
+        fileTypeExts: '*.jpg;*.png;*.gif;*.pdf;*.doc;*.docx;*.jpeg',
+        fileTypeDesc: '图片/PDF'
+    });
+    $('#gyFile2').uploadify({
+        'buttonImage':'/js/commons/fileinput/img/photo_icon1.png',//路径换成对应自己的路径
+        'swf':'/js/uploadify/uploadify.swf',     //路径换成对应自己的路径
+        'uploader':'/common/uploadmaterial?path=upload.sd.gysnl',   //路径换成对应自己的路径
+        'buttonText': '上传谱图',
+        'multi': true,
+        'height': 50,
+        'width':50,
+        fileSizeLimit:'5MB',//设置上传文件的容量最大值
+        uploadLimit: 20,//上传文件的数量。
+        'method'   :'post',
+        'onFallback' : function() {//检测FLASH失败调用
+            alert("缺少flash！");
+        },
+        onUploadSuccess:function(file,data,respone){
+            var data1 = eval("(" + data+ ")");
+
+            var commonUrl = data1["commonUrl"]
+            var fileName = data1["myFileName"];//七牛公共空间
+            if(data1.code==1){
+                var url = data1["url"];//相对路径
+                var allUrl = commonUrl+url;//七牛全路径-用于d标签点击打开
+                var $html = '';
+                $html += '<a  class="material" onclick="putu(this)" datas="'+url+'" data="'+allUrl+'" title="'+fileName+'" alt="'+fileName+'">';
+                $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/photo_icon.png"  >'
+                $html += '</a>';
+                $("#material").append($html);
+            }
+        },
+        fileTypeExts: '*.jpg;*.png;*.gif;*.pdf;*.doc;*.docx;*.jpeg',
+        fileTypeDesc: '图片/PDF'
+    });
+}
+function add_doc()
+{
+    var purchase_d_id=$("#purchase_d_id").val();
+    var material=''
+    var hetong=''
+   $(".hetong").each(function(){
+       var url=$(this).attr("datas");
+       if(url!=null)
+       {
+           hetong+=url+','
+       }
+   })
+    $(".material").each(function(){
+        var url2=$(this).attr("datas");
+        if(url2!=null)
+        {
+            material+=url2+','
+        }
+    })
+    if(hetong!=''|| material!='') {
+        $.ajax({
+            type: 'POST',
+            url: "/meterialpurchease/manager/add_doc",
+            data: {
+                hetong: hetong,
+                material: material,
+                purchase_d_id:purchase_d_id
+            },
+            dataType: "json",
+            success: function (data) {
+                layer.msg("操作成功");
+               window.location.reload();
+            }
+        })
+    }
+}
+function putu(e)
+{
+    window.open($(e).attr("data"));
+}
+function cancle_doc() {
+    window.location.reload();
 }

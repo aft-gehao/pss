@@ -316,6 +316,9 @@
         <if test="params.stock_status!=null and params.stock_status!=''">
             and t.status IN (${params.stock_status})
         </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
         <if test="params.time!=null and params.time!=''">
             and ${params.time}
         </if>
@@ -331,6 +334,9 @@
         </if>
         <if test="params.stock_status!=null and params.stock_status!=''">
             and t.status IN (${params.stock_status})
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
         </if>
         <if test="params.time!=null and params.time!=''">
             and ${params.time}
@@ -445,12 +451,13 @@
        #{purchase_id}
         )
     </insert>
-    <select id="getUsePageList"  parameterType="Map" resultType="consumable_use">
+    <select id="getUseforconPageList"  parameterType="Map" resultType="consumable_use">
         SELECT
         t.*,
         t1.`dict_name`,
         t2.`dict_name` use_status_name,
-        t3.`staff_name`,
+        t3.staff_name,
+        t8.staff_name check_name,
         (SELECT
         GROUP_CONCAT(t5.space_name, '-')
         FROM
@@ -473,6 +480,8 @@
         ON t.`use_status` = t2.`dict_id`
         LEFT JOIN staff_info t3
         ON t3.`staff_id` = t.`staff`
+        LEFT JOIN staff_info t8
+        ON t.`check_staff` = t8.`staff_id`
         LEFT JOIN dict_warehouse_space t4
         ON t.`space_id` = t4.`space_id`
         LEFT JOIN consumable_material_info t5
@@ -481,17 +490,35 @@
         ON t6.`dict_id`=t5.`consumable_type`
         LEFT JOIN consumable_out_stock t7
         ON t7.`use_id`=t.`use_id`
-        WHERE t.is_del=0 AND t.space_id!=0 AND t5.`status`=0
+        WHERE t.is_del=0  AND t5.`status`=0
         <if test="params.consumable_name!=null and params.consumable_name!=''">
             and t5.consumable_name like '%${params.consumable_name}%'
         </if>
+        <if test="params.flag==null and params.flag==''">
+            AND t.space_id!=0
+        </if>
+        <if test="params.flag!=null and params.flag!=''">
+            AND t.space_id=0
+        </if>
         <if test="params.stock_status!=null and params.stock_status!=''">
-            and t.status = '${params.stock_status}'
+            and t.`status` = '${params.stock_status}'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
+            AND t.use_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND t5.consumable_name like '%${params.search}%' or t3.staff_name like '%${params.search}%'
         </if>
         GROUP BY t.`use_id`
         ORDER BY t.`use_time` DESC
     </select>
-    <select id="getUsePageCount"  parameterType="Map" resultType="Integer">
+    <select id="getUseforconPageCount"  parameterType="Map" resultType="Integer">
         SELECT
         count(1)
         FROM
@@ -508,12 +535,30 @@
         ON t5.`consumable_id`=t.`consumable_id`
         LEFT JOIN pss_dict t6
         ON t6.`dict_id`=t5.`consumable_type`
-        WHERE t.is_del=0 AND t.space_id!=0 AND t5.`status`=0
+        WHERE t.is_del=0  AND t5.`status`=0
         <if test="params.consumable_name!=null and params.consumable_name!=''">
             and t5.consumable_name like '%${params.consumable_name}%'
         </if>
+        <if test="params.flag==null and params.flag==''">
+            AND t.space_id!=0
+        </if>
+        <if test="params.flag!=null and params.flag!=''">
+            AND t.space_id=0
+        </if>
         <if test="params.stock_status!=null and params.stock_status!=''">
-            and t.status = '${params.stock_status}'
+            and t.`status` = '${params.stock_status}'
+        </if>
+        <if test="params.status!=null and params.status!=''">
+            and t.status IN ${params.status}
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            and ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!='' or params.end_time!=null and params.end_time!=''">
+            AND t.use_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+        </if>
+        <if test="params.search!=null and params.search!=''">
+            AND t5.consumable_name like '%${params.search}%' or t3.staff_name like '%${params.search}%'
         </if>
     </select>
 

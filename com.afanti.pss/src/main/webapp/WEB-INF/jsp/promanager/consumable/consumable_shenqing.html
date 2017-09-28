@@ -18,7 +18,6 @@
     <script type="text/javascript" src="/css/fonts/iconfont.js"></script>
     <style type="text/css">
         .auto a:hover{
-
             cursor: pointer;
         }
     </style>
@@ -35,9 +34,10 @@
                         <div class="clearfix search-link">
                             <div class="auto">
                                 <a onclick="test(this)" data="" class="info1 active" >全部</a>
-                                <a onclick="test(this)" data="5002" class="info" >已发货</a>
-                                <a onclick="test(this)" data="5004" class="info" >未发货</a>
-                                <a onclick="test(this)" data="5001" class="info" >已入库</a>
+                                <a onclick="test(this)" data="11004" class="info" >未审核</a>
+                                <a onclick="test(this)" data="11001" class="info" >审核通过</a>
+                                <a onclick="test(this)" data="11003" class="info" >暂不审核</a>
+                                <a onclick="test(this)" data="11002" class="info" >审核不通过</a>
                             </div>
                         </div>
                     </div>
@@ -46,12 +46,12 @@
                         <div class="clearfix search-link">
                             <div class="auto">
                                 <a  class="time1 active">全部</a>
-                                <a onclick="test(this)" data="DATEDIFF(purchase_time,NOW())=0" class="time" >今天</a>
-                                <a onclick="test(this)" data="DATEDIFF(purchase_time,NOW())=-1" class="time" >昨天</a>
-                                <a onclick="test(this)" data="YEARWEEK(date_format(purchase_time,'%Y-%m-%d')) = YEARWEEK(now())" class="time" >本周</a>
-                                <a onclick="test(this)" data="YEARWEEK(date_format(purchase_time,'%Y-%m-%d')) = YEARWEEK(now())-1" class="time" >上周</a>
-                                <a onclick="test(this)" data="DATE_FORMAT(purchase_time,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')" class="time" >本月</a>
-                                <a onclick="test(this)" data="date_format(purchase_time,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') " class="time" >上月</a>
+                                <a onclick="test(this)" data="DATEDIFF(t.use_time,NOW())=0" class="time" >今天</a>
+                                <a onclick="test(this)" data="DATEDIFF(t.use_time,NOW())=-1" class="time" >昨天</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(t.use_time,'%Y-%m-%d')) = YEARWEEK(now())" class="time" >本周</a>
+                                <a onclick="test(this)" data="YEARWEEK(date_format(t.use_time,'%Y-%m-%d')) = YEARWEEK(now())-1" class="time" >上周</a>
+                                <a onclick="test(this)" data="DATE_FORMAT(t.use_time,'%Y-%m')=DATE_FORMAT(NOW(),'%Y-%m')" class="time" >本月</a>
+                                <a onclick="test(this)" data="date_format(t.use_time,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m') " class="time" >上月</a>
                                 <div class="layui-inline">
                                     <div class="layui-input-inline">
                                         <input type="text" class="layui-input" id="test16" placeholder="自定义时间" style="height: 25px;width: 250px;">
@@ -81,11 +81,6 @@
         <div class="table-container">
             <input type="hidden" id="wuliu">
             <div class="sekect_box clearfix">
-        <span class="pull-left">
-        	<a class="btn btn-success" data-toggle="modal"  data-target="#con_caigou">
-        		<i class="fa fa-plus m-r-xs"></i> 新增采购单
-        	</a>
-        </span>
                 <div class="pull-right normal-search">
                     <div class="input-group">
                         <div class="table-cell" style="width: 150px;">
@@ -108,10 +103,10 @@
                     <tr>
                         <th width="14%">耗材名</th>
                         <th width="14%">规格</th>
-                        <th width="14%">采购数量</th>
-                        <th width="14%">采购总价</th>
-                        <th width="14%">采购信息</th>
-                        <th width="14%">采购状态</th>
+                        <th width="14%">申请数量</th>
+                        <th width="14%">申请信息</th>
+                        <th width="14%">审核信息</th>
+                        <th width="14%">审核状态</th>
                         <th id="action" width="16%">操作</th>
                         <input type="hidden" id="purchase_id">
                         <input type="hidden" id="use_id">
@@ -156,7 +151,7 @@
                                 <div class="form-group m10">
                                     <label class="col-xs-4 control-label input-label">物流单号：</label>
                                     <div class="col-xs-8">
-                                        <input type="text"  id="con_kd_num" class="form-control" placeholder="请输入物流单号" style="width: 250px;">
+                                        <input type="text"  id="con_kd_num" class="form-control" placeholder="" style="width: 250px;">
                                     </div>
                                 </div>
                                 <div class="form-group m10" >
@@ -225,7 +220,7 @@
                                     <div>
                                         <span>采&nbsp购&nbsp量&nbsp：</span>
                                         <div class="form-group m10">
-                                            <input type="text" id="add_amount" class="form-control" placeholder="请输入采购量" style="width: 120px;">
+                                            <input type="text" id="add_amount" class="form-control" placeholder="" style="width: 120px;">
                                             <select id="add_unit" class="form-control input-sm">
                                                 <option value="g">g</option>
                                                 <option value="kg">kg</option>
@@ -238,13 +233,13 @@
                                     <div>
                                         <span>采购总价：</span>
                                         <div class="form-group">
-                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_price" class="form-control" placeholder="请输入采购总价" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
+                                            <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="add_price" class="form-control" placeholder="" style="width: 200px;">&nbsp;&nbsp;<span>元</span>
                                         </div>
                                     </div>
                                     <div>
                                         <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
                                         <div class="form-group">
-                                            <input type="text" maxlength="40" id="add_desc" class="form-control" placeholder="请输入备注" style="width: 200px;">
+                                            <input type="text" maxlength="40" id="add_desc" class="form-control" placeholder="" style="width: 200px;">
                                         </div>
                                     </div>
                                 </div>
@@ -348,11 +343,75 @@
         </div>
     </div>
 </form>
+
+<!--耗材采购弹出框-->
+<div class="modal fade" id="caigou-delete-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>请输入采购信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="navbar-form navbar-left" role="search">
+                    <div style="margin-left: 50px;">
+                        <div class="form-group m10">
+                            <span>品&nbsp名&nbsp&nbsp&nbsp&nbsp&nbsp：</span>
+                            <div class="form-group">
+                                <input maxlength="20" type="text" id="con_name" readonly="readonly" class="form-control" placeholder="" style="width: 220px;">
+                            </div>
+                        </div>
+                        <div class="form-group m10">
+                            <span>采&nbsp购&nbsp量&nbsp：</span>
+                            <div class="form-group">
+                                <input type="text" id="con_amount" class="form-control" style="width: 160px;">
+                                <select id="con_unit" class="form-control input-sm">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group m10">
+                            <span>采购总价：</span>
+                            <div class="form-group">
+                                <input type="text" maxlength="10" onkeyup="value=value.replace(/[^\d.]/g,'')" id="con_price" class="form-control"  style="width: 220px;">&nbsp;&nbsp;<span>元</span>
+                            </div>
+                        </div>
+                        <div class="form-group m10">
+                            <span>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注：</span>
+                            <div class="form-group">
+                                <input type="text" maxlength="40" id="desc" class="form-control"  style="width: 220px;">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="clear: both;">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+                <a class="btn btn-success btn-ok" onclick="con_pur_sure()">确认</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--删除弹出框-->
+<div class="modal fade" id="confirm-delete1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>请确认</h4>
+            </div>
+            <div class="modal-body" style="height: 70px;">
+                确认取消此采购吗？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a class="btn btn-danger btn-ok" onclick="con_sure_cancle()">确定</a>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/plugins/layer/layer.js"></script>
 <script type="text/javascript" src="/js/plugins/pager/pager.js"></script>
 <script type="text/javascript" src="/js/utils.js"></script>
-<script type="text/javascript" src="/js/bus/consumable_purchasing.js"></script>
+<script type="text/javascript" src="/js/bus/consumable_checking.js"></script>
 </body>
 </html>
 <script type="text/javascript" >

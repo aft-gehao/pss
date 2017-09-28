@@ -17,13 +17,13 @@ public interface ConsumableDao {
     public List<consumable_purchase> getPurchasingPageList(Page page);
     public int getConsumablePurchasePageCount(Page page);
     public List<consumable_purchase> getConsumablePurchasePageList(Page page);
-    public List<consumable_use> getUsePageList(Page page);
+    public List<consumable_use> getUseforconPageList(Page page);
     public List<consumable_out_stock> getStockPageList(Page page);
     public List<consumable_stock> getStockDetailPageList(Page page);
     public int getConsumableRepairPageCount(Page page);
     public int getStockDetailPageCount(Page page);
     public int getConsumablePageCount(Page page);
-    public int getUsePageCount(Page page);
+    public int getUseforconPageCount(Page page);
     public int getPurchasingPageCount(Page page);
     public int getStockPageCount(Page page);
     public consumable_use useSelect(Map<String, Object> params);

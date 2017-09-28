@@ -47,31 +47,21 @@ function doSearch(p) {
     $("#pages_haocai").hide()
     $("#yuanliao").show()
     $("#pages").show()
-
     if (str==""){
         $("#type_custom_time").html("所有")
     }else {
         $("#type_custom_time").html(str)
     }
-
-
-
     var search = $("#search").val();
-
     var stock_status = $("#status_id").val();
-
     if (stock_status==""){
         $("#type_status").html("全部")
     }
-
     var in_type=$("#type_id").val();
-
     var time=$("#time").val();
-
     if (time==""){
         $("#type_time").html("全部")
     }
-
     if(in_type == 9002)
     {
         $("#titleStr").html("客户/供应商")
@@ -139,7 +129,6 @@ function doSearch(p) {
                         {
                             html += "<a id='con_in_submit' class='btn btn-info' type='button' onclick='purchase_detial_repair_haocai(" + append[i]["purchase_id"]+ ","+amount+"," + append[i]["consumable_id"]+ ")'>入库</a>";
                         }
-                        else {
                             value += '\
                     <tr >\
                         <td>' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
@@ -152,7 +141,6 @@ function doSearch(p) {
                         </tr>\
                     \
                     ';
-                        }
                     }
                     $("#data_tbody_haocai").html(value);
                     $(document).on('mouseover',  "button[id='example']", function() {
@@ -434,7 +422,6 @@ function raw_material_purchase(e) {
     $("#a_yanfa").attr("class", "");
     $("#type_source").html($(e).html())
     $("#search").attr("placeholder","CAS,,SKU,中文名,申请人员")
-
     doSearch(1)
 }
 //耗材采购

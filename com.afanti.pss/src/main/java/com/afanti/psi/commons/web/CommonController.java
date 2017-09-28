@@ -365,6 +365,139 @@ public class CommonController extends BaseController {
         }
         return returnMap;
     }
+    @RequestMapping("/uploadhetong")
+    @ResponseBody
+    public Map<String, Object> uploadhetong(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        //本地目录 主路径
+        //String localUrl = "H:";
+        //String localUrl = "/aft/webapp/application/file/";
+        //七牛主路径
+        String commonUrl = "http://source.tanyangnet.com/";
+        //七牛相对路径
+        String pString = request.getParameter("path");
+        if(StringUtils.isBlank(pString)){
+            pString = "upload.comp.aft";
+        }
+        String logoUrl = "aft/upload";
+        String path = "";
+        //创建一个通用的多部分解析器
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //判断 request 是否有文件上传,即多部分请求
+        if(multipartResolver.isMultipart(request)){
+            //转换成多部分request
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            //取得request中的所有文件名
+            Iterator<String> iter = multiRequest.getFileNames();
+            while(iter.hasNext()){
+                //记录上传过程起始时的时间，用来计算上传时间
+                int pre = (int) System.currentTimeMillis();
+                //取得上传文件
+                MultipartFile file = multiRequest.getFile(iter.next());
+                if(file != null){
+                    //取得当前上传文件的文件名称
+                    String myFileName = file.getOriginalFilename();
+                    //后缀名
+                    String ext = getFileExt(file.getOriginalFilename());
+                    //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                    if(myFileName.trim() !=""){
+                        System.out.println(myFileName);
+                        //重命名上传后的文件名
+                        //定义上传路径
+                        String fileName = "/cghetong/"+new Date().getTime()  + "."+ext;
+                        path ="webapp/application/file/" +fileName;
+                        File localFile = new File(path);
+                        if(!localFile.getParentFile().exists())
+                            localFile.getParentFile().mkdirs();
+                        //上传至七牛服务器：
+                        try {
+                            commonsService.uploadFileAllTypeNoWate(EncodeUtil.encodeBase64(file.getBytes()), fileName);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        file.transferTo(localFile);
+                        path =  fileName;
+                        returnMap.put("myFileName", myFileName);
+                        returnMap.put("time", (int) System.currentTimeMillis());
+                        returnMap.put("code", 1);
+                        returnMap.put("url", path);
+                        returnMap.put("commonUrl", commonUrl);
+                    }
+                }
+                //记录上传该文件后的时间
+                int finaltime = (int) System.currentTimeMillis();
+                System.out.println(finaltime - pre);
+            }
+        }
+        return returnMap;
+    }
+
+    @RequestMapping("/uploadmaterial")
+    @ResponseBody
+    public Map<String, Object> uploadmaterial(HttpServletRequest request,HttpServletResponse response) throws IllegalStateException, IOException {
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        //本地目录 主路径
+        //String localUrl = "H:";
+        //String localUrl = "/aft/webapp/application/file/";
+        //七牛主路径
+        String commonUrl = "http://source.tanyangnet.com/";
+        //七牛相对路径
+        String pString = request.getParameter("path");
+        if(StringUtils.isBlank(pString)){
+            pString = "upload.comp.aft";
+        }
+        String logoUrl = "aft/upload";
+        String path = "";
+        //创建一个通用的多部分解析器
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //判断 request 是否有文件上传,即多部分请求
+        if(multipartResolver.isMultipart(request)){
+            //转换成多部分request
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest)request;
+            //取得request中的所有文件名
+            Iterator<String> iter = multiRequest.getFileNames();
+            while(iter.hasNext()){
+                //记录上传过程起始时的时间，用来计算上传时间
+                int pre = (int) System.currentTimeMillis();
+                //取得上传文件
+                MultipartFile file = multiRequest.getFile(iter.next());
+                if(file != null){
+                    //取得当前上传文件的文件名称
+                    String myFileName = file.getOriginalFilename();
+                    //后缀名
+                    String ext = getFileExt(file.getOriginalFilename());
+                    //如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                    if(myFileName.trim() !=""){
+                        System.out.println(myFileName);
+                        //重命名上传后的文件名
+                        //定义上传路径
+                        String fileName = "/cgmaterial/"+new Date().getTime()  + "."+ext;
+                        path ="webapp/application/file/" +fileName;
+                        File localFile = new File(path);
+                        if(!localFile.getParentFile().exists())
+                            localFile.getParentFile().mkdirs();
+                        //上传至七牛服务器：
+                        try {
+                            commonsService.uploadFileAllTypeNoWate(EncodeUtil.encodeBase64(file.getBytes()), fileName);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        file.transferTo(localFile);
+                        path =  fileName;
+                        returnMap.put("myFileName", myFileName);
+                        returnMap.put("time", (int) System.currentTimeMillis());
+                        returnMap.put("code", 1);
+                        returnMap.put("url", path);
+                        returnMap.put("commonUrl", commonUrl);
+                    }
+                }
+                //记录上传该文件后的时间
+                int finaltime = (int) System.currentTimeMillis();
+                System.out.println(finaltime - pre);
+            }
+        }
+        return returnMap;
+    }
 
     //获得指定文件的byte数组
     public static byte[] getBytes(String filePath){

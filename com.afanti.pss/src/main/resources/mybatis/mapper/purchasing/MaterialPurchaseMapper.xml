@@ -159,40 +159,40 @@
     <update id="updMaterialPurchase" parameterType="Map">
         update material_purchase
         <trim prefix="set" suffixOverrides=",">
-            <if test="purchase_name!=null">
+            <if test="purchase_name!=null and purchase_name!='' ">
                 purchase_name= #{purchase_name},
             </if>
-            <if test="product_num!=null">
+            <if test="product_num!=null and product_num!=''">
                 product_num= #{product_num},
             </if>
-            <if test="all_total!=null">
+            <if test="all_total!=null and all_total!=''"  >
                 all_total= #{all_total},
             </if>
-            <if test="staff_id!=null">
+            <if test="staff_id!=null and staff_id!=''">
                 staff_id= #{staff_id},
             </if>
-            <if test="purchase_time!=null">
+            <if test="purchase_time!=null and purchase_time!=''">
                 purchase_time= #{purchase_time},
             </if>
-            <if test="desc!=null">
+            <if test="desc!=null and desc!=''">
                 `desc`= #{desc},
             </if>
-            <if test="supplier_id!=null">
+            <if test="supplier_id!=null  and supplier_id!=''">
                 supplier_id= #{supplier_id},
             </if>
-            <if test="s_linkman_id!=null">
+            <if test="s_linkman_id!=null  and s_linkman_id!=''">
                 s_linkman_id= #{s_linkman_id},
             </if>
-            <if test="customer_id!=null">
+            <if test="customer_id!=null  and customer_id!=''">
                 customer_id= #{customer_id},
             </if>
-            <if test="stock_status!=null">
+            <if test="stock_status!=null and stock_status!=''">
                 stock_status= #{stock_status},
             </if>
-            <if test="request_id!=null">
+            <if test="request_id!=null and request_id!=''">
                 request_id= #{request_id},
             </if>
-            <if test="purchase_isdel!=null">
+            <if test="purchase_isdel!=null  and purchase_isdel=''">
                 purchase_isdel= #{purchase_isdel},
             </if>
         </trim>
@@ -264,9 +264,9 @@
         SET
           amount =#{amount},
           unit=#{unit},
-          unit_price=#{unit_price}，
+          unit_price=#{unit_price},
           `desc`=#{desc}
-        WHERE purchase_id = #{purchase_id}
+        WHERE purchase_d_id = #{purchase_d_id}
     </update>
     <select id="getMaterialPurchaseInfo" parameterType="Map" resultType="Material_purchase">
             SELECT
@@ -514,4 +514,50 @@
         WHERE cas=#{cas} AND sku=#{sku} and status=0
         LIMIT 1
     </select>
+    <insert id="addhetong" parameterType="Map">
+        insert into product_purchase_doc
+        (
+        purchase_d_id,
+        doc_url,
+        doc_time,
+        doc_staff
+        )
+        values
+        (
+        #{purchase_d_id},
+        #{hetong},
+        #{doc_time},
+        #{doc_staff}
+        )
+    </insert>
+    <update id="uphetong" parameterType="Map">
+        UPDATE
+        material_purchase_detail t
+        SET
+        t.`is_hetong` =0
+        WHERE t.purchase_d_id = #{purchase_d_id}
+    </update>
+    <insert id="addmaterial" parameterType="Map">
+        insert into product_purchase_doc
+        (
+        purchase_d_id,
+        doc_url,
+        doc_time,
+        doc_staff
+        )
+        values
+        (
+        #{purchase_d_id},
+        #{material},
+        #{doc_time},
+        #{doc_staff}
+        )
+    </insert>
+    <update id="upmaterial" parameterType="Map">
+        UPDATE
+        material_purchase_detail t
+        SET
+        t.`is_fukuan` =0
+        WHERE t.purchase_d_id = #{purchase_d_id}
+    </update>
 </mapper>

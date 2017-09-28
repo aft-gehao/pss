@@ -44,7 +44,7 @@ function doSearch(p) {
     var flag=1;
     $.ajax({
         type: 'POST',
-        url: "/consumable/manager/PurchasingPage",
+        url: "/consumable/manager/UsePage",
         data: {
             start_time:start_time,
             end_time:end_time,
@@ -52,8 +52,8 @@ function doSearch(p) {
             status:status,
             search: cas,
             consumable_name: consumable_name,
-            flag:flag,
-            p: p
+            p: p,
+            flag:flag
         },
         dataType: "json",
         success: function (data) {
@@ -66,33 +66,21 @@ function doSearch(p) {
 
                 var append = eval(data["append"]["results"]);
                 for (var i = 0; i < append.length; i++) {
+
                     var html = "";
                     var html2 = "";
-                    if (append[i]["status"] == 5001) {
-                        html2 += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black" >已入库</button>';
-                    }
-                    else if (append[i]["status"] == 5002) {
-                        html2 += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black" datas="'+append[i]["kd_code"]+'" data="'+append[i]["kd_num"]+'" class="btn " id="example" rel="popover"  data-placement="bottom" >已发货</button>';
-                    } else if (append[i]["status"] == 5003) {
-                        html2 += '<button type="button" class="btn btn-info btn-sm" style="background-color:white;color:black">部分入库</button>';
-                    }
-                    else if (append[i]["status"] == 5004) {
-                        html2 += '<button type="button" class="btn btn-danger btn-sm "style="background-color:white;color:black">未发货</button>';
-                    }
-
-                    else {
-                        layer.msg("类型异常,联系管理员");
-                    }
-                    if(append[i]["status"] ==5002 ||append[i]["status"] ==5001) {
+                    if(append[i]["status"] ==11001) {
                         value += '\
                        <tr  id="example" rel="popover" name="desc" data-placement="bottom"  data="'+$.alle_null2Str(append[i]["desc"])+'" >\
                          <td   data="'+$.alle_null2Str(append[i]["desc"])+'">' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
                           <td >' + append[i]["amount"] + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                           <td>' +  $.alle_null2Str(append[i]["purchase_money"]) +'元</td>\
-                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["pur_staff"] + '</td>\
-                          <td>' + $.alle_null2Str(html2) + '</td>\
-                          <td class="operation">\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
+                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' + append[i]["check_name"] + '</td>\
+                          <td><span class="btn"  style="border-color: green">' + $.alle_null2Str(append[i]["dict_name"])+ '</span></td>\
+                         <td class="operation">\
+                          <a title="采购" onclick="sure_consumable(this)" dataname="' + append[i]["consumable_name"] + '" data="' + append[i]["consumable_unit"] + '" datas="' + append[i]["use_id"] + '" datass="' + append[i]["amount"] + '"  datasss="' + append[i]["consumable_id"] + '" class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete-2"><i class="iconfont">&#xe666;</i> 采购</a>\
+                        <a title="删除"  data="' + append[i]["use_id"] + '" onclick="con_cancle(this)" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#confirm-delete1"><i class="iconfont">&#xe76b;</i> 取消</a>\
                           </td>\
                         </tr>\
                     \
@@ -100,16 +88,15 @@ function doSearch(p) {
                     }
                     else{
                         value += '\
-                      <tr rel="popover" name="desc" data="'+$.alle_null2Str(append[i]["desc"])+'" >\
-                         <td id="example" rel="popover" name="desc" data-placement="bottom"  data="'+$.alle_null2Str(append[i]["desc"])+'">' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
+                       <tr  id="example" rel="popover" name="desc" data-placement="bottom"  data="'+$.alle_null2Str(append[i]["desc"])+'" >\
+                         <td   data="'+$.alle_null2Str(append[i]["desc"])+'">' + $.alle_null2Str(append[i]["consumable_name"]) + '</td>\
                          <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
-                          <td>' + append[i]["amount"] + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
-                            <td>' +  $.alle_null2Str(append[i]["purchase_money"]) +'元</td>\
-                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["pur_staff"] + '</td>\
-                          <td>' + $.alle_null2Str(html2) + '</td>\
-                          <td class="operation"> \
-                             <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="iconfont">&#xe61d;</i> 发货</a>\
-                             <a title="修改" purchase_id="' + append[i]["purchase_id"] + '"  purchase_money="' + append[i]["purchase_money"] + '" onclick="change(this)" datas="' + append[i]["consumable_name"] + '" datasss="' + append[i]["amount"] + '" datass="' + append[i]["consumable_unit"] + '" data="' + append[i]["purchase_id"] + '"class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe60</i>修改</a>\
+                          <td >' + append[i]["amount"] + '' + $.alle_null2Str(append[i]["consumable_unit"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
+                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["check_time"]) + '<br>' + append[i]["check_name"] + '</td>\
+                          <td><span class="btn"  style="border-color: red">' + $.alle_null2Str(append[i]["dict_name"])+ '</span></td>\
+                          <td class="operation">\
+                             <a title="详情111" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="iconfont">&#xe8a0;</i>  详情</a>\
                           </td>\
                           </tr>\
                     \
@@ -386,102 +373,59 @@ function test(e)
     }
     doSearch(1);
 }
-//耗材申请
-function addhaocai() {
-
-    window.location.href = "/promanager/consumable/add_use_yanfa.html" ;
-}
-$("#con_kd_num").blur(function () {
-    var num=$("#con_kd_num").val();
-    $.ajax({
-        type: 'POST',
-        url: "/kd/queryKdCode",
-        data: {
-            num:num
-        },
-        dataType: "json",
-        success:function (data) {
-
-            var append=eval("(" + data["append"] + ")");
-            //遍历json中的数组
-            var appends=eval(append["Shippers"]);
-
-            var html="";
-            for(var i=0;i<append.Shippers.length;i++)
-            {
-                html+='<option value='+appends[i]["ShipperCode"]+'>'+appends[i]["ShipperName"]+'</option>'
-            }
-            html+='<option value="SF">顺丰快递</option>'
-            html+='<option value="STO">申通快递</option>'
-            html+='<option value="ZTO">中通快递</option>'
-            html+='<option value="STO">圆通快递</option>'
-            html+='<option value="HHTT">天天快递</option>'
-            html+='<option value="DBL">德邦</option>'
-            html+='<option value="JJKY">佳吉快运</option>'
-            $("#con_kd_code").html(html);
-        }
-    })
-})
-//确认发货
-function  con_fahuo_sure() {
-    var use_id=$("#use_id").val();
-    var status=5002;
-    if($("#con_not_found").attr("kd_code")=="" || $("#con_not_found").attr("kd_code")==null) {
-        var kd_code=$("#con_kd_code").val();
-    }
-    else{
-        var kd_code=$("#con_not_found").attr("kd_code");
-    }
-    if(kd_code==""||kd_code==null)
+function sure_consumable(e) {
+    $("#con_name").val($(e).attr("dataname"));
+    $("#use_id").val($(e).attr("datas"));
+    $("#consumable_id").val($(e).attr("datasss"));
+    $("#consumable_unit").val($(e).attr("data"));
+    $("#amount").val($(e).attr("datass"));
+    $("#con_amount").val($(e).attr("datass"));
+    if($(e).attr("data")==null || $(e).attr("data")=="")
     {
-        layer.msg("无此快递公司，请重新输入快递公司名");
+        var str="<option>个</option>"
     }
-    var kd_num=$("#con_kd_num").val();
+    else {
+        var str = "<option>" + $(e).attr("data") + "</option>"
+    }
+    $("#con_unit").html(str);
+}
+function con_pur_sure() {
+    var use_id = $("#use_id").val();
+    var consumable_id = $("#consumable_id").val();
+    var amount = $("#con_amount").val();
+    var purchase_money = $("#con_price").val();
+    var desc = $("#desc").val();
     $.ajax({
         type: 'POST',
-        url: "/consumable/manager/fahuo",
+        url: "/consumable/manager/add_purchasing",
         data: {
-            use_id:use_id,
-            status:status,
-            kd_code:kd_code,
-            kd_num:kd_num
-
+            use_id: use_id,
+            amount: amount,
+            consumable_id: consumable_id,
+            purchase_money: purchase_money,
+            desc:desc
         },
         dataType: "json",
-        success:function (data) {
-            layer.msg("操作成功");
-            if ( data["result"] == "success"){
+        success: function (data) {
+            layer.msg(data["message"]);
+            if (data["result"] == "success") {
                 setTimeout(function () {
                     window.parent.location.reload();
                 }, 1000);
             }
-
         }
     })
 }
-function fahuo(e){
+function  con_cancle(e) {
     $("#use_id").val($(e).attr("data"));
 }
-function add_con_pur_sure(){
-    var consumable_name=$("#add_con_name").val();
-    var amount=$("#add_con_amount").val();
-    var unit=$("#add_con_unit").val();
-    var desc=$("#add_con_desc").val();
-    var price=$("#add_con_price").val();
-    if(consumable_name=="" || amount=="" ||price=="" ||unit=="")
-    {
-        layer.msg("信息填写不全，请补充");
-        return false;
-    }
+function con_sure_cancle() {
+    var use_id=$("#use_id").val();
     $.ajax({
         type: 'POST',
-        url: "/consumable/manager/kuaisu_pur",
+        url: "/consumable/manager/consumableCl",
         data: {
-            consumable_name:consumable_name,
-            amount:amount,
-            unit:unit,
-            desc:desc,
-            price:price
+            use_id:use_id
         },
         dataType: "json",
         success:function (data) {
@@ -491,7 +435,7 @@ function add_con_pur_sure(){
                     window.parent.location.reload();
                 }, 1000);
             }
-
         }
     })
 }
+

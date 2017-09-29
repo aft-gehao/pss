@@ -78,35 +78,33 @@ a:hover{
                 <span class="switch-hide" title="展开筛选">∨</span>
             </a>
         </div>
-
-
         <div class="table-container">
             <div class="sekect_box clearfix">
+                 <span class="pull-left">
+        	         <a  class="cg-history btn  btn-success" data-toggle="modal" data-target="#Add-xj">
+        		            <b>+</b> 新增询价单
+        	          </a>
+                 </span>
                 <div class="pull-right normal-search">
                     <div class="input-group">
                         <div class="table-cell" style="width: 150px;">
                         </div>
                         <div class="table-cell">
-                     <span style="position:relative;margin:0" class="add-clear-span">
-                        <input type="text" name="search_key" id="search" class="form-control  addclear" placeholder="CAS,SKU,客户">
-                    </span>
+                             <span style="position:relative;margin:0" class="add-clear-span">
+                                <input type="text" name="search_key" id="search" class="form-control  addclear" placeholder="CAS,SKU,客户">
+                            </span>
                         </div>
                 <span class="input-group-btn">
                  <button type="button" onclick="do_query()" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
-                </span>&nbsp;&nbsp;
-                        <span class="input-group-btn" data-toggle="modal" data-target="#Add-xj">
-                            <button class="btn btn-success" data-dismiss="modal" id="add_select">添加询价</button>
-                        </span>
+                </span>
                     </div>
                 </div>
             </div>
 
-            <div class="Pro-adm table m20">
-                <div class="add-info clearfix"  style="padding: 0;">
-                    <div class="Pro-table">
-                        <table class="table table-bordered table-hover db-table" style="border:1px solid #ddd">
-                            <thead>
-                                <tr>
+            <div class="Pro-table table">
+                <table class="table table-bordered table-hover definewidth m20">
+                    <thead>
+                    <tr>
                                     <th width="9%">SKU</th>
                                     <th width="9%">CAS</th>
                                     <th width="9%">纯度</th>
@@ -148,33 +146,33 @@ a:hover{
                             <div style="margin-left: 130px;">
                                 <div>
                                     <span>C&nbsp&nbspA&nbsp&nbspS&nbsp:&nbsp</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input id="add_cas" type="text" class="form-control" required="required" placeholder="请输入CAS" style="width: 200px;" maxlength="255">
                                         <input type="hidden" id="product_cas" class="form-control input-sm" value="0"/>
                                     </div>
                                 </div>
                                 <div>
                                     <span>S&nbsp&nbspK&nbsp&nbspU&nbsp:&nbsp</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input id="add_sku" type="text" class="form-control" required="required" placeholder="请输入SKU" style="width: 200px;" maxlength="255">
                                         <input type="hidden" id="product_sku" class="form-control input-sm" value="0"/>
                                     </div>
                                 </div>
                                 <div>
                                     <span>英文名：</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input id="add_name_en" type="text" class="form-control" required="required" placeholder="请输入产品英文名" style="width: 200px;" maxlength="255">
                                     </div>
                                 </div>
                                 <div>
                                     <span>纯&nbsp&nbsp&nbsp&nbsp度&nbsp:&nbsp</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input id="add_purity" type="text" class="form-control" placeholder="请输入纯度" style="width: 200px;" maxlength="20">
                                     </div>
                                 </div>
                                 <div>
                                     <span>数&nbsp&nbsp&nbsp&nbsp量&nbsp:&nbsp</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10" >
                                         <input id="add_amount" type="number" class="form-control" placeholder="请输入数量" style="width: 120px;" maxlength="20">
                                         <select id="add_unit" class="form-control input-sm">
                                             <option>g</option>
@@ -185,7 +183,7 @@ a:hover{
                                 </div>
                                 <div>
                                     <span>价&nbsp&nbsp&nbsp&nbsp格&nbsp:&nbsp</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input id="add_price" type="number" class="form-control" placeholder="请输入价格" style="width: 200px;" maxlength="20">
                                         <span style="font-size: 14px;">元</span>
                                     </div>
@@ -201,7 +199,7 @@ a:hover{
                                 </div>-->
                                 <div>
                                     <span>客&nbsp&nbsp&nbsp&nbsp户&nbsp:&nbsp</span>
-                                    <div class="form-group">
+                                    <div class="form-group m10">
                                         <input type="text" class="form-control" required="required" id="customer_name" placeholder="请输入客户" style="width: 200px;" maxlength="20">
                                         <input type="hidden" id="customer_id" class="form-control input-sm"  value="0" />
                                     </div>

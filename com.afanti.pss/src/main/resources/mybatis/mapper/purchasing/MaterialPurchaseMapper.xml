@@ -193,7 +193,7 @@
                 request_id= #{request_id},
             </if>
             <if test="purchase_isdel!=null  and purchase_isdel=''">
-                purchase_isdel= #{purchase_isdel},
+                purchase_isdel= #{purchase_isdel}
             </if>
         </trim>
         where purchase_id=#{purchase_id}
@@ -253,11 +253,12 @@
         #{use_id}
         )
     </insert>
-
+    <update id="updMaterialPurchaseforls" parameterType="Map">
+        update material_purchase set `desc` =#{desc} ,supplier_id=#{supplier_id} where purchase_id =#{purchase_id}
+    </update>
     <update id="updMaterialPurchaseDetail" parameterType="Map">
         update material_purchase_detail set purchase_detail_isdel =1 where purchase_id =#{purchase_id}
     </update>
-
     <update id="updPurchaseDetail" parameterType="Map">
        UPDATE
           material_purchase_detail

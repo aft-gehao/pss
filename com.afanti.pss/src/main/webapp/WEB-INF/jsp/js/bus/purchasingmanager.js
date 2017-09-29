@@ -25,7 +25,6 @@ function doSearch(p) {
         var number_str = find(str, '-', 2)
         var start_time = str.substring(0, number_str - 1);
         var end_time = str.substring(number_str + 2);
-        alert(start_time);
         $('#caigou_my_time').html(str);
     }
     var cas = $("#cas").val();
@@ -794,13 +793,13 @@ function cailiao(e)
 {
     $("#purchase_d_id").val($(e).attr("data"))
     $('#gyFile').uploadify({
-        'buttonImage':'/js/commons/fileinput/img/photo_icon1.png',//路径换成对应自己的路径
+        'buttonImage':'/js/commons/fileinput/img/uploadify1.png',//路径换成对应自己的路径
         'swf':'/js/uploadify/uploadify.swf',     //路径换成对应自己的路径
         'uploader':'/common/uploadhetong?path=upload.sd.gysnl',   //路径换成对应自己的路径
         'buttonText': '上传谱图',
         'multi': true,
-        'height': 50,
-        'width':50,
+        'height': 80,
+        'width':80,
         fileSizeLimit:'5MB',//设置上传文件的容量最大值
         uploadLimit: 20,//上传文件的数量。
         'method'   :'post',
@@ -817,7 +816,18 @@ function cailiao(e)
                 var allUrl = commonUrl+url;//七牛全路径-用于d标签点击打开
                 var $html = '';
                 $html += '<a  class="hetong" onclick="putu(this)" datas="'+url+'" data="'+allUrl+'" title="'+fileName+'" alt="'+fileName+'">';
-                $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/photo_icon.png"  >'
+                if(file.type=='.pdf'){
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg1.png"  >'
+                }else if(file.type=='.zip')
+                {
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg-zip1.png"  >'
+                }
+                else if(file.type=='.doc'||file.type=='.docx'){
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg-word1.png"  >'
+                }
+                else{
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg1.png"  >'
+                }
                 $html += '</a>';
                 $("#hetong").append($html);
             }
@@ -826,13 +836,13 @@ function cailiao(e)
         fileTypeDesc: '图片/PDF'
     });
     $('#gyFile2').uploadify({
-        'buttonImage':'/js/commons/fileinput/img/photo_icon1.png',//路径换成对应自己的路径
+        'buttonImage':'/js/commons/fileinput/img/uploadify1.png',//路径换成对应自己的路径
         'swf':'/js/uploadify/uploadify.swf',     //路径换成对应自己的路径
         'uploader':'/common/uploadmaterial?path=upload.sd.gysnl',   //路径换成对应自己的路径
         'buttonText': '上传谱图',
         'multi': true,
-        'height': 50,
-        'width':50,
+        'height': 80,
+        'width':80,
         fileSizeLimit:'5MB',//设置上传文件的容量最大值
         uploadLimit: 20,//上传文件的数量。
         'method'   :'post',
@@ -849,7 +859,18 @@ function cailiao(e)
                 var allUrl = commonUrl+url;//七牛全路径-用于d标签点击打开
                 var $html = '';
                 $html += '<a  class="material" onclick="putu(this)" datas="'+url+'" data="'+allUrl+'" title="'+fileName+'" alt="'+fileName+'">';
-                $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/photo_icon.png"  >'
+                if(file.type=='.pdf'){
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg1.png"  >'
+                }else if(file.type=='.zip')
+                {
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg-zip1.png"  >'
+                }
+                else if(file.type=='.doc'||file.type=='.docx'){
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg-word1.png"  >'
+                }
+                else{
+                    $html += '<img id="imghead" border="0" width="50px;" height="50px;" src="/js/commons/fileinput/img/noimg1.png"  >'
+                }
                 $html += '</a>';
                 $("#material").append($html);
             }

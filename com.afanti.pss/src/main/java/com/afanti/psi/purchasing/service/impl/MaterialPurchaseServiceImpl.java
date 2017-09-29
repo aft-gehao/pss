@@ -182,7 +182,7 @@ public class MaterialPurchaseServiceImpl implements MaterialPurchaseService {
         }
         params.put("purchase_isdel",0);
         //刪除明細表
-        materialPurchaseDao.updMaterialPurchase(params);
+        materialPurchaseDao.updMaterialPurchaseforls(params);
         materialPurchaseDao.updPurchaseDetail(params);
     }
     @Override

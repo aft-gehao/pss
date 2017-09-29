@@ -28,6 +28,7 @@ public interface MaterialPurchaseDao {
     public Cus_Supplier_info getsupplierCount(Map<String,Object> params);
     public void addMaterialPurchase(Material_purchase materialPurchase);
     public void updMaterialPurchase(Map<String,Object> params);
+    public void updMaterialPurchaseforls(Map<String,Object> params);
     public void updPurchaseDetail(Map<String,Object> params);
     public Product_material_info select_product_id(Map<String,Object> params);
     public void fahuo(Map<String,Object> params);

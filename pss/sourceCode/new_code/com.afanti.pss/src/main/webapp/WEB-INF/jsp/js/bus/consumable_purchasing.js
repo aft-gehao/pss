@@ -109,7 +109,7 @@ function doSearch(p) {
                           <td>' + $.alle_null2Str(html2) + '</td>\
                           <td class="operation"> \
                              <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="iconfont">&#xe61d;</i> 发货</a>\
-                             <a title="修改" purchase_id="' + append[i]["purchase_id"] + '"  purchase_money="' + append[i]["purchase_money"] + '" onclick="change(this)" datas="' + append[i]["consumable_name"] + '" datasss="' + append[i]["amount"] + '" datass="' + append[i]["consumable_unit"] + '" data="' + append[i]["purchase_id"] + '"class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe60</i>修改</a>\
+                             <a title="修改" purchase_id="' + append[i]["purchase_id"] + '"  purchase_money="' + append[i]["purchase_money"] + '" onclick="change(this)" datas="' + append[i]["consumable_name"] + '" datasss="' + append[i]["amount"] + '" datass="' + append[i]["consumable_unit"] + '" data="' + append[i]["purchase_id"] + '"class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe606;</i>修改</a>\
                           </td>\
                           </tr>\
                     \

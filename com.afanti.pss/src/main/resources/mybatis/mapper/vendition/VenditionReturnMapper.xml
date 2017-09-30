@@ -3,6 +3,10 @@
 <mapper namespace="com.afanti.psi.vendition.dao.VenditionReturnDao">
 
     <select id="getVenditionReturnPageList" parameterType="Map" resultType="Product_sale">
+
+        <!--SELECT
+        *
+=======
         SELECT
         t.sale_id,
         t.all_total,
@@ -12,6 +16,7 @@
         t2.`name` as cus_name,
         t4.stock_status,
        t7.sale_d_id
+>>>>>>> .r10063
         FROM
         product_sale t
         LEFT JOIN cus_supplier_info t2 ON (t2.cs_sup_id = t.customer_id)
@@ -34,12 +39,33 @@
             AND ${params.time}
         </if>
         <if test="params.start_time!=null and params.start_time!=''">
-            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        order by t.sale_time desc-->
+        SELECT
+        *
+        FROM
+        product_sale t
+        LEFT JOIN product_sale_detail t1 ON t.sale_id=t1.sale_id
+        LEFT JOIN product_sale_return t2 ON t.sale_id=t2.sale_id
+        LEFT JOIN product_sale_return_detail t3 ON t2.r_sale_id=t3.r_sale_id
+        LEFT JOIN product_material_info t4 ON t1.product_id=t4.product_id
+        LEFT JOIN cus_supplier_info t5 ON t.customer_id = t5.cs_sup_id
+        LEFT JOIN staff_info t6 ON t.staff_id=t6.staff_id
+        WHERE t.sale_isdel=0
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t6.staff_name like '%${params.search}%' OR t5.`name` like '%${params.search}%')
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
         </if>
         order by t.sale_time desc
     </select>
     <select id="getVenditionReturnPageCount" parameterType="Map" resultType="Integer">
-        SELECT
+        <!--SELECT
         count(1)
         FROM
         product_sale t
@@ -61,7 +87,27 @@
             AND ${params.time}
         </if>
         <if test="params.start_time!=null and params.start_time!=''">
-            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>-->
+        SELECT
+        count(1)
+        FROM
+        product_sale t
+        LEFT JOIN product_sale_detail t1 ON t.sale_id=t1.sale_id
+        LEFT JOIN product_sale_return t2 ON t.sale_id=t2.sale_id
+        LEFT JOIN product_sale_return_detail t3 ON t2.r_sale_id=t3.r_sale_id
+        LEFT JOIN product_material_info t4 ON t1.product_id=t4.product_id
+        LEFT JOIN cus_supplier_info t5 ON t.customer_id = t5.cs_sup_id
+        LEFT JOIN staff_info t6 ON t.staff_id=t6.staff_id
+        WHERE t.sale_isdel=0
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t6.staff_name like '%${params.search}%' OR t5.`name` like '%${params.search}%')
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
         </if>
     </select>
     <select id="getVenditionReturnProductList" parameterType="Map" resultType="Product_sale_detail">
@@ -107,6 +153,98 @@
         #{RESULT_MSG, mode=INOUT, jdbcType=NVARCHAR}
         )
     </select>
+
+
+
+
+    <select id="salePageList" parameterType="Map" resultType="Product_sale">
+        SELECT
+            *
+            FROM
+            product_sale t
+            LEFT JOIN product_sale_detail t1 ON t.sale_id = t1.sale_id
+            LEFT JOIN cus_supplier_info t2 ON t.customer_id = t2.cs_sup_id
+            LEFT JOIN staff_info t3 ON t3.staff_id = t.staff_id
+            LEFT JOIN product_material_info t4 ON t4.product_id = t1.product_id
+            WHERE
+            sale_d_isdel = 0
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%' OR t2.`name` like '%${params.search}%')
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        ORDER BY
+        t.sale_time DESC
+    </select>
+    <select id="salePageCount" parameterType="Map" resultType="Integer">
+          SELECT
+            count(1)
+        FROM
+        product_sale t
+        LEFT JOIN product_sale_detail t1 ON t.sale_id = t1.sale_id
+        LEFT JOIN cus_supplier_info t2 ON t.customer_id = t2.cs_sup_id
+        LEFT JOIN staff_info t3 ON t3.staff_id = t.staff_id
+        LEFT JOIN product_material_info t4 ON t4.product_id = t1.product_id
+        WHERE
+        sale_d_isdel = 0
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%' OR t2.`name` like '%${params.search}%')
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+    </select>
+    <select id="sale_returnPageList" parameterType="Map" resultType="Product_sale">
+      SELECT
+            *
+        FROM
+            product_sale_return t
+        LEFT JOIN product_sale_return_detail t1 ON t.r_sale_id=t1.r_sale_id
+        LEFT JOIN product_sale t3 ON t.sale_id=t3.sale_id
+        LEFT JOIN cus_supplier_info t2 ON t3.customer_id = t2.cs_sup_id
+        LEFT JOIN staff_info t4 ON t.staff_id=t4.staff_id
+        LEFT JOIN product_material_info t5 ON t5.product_id = t1.product_id
+        WHERE t.stock_status=8001
+        <if test="params.search!=null and params.search!=''">
+            and (t3.sale_name like '%${params.search}%' OR t4.staff_name like '%${params.search}%' OR t2.`name` like '%${params.search}%')
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t3.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+        ORDER BY t3.sale_time DESC
+    </select>
+    <select id="sale_returnPageCount" parameterType="Map" resultType="Integer">
+       SELECT
+           count(1)
+        FROM
+            product_sale_return t
+        LEFT JOIN product_sale_return_detail t1 ON t.r_sale_id=t1.r_sale_id
+        LEFT JOIN product_sale t3 ON t.sale_id=t3.sale_id
+        LEFT JOIN cus_supplier_info t2 ON t3.customer_id = t2.cs_sup_id
+        LEFT JOIN staff_info t4 ON t.staff_id=t4.staff_id
+        LEFT JOIN product_material_info t5 ON t5.product_id = t1.product_id
+        WHERE t.stock_status=8001
+        <if test="params.search!=null and params.search!=''">
+            and (t.sale_name like '%${params.search}%' OR t3.staff_name like '%${params.search}%' OR t2.`name` like '%${params.search}%')
+        </if>
+        <if test="params.time!=null and params.time!=''">
+            AND ${params.time}
+        </if>
+        <if test="params.start_time!=null and params.start_time!=''">
+            AND t3.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 1 day)
+        </if>
+    </select>
+
     <select id="selectUseForSale" parameterType="Map" resultType="Product_use">
         SELECT
         *
@@ -172,4 +310,5 @@
     <update id="status_up_fordetails" parameterType="Map">
         UPDATE product_sale_detail set sale_status=5002 where sale_d_id=#{sale_d_id}
     </update>
+
 </mapper>

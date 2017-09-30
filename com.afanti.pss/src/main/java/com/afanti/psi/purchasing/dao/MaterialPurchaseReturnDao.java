@@ -15,4 +15,6 @@ public interface MaterialPurchaseReturnDao {
     public int getMaterialPurchaseReturnPageCount(Page<Material_purchase> pageInfo);
     List<Material_purchase_detail> getPurchaseInventoryReturnList(Map<String, Object> params);
     void purchansingReturnSumbit(Map<String, Object> params);
+
+    List<Material_purchase> PurchaseReturn_detail(Map<String, Object> params);
 }

@@ -3,6 +3,7 @@ package com.afanti.psi.purchasing.web;
 import com.afanti.psi.base.BaseController;
 import com.afanti.psi.purchasing.service.MaterialPurchaseReturnService;
 import com.afanti.psi.purchasing.service.MaterialPurchaseService;
+import com.afanti.psi.purchasing.vo.Material_purchase;
 import com.afanti.psi.utils.JsonData;
 import com.afanti.psi.utils.Page;
 import org.joda.time.DateTime;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,6 +100,25 @@ public class MeterialPurcheaseReturnController extends BaseController {
             params.put("PR_STAFF_ID", this.getSessionData().getStaffInfo().getStaff_id());
             params.put("params_value",this.getParameterString("params_value"));
             materialPurchaseReturnService.purchansingReturnSumbit(params);
+            jsonData.setResult(SUCCESS);
+            jsonData.setMessage("操作成功");
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage("操作失败");
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+
+    @RequestMapping(value = "/PurchaseReturn_detail", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData PurchaseReturn_detail() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("purchase_id",this.getParameterInteger("purchase_id"));
+            List<Material_purchase> list = materialPurchaseReturnService.PurchaseReturn_detail(params);
+            jsonData.setAppend(list);
             jsonData.setResult(SUCCESS);
             jsonData.setMessage("操作成功");
         } catch (Exception e) {

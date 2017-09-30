@@ -39,7 +39,8 @@ function doSearch(p) {
     var end_time=str.substring(number_str+2);
     var cas = $("#cas").val();
     var time = $("#time").val();
-    var status = $("#status").val();
+    var stock_status = $("#status").val();
+    stock_status.substring(0,stock_status.length-1)
     var consumable_name = $("#consumable_name").val();
     var flag=1;
     $.ajax({
@@ -49,7 +50,6 @@ function doSearch(p) {
             start_time:start_time,
             end_time:end_time,
             time:time,
-            status:status,
             search: cas,
             consumable_name: consumable_name,
             flag:flag,
@@ -68,6 +68,7 @@ function doSearch(p) {
                 for (var i = 0; i < append.length; i++) {
                     var html = "";
                     var html2 = "";
+                    var html3='<a type="button" class="btn btn-success" id="use_id" use_id='+append[i]["use_id"]+' data-toggle="modal" data-target="#detail-Modal">详情</a>';
                     if (append[i]["status"] == 5001) {
                         html2 += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black" >已入库</button>';
                     }
@@ -92,8 +93,7 @@ function doSearch(p) {
                            <td>' +  $.alle_null2Str(append[i]["purchase_money"]) +'元</td>\
                            <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["pur_staff"] + '</td>\
                           <td>' + $.alle_null2Str(html2) + '</td>\
-                          <td class="operation">\
-                          </td>\
+                          <td class="operation">'+html3+'</td>\
                         </tr>\
                     \
                     ';
@@ -107,7 +107,7 @@ function doSearch(p) {
                             <td>' +  $.alle_null2Str(append[i]["purchase_money"]) +'元</td>\
                           <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["pur_staff"] + '</td>\
                           <td>' + $.alle_null2Str(html2) + '</td>\
-                          <td class="operation"> \
+                          <td class="operation">'+html3+' \
                              <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#con_fahuo"><i class="iconfont">&#xe61d;</i> 发货</a>\
                              <a title="修改" purchase_id="' + append[i]["purchase_id"] + '"  purchase_money="' + append[i]["purchase_money"] + '" onclick="change(this)" datas="' + append[i]["consumable_name"] + '" datasss="' + append[i]["amount"] + '" datass="' + append[i]["consumable_unit"] + '" data="' + append[i]["purchase_id"] + '"class="btn btn-success btn-sm" data-toggle="modal" data-target="#caigou-delete"><i class="iconfont">&#xe606;</i>修改</a>\
                           </td>\
@@ -117,6 +117,59 @@ function doSearch(p) {
                     }
                 }
                 $("#data_tbody").html(value);
+                $("a[id*='use_id']").each(function () {
+                    $(this).click(function() {
+                        $("#use_id_detail").val($(this).attr("use_id"));
+                        var use_id=$("#use_id_detail").val()
+                        $.ajax({
+                            type: 'POST',
+                            url: "/consumable/manager/detail_consumables",
+                            data: {
+                                use_id:use_id
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                if (data["result"] == "success") {
+                                    var value = "";
+                                    if (data["append"] == null) {
+                                        layer.msg('暂无数据');
+                                        return;
+                                    }
+
+                                    var append = eval(data["append"]);
+                                    for (var i = 0; i < append.length; i++) {
+                                        value += '\
+                                        <tr>\
+                                          <td>' + $.alle_null2Str(append[i]["consumable_name"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["pack"]) + '</td>\
+                                          </tr>\
+                                          \
+                                        ';
+                                        $("#apply_name").html(append[i]["apply_name"])
+                                        $("#apply_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["apply_time"]))
+                                        $("#apply_amount").html(append[i]["apply_amount"]+append[i]["consumable_unit"])
+                                        $("#apply_desc").html(append[i]["apply_desc"])
+                                        $("#procurement_name").html(append[i]["procurement_name"])
+                                        $("#procurement_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["procurement_time"]))
+                                        $("#procurement_amount").html(append[i]["procurement_amount"]+append[i]["consumable_unit"])
+                                        $("#purchase_money").html(append[i]["purchase_money"]+'元')
+                                        $("#procurement_desc").html(append[i]["procurement_desc"])
+                                        $("#enter_name").html(append[i]["enter_name"])
+                                        $("#enter_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["enter_time"]))
+                                        $("#storage_amount").html(append[i]["storage_amount"]+append[i]["consumable_unit"])
+                                        var stock_id=append[i]["stock_id"]
+                                        if (stock_id==""){
+                                            $("#stock_id").hide()
+                                        }else {
+                                            $("#stock_id").show()
+                                        }
+                                   }
+                                    $("#data_table_detail").html(value);
+                                }
+                            }
+                        })
+                    })
+                })
                 //调用设置分页
                 PAGE_INIT("#pages", data["append"].pageNo, data["append"].totalPage);
                 $(document).on('mouseover',  "button[id='example']", function() {

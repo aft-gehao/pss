@@ -8,7 +8,6 @@ import com.afanti.psi.purchasing.service.MaterialPurchaseService;
 import com.afanti.psi.purchasing.vo.Material_purchase;
 import com.afanti.psi.purchasing.vo.Material_purchase_detail;
 import com.afanti.psi.shinfo.service.Cus_SupplierInfoService;
-import com.afanti.psi.shinfo.vo.Linkman;
 import com.afanti.psi.utils.JsonData;
 import com.afanti.psi.utils.Page;
 import org.joda.time.DateTime;
@@ -19,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
-import java.util.logging.Logger;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 采购管理 》采购管理
@@ -387,4 +388,25 @@ public class MeterialPurcheaseController extends BaseController {
         return jsonData;
     }*/
 
+
+    @RequestMapping(value = "/select_use_id", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData select_use_id()
+    {
+        JsonData jsonData = new JsonData();
+        try{
+            Map<String,Object> params = new HashMap<String, Object>();
+            params.put("use_id",this.getParameterInteger("use_id"));
+            List<Material_purchase> list = materialPurchaseService.select_use_id(params);
+            jsonData.setAppend(list);
+            jsonData.setResult(SUCCESS);
+            jsonData.setMessage("操作成功");
+        }catch (Exception e)
+        {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage("操作失败");
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
 }

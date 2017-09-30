@@ -26,7 +26,7 @@
 </head>
 <body>
 <form class="form-inline definewidth" action="index.html" method="get">
-    <input id="status_id" hidden="hidden">
+    <input id="status" value="8001" hidden="hidden">
     <input id="time" hidden="hidden">
     <div class="filter-box switch-close">
         <section class="panel-cont">
@@ -36,10 +36,8 @@
                         <label class="pull-left search-label">销售状态：</label>
                         <div class="clearfix search-link">
                             <div class="auto">
-                                <a onclick="test(this)" data="" class="info1 active" >全部</a>
-                                <a onclick="test(this)" data="8001" class="info" >已出库</a>
-                                <a onclick="test(this)" data="8002" class="info" >未出库</a>
-                                <a onclick="test(this)" data="8003" class="info" >部分出库</a>
+                                <a onclick="test(this)" data="8001" class="info active" >已退货</a>
+                                <a onclick="test(this)" data="1" class="info" >未退货</a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +95,7 @@
                     </span>
                     </div>
                 <span class="input-group-btn">
-                 <button type="button" onclick="do_query()" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
+                 <button type="button" onclick="do_query_sale()" id="search_key_btn" class="btn btn-default btn-outline">查询</button>
                 </span>
                 </div>
             </div>
@@ -107,6 +105,16 @@
             <table class="table table-bordered table-hover definewidth m20">
                 <thead>
                 <tr>
+                    <th width="8%">CAS</th>
+                    <th width="8%">SKU</th>
+                    <th width="7%">销售量</th>
+                    <th width="8%">销售金额</th>
+                    <th width="9%">批次号</th>
+                    <th width="9%">客户名称</th>
+                    <th width="9%">销售人员</th>
+                    <th width="13%">销售时间</th>
+                    <th width="7%">状态</th>
+                    <th width="22%">操作</th>
                     <th width="20%">销售名称</th>
                     <th width="10%">销售金额</th>
                     <th width="15%">销售时间</th>

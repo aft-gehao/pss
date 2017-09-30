@@ -316,9 +316,11 @@
         <if test="params.stock_status!=null and params.stock_status!=''">
             and t.status IN (${params.stock_status})
         </if>
+
         <if test="params.status!=null and params.status!=''">
             and t.status IN ${params.status}
         </if>
+
         <if test="params.time!=null and params.time!=''">
             and ${params.time}
         </if>
@@ -1029,4 +1031,33 @@
         SET t.status=#{status},t.kd_code=#{kd_code},t.kd_num=#{kd_num}
         WHERE t.repair_id=#{repair_id}
     </update>
+
+
+    <select id="detail_consumables" parameterType="Map" resultType="consumable_use">
+       SELECT
+                t1.consumable_name,
+                t.amount AS apply_amount,
+                t1.consumable_unit,
+                t1.pack,
+            (SELECT staff_name FROM staff_info WHERE staff_id=t1.staff_id) AS apply_name,
+                t.`desc` AS apply_desc,
+                t1.create_time AS apply_time,
+            (SELECT staff_name FROM staff_info WHERE staff_id=t2.staff_id) AS procurement_name,
+                t2.purchase_time AS procurement_time,
+                t2.amount AS procurement_amount,
+                t2.purchase_money,
+                t2.`desc` AS procurement_desc,
+            (SELECT staff_name FROM staff_info WHERE staff_id=t3.enter_staff) AS enter_name,
+                t3.enter_time,
+                t3.amount AS storage_amount,
+                t3.stock_id
+            FROM
+                consumable_use t
+            LEFT JOIN consumable_material_info t1 ON t.consumable_id=t1.consumable_id
+            LEFT JOIN consumable_purchase t2 ON t.use_id=t2.use_id
+            LEFT JOIN consumable_stock t3 ON t2.purchase_id=t3.purchase_id
+            WHERE t.use_id=#{use_id} AND t.is_del=0
+    </select>
+
+
 </mapper>

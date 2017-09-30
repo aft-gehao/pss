@@ -1,7 +1,6 @@
 package com.afanti.psi.purchasing.service;
 
 import com.afanti.psi.purchasing.vo.Material_purchase;
-import com.afanti.psi.purchasing.vo.Material_purchase_detail;
 import com.afanti.psi.utils.Page;
 
 import java.util.List;
@@ -14,5 +13,7 @@ public interface MaterialPurchaseReturnService {
     public Page<Material_purchase> getMaterialPurchaseReturnPageList(Map<String,Object> params);
     public Map<String,Object>loadInventoryReturnList(Map<String,Object> params);
     public void purchansingReturnSumbit(Map<String,Object> params) throws Exception;
+
+    List<Material_purchase> PurchaseReturn_detail(Map<String, Object> params);
 
 }

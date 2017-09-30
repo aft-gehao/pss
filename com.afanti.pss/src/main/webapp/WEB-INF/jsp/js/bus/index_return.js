@@ -31,7 +31,7 @@ function doSearch(p) {
         $("#type_custom_time").html(str)
     }
 
-    var status = $("#status_id").val();
+    var status = $("#status").val();
     if (status==""){
         $("#type_status").html("全部")
     }
@@ -74,12 +74,24 @@ function doSearch(p) {
                     }
                     else if (append[i]["stock_status"] == 5002 || append[i]["stock_status"]==0) {
                         html_type += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black;border-color: red;">未入库</button></span>';
-                    }else {
+                    }else if (append[i]["stock_status"] == 8001) {
+                        html_type += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black;">已出库</button></span>';
+                    }
+                    else {
                         layer.msg("类型异常,联系管理员");
                     }
                     html_sumbit += "<a id='ven_return_submit' class='btn btn-success' type='button' onclick='vendition_return(" + append[i].sale_id + ")'>退货</a>";
                     value += '\
                     <tr >\
+                        <td>' + $.alle_null2Str(append[i]["cas"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["sku"]) + '</td>\
+                        <td>' + $.alle_null2Str(append[i]["amount"]) + '' + $.alle_null2Str(append[i]["unit"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["unit_price"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["batch_no"]) + '</td>\
+                        <td>' + $.alle_null2Str(append[i]["name"]) + '</td>\
+                         <td>' + $.alle_null2Str(append[i]["staff_name"]) + '</td>\
+                         <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["sale_time"]) + '</td>\
+                        <td>' +html_type + '</td>\
                       <td>' + append[i]["cus_name"] + '</td>\
                          <td>' + append[i]["all_total"] + '</td>\
                          <td>' + $.alle_time2str_yymm_dd_hhmmss(append[i]["sale_time"]) + '</td>\
@@ -110,9 +122,9 @@ function vendition_detial(sale_id) {
 function test(e){
     //console.log("123");
     if($(e).attr("class")=='info active'){
-        $(e).removeClass("info active").attr("class","info");
+        $("a[class='info active']").removeClass("info active").attr("class","info");
     }else if($(e).attr("class")=='info'){
-
+        $("a[class='info active']").removeClass("info active").attr("class","info");
         $(e).removeClass("info").attr("class","info active");
     }
     if($(e).attr("class")=='time active'){
@@ -128,11 +140,11 @@ function test(e){
     var type_status=""
     var type_time=""
     $("a[class='info active']").each(function(){
-        info +=$(this).attr("data")+",";
-        type_status +=$(this).html()+"/"
+        info +=$(this).attr("data");
+        type_status =$(this).html()
     })
-    $("#type_status").html(type_status.substring(0,type_status.length-1));
-    $("#status_id").val(info.substring(0,info.length-1));
+    $("#type_status").html(type_status);
+    $("#status").val(info);
     $("a[class='time active']").each(function(){
         time +=$(this).attr("data");
         type_time=$(this).html();
@@ -155,6 +167,6 @@ function test(e){
     doSearch(1);
 }
 
-function do_query() {
+function do_query_sale() {
     doSearch(1)
 }

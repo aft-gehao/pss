@@ -365,4 +365,9 @@ public class ConsumableServiceImpl implements ConsumableService {
         int count = consumableDao.getUseCount_history(params);
         return count;
     }
+
+    public List<consumable_use> detail_consumables(Map<String, Object> params){
+        List<consumable_use> list=consumableDao.detail_consumables(params);
+        return list;
+    }
 }

@@ -70,7 +70,7 @@ function doSearch(p) {
                 for (var i = 0; i < append.length; i++) {
                     var html = "";
                     var html2 = "";
-
+                    var html3='<a id="purchase_id" purchase_id='+append[i]["purchase_id"]+' type="button" class="btn btn-success" data-toggle="modal" data-target="#detail-Modal">详情</a>';
 
                     if (append[i]["stock_status"] == 8001||append[i]["stock_status"] == 8002) {
                         html2 += '<button type="button" class="btn btn-success btn-sm" style="background-color:white;color:black" >已退货</span>';
@@ -90,7 +90,7 @@ function doSearch(p) {
                          <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
-                         <td class="operation"><input id="pur_return_submit" disabled="disabled" class="btn btn-success btn-sm"  type="button" class="btn btn-link btn-xs" onclick="purchasing_return(' + append[i]["purchase_id"] + ',' + append[i]["stock_status"] + ')" value="退货"/>\
+                         <td class="operation">'+html3+'<a id="pur_return_submit" purchase_id='+append[i]["purchase_id"]+' class="btn btn-success btn-sm"  type="button" class="btn btn-link btn-xs" onclick="purchasing_return(' + append[i]["purchase_id"] + ',' + append[i]["stock_status"] + ')">退货</a>\
                     </td>\
                     </tr>\
                     \
@@ -104,8 +104,7 @@ function doSearch(p) {
                          <td>' + $.alle_null2Str(append[i]["supplier_name"]) + '</td>\
                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
-                          <td class="operation"> \
-                            <input  type="button" onclick="purchasing_detial(' + append[i]["purchase_id"] + ')"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" value="详细">\
+                          <td class="operation">'+html3+'<a type="button" onclick="purchasing_detial(' + append[i]["purchase_id"] + ')"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal">详细</a>\
                           </td>\
                         </tr>\
                     \
@@ -114,6 +113,61 @@ function doSearch(p) {
 
                 }
                 $("#data_tbody").html(value);
+                $("a[id*='purchase_id']").each(function () {
+                    $(this).click(function () {
+                        var purchase_id = $(this).attr("purchase_id")
+                        $.ajax({
+                            type: 'POST',
+                            url: "/meterialpurchease/return/PurchaseReturn_detail",
+                            data: {
+                                purchase_id: purchase_id
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                if (data["result"] == "success") {
+                                    var value = "";
+                                    if (data["append"] == null) {
+                                        layer.msg('暂无数据');
+                                        return;
+                                    }
+
+                                    var append = eval(data["append"]);
+                                    for (var i = 0; i < append.length; i++) {
+                                        value += '\
+                                        <tr>\
+                                          <td>' + $.alle_null2Str(append[i]["cas"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["sku"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["amount"])+$.alle_null2Str(append[i]["unit"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["name_ch"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["name_en"]) + '</td>\
+                                          </tr>\
+                                          \
+                                        ';
+                                        $("#apply_name").html(append[i]["apply_name"])
+                                        $("#apply_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]))
+                                        $("#apply_amount").html(append[i]["use_amount"]+append[i]["use_unit"])
+                                        $("#apply_desc").html(append[i]["use_desc"])
+                                        $("#procurement_name").html(append[i]["procurement_name"])
+                                        $("#procurement_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]))
+                                        $("#procurement_amount").html(append[i]["procurement_amount"]+append[i]["procurement_unit"])
+                                        $("#purchase_money").html(append[i]["unit_price"]+'元')
+                                        $("#procurement_desc").html(append[i]["procurement_desc"])
+                                        $("#enter_name").html(append[i]["storage_name"])
+                                        $("#enter_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["oper_time"]))
+                                        $("#storage_amount").html(append[i]["storage_amount"]+append[i]["storage_unit"])
+                                        var ht=append[i]["doc_url"]
+                                        if (ht==null){
+                                            $("#ht").html('<span title="下载合同">无</span>')
+                                        } else {
+                                            $("#ht").html('<span title="下载合同"><a href='+ht+'><i class="iconfont">&#xe61e;</i></a></span>')
+                                        }
+                                    }
+                                    $("#data_table_detail").html(value);
+                                }
+                            }
+                        })
+                    })
+                })
                 //调用设置分页
                 PAGE_INIT("#pages", data["append"].pageNo, data["append"].totalPage)
             } else {

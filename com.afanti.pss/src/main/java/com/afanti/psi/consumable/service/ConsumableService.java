@@ -61,4 +61,7 @@ public interface ConsumableService {
 
     List<consumable_use> getUseList_history(Map<String, Object> params);
     int getUseCount_history(Map<String, Object> params);
+
+
+    List<consumable_use> detail_consumables(Map<String, Object> params);
 }

@@ -235,4 +235,23 @@ public class Product_sale {
     public void setHetong_doc(String hetong_doc) {
         this.hetong_doc = hetong_doc;
     }
+
+    private String name;
+    private String batch_no;
+
+    public String getBatch_no() {
+        return batch_no;
+    }
+
+    public void setBatch_no(String batch_no) {
+        this.batch_no = batch_no;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

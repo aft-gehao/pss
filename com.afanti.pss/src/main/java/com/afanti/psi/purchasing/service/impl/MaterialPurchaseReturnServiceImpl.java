@@ -70,4 +70,8 @@ public class MaterialPurchaseReturnServiceImpl implements MaterialPurchaseReturn
             throw new Exception("存储过程执行失败");
         }
     }
+    public List<Material_purchase> PurchaseReturn_detail(Map<String, Object> params){
+        List<Material_purchase> list = materialPurchaseReturnDao.PurchaseReturn_detail(params);
+        return list;
+    }
 }

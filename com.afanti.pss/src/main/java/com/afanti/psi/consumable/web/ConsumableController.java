@@ -338,7 +338,7 @@ public class ConsumableController extends BaseController {
             String end_time = getParameterString("end_time");
             Map<String, Object> params = new HashMap<String, Object>();
             params.put("consumable_name", this.getParameterString("consumable_name"));
-            params.put("stock_status", this.getParameterString("stock_status"));
+            params.put("stock_status", this.getParameterString("stock_stauts"));
             params.put("p", this.getParameterString("p"));
             params.put("search", getParameterString("search"));
             params.put("time",this.getParameterString("time"));
@@ -358,7 +358,7 @@ public class ConsumableController extends BaseController {
                 status +=")";
                 params.put("status",status.toString());
             }
-            else if(String.valueOf(this.getParameterString("flag"))=="1" && String.valueOf(this.getParameterString("status"))==""){
+            else if(String.valueOf(this.getParameterString("flag")).equals("1") && String.valueOf(this.getParameterString("status"))==""){
                 params.put("status","(5001,5002,5003,5004)");
             }
             Page page = consumableService.getPurchasingPage(params);
@@ -865,6 +865,25 @@ public class ConsumableController extends BaseController {
             List<consumable_use> list = consumableService.getUseList_history(params);
             jsonData.setAppend(list);
             jsonData.setAppend_ext("("+count+")");
+            jsonData.setResult(SUCCESS);
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage(e.toString());
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+
+
+    @RequestMapping(value = "/detail_consumables", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData detail_consumables() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("use_id", getParameterInteger("use_id"));
+            List<consumable_use> list = consumableService.detail_consumables(params);
+            jsonData.setAppend(list);
             jsonData.setResult(SUCCESS);
         } catch (Exception e) {
             jsonData.setResult(FAIL);

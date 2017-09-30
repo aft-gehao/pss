@@ -9,12 +9,10 @@ import com.afanti.psi.purchasing.vo.Material_purchase;
 import com.afanti.psi.purchasing.vo.Material_purchase_detail;
 import com.afanti.psi.utils.FunctionUtil;
 import com.afanti.psi.utils.Page;
-import com.alibaba.druid.sql.visitor.functions.Function;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -209,5 +207,10 @@ public class MaterialPurchaseServiceImpl implements MaterialPurchaseService {
     public void addmaterial(Map<String,Object> params){
         materialPurchaseDao.addhetong(params);
         materialPurchaseDao.upmaterial(params);
+    }
+
+    public List<Material_purchase> select_use_id(Map<String,Object> params){
+        List<Material_purchase> list = materialPurchaseDao.select_use_id(params);
+        return list;
     }
 }

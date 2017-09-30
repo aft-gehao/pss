@@ -40,16 +40,22 @@ public class VenditionReturnController extends BaseController {
             params.put("sku", getParameterString("sku"));
             params.put("start_time", start_time);
             params.put("end_time", end_time);
-            params.put("status",getParameterString("status"));
+            String status=getParameterString("status");
+            params.put("status",status);
             params.put("search",getParameterString("search"));
             params.put("time",getParameterString("time"));
             params.put("p", getParameterString("p"));
-            Page page = venditionReturnService.getVenditionReturnPageList(params);
+            Page page=new Page();
+            if (status.equals("1")){
+                page = venditionReturnService.salePageList(params);
+            } else if (status.equals("8001")){
+                page = venditionReturnService.sale_returnPageList(params);
+            }
             jsonData.setAppend(page);
             jsonData.setResult(SUCCESS);
         } catch (Exception e) {
             jsonData.setResult(FAIL);
-            jsonData.setMessage("查询采购列表失败");
+            jsonData.setMessage("查询列表失败");
             e.printStackTrace();
         }
         return jsonData;

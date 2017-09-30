@@ -109,8 +109,8 @@
         sf.staff_name,
         cu.`name` AS supplier_name
         FROM
-        product_sale t1
-        LEFT JOIN product_sale_return t3
+        product_sale_return t3
+        LEFT JOIN product_sale t1
         ON (t3.sale_id = t1.sale_id)
         LEFT JOIN pss_dict d2
         ON (t3.stock_status = d2.dict_id)
@@ -124,7 +124,6 @@
         ON k5.product_id = k4.product_id
         WHERE t1.sale_isdel = 0) t1
         WHERE t1.stock_status IS NOT NULL
-
         <if test="params.in_type!=null and params.in_type!=''">
             and t1.in_type = ${params.in_type}
         </if>

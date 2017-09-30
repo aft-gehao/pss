@@ -109,13 +109,13 @@
                 <table class="table table-bordered table-hover definewidth m20">
                     <thead>
                     <tr>
-                        <th width="14%">耗材名</th>
-                        <th width="14%">规格</th>
-                        <th width="14%">采购数量</th>
-                        <th width="14%">采购总价</th>
-                        <th width="14%">采购信息</th>
-                        <th width="14%">采购状态</th>
-                        <th id="action" width="16%">操作</th>
+                        <th width="13%">耗材名</th>
+                        <th width="10%">规格</th>
+                        <th width="13%">采购数量</th>
+                        <th width="13%">采购总价</th>
+                        <th width="13%">采购信息</th>
+                        <th width="13%">采购状态</th>
+                        <th id="action" width="25%">操作</th>
                         <input type="hidden" id="purchase_id">
                         <input type="hidden" id="use_id">
                         <input type="hidden" id="consumable_id">
@@ -350,6 +350,97 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <!-- 耗材采购历史详情弹出框Modal -->
+    <div class="modal fade" id="detail-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="width: 1000px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <input type="hidden" id="use_id_detail">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">耗材采购详情</h4>
+                </div>
+                <form class="form-horizontal pop-hor-form" action="/expense_accounts" accept-charset="UTF-8" method="post">
+                    <div class="modal-body pop-modal modal-adapt-height">
+                        <div class="expense-content-container">
+                            <section class="tck-table">
+                                <div class="table-responsive" style="padding: 0">
+                                    <h4 class="text-left pb10">耗材采购基本信息:</h4>
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th width="50%">耗材名</th>
+                                            <th width="50%">规格</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="data_table_detail">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                            <div class="panel panel-default expense-form-group">
+                                <div class="row">
+                                    <h4 class="text-left pb10" style="padding-left: 40px">耗材申请信息:</h4>
+                                    <div class="form-group">
+                                        <label title="申请人" class="control-label"><span>*</span>申请人： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="apply_name"></div>
+                                        <label title="申请时间" class="control-label"><span>*</span>申请时间： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="apply_time"></div>
+                                        <label title="申请量" class="control-label"><span>*</span>申请量： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="apply_amount"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><span>*</span>备注： </label>
+                                        <div class="col-sm-10"  style="margin-top: 6px;" id="apply_desc"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <h4 class="text-left pb10" style="padding-left: 40px">耗材采购信息:</h4>
+                                    <div class="form-group">
+                                        <label title="采购人" class="control-label"><span>*</span>采购人： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="procurement_name"></div>
+                                        <label title="采购时间" class="control-label"><span>*</span>采购时间： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="procurement_time"></div>
+                                        <label title="采购量" class="control-label"><span>*</span>采购量： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="procurement_amount"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label title="采购金额" class="control-label"><span>*</span>采购金额： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="purchase_money"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label"><span>*</span>备注： </label>
+                                        <div class="col-sm-10"  style="margin-top: 6px;" id="procurement_desc"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="stock_id">
+                                    <h4 class="text-left pb10" style="padding-left: 40px">耗材入库信息:</h4>
+                                    <div class="form-group">
+                                        <label title="入库人" class="control-label"><span>*</span>入库人： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="enter_name"></div>
+                                        <label title="入库时间" class="control-label"><span>*</span>入库时间： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="enter_time"></div>
+                                        <label title="入库量" class="control-label"><span>*</span>入库量： </label>
+                                        <div class="col-xs-2" style="margin-top: 6px;" id="storage_amount"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end-->
+                    </div>
+                    <!--end-->
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </form>
 <script type="text/javascript" src="/js/plugins/datepicker/WdatePicker.js"></script>
 <script type="text/javascript" src="/js/plugins/layer/layer.js"></script>

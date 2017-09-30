@@ -272,9 +272,112 @@ public class consumable_use {
     }
 
 
+    private String apply_name;
+    private Date apply_time;
+    private int apply_amount;
+    private String apply_desc;
+    private String procurement_name;
+    private Date procurement_time;
+    private int procurement_amount;
+    private float purchase_money;
+    private String procurement_desc;
+    private String enter_name;
+    private Date enter_time;
+    private int storage_amount;
 
+    public String getApply_name() {
+        return apply_name;
+    }
 
+    public void setApply_name(String apply_name) {
+        this.apply_name = apply_name;
+    }
 
+    public Date getApply_time() {
+        return apply_time;
+    }
 
+    public void setApply_time(Date apply_time) {
+        this.apply_time = apply_time;
+    }
 
+    public int getApply_amount() {
+        return apply_amount;
+    }
+
+    public void setApply_amount(int apply_amount) {
+        this.apply_amount = apply_amount;
+    }
+
+    public String getApply_desc() {
+        return apply_desc;
+    }
+
+    public void setApply_desc(String apply_desc) {
+        this.apply_desc = apply_desc;
+    }
+
+    public String getProcurement_name() {
+        return procurement_name;
+    }
+
+    public void setProcurement_name(String procurement_name) {
+        this.procurement_name = procurement_name;
+    }
+
+    public Date getProcurement_time() {
+        return procurement_time;
+    }
+
+    public void setProcurement_time(Date procurement_time) {
+        this.procurement_time = procurement_time;
+    }
+
+    public int getProcurement_amount() {
+        return procurement_amount;
+    }
+
+    public void setProcurement_amount(int procurement_amount) {
+        this.procurement_amount = procurement_amount;
+    }
+
+    public float getPurchase_money() {
+        return purchase_money;
+    }
+
+    public void setPurchase_money(float purchase_money) {
+        this.purchase_money = purchase_money;
+    }
+
+    public String getProcurement_desc() {
+        return procurement_desc;
+    }
+
+    public void setProcurement_desc(String procurement_desc) {
+        this.procurement_desc = procurement_desc;
+    }
+
+    public String getEnter_name() {
+        return enter_name;
+    }
+
+    public void setEnter_name(String enter_name) {
+        this.enter_name = enter_name;
+    }
+
+    public Date getEnter_time() {
+        return enter_time;
+    }
+
+    public void setEnter_time(Date enter_time) {
+        this.enter_time = enter_time;
+    }
+
+    public int getStorage_amount() {
+        return storage_amount;
+    }
+
+    public void setStorage_amount(int storage_amount) {
+        this.storage_amount = storage_amount;
+    }
 }

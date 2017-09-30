@@ -252,4 +252,47 @@
         </if>
 
     </select>
+
+    <select id="PurchaseReturn_detail" parameterType="Map" resultType="Material_purchase">
+        SELECT
+            t5.cas,
+            t5.sku,
+            t8.amount,
+            t5.name_ch,
+            t5.name_en,
+            (SELECT staff_name FROM staff_info WHERE t9.use_staff=staff_id) AS apply_name,
+            t9.use_time,
+            t9.use_amount,
+            t9.use_unit,
+            t9.use_desc,
+            (SELECT staff_name FROM staff_info WHERE t.staff_id=staff_id) AS procurement_name,
+            t.purchase_time,
+            t8.amount AS procurement_amount,
+            t10.doc_url,
+            t8.unit_price,
+            t8.`desc` AS procurement_desc,
+            (SELECT staff_name FROM staff_info WHERE t11.oper_id=staff_id) AS storage_name,
+            t11.oper_time,
+            t12.amount AS storage_amount,
+            t11.enter_id
+        FROM
+            material_purchase t
+        LEFT JOIN material_purchase_return t2 ON (
+            t.purchase_id = t2.purchase_id
+        )
+        LEFT JOIN material_purchase_detail t8 ON (
+            t.purchase_id = t8.purchase_id
+        )
+        LEFT JOIN staff_info t3 ON (t.staff_id = t3.staff_id)
+        LEFT JOIN cus_supplier_info t4 ON (t4.cs_sup_id = t.supplier_id)
+        LEFT JOIN material_purchase_return_detail t6 ON t6.`r_purchase_id` = t2.`r_purchase_id`
+        LEFT JOIN product_material_info t5 ON t5.`product_id` = t6.`product_id`
+        LEFT JOIN product_use t9 ON t8.use_id=t9.use_id
+        LEFT JOIN product_purchase_doc t10 ON t8.purchase_d_id=t10.purchase_d_id
+        LEFT JOIN product_material_enter t11 ON t11.enter_type_billno=t.purchase_id
+        LEFT JOIN product_material_enter_detail t12 ON t11.enter_id=t12.enter_id
+        WHERE
+            t.purchase_isdel = 0 AND t.purchase_id=#{purchase_id}
+    </select>
+
 </mapper>

@@ -46,4 +46,5 @@ public interface MaterialPurchaseDao {
     public void upmaterial(Map<String,Object> params);
     Product_material_enter_detail select_enter_time(Map<String,Object> params);
 
+    List<Material_purchase> select_use_id(Map<String,Object> params);
 }

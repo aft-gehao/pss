@@ -270,4 +270,140 @@ public class Material_purchase {
     public void setPurchase_d_id(int purchase_d_id) {
         this.purchase_d_id = purchase_d_id;
     }
+
+    private String apply_name;
+    private Date use_time;
+    private double use_amount;
+    private String use_unit;
+    private String use_desc;
+    private String procurement_name;
+    private double procurement_amount;
+    private String procurement_unit;
+    private String doc_url;
+    private String procurement_desc;
+    private int enter_id;
+    private String storage_name;
+    private Date oper_time;
+    private double storage_amount;
+    private String storage_unit;
+
+    public String getApply_name() {
+        return apply_name;
+    }
+
+    public void setApply_name(String apply_name) {
+        this.apply_name = apply_name;
+    }
+
+    public Date getUse_time() {
+        return use_time;
+    }
+
+    public void setUse_time(Date use_time) {
+        this.use_time = use_time;
+    }
+
+    public double getUse_amount() {
+        return use_amount;
+    }
+
+    public void setUse_amount(double use_amount) {
+        this.use_amount = use_amount;
+    }
+
+    public String getUse_unit() {
+        return use_unit;
+    }
+
+    public void setUse_unit(String use_unit) {
+        this.use_unit = use_unit;
+    }
+
+    public String getUse_desc() {
+        return use_desc;
+    }
+
+    public void setUse_desc(String use_desc) {
+        this.use_desc = use_desc;
+    }
+
+    public String getProcurement_name() {
+        return procurement_name;
+    }
+
+    public void setProcurement_name(String procurement_name) {
+        this.procurement_name = procurement_name;
+    }
+
+    public double getProcurement_amount() {
+        return procurement_amount;
+    }
+
+    public void setProcurement_amount(double procurement_amount) {
+        this.procurement_amount = procurement_amount;
+    }
+
+    public String getProcurement_unit() {
+        return procurement_unit;
+    }
+
+    public void setProcurement_unit(String procurement_unit) {
+        this.procurement_unit = procurement_unit;
+    }
+
+    public String getDoc_url() {
+        return doc_url;
+    }
+
+    public void setDoc_url(String doc_url) {
+        this.doc_url = doc_url;
+    }
+
+    public String getProcurement_desc() {
+        return procurement_desc;
+    }
+
+    public void setProcurement_desc(String procurement_desc) {
+        this.procurement_desc = procurement_desc;
+    }
+
+    public int getEnter_id() {
+        return enter_id;
+    }
+
+    public void setEnter_id(int enter_id) {
+        this.enter_id = enter_id;
+    }
+
+    public String getStorage_name() {
+        return storage_name;
+    }
+
+    public void setStorage_name(String storage_name) {
+        this.storage_name = storage_name;
+    }
+
+    public Date getOper_time() {
+        return oper_time;
+    }
+
+    public void setOper_time(Date oper_time) {
+        this.oper_time = oper_time;
+    }
+
+    public double getStorage_amount() {
+        return storage_amount;
+    }
+
+    public void setStorage_amount(double storage_amount) {
+        this.storage_amount = storage_amount;
+    }
+
+    public String getStorage_unit() {
+        return storage_unit;
+    }
+
+    public void setStorage_unit(String storage_unit) {
+        this.storage_unit = storage_unit;
+    }
 }

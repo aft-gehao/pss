@@ -94,4 +94,23 @@ public class VenditionReturnServiceImpl implements VenditionReturnService {
         venditionReturnDao.status_up_fordetails(params);
     }
 
+
+    public Page<Product_sale> salePageList(Map<String, Object> params){
+        Page<Product_sale> pageInfo = new Page<Product_sale>(FunctionUtil.PAGE_SIZE);
+        pageInfo.setPageNo(Integer.valueOf(params.get("p").toString()));
+        pageInfo.setParams(params);
+        List<Product_sale> productSaleList = venditionReturnDao.salePageList(pageInfo);
+        pageInfo.setResults(productSaleList);
+        FunctionUtil.pageInit(pageInfo);
+        return pageInfo;
+    }
+    public Page<Product_sale> sale_returnPageList(Map<String, Object> params){
+        Page<Product_sale> pageInfo = new Page<Product_sale>(FunctionUtil.PAGE_SIZE);
+        pageInfo.setPageNo(Integer.valueOf(params.get("p").toString()));
+        pageInfo.setParams(params);
+        List<Product_sale> productSaleList = venditionReturnDao.sale_returnPageList(pageInfo);
+        pageInfo.setResults(productSaleList);
+        FunctionUtil.pageInit(pageInfo);
+        return pageInfo;
+    }
 }

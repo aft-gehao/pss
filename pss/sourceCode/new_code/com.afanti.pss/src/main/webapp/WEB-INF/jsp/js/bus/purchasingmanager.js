@@ -75,9 +75,9 @@ function doSearch(p) {
                          <td>' + $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]) + '<br>' + append[i]["staff_name"] + '</td>\
                          <td>' + $.alle_null2Str(html2) + '</td>\
                          <td class="operation">\
-                             <a title="材料" id="cailiao"  onclick="cailiao(this)" data="' + append[i]["purchase_d_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#add_cailiao"><i class="iconfont">&#xe606;</i>  上传材料</a>\
-                            <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')" add_cas="' + append[i]["cas"] + '" add_name_ch="' + append[i]["name_ch"] + '" add_price="' + append[i]["unit_price"] + '" add_amount="' + append[i]["amount"] + '" add_suppllier_name="' + append[i]["supplier_name"] + '"   class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" ><i class="iconfont">&#xe8a0;</i>  详细</a>\
-                            <input   disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_del" class="btn btn-link btn-xs" value=""/>\
+                             <a title="材料" id="cailiao"  onclick="cailiao(this)" data="' + append[i]["purchase_d_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#add_cailiao"><i class="iconfont">&#xe606;</i>上传材料</a>\
+                            <a title="详细" id="use_id"  use_id="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm"  data-toggle="modal" data-target="#detail-Modal"><i class="iconfont">&#xe8a0;</i>详细</a>\
+                            <input disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_del" class="btn btn-link btn-xs" value=""/>\
                          </td>\
                     </tr>\
                     \
@@ -95,8 +95,8 @@ function doSearch(p) {
                          <td class="operation">\
                             <a title="发货" id="fahuo"  onclick="fahuo(this)" data="' + append[i]["use_id"] + '"  class="btn btn-success btn-sm" data-toggle="modal" data-target="#fahuo1"><i class="iconfont">&#xe61d;</i>卖方发货</a>\
                             <a title="修改" onclick="pur_up(this)" id="pro_mod"  class="btn btn-success btn-sm"  data="'+append[i]["purchase_id"]+'" purchase_id="' + append[i]["purchase_id"] + '" cas="' + append[i]["cas"] + '" name_ch="' + append[i]["name_ch"] + '" supplier_name="' + append[i]["supplier_name"] + '" amount="' + append[i]["amount"] + '" unit_price="' + append[i]["unit_price"] + '"data-toggle="modal" data-target="#addcaigou" ><i class="iconfont">&#xe606;</i> 修改</a>\
-                            <a title="详细"  onclick="purchasing_detial(' + append[i]["purchase_id"] + ')"  class="btn btn-success btn-sm" data="' + $.alle_null2Str(append[i]["repair_id"]) + '" data-toggle="modal" ><i class="iconfont">&#xe8a0;</i>详细</a>\
-                         <input   disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_del" class="btn btn-link btn-xs" value=""/>\
+                            <a title="详细" id="use_id" class="btn btn-success btn-sm" use_id="' + $.alle_null2Str(append[i]["use_id"]) + '" data-toggle="modal" data-target="#detail-Modal"><i class="iconfont">&#xe8a0;</i>详细</a>\
+                         <input disabled="disabled" type="button" data="' + append[i]["repair_id"] + '" id="con_rep_del" class="btn btn-link btn-xs" value=""/>\
                          </td>\
                     </tr>\
                     \
@@ -104,6 +104,61 @@ function doSearch(p) {
                     }
                 }
                 $("#data_tbody").html(value);
+                $("a[id*='use_id']").each(function () {
+                    $(this).click(function() {
+                        var use_id=$(this).attr("use_id")
+                        $.ajax({
+                            type: 'POST',
+                            url: "/meterialpurchease/manager/select_use_id",
+                            data: {
+                                use_id:use_id
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                if (data["result"] == "success") {
+                                    var value = "";
+                                    if (data["append"] == null) {
+                                        layer.msg('暂无数据');
+                                        return;
+                                    }
+
+                                    var append = eval(data["append"]);
+                                    for (var i = 0; i < append.length; i++) {
+                                        value += '\
+                                        <tr>\
+                                          <td>' + $.alle_null2Str(append[i]["cas"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["sku"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["amount"])+$.alle_null2Str(append[i]["unit"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["name_ch"])+'</td>\
+                                          <td>' + $.alle_null2Str(append[i]["name_en"]) + '</td>\
+                                          </tr>\
+                                          \
+                                        ';
+                                        $("#apply_name").html(append[i]["apply_name"])
+                                        $("#apply_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["use_time"]))
+                                        $("#apply_amount").html(append[i]["use_amount"]+append[i]["use_unit"])
+                                        $("#apply_desc").html(append[i]["use_desc"])
+                                        $("#procurement_name").html(append[i]["procurement_name"])
+                                        $("#procurement_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["purchase_time"]))
+                                        $("#procurement_amount").html(append[i]["procurement_amount"]+append[i]["procurement_unit"])
+                                        $("#purchase_money").html(append[i]["unit_price"]+'元')
+                                        $("#procurement_desc").html(append[i]["procurement_desc"])
+                                        $("#enter_name").html(append[i]["storage_name"])
+                                        $("#enter_time").html( $.alle_time2str_yymm_dd_hhmm(append[i]["oper_time"]))
+                                        $("#storage_amount").html(append[i]["storage_amount"]+append[i]["storage_unit"])
+                                        var ht=append[i]["doc_url"]
+                                        if (ht==null){
+                                            $("#ht").html('<span title="下载合同">无</span>')
+                                        } else {
+                                            $("#ht").html('<span title="下载合同"><a href='+ht+'><i class="iconfont">&#xe61e;</i></a></span>')
+                                        }
+                                    }
+                                    $("#data_table_detail").html(value);
+                                }
+                            }
+                        })
+                    })
+                })
                 $(document).on('mouseover',  "button[id='example']", function() {
                     var kd_num=$(this).attr("data");
                     var kd_code=$(this).attr("datas");

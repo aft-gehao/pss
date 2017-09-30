@@ -9,6 +9,8 @@ $(function () {
         $("#permissions").hide()
         $("#qinggou_product").hide()
         $("#apply_name").hide()
+        $("#top").hide()
+        $("#name").html("销售单产品详细")
     }
 
 

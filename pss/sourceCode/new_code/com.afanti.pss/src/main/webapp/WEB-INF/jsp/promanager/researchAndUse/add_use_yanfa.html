@@ -22,7 +22,7 @@
     <input id="type_sale" hidden="hidden">
     <input id="sale_d_id" hidden="hidden">
     <div class="container">
-        <ol class="breadcrumb">
+        <ol class="breadcrumb" id="top">
             <li><a>当前位置：</a></li>
             <li><a href="/promanager/researchAndUse/index.html">物料申请查询</a></li>
             <li><a>新增申请</a></li>
@@ -41,7 +41,7 @@
 
             <div class="table gys-detail">
                 <div class="bs-callout bs-callout-info clearfix" style="padding: 10px;">
-                    <h4 class="left" style="margin-top: 3px;">申请单产品详细</h4>
+                    <h4 class="left" style="margin-top: 3px;" id="name">申请单产品详细</h4>
                  <span class="right">
                       <button type="button" class="btn btn-success btn-sm" id="add_product">?查询库存物料</button>
                      <button type="button" class="btn btn-success btn-sm" id="qinggou_product">+我要申请采购物料</button>
@@ -73,12 +73,12 @@
                 </div>
             </div>
 
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert" id="apply_name">
                 <dl class="dl-horizontal" style="left:0%;">
                     <dt style="font-size:25px;color: red">温馨提示！</dt>
                     <dd></dd>
                 </dl>
-                <dl class="dl-horizontal" id="apply_name">
+                <dl class="dl-horizontal">
                     <dt>申请单名称</dt>
                     <dd>必填字段，不能大于150个字符。</dd>
                 </dl>

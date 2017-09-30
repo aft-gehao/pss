@@ -80,12 +80,10 @@ function doSearch(p) {
                     html_sumbit += "<a id='ven_return_submit' class='btn btn-success' type='button' onclick='vendition_return(" + append[i].sale_id + ")'>退货</a>";
                     value += '\
                     <tr >\
-                        <td>' + $.alle_null2Str(append[i]["sale_name"]) + '</td>\
-                         <td>' + html_type + '</td>\
+                      <td>' + append[i]["cus_name"] + '</td>\
                          <td>' + append[i]["all_total"] + '</td>\
                          <td>' + $.alle_time2str_yymm_dd_hhmmss(append[i]["sale_time"]) + '</td>\
                           <td>' + append[i]["staff_name"] + '</td>\
-                          <td>' + append[i]["cus_name"] + '</td>\
                          <td class="operation">' + html_sumbit + '</td>\
                         </tr>\
                     \

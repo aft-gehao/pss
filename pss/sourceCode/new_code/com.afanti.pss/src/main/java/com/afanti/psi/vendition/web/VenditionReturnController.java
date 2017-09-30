@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -80,6 +81,26 @@ public class VenditionReturnController extends BaseController {
             params.put("P_SALE_ID", this.getParameterString("sale_id"));
             params.put("P_STAFF_ID", this.getSessionData().getStaffInfo().getStaff_id());
             venditionReturnService.venditionReturnSubmit(params);
+            jsonData.setResult(SUCCESS);
+            jsonData.setMessage("操作成功");
+        } catch (Exception e) {
+            jsonData.setResult(FAIL);
+            jsonData.setMessage("操作失败");
+            e.printStackTrace();
+        }
+        return jsonData;
+    }
+    @RequestMapping(value = "/return_submit", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData return_submit() {
+        JsonData jsonData = new JsonData();
+        try {
+            Map<String, Object> params = new HashMap<String, Object>();
+            params.put("sale_d_id",this.getParameterString("sale_d_id"));
+            params.put("sale_id",this.getParameterString("sale_id"));
+            params.put("staff_id",this.getSessionData().getStaffInfo().getStaff_id());
+            params.put("return_time",new Date());
+            venditionReturnService.return_submit(params);
             jsonData.setResult(SUCCESS);
             jsonData.setMessage("操作成功");
         } catch (Exception e) {

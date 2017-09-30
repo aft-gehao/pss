@@ -10,7 +10,8 @@
         t.sale_name,
         t3.staff_name,
         t2.`name` as cus_name,
-        t4.stock_status
+        t4.stock_status,
+       t7.sale_d_id
         FROM
         product_sale t
         LEFT JOIN cus_supplier_info t2 ON (t2.cs_sup_id = t.customer_id)
@@ -18,6 +19,8 @@
         LEFT JOIN product_sale_return t4 ON (t.sale_id = t4.sale_id)
         LEFT JOIN product_sale_return_detail t5
         ON t4.r_sale_id = t5.r_sale_id
+        LEFT JOIN product_sale_detail t7
+        ON t.sale_id = t7.sale_d_id
         LEFT JOIN product_material_info t6
         ON t5.product_id = t6.product_id
         WHERE t.`status` IN (8001,8003)
@@ -61,16 +64,15 @@
             AND t.sale_time between '${params.start_time}' and date_add('${params.end_time}',interval 0 day)
         </if>
     </select>
-
     <select id="getVenditionReturnProductList" parameterType="Map" resultType="Product_sale_detail">
        				SELECT
+       				    t.sale_id,
                         t.sale_d_id,
                         t.batch_no,
                         t2.name_en AS product_name,
                         t.sale_status,
                         t.product_id,
                         t.amount AS amount_used,
-                         r.amount,
                         t.purity,
                         t.unit,
                         t.unit_price,
@@ -90,9 +92,7 @@
                         FROM
                         product_sale_detail t
                         LEFT JOIN product_material_info t2 ON (t2.product_id = t.product_id)
-                        LEFT JOIN product_sale_return_detail r on(r.sale_d_id = t.sale_d_id)
-                        LEFT JOIN product_material_out_detail dt on(dt.enter_d_id = t.sale_d_id)
-                        where t.sale_d_isdel =0 and dt.amount is not null and t.sale_id = #{sale_id}
+                        where t.sale_d_isdel =0  and t.sale_id = #{sale_id}
     </select>
     <select id="venditionReturnSubmit" parameterType="java.util.Map" statementType="CALLABLE" resultType="java.util.Map">
         CALL PRO_VENDITION_RETURN_SUBMIT(
@@ -107,4 +107,69 @@
         #{RESULT_MSG, mode=INOUT, jdbcType=NVARCHAR}
         )
     </select>
+    <select id="selectUseForSale" parameterType="Map" resultType="Product_use">
+        SELECT
+        *
+        FROM
+        product_use
+        WHERE
+        sale_d_id=#{sale_d_id} and is_sale=0
+    </select>
+
+    <insert id="insert_return" parameterType="Map" useGeneratedKeys="true" keyProperty="r_sale_id"
+            keyColumn="r_sale_id">
+        insert into product_sale_return (
+        sale_id,
+        staff_id,
+        `return_time`,
+        `is_return_all`,
+        stock_status,
+        sale_return_isdel
+        )
+        values (
+        #{sale_id},
+        #{staff_id},
+        #{return_time},
+        1,
+       5002,
+        0
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="r_sale_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <insert id="insert_return_details" parameterType="Map" useGeneratedKeys="true" keyProperty="r_sale_d_id"
+            keyColumn="r_sale_d_id">
+        insert into product_sale_return_detail (
+        r_sale_id,
+        sale_d_id,
+        `batch_no`,
+        `product_id`,
+        amount,
+        unit,
+        stock_status,
+        sale_return_isdel,
+        space_id
+        )
+        values (
+        #{r_sale_id},
+        #{sale_d_id},
+        #{batch_no},
+        #{product_id},
+        #{amount},
+        #{unit},
+        #{stock_status},
+       0,
+        #{space_id}
+        )
+        <selectKey resultType="Integer" order="AFTER" keyProperty="r_sale_d_id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+    <update id="status_up" parameterType="Map">
+    UPDATE product_sale set status=5002 where sale_id=#{sale_id}
+    </update>
+    <update id="status_up_fordetails" parameterType="Map">
+        UPDATE product_sale_detail set sale_status=5002 where sale_d_id=#{sale_d_id}
+    </update>
 </mapper>

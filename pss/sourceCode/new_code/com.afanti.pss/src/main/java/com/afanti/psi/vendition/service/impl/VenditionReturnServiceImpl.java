@@ -1,5 +1,6 @@
 package com.afanti.psi.vendition.service.impl;
 
+import com.afanti.psi.use.vo.product_use;
 import com.afanti.psi.utils.FunctionUtil;
 import com.afanti.psi.utils.Page;
 import com.afanti.psi.vendition.dao.VenditionDao;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +74,24 @@ public class VenditionReturnServiceImpl implements VenditionReturnService {
         if (!"A0000".equals(String.valueOf(params.get("RESULT_MSG")))) {
             throw new Exception("存储过程执行失败");
         }
+    }
+    public void return_submit(Map<String,Object> params) throws Exception
+    {
+        List<product_use> list=venditionReturnDao.selectUseForSale(params);
+        venditionReturnDao.insert_return(params);
+        Iterator iterator = list.iterator();
+        while(iterator.hasNext()){
+            product_use use = (product_use)iterator.next();
+            params.put("batch_no",use.getUse_batch_no());
+            params.put("unit",use.getUse_unit());
+            params.put("product_id",use.getProduct_id());
+            params.put("amount",use.getUse_amount());
+            params.put("stock_status",5002);
+            params.put("space_id",use.getSpace_id());
+            venditionReturnDao.insert_return_details(params);
+        }
+        venditionReturnDao.status_up(params);
+        venditionReturnDao.status_up_fordetails(params);
     }
 
 }
